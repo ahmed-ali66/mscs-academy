@@ -343,11 +343,11 @@ A parent or legal guardian who is **18 years or older** must agree to the T&C be
 Before the app goes live, the following MUST be completed:
 
 ### Legal & Regulatory
-- [ ] Review employment contract with Ain Al Khaleej Private School for:
-  - [ ] IP ownership clause (does the school own curriculum you develop?)
-  - [ ] Non-compete clause (are you restricted from creating educational products?)
-  - [ ] Moonlighting restriction (can you operate a side business?)
-  - [ ] Conflict of interest provision (does this app conflict with your employment?)
+- [x] Review employment contract with Ain Al Khaleej Private School — COMPLETED 23 May 2026
+  - [x] IP ownership clause — NO, school does not claim IP ownership
+  - [x] Non-compete clause — NO, no restriction on creating educational products
+  - [x] Moonlighting restriction — NO, no restriction on side business
+  - [x] Conflict of interest provision — NO, no school permission required
 - [ ] Obtain Abu Dhabi Freelancer License (ADRA/TAMM) — approximately AED 1,000-3,000/year
 - [ ] Have Terms & Conditions reviewed by a UAE-licensed lawyer
 - [ ] Register with UAE data protection authority (if required by PDPL implementing regulations)
@@ -386,7 +386,7 @@ Before the app goes live, the following MUST be completed:
 | PDPL violation (Emirates ID) | 🔴 HIGH | 🟢 ELIMINATED | Replaced with anonymized student code system; no Emirates ID collected |
 | Hidden charges to students | 🔴 HIGH | 🟢 ELIMINATED | Students are never charged; all monetization is B2B or parent-opt-in with parental gate |
 | Data breach criminal liability | 🔴 HIGH | 🟡 LOW | Minimal data collected; encrypted; no sensitive identifiers; breach impact greatly reduced |
-| Employment contract breach | 🔴 HIGH | 🟡 MEDIUM | Must review contract; action item on pre-launch checklist |
+| Employment contract breach | 🔴 HIGH | 🟢 ELIMINATED | Contract reviewed 23 May 2026 — NO IP claim, NO non-compete, NO moonlighting restriction, NO school permission required |
 | ADEK fee policy violation | 🔴 HIGH | 🟢 ELIMINATED | No charges to students; B2B model only |
 | Wadeema's Law violation | 🔴 HIGH | 🟢 ELIMINATED | No exploitation of children; transparent model; parental authority respected |
 | Content liability | 🟡 MEDIUM | 🟡 LOW | Content review checklist; disclaimer; pre-moderation; no user-generated content |
