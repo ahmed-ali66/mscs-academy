@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import 'leaflet/dist/leaflet.css';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -20,10 +21,109 @@ import {
 } from 'lucide-react';
 
 // ═══════════════════════════════════════════════════════════════
+// SOUND EFFECTS — Web Audio API
+// ═══════════════════════════════════════════════════════════════
+
+const SoundFX = {
+  correct: () => {
+    if (typeof window === 'undefined') return;
+    try {
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.4);
+    } catch (e) { /* ignore audio errors */ }
+  },
+  incorrect: () => {
+    if (typeof window === 'undefined') return;
+    try {
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(200, ctx.currentTime);
+      osc.frequency.setValueAtTime(150, ctx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.3);
+    } catch (e) { /* ignore audio errors */ }
+  },
+  celebrate: () => {
+    if (typeof window === 'undefined') return;
+    try {
+      const ctx = new AudioContext();
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.15);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime + i * 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.15 + 0.3);
+        osc.start(ctx.currentTime + i * 0.15);
+        osc.stop(ctx.currentTime + i * 0.15 + 0.3);
+      });
+    } catch (e) { /* ignore audio errors */ }
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// CONFETTI CELEBRATION COMPONENT
+// ═══════════════════════════════════════════════════════════════
+
+function ConfettiCelebration() {
+  const particles = useMemo(() =>
+    Array.from({ length: 50 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      size: 6 + Math.random() * 8,
+      color: ['#D4AF37', '#722F37', '#047857', '#D97706', '#7C3AED', '#EF4444'][Math.floor(Math.random() * 6)],
+      isCircle: Math.random() > 0.5,
+      delay: Math.random() * 2,
+      duration: 2 + Math.random() * 3,
+    })), []
+  );
+  return (
+    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="absolute animate-confetti"
+          style={{
+            left: `${p.left}%`,
+            top: '-10px',
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            backgroundColor: p.color,
+            borderRadius: p.isCircle ? '50%' : '0',
+            animationDelay: `${p.delay}s`,
+            animationDuration: `${p.duration}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
 // TYPES & INTERFACES
 // ═══════════════════════════════════════════════════════════════
 
-type ViewType = 'landing' | 'gradeSelect' | 'termSelect' | 'unitSelect' | 'lessonView' | 'aboutPage' | 'loginPage' | 'consentPage';
+type ViewType = 'landing' | 'gradeSelect' | 'termSelect' | 'unitSelect' | 'lessonView' | 'aboutPage' | 'loginPage' | 'consentPage' | 'teacherDashboard';
 
 interface QuizQuestion {
   id: string;
@@ -119,6 +219,14 @@ const ottomanQuizQuestions: QuizQuestion[] = [
     correctAnswer: 1,
     explanation: '"Khadim al-Haramayn al-Sharifayn" means "Servant of the Two Noble Sanctuaries" — referring to Makkah and Madinah. This title showed the Sultan\'s responsibility as protector of Islam\'s holiest sites.',
   },
+  {
+    id: 'q5',
+    question: 'Which battle opened Anatolia to Turkic migration over 200 years before the Ottoman Empire was founded?',
+    type: 'multiple-choice',
+    options: ['Battle of Mohács (1526)', 'Battle of Manzikert (1071)', 'Battle of Lepanto (1571)', 'Battle of Vienna (1683)'],
+    correctAnswer: 1,
+    explanation: 'The Battle of Manzikert (1071) was fought by the Great Seljuk Empire under Sultan Alp Arslan against the Byzantine Empire. This opened Anatolia to Turkic migration, setting the stage for the Ottoman Empire\'s founding over 200 years later.',
+  },
 ];
 
 const ottomanActivities: Activity[] = [
@@ -154,6 +262,213 @@ const ottomanActivities: Activity[] = [
     content: 'In 1453, the 21-year-old Sultan Muhammad al-Fatih (Mehmed II) conquered Constantinople, ending the 1,000-year Byzantine Empire. This conquest fulfilled the hadith: "You shall conquer Constantinople. Blessed is its commander and blessed is its army." The city was renamed Istanbul and became the Ottoman capital. Sultan Selim I later conquered the Arab lands (1516–1517), including the holy cities of Makkah and Madinah, taking the title "Khadim al-Haramayn al-Sharifayn."',
   },
 ];
+
+// ═══════════════════════════════════════════════════════════════
+// LANDING PAGE TRANSLATIONS
+// ═══════════════════════════════════════════════════════════════
+
+const translations: Record<string, Record<string, string>> = {
+  en: {
+    subtitle: 'Moral, Social & Cultural Studies',
+    tagline: 'Making Learning Active, Not Passive',
+    interactivePlatform: '— Interactive Learning Platform —',
+    whyTitle: 'Why MSCS Academy?',
+    feature1: 'Interactive Learning',
+    feature1d: 'Quizzes, timelines, maps, and drag-and-drop activities that make learning unforgettable',
+    feature2: 'Standards-Aligned',
+    feature2d: 'Every lesson follows UAE curriculum standards with clear objectives and success criteria',
+    feature3: 'UAE & Real-World Links',
+    feature3d: 'Every lesson connects to UAE culture, values, and real-life applications',
+    feature4: 'Built-in Timers',
+    feature4d: 'Structured activities with countdown timers keep lessons on pace',
+    feature5: 'Instant Feedback',
+    feature5d: 'Quizzes with immediate scoring and explanations help students learn from mistakes',
+    feature6: 'Student-Centered',
+    feature6d: 'KWL charts, Venn diagrams, and collaborative activities put students first',
+    meetInstructor: 'Meet Your Instructor',
+    instructorDesc: 'Dedicated educator specializing in Moral, Social, and Cultural Studies for UAE students. Creating engaging, standards-aligned lessons that bring history and culture to life.',
+    footerTagline: 'MSCS Academy: Making Learning Active, Not Passive',
+    about: 'About',
+    studentLogin: 'Student Login',
+    parentalConsent: 'Parental Consent',
+    selectGrade: 'Select your grade to begin',
+  },
+  ar: {
+    subtitle: 'الدراسات الأخلاقية والاجتماعية والثقافية',
+    tagline: 'نجعل التعلم نشطاً، وليس سلبياً',
+    interactivePlatform: '— منصة تعلم تفاعلية —',
+    whyTitle: 'لماذا أكاديمية MSCS؟',
+    feature1: 'تعلم تفاعلي',
+    feature1d: 'اختبارات وخطوط زمنية وخرائط وأنشطة سحب وإفلات تجعل التعلم لا يُنسى',
+    feature2: 'ملاءمة للمعايير',
+    feature2d: 'كل درس يتبع معايير المنهج الإماراتي بأهداف واضحة ومعايير نجاح',
+    feature3: 'روابط الإمارات والعالم الحقيقي',
+    feature3d: 'كل درس يرتبط بثقافة الإمارات وقيمها والتطبيقات الواقعية',
+    feature4: 'مؤقتات مدمجة',
+    feature4d: 'أنشطة منظمة بمؤقتات عد تنازلي تحافظ على وتيرة الدرس',
+    feature5: 'تغذية راجعة فورية',
+    feature5d: 'اختبارات مع تسجيل فوري وشروحات تساعد الطلاب على التعلم من أخطائهم',
+    feature6: 'محوره الطالب',
+    feature6d: 'رسوم KWL ومخططات فين وأنشطة تعاونية تضع الطالب في المقام الأول',
+    meetInstructor: 'تعرف على معلمك',
+    instructorDesc: 'معلم متخصص في الدراسات الأخلاقية والاجتماعية والثقافية لطلاب الإمارات. يصمم دروساً تفاعلية وملائمة للمعايير تُحيي التاريخ والثقافة.',
+    footerTagline: 'أكاديمية MSCS: نجعل التعلم نشطاً، وليس سلبياً',
+    about: 'حول',
+    studentLogin: 'تسجيل دخول الطالب',
+    parentalConsent: 'موافقة الوالدين',
+    selectGrade: 'اختر صفك للبدء',
+  },
+  ur: {
+    subtitle: 'اخلاقی، سماجی اور ثقافتی علوم',
+    tagline: 'سیکھنے کو فعال بنانا، غیر فعال نہیں',
+    interactivePlatform: '— انٹرایکٹو لرننگ پلیٹ فارم —',
+    whyTitle: 'MSCS اکیڈمی کیوں؟',
+    feature1: 'انٹرایکٹو لرننگ',
+    feature1d: 'کوئز، ٹائم لائن، نقشے اور ڈریگ اینڈ ڈراپ سرگرمیاں جو سیکھنے کو ناقابل فراموش بناتی ہیں',
+    feature2: 'معیارات کے مطابق',
+    feature2d: 'ہر سبق یو اے ای کریکولم معیارات کی پیروی کرتا ہے واضح مقاصد اور کامیابی کے معیارات کے ساتھ',
+    feature3: 'یو اے ای اور حقیقی دنیا کے روابط',
+    feature3d: 'ہر سبق یو اے ای کی ثقافت اقدار اور حقیقی زندگی کے اطلاقات سے جڑتا ہے',
+    feature4: 'بلٹ ان ٹائمرز',
+    feature4d: 'کاؤنٹ ڈاؤن ٹائمرز کے ساتھ منظم سرگرمیاں سبق کی رفتار برقرار رکھتی ہیں',
+    feature5: 'فوری فیڈبیک',
+    feature5d: 'فوری اسکورنگ اور وضاحت کے ساتھ کوئز طلباء کو غلطیوں سے سیکھنے میں مدد کرتے ہیں',
+    feature6: 'طلباء مرکزی',
+    feature6d: 'KWL چارٹس وین ڈایاگرام اور تعاون کی سرگرمیاں طلباء کو اولیت دیتی ہیں',
+    meetInstructor: 'اپنے استاد سے ملیں',
+    instructorDesc: 'یو اے ای کے طلباء کے لیے اخلاقی سماجی اور ثقافتی علوم میں متخصص معلم۔ دلچسپ معیار کے مطابق سبق بناتے ہیں جو تاریخ اور ثقافت کو زندہ کرتے ہیں۔',
+    footerTagline: 'MSCS اکیڈمی: سیکھنے کو فعال بنانا غیر فعال نہیں',
+    about: 'ہمارے بارے میں',
+    studentLogin: 'طالب علم لاگ ان',
+    parentalConsent: 'والدین کی رضامندی',
+    selectGrade: 'شروع کرنے کے لیے اپنا گریڈ منتخب کریں',
+  },
+  fa: {
+    subtitle: 'مطالعات اخلاقی، اجتماعی و فرهنگی',
+    tagline: 'یادگیری را فعال می‌کنیم، نه غیرفعال',
+    interactivePlatform: '— پلتفرم یادگیری تعاملی —',
+    whyTitle: 'چرا آکادمی MSCS؟',
+    feature1: 'یادگیری تعاملی',
+    feature1d: 'آزمون‌ها، خط زمانی، نقشه‌ها و فعالیت‌های کشیدن و رها کردن که یادگیری را فراموش‌نشدنی می‌کنند',
+    feature2: 'همسو با استانداردها',
+    feature2d: 'هر درس از استانداردهای برنامه درسی امارات پیروی می‌کند با اهداف و معیارهای موفقیت واضح',
+    feature3: 'ارتباط امارات و دنیای واقعی',
+    feature3d: 'هر درس به فرهنگ ارزش‌ها و کاربردهای واقعی امارات متصل است',
+    feature4: 'تایمرهای داخلی',
+    feature4d: 'فعالیت‌های ساختاریافته با تایمرهای شمارش معکوس سرعت درس را حفظ می‌کنند',
+    feature5: 'بازخورد فوری',
+    feature5d: 'آزمون‌ها با امتیازدهی فوری و توضیحات به دانش‌آموزان کمک می‌کنند از اشتباهات یاد بگیرند',
+    feature6: 'دانش‌آموز محور',
+    feature6d: 'نمودارهای KWL، دیاگرام‌های ون و فعالیت‌های مشارکتی دانش‌آموزان را در اولویت قرار می‌دهند',
+    meetInstructor: 'با معلم خود آشنا شوید',
+    instructorDesc: 'معلم متخصص در مطالعات اخلاقی اجتماعی و فرهنگی برای دانش‌آمویان امارات. طراحی درس‌های تعاملی و همسو با استانداردها که تاریخ و فرهنگ را زنده می‌کند.',
+    footerTagline: 'آکادمی MSCS: یادگیری را فعال می‌کنیم نه غیرفعال',
+    about: 'درباره ما',
+    studentLogin: 'ورود دانش‌آموز',
+    parentalConsent: 'رضایت والدین',
+    selectGrade: 'پایه خود را برای شروع انتخاب کنید',
+  },
+  es: {
+    subtitle: 'Estudios Morales, Sociales y Culturales',
+    tagline: 'Haciendo el Aprendizaje Activo, No Pasivo',
+    interactivePlatform: '— Plataforma de Aprendizaje Interactivo —',
+    whyTitle: '¿Por qué MSCS Academy?',
+    feature1: 'Aprendizaje Interactivo',
+    feature1d: 'Cuestionarios, líneas de tiempo, mapas y actividades de arrastrar y soltar que hacen el aprendizaje inolvidable',
+    feature2: 'Alineado con Estándares',
+    feature2d: 'Cada lección sigue los estándares del plan de estudios de EAU con objetivos claros y criterios de éxito',
+    feature3: 'Conexiones EAU y Mundo Real',
+    feature3d: 'Cada lección conecta con la cultura, valores y aplicaciones de la vida real de EAU',
+    feature4: 'Temporizadores Integrados',
+    feature4d: 'Actividades estructuradas con temporizadores de cuenta regresiva mantienen el ritmo de las lecciones',
+    feature5: 'Retroalimentación Instantánea',
+    feature5d: 'Cuestionarios con puntuación inmediata y explicaciones ayudan a los estudiantes a aprender de sus errores',
+    feature6: 'Centrado en el Estudiante',
+    feature6d: 'Gráficos KWL, diagramas de Venn y actividades colaborativas ponen al estudiante primero',
+    meetInstructor: 'Conoce a Tu Instructor',
+    instructorDesc: 'Educador dedicado especializado en Estudios Morales, Sociales y Culturales para estudiantes de EAU. Creando lecciones atractivas alineadas con los estándares que dan vida a la historia y la cultura.',
+    footerTagline: 'MSCS Academy: Haciendo el Aprendizaje Activo, No Pasivo',
+    about: 'Acerca de',
+    studentLogin: 'Inicio de Sesión del Estudiante',
+    parentalConsent: 'Consentimiento de los Padres',
+    selectGrade: 'Selecciona tu grado para comenzar',
+  },
+  ru: {
+    subtitle: 'Нравственные, социальные и культурные исследования',
+    tagline: 'Делаем обучение активным, а не пассивным',
+    interactivePlatform: '— Интерактивная обучающая платформа —',
+    whyTitle: 'Почему MSCS Academy?',
+    feature1: 'Интерактивное обучение',
+    feature1d: 'Тесты, временные шкалы, карты и задания с перетаскиванием делают обучение незабываемым',
+    feature2: 'Соответствие стандартам',
+    feature2d: 'Каждый урок следует стандартам учебной программы ОАЭ с чёткими целями и критериями успеха',
+    feature3: 'Связи ОАЭ и реального мира',
+    feature3d: 'Каждый урок связан с культурой ценностями и реальными приложениями ОАЭ',
+    feature4: 'Встроенные таймеры',
+    feature4d: 'Структурированные задания с таймерами обратного отсчёта поддерживают темп уроков',
+    feature5: 'Мгновенная обратная связь',
+    feature5d: 'Тесты с мгновенным оцениванием и объяснениями помогают студентам учиться на ошибках',
+    feature6: 'Ориентировано на студента',
+    feature6d: 'Диаграммы KWL диаграммы Венна и совместные задания ставят студента на первое место',
+    meetInstructor: 'Познакомьтесь с вашим преподавателем',
+    instructorDesc: 'Преданный преподаватель специализирующийся на нравственных социальных и культурных исследованиях для студентов ОАЭ. Создаёт увлекательные уроки соответствующие стандартам которые оживляют историю и культуру.',
+    footerTagline: 'MSCS Academy: Делаем обучение активным а не пассивным',
+    about: 'О нас',
+    studentLogin: 'Вход для студентов',
+    parentalConsent: 'Согласие родителей',
+    selectGrade: 'Выберите свой класс для начала',
+  },
+  tr: {
+    subtitle: 'Ahlaki, Sosyal ve Kültürel Çalışmalar',
+    tagline: 'Öğrenmeyi Aktif Kılıyoruz, Pasif Değil',
+    interactivePlatform: '— İnteraktif Öğrenme Platformu —',
+    whyTitle: 'Neden MSCS Academy?',
+    feature1: 'İnteraktif Öğrenme',
+    feature1d: 'Testler zaman çizelgeleri haritalar ve sürükle-bırak etkinlikleri öğrenmeyi unutulmaz kılar',
+    feature2: 'Standartlara Uygun',
+    feature2d: 'Her ders BAE müfredat standartlarını açık hedefler ve başarı kriterleri ile takip eder',
+    feature3: 'BAE ve Gerçek Dünya Bağlantıları',
+    feature3d: 'Her ders BAE kültürü değerleri ve gerçek hayat uygulamalarıyla bağlantılıdır',
+    feature4: 'Dahili Zamanlayıcılar',
+    feature4d: 'Geri sayım zamanlayıcılarıyla yapılandırılmış etkinlikler derslerin hızını korur',
+    feature5: 'Anında Geri Bildirim',
+    feature5d: 'Anında puanlama ve açıklamalarla testler öğrencilerin hatalarından öğrenmesine yardımcı olur',
+    feature6: 'Öğrenci Merkezli',
+    feature6d: 'KWL çizelgeleri Venn diyagramları ve işbirlikçi etkinlikler öğrenciyi ön plana koyar',
+    meetInstructor: 'Eğitmeninizle Tanışın',
+    instructorDesc: 'BAE öğrencileri için Ahlaki Sosyal ve Kültürel Çalışmalar alanında uzmanlaşmış eğitmen. Tarihi ve kültürü canlandıran standartlara uygun ilgi çekici dersler tasarlıyor.',
+    footerTagline: 'MSCS Academy: Öğrenmeyi Aktif Kılıyoruz Pasif Değil',
+    about: 'Hakkımızda',
+    studentLogin: 'Öğrenci Girişi',
+    parentalConsent: 'Ebeveyn Onayı',
+    selectGrade: 'Başlamak için sınıfınızı seçin',
+  },
+  fr: {
+    subtitle: 'Études Morales, Sociales et Culturelles',
+    tagline: 'Rendre l\'Apprentissage Actif, Non Passif',
+    interactivePlatform: '— Plateforme d\'Apprentissage Interactif —',
+    whyTitle: 'Pourquoi MSCS Academy?',
+    feature1: 'Apprentissage Interactif',
+    feature1d: 'Quiz, chronologies, cartes et activités glisser-déposer qui rendent l\'apprentissage inoubliable',
+    feature2: 'Aligné sur les Normes',
+    feature2d: 'Chaque leçon suit les normes du programme des EAU avec des objectifs clairs et des critères de réussite',
+    feature3: 'Liens EAU et Monde Réel',
+    feature3d: 'Chaque leçon se connecte à la culture les valeurs et les applications réelles des EAU',
+    feature4: 'Minuteries Intégrées',
+    feature4d: 'Des activités structurées avec des minuteries à rebours maintiennent le rythme des leçons',
+    feature5: 'Retour Instantané',
+    feature5d: 'Des quiz avec notation immédiate et explications aident les étudiants à apprendre de leurs erreurs',
+    feature6: 'Centré sur l\'Étudiant',
+    feature6d: 'Les tableaux KWL les diagrammes de Venn et les activités collaboratives placent l\'étudiant en premier',
+    meetInstructor: 'Rencontrez Votre Instructeur',
+    instructorDesc: 'Éducateur dévoué spécialisé dans les Études Morales Sociales et Culturelles pour les étudiants des EAU. Créant des leçons engageantes alignées sur les normes qui donnent vie à l\'histoire et à la culture.',
+    footerTagline: 'MSCS Academy: Rendre l\'Apprentissage Actif Non Passif',
+    about: 'À Propos',
+    studentLogin: 'Connexion Étudiant',
+    parentalConsent: 'Consentement Parental',
+    selectGrade: 'Sélectionnez votre niveau pour commencer',
+  },
+};
 
 // ═══════════════════════════════════════════════════════════════
 // CURRICULUM DATA
@@ -462,99 +777,122 @@ const timelineEvents: TimelineEvent[] = [
 function InteractiveTimeline() {
   const [placedEvents, setPlacedEvents] = useState<Record<string, boolean>>({});
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
-
-  const minYear = 1050;
-  const maxYear = 1550;
-  const range = maxYear - minYear;
-
-  const getPosition = (year: number) => ((year - minYear) / range) * 100;
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handlePlaceEvent = (eventId: string) => {
     setPlacedEvents((prev) => ({ ...prev, [eventId]: true }));
     setSelectedEvent(null);
+    SoundFX.correct();
+    // Check if all placed
+    const updated = { ...placedEvents, [eventId]: true };
+    if (timelineEvents.every((e) => updated[e.id])) {
+      setShowSuccess(true);
+      SoundFX.celebrate();
+    }
   };
 
   const allPlaced = timelineEvents.every((e) => placedEvents[e.id]);
+  const unplacedCount = timelineEvents.filter((e) => !placedEvents[e.id]).length;
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap gap-2 mb-4">
+    <div className="space-y-5">
+      {/* Instructions */}
+      <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-center">
+        <p className="text-sm text-amber-800 font-medium">
+          {selectedEvent
+            ? '⬇ Now click "Place Event" below the matching year to place it'
+            : '👆 Select an event above, then place it on the timeline below'}
+        </p>
+        <p className="text-xs text-amber-600 mt-1">{unplacedCount} event{unplacedCount !== 1 ? 's' : ''} remaining</p>
+      </div>
+
+      {/* Event chips to select */}
+      <div className="flex flex-wrap gap-2">
         {timelineEvents.filter((e) => !placedEvents[e.id]).map((event) => (
           <button
             key={event.id}
             onClick={() => setSelectedEvent(selectedEvent === event.id ? null : event.id)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium border-2 transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium border-2 transition-all cursor-pointer ${
               selectedEvent === event.id
-                ? 'border-[#D4AF37] bg-amber-50 text-amber-800 shadow-md'
-                : 'border-amber-200 bg-white text-amber-700 hover:border-amber-400'
+                ? 'border-[#D4AF37] bg-amber-100 text-amber-900 shadow-lg shadow-amber-100 scale-105'
+                : 'border-amber-200 bg-white text-amber-700 hover:border-amber-400 hover:bg-amber-50'
             }`}
           >
             <span className="font-bold">{event.year}</span> — {event.title}
           </button>
         ))}
         {allPlaced && (
-          <Badge className="bg-emerald-100 text-emerald-700 border-emerald-300">
-            <CheckCircle2 className="w-3 h-3 mr-1" /> All events placed!
-          </Badge>
+          <div className="flex items-center gap-2 px-4 py-2 bg-emerald-100 border border-emerald-300 rounded-lg">
+            <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+            <span className="text-sm font-bold text-emerald-700">All events placed! Great job!</span>
+          </div>
         )}
       </div>
 
-      <div className="relative bg-gradient-to-r from-amber-50 via-rose-50 to-amber-50 rounded-xl p-6 border-2 border-amber-200 overflow-x-auto">
-        <div className="relative h-32 min-w-[500px]">
-          <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-amber-300 via-[#D4AF37] to-amber-300 rounded-full" />
+      {/* Vertical Timeline */}
+      <div className="relative pl-8 sm:pl-12">
+        {/* Vertical line */}
+        <div className="absolute left-3 sm:left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-[#D4AF37] to-amber-300" />
 
-          {timelineEvents.map((event) => {
-            const pos = getPosition(event.year);
-            const isPlaced = placedEvents[event.id];
-            const isSelected = selectedEvent === event.id;
+        {timelineEvents.map((event, idx) => {
+          const isPlaced = placedEvents[event.id];
+          const isSelected = selectedEvent === event.id;
 
-            return (
+          return (
+            <div key={event.id} className="relative mb-6 last:mb-0">
+              {/* Dot on the timeline */}
               <div
-                key={event.id}
-                className="absolute cursor-pointer group"
-                style={{ left: `${pos}%`, top: '50%', transform: 'translate(-50%, -50%)' }}
-                onClick={() => {
-                  if (isSelected) handlePlaceEvent(event.id);
-                }}
+                className={`absolute -left-8 sm:-left-12 top-4 w-6 h-6 rounded-full border-3 flex items-center justify-center transition-all z-10 ${
+                  isPlaced
+                    ? 'bg-[#D4AF37] border-amber-600 shadow-lg shadow-amber-200'
+                    : isSelected
+                    ? 'bg-amber-300 border-[#D4AF37] animate-pulse'
+                    : 'bg-white border-amber-300'
+                }`}
+                style={{ left: 'calc(1.25rem * -1 - 0.75rem)', ...(typeof window !== 'undefined' && window.innerWidth >= 640 ? { left: 'calc(2.5rem * -1 - 0.75rem)' } : {}) }}
               >
-                <div
-                  className={`w-6 h-6 rounded-full border-3 flex items-center justify-center transition-all z-10 relative ${
-                    isPlaced
-                      ? 'bg-[#D4AF37] border-amber-600 shadow-lg shadow-amber-200'
-                      : isSelected
-                      ? 'bg-amber-300 border-[#D4AF37] animate-pulse'
-                      : 'bg-white border-amber-300 hover:border-[#D4AF37]'
-                  }`}
-                >
-                  {isPlaced && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
-                </div>
+                {isPlaced && <CheckCircle2 className="w-4 h-4 text-white" />}
+                {!isPlaced && !isSelected && <span className="w-2 h-2 rounded-full bg-amber-300" />}
+              </div>
 
-                {isPlaced && (
-                  <div className="absolute top-8 left-1/2 -translate-x-1/2 text-center w-28 z-10">
-                    <div className="text-xs font-bold text-amber-800">{event.year}</div>
-                    <div className="text-[10px] text-amber-600 leading-tight mt-0.5">{event.title}</div>
-                  </div>
-                )}
-
-                <div className="absolute -top-16 left-1/2 -translate-x-1/2 text-center w-32 opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none">
-                  <div className="bg-[#722F37] text-white text-[10px] p-2 rounded-lg shadow-xl">
-                    <div className="font-bold">{event.year}: {event.title}</div>
-                    <div className="text-rose-200 mt-1">{event.description}</div>
+              {/* Event Card */}
+              <div className={`ml-2 rounded-xl border-2 overflow-hidden transition-all ${
+                isPlaced
+                  ? 'border-[#D4AF37] bg-amber-50 shadow-md'
+                  : isSelected
+                  ? 'border-[#D4AF37]/60 bg-white shadow-sm'
+                  : 'border-gray-200 bg-gray-50'
+              }`}>
+                <div className="p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1">
+                      <div className={`inline-block px-2.5 py-0.5 rounded-md text-xs font-bold mb-2 ${
+                        isPlaced ? 'bg-[#D4AF37] text-white' : 'bg-gray-200 text-gray-500'
+                      }`}>
+                        {event.year}
+                      </div>
+                      <h4 className={`text-sm font-bold mb-1 ${isPlaced ? 'text-amber-900' : 'text-gray-400'}`}>
+                        {event.title}
+                      </h4>
+                      <p className={`text-xs leading-relaxed ${isPlaced ? 'text-amber-700' : 'text-gray-300'}`}>
+                        {event.description}
+                      </p>
+                    </div>
+                    {!isPlaced && isSelected && (
+                      <Button
+                        size="sm"
+                        onClick={() => handlePlaceEvent(event.id)}
+                        className="shrink-0 bg-[#D4AF37] hover:bg-amber-600 text-white text-xs"
+                      >
+                        Place Event
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
-            );
-          })}
-
-          <div className="absolute top-1/2 -translate-y-1/2 left-0 text-[10px] text-amber-500 font-mono">{minYear}</div>
-          <div className="absolute top-1/2 -translate-y-1/2 right-0 text-[10px] text-amber-500 font-mono">{maxYear}</div>
-        </div>
-
-        <p className="text-center text-xs text-amber-600 mt-4">
-          {selectedEvent
-            ? '⬆ Click the matching point on the timeline to place this event'
-            : '👆 Click an event above, then click its position on the timeline'}
-        </p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -566,7 +904,7 @@ function InteractiveTimeline() {
 
 function VennDiagram() {
   const [leftItems, setLeftItems] = useState<string[]>(['Turkoman origins', 'Anatolia-based', 'Founded 1299']);
-  const [rightItems, setRightItems] = useState<string>(['Protects holy sites', 'Title: Khadim al-Haramayn', 'Conquered Arab lands']);
+  const [rightItems, setRightItems] = useState<string[]>(['Protects holy sites', 'Title: Khadim al-Haramayn', 'Conquered Arab lands']);
   const [centerItems, setCenterItems] = useState<string[]>(['Islamic empire', 'Conquered by Sultan', 'Expanded across continents']);
   const [newItem, setNewItem] = useState('');
   const [target, setTarget] = useState<'left' | 'center' | 'right'>('left');
@@ -580,55 +918,71 @@ function VennDiagram() {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="relative flex justify-center items-center h-64">
-        {/* Left circle */}
-        <div className="absolute w-44 h-44 rounded-full border-3 border-amber-400 bg-amber-100/40 flex items-center justify-center" style={{ left: 'calc(50% - 100px)' }}>
-          <div className="text-center space-y-1 w-24">
-            <div className="text-[10px] font-bold text-amber-800 mb-1">Ottoman Origins</div>
+    <div className="space-y-5">
+      {/* 3-Column Comparison Layout */}
+      <div className="grid grid-cols-3 gap-3">
+        {/* Ottoman Origins */}
+        <div className="rounded-xl border-2 border-amber-300 bg-amber-50 overflow-hidden">
+          <div className="bg-amber-200 px-3 py-2.5 text-center">
+            <h4 className="text-sm font-bold text-amber-900">Ottoman Origins</h4>
+          </div>
+          <div className="p-3 space-y-2">
             {leftItems.map((item, i) => (
-              <div key={i} className="text-[9px] text-amber-700 bg-amber-200/50 rounded px-1 py-0.5">{item}</div>
+              <div key={i} className="bg-amber-100 border border-amber-200 rounded-lg px-3 py-1.5 text-xs text-amber-800 font-medium">
+                {item}
+              </div>
             ))}
           </div>
         </div>
-        {/* Right circle */}
-        <div className="absolute w-44 h-44 rounded-full border-3 border-emerald-400 bg-emerald-100/40 flex items-center justify-center" style={{ left: 'calc(50% - 12px)' }}>
-          <div className="text-center space-y-1 w-24">
-            <div className="text-[10px] font-bold text-emerald-800 mb-1">Holy Sites Role</div>
+
+        {/* Both (Center) */}
+        <div className="rounded-xl border-2 border-rose-300 bg-rose-50 overflow-hidden">
+          <div className="bg-gradient-to-r from-amber-200 via-rose-200 to-emerald-200 px-3 py-2.5 text-center">
+            <h4 className="text-sm font-bold text-rose-900">Shared by Both</h4>
+          </div>
+          <div className="p-3 space-y-2">
+            {centerItems.map((item, i) => (
+              <div key={i} className="bg-rose-100 border border-rose-200 rounded-lg px-3 py-1.5 text-xs text-rose-800 font-medium">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Holy Sites Role */}
+        <div className="rounded-xl border-2 border-emerald-300 bg-emerald-50 overflow-hidden">
+          <div className="bg-emerald-200 px-3 py-2.5 text-center">
+            <h4 className="text-sm font-bold text-emerald-900">Holy Sites Role</h4>
+          </div>
+          <div className="p-3 space-y-2">
             {rightItems.map((item, i) => (
-              <div key={i} className="text-[9px] text-emerald-700 bg-emerald-200/50 rounded px-1 py-0.5">{item}</div>
-            ))}
-          </div>
-        </div>
-        {/* Center overlap */}
-        <div className="absolute z-10 bg-white/60 rounded-full w-16 h-16 flex items-center justify-center" style={{ left: 'calc(50% - 32px)' }}>
-          <div className="text-center space-y-0.5 w-14">
-            <div className="text-[8px] font-bold text-rose-800">Both</div>
-            {centerItems.slice(0, 2).map((item, i) => (
-              <div key={i} className="text-[8px] text-rose-700 leading-tight">{item}</div>
+              <div key={i} className="bg-emerald-100 border border-emerald-200 rounded-lg px-3 py-1.5 text-xs text-emerald-800 font-medium">
+                {item}
+              </div>
             ))}
           </div>
         </div>
       </div>
 
+      {/* Add comparison point */}
       <div className="flex gap-2 items-center">
         <Input
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
           placeholder="Add a comparison point..."
-          className="text-xs flex-1"
+          className="text-sm flex-1"
           onKeyDown={(e) => e.key === 'Enter' && addItemToDiagram()}
         />
         <select
           value={target}
           onChange={(e) => setTarget(e.target.value as 'left' | 'center' | 'right')}
-          className="text-xs border rounded px-2 py-1.5 bg-white"
+          className="text-sm border rounded-md px-3 py-2 bg-white"
         >
           <option value="left">Origins</option>
           <option value="center">Both</option>
           <option value="right">Holy Sites</option>
         </select>
-        <Button size="sm" onClick={addItemToDiagram} className="text-xs bg-[#D4AF37] hover:bg-amber-600 text-white">
+        <Button size="sm" onClick={addItemToDiagram} className="text-sm bg-[#D4AF37] hover:bg-amber-600 text-white">
           Add
         </Button>
       </div>
@@ -637,94 +991,121 @@ function VennDiagram() {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// COMPONENT: SVG Map
+// COMPONENT: Real Interactive Map (Leaflet/OpenStreetMap)
 // ═══════════════════════════════════════════════════════════════
 
 function OttomanMap() {
+  const [mapReady, setMapReady] = useState(false);
   const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const leafletMapRef = useRef<any>(null);
 
   const regions = [
-    { id: 'anatolia', name: 'Anatolia (Turkey)', color: '#D4AF37', desc: 'Heart of the Ottoman Empire' },
-    { id: 'istanbul', name: 'Istanbul (Constantinople)', color: '#722F37', desc: 'Conquered in 1453 by Muhammad al-Fatih' },
-    { id: 'arabia', name: 'Arabian Peninsula & Hijaz', color: '#047857', desc: 'Makkah & Madinah — protected after 1517' },
-    { id: 'egypt', name: 'Egypt & North Africa', color: '#D97706', desc: 'Conquered by Selim I in 1516-1517' },
-    { id: 'balkans', name: 'Balkans & SE Europe', color: '#7C3AED', desc: 'Expanded into Europe from 1354' },
+    { id: 'istanbul', name: 'Istanbul (Constantinople)', color: '#722F37', desc: 'Conquered in 1453 by Muhammad al-Fatih', lat: 41.0082, lng: 28.9784 },
+    { id: 'anatolia', name: 'Anatolia (Turkey)', color: '#D4AF37', desc: 'Heart of the Ottoman Empire', lat: 39.9334, lng: 32.8597 },
+    { id: 'arabia', name: 'Arabian Peninsula & Hijaz', color: '#047857', desc: 'Makkah & Madinah — protected after 1517', lat: 24.0, lng: 42.0 },
+    { id: 'egypt', name: 'Egypt & North Africa', color: '#D97706', desc: 'Conquered by Selim I in 1516-1517', lat: 30.0444, lng: 31.2357 },
+    { id: 'balkans', name: 'Balkans & SE Europe', color: '#7C3AED', desc: 'Expanded into Europe from 1354', lat: 44.0, lng: 20.0 },
+    { id: 'manzikert', name: 'Battle of Manzikert (1071)', color: '#EF4444', desc: 'Great Seljuk victory opened Anatolia to Turkic peoples', lat: 39.1456, lng: 42.8397 },
+    { id: 'makkah', name: 'Makkah', color: '#D4AF37', desc: 'Holiest city in Islam, protected by the Sultan', lat: 21.3891, lng: 39.8579 },
+    { id: 'madinah', name: 'Madinah', color: '#D4AF37', desc: 'Second holiest city in Islam', lat: 24.5247, lng: 39.5692 },
   ];
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !mapRef.current || leafletMapRef.current) return;
+
+    let cancelled = false;
+
+    import('leaflet').then((L) => {
+      if (cancelled || !mapRef.current || leafletMapRef.current) return;
+
+      // Fix default marker icon issue
+      delete (L.Icon.Default.prototype as any)._getIconUrl;
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+      });
+
+      const map = L.map(mapRef.current, {
+        center: [35.0, 35.0],
+        zoom: 4,
+        scrollWheelZoom: true,
+        zoomControl: true,
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 10,
+      }).addTo(map);
+
+      // Ottoman Empire approximate boundary at peak
+      const ottomanBoundary = L.polygon([
+        [46, 15], [46, 42], [42, 50], [37, 48], [33, 45], [30, 42],
+        [22, 40], [15, 42], [12, 35], [15, 25], [22, 30], [30, 28],
+        [33, 25], [37, 20], [42, 15], [46, 15]
+      ], {
+        color: '#D4AF37',
+        weight: 2,
+        fillColor: '#D4AF37',
+        fillOpacity: 0.12,
+        dashArray: '8, 4',
+      }).addTo(map);
+      ottomanBoundary.bindPopup('<strong>Ottoman Empire at its peak</strong><br/>Spanning three continents');
+
+      // Add markers for key locations
+      regions.forEach((region) => {
+        const isMainRegion = ['istanbul', 'anatolia', 'arabia', 'egypt', 'balkans'].includes(region.id);
+        const markerRadius = isMainRegion ? 10 : 7;
+
+        const marker = L.circleMarker([region.lat, region.lng], {
+          radius: markerRadius,
+          fillColor: region.color,
+          color: '#fff',
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.8,
+        }).addTo(map);
+
+        marker.bindPopup(`
+          <div style="min-width: 150px;">
+            <strong style="color: ${region.color}; font-size: 14px;">${region.name}</strong>
+            <p style="margin: 4px 0 0; font-size: 12px; color: #555;">${region.desc}</p>
+          </div>
+        `);
+
+        marker.on('mouseover', () => setHoveredRegion(region.id));
+        marker.on('mouseout', () => setHoveredRegion(null));
+      });
+
+      leafletMapRef.current = map;
+      setMapReady(true);
+
+      // Force map to recalculate size
+      setTimeout(() => map.invalidateSize(), 200);
+    });
+
+    return () => {
+      cancelled = true;
+      if (leafletMapRef.current) {
+        leafletMapRef.current.remove();
+        leafletMapRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <div className="space-y-3">
-      <div className="relative bg-gradient-to-b from-amber-50 to-rose-50 rounded-xl border-2 border-amber-200 p-4 overflow-hidden">
-        <ArabicPattern opacity={0.03} color="#722F37" />
-        <svg viewBox="0 0 500 300" className="w-full h-auto relative z-10">
-          {/* Simplified map regions */}
-          {/* Balkans */}
-          <path
-            d="M180,40 L260,30 L280,60 L270,100 L220,110 L170,90 Z"
-            fill={hoveredRegion === 'balkans' ? '#A78BFA' : '#C4B5FD'}
-            stroke="#7C3AED"
-            strokeWidth="1.5"
-            className="cursor-pointer transition-all"
-            onMouseEnter={() => setHoveredRegion('balkans')}
-            onMouseLeave={() => setHoveredRegion(null)}
-          />
-          {/* Anatolia */}
-          <path
-            d="M220,110 L310,90 L350,120 L340,170 L280,180 L220,160 Z"
-            fill={hoveredRegion === 'anatolia' ? '#D4AF37' : '#E8D48B'}
-            stroke="#B8941F"
-            strokeWidth="1.5"
-            className="cursor-pointer transition-all"
-            onMouseEnter={() => setHoveredRegion('anatolia')}
-            onMouseLeave={() => setHoveredRegion(null)}
-          />
-          {/* Istanbul */}
-          <circle
-            cx="265"
-            cy="75"
-            r="12"
-            fill={hoveredRegion === 'istanbul' ? '#9B2335' : '#722F37'}
-            stroke="#5A1A23"
-            strokeWidth="1.5"
-            className="cursor-pointer transition-all"
-            onMouseEnter={() => setHoveredRegion('istanbul')}
-            onMouseLeave={() => setHoveredRegion(null)}
-          />
-          <text x="265" y="79" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold">★</text>
-          {/* Arabia */}
-          <path
-            d="M220,180 L340,175 L370,220 L350,270 L280,280 L210,260 L190,220 Z"
-            fill={hoveredRegion === 'arabia' ? '#047857' : '#6EE7B7'}
-            stroke="#047857"
-            strokeWidth="1.5"
-            className="cursor-pointer transition-all"
-            onMouseEnter={() => setHoveredRegion('arabia')}
-            onMouseLeave={() => setHoveredRegion(null)}
-          />
-          {/* Makkah marker */}
-          <circle cx="280" cy="250" r="6" fill="#D4AF37" stroke="#B8941F" strokeWidth="1" />
-          <text x="280" y="253" textAnchor="middle" fill="#722F37" fontSize="5" fontWeight="bold">🕋</text>
-          {/* Egypt */}
-          <path
-            d="M190,180 L220,180 L210,260 L190,260 L160,220 Z"
-            fill={hoveredRegion === 'egypt' ? '#D97706' : '#FCD34D'}
-            stroke="#D97706"
-            strokeWidth="1.5"
-            className="cursor-pointer transition-all"
-            onMouseEnter={() => setHoveredRegion('egypt')}
-            onMouseLeave={() => setHoveredRegion(null)}
-          />
-          {/* Cairo marker */}
-          <circle cx="195" cy="210" r="5" fill="#722F37" stroke="#5A1A23" strokeWidth="1" />
-          {/* Labels */}
-          <text x="265" y="60" textAnchor="middle" fill="#5A1A23" fontSize="8" fontWeight="bold">Istanbul</text>
-          <text x="290" y="145" textAnchor="middle" fill="#6B4C11" fontSize="9" fontWeight="bold">Anatolia</text>
-          <text x="230" y="95" textAnchor="middle" fill="#5B21B6" fontSize="8" fontWeight="bold">Balkans</text>
-          <text x="290" y="240" textAnchor="middle" fill="#064E3B" fontSize="8" fontWeight="bold">Arabia</text>
-          <text x="180" y="215" textAnchor="middle" fill="#92400E" fontSize="8" fontWeight="bold" transform="rotate(-20, 180, 215)">Egypt</text>
-          {/* Sea labels */}
-          <text x="150" y="140" fill="#94A3B8" fontSize="7" fontStyle="italic">Mediter.</text>
-          <text x="350" y="160" fill="#94A3B8" fontSize="7" fontStyle="italic">Arabian Sea</text>
-        </svg>
+      <div className="relative rounded-xl border-2 border-amber-200 overflow-hidden" style={{ height: '400px' }}>
+        <div ref={mapRef} className="w-full h-full" />
+        {!mapReady && (
+          <div className="absolute inset-0 bg-gradient-to-b from-amber-50 to-rose-50 flex items-center justify-center">
+            <div className="text-center">
+              <Globe className="w-10 h-10 text-[#D4AF37] mx-auto mb-2 animate-pulse" />
+              <p className="text-sm text-amber-700 font-medium">Loading map...</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {hoveredRegion && (
@@ -736,6 +1117,12 @@ function OttomanMap() {
           <p className="text-xs text-gray-600 mt-1">{regions.find((r) => r.id === hoveredRegion)?.desc}</p>
         </div>
       )}
+
+      <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+        <p className="text-xs text-amber-700 text-center">
+          Click markers on the map to explore key Ottoman Empire locations. The dashed gold area shows the empire at its peak.
+        </p>
+      </div>
     </div>
   );
 }
@@ -744,12 +1131,14 @@ function OttomanMap() {
 // COMPONENT: Quiz Engine
 // ═══════════════════════════════════════════════════════════════
 
-function QuizEngine({ questions, onComplete }: { questions: QuizQuestion[]; onComplete?: (score: number) => void }) {
+function QuizEngine({ questions, lessonId, studentCode, onComplete }: { questions: QuizQuestion[]; lessonId?: string; studentCode?: string; onComplete?: (score: number) => void }) {
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number | string>>({});
   const [showResult, setShowResult] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [markSaved, setMarkSaved] = useState(false);
 
   const question = questions[currentQ];
   const isAnswered = answers[question.id] !== undefined;
@@ -759,6 +1148,12 @@ function QuizEngine({ questions, onComplete }: { questions: QuizQuestion[]; onCo
     if (isAnswered) return;
     setAnswers((prev) => ({ ...prev, [question.id]: answer }));
     setShowExplanation(true);
+    const wasCorrect = answer === question.correctAnswer;
+    if (wasCorrect) {
+      SoundFX.correct();
+    } else {
+      SoundFX.incorrect();
+    }
   };
 
   const nextQuestion = () => {
@@ -766,9 +1161,36 @@ function QuizEngine({ questions, onComplete }: { questions: QuizQuestion[]; onCo
       setCurrentQ(currentQ + 1);
       setShowExplanation(false);
     } else {
-      const score = questions.reduce((acc, q) => acc + (answers[q.id] === q.correctAnswer ? 1 : 0), 0);
+      const finalScore = questions.reduce((acc, q) => acc + (answers[q.id] === q.correctAnswer ? 1 : 0), 0);
+      const pct = Math.round((finalScore / questions.length) * 100);
       setQuizComplete(true);
-      onComplete?.(score);
+      // Save to localStorage
+      if (typeof window !== 'undefined' && lessonId) {
+        const key = `mscs_quiz_${lessonId}_${studentCode || 'anonymous'}`;
+        const result = {
+          score: finalScore,
+          total: questions.length,
+          percentage: pct,
+          answers: answers,
+          studentCode: studentCode || 'anonymous',
+          lessonId: lessonId,
+          completedAt: new Date().toISOString(),
+        };
+        // Save individual result
+        localStorage.setItem(key, JSON.stringify(result));
+        // Also append to results list
+        const listKey = 'mscs_quiz_results';
+        const existing = JSON.parse(localStorage.getItem(listKey) || '[]');
+        existing.push({ key, ...result });
+        localStorage.setItem(listKey, JSON.stringify(existing));
+        setMarkSaved(true);
+      }
+      if (pct >= 60) {
+        SoundFX.celebrate();
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 4000);
+      }
+      onComplete?.(finalScore);
     }
   };
 
@@ -778,7 +1200,8 @@ function QuizEngine({ questions, onComplete }: { questions: QuizQuestion[]; onCo
     const percentage = Math.round((score / questions.length) * 100);
     return (
       <div className="text-center space-y-4 py-6">
-        <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full border-4 ${
+        {showConfetti && <ConfettiCelebration />}
+        <div className={`inline-flex items-center justify-center w-28 h-28 rounded-full border-4 ${
           percentage >= 75 ? 'border-emerald-400 bg-emerald-50' : percentage >= 50 ? 'border-amber-400 bg-amber-50' : 'border-rose-400 bg-rose-50'
         }`}>
           <div>
@@ -786,6 +1209,11 @@ function QuizEngine({ questions, onComplete }: { questions: QuizQuestion[]; onCo
               percentage >= 75 ? 'text-emerald-600' : percentage >= 50 ? 'text-amber-600' : 'text-rose-600'
             }`}>
               {score}/{questions.length}
+            </div>
+            <div className={`text-sm font-medium ${
+              percentage >= 75 ? 'text-emerald-500' : percentage >= 50 ? 'text-amber-500' : 'text-rose-500'
+            }`}>
+              {percentage}%
             </div>
           </div>
         </div>
@@ -795,6 +1223,11 @@ function QuizEngine({ questions, onComplete }: { questions: QuizQuestion[]; onCo
           </h3>
           <p className="text-gray-600 text-sm mt-1">You scored {percentage}% on this quiz</p>
         </div>
+        {markSaved && (
+          <Badge className="bg-emerald-100 text-emerald-700 border-emerald-300">
+            <CheckCircle2 className="w-3 h-3 mr-1" /> Mark Saved
+          </Badge>
+        )}
         <div className="space-y-2">
           {questions.map((q, i) => (
             <div key={q.id} className={`flex items-center gap-2 text-sm px-4 py-2 rounded-lg ${
@@ -805,7 +1238,7 @@ function QuizEngine({ questions, onComplete }: { questions: QuizQuestion[]; onCo
             </div>
           ))}
         </div>
-        <Button onClick={() => { setQuizComplete(false); setCurrentQ(0); setAnswers({}); setShowExplanation(false); }} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
+        <Button onClick={() => { setQuizComplete(false); setCurrentQ(0); setAnswers({}); setShowExplanation(false); setMarkSaved(false); }} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
           Try Again
         </Button>
       </div>
@@ -957,6 +1390,10 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [studentName, setStudentName] = useState('');
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+  const [language, setLanguage] = useState('en');
+
+  // Get current translation
+  const t = (key: string) => translations[language]?.[key] || translations.en[key] || key;
 
   // Scroll indicator effect
   useEffect(() => {
@@ -991,6 +1428,24 @@ export default function Home() {
         <ArabicPattern opacity={0.08} color="#D4AF37" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-black/30" />
 
+        {/* Language Selector */}
+        <div className="absolute top-4 right-4 z-20">
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            className="bg-white/10 backdrop-blur-md border border-[#D4AF37]/30 rounded-lg px-3 py-2 text-sm text-white cursor-pointer hover:bg-white/20 transition-colors"
+          >
+            <option value="en" className="text-black">🇬🇧 English</option>
+            <option value="ar" className="text-black">🇸🇦 العربية</option>
+            <option value="ur" className="text-black">🇵🇰 اردو</option>
+            <option value="fa" className="text-black">🇮🇷 فارسی</option>
+            <option value="es" className="text-black">🇪🇸 Español</option>
+            <option value="ru" className="text-black">🇷🇺 Русский</option>
+            <option value="tr" className="text-black">🇹🇷 Türkçe</option>
+            <option value="fr" className="text-black">🇫🇷 Français</option>
+          </select>
+        </div>
+
         {/* Floating decorative elements */}
         <div className="absolute top-20 left-10 w-24 h-24 border border-[#D4AF37]/20 rounded-full animate-pulse" />
         <div className="absolute top-40 right-20 w-16 h-16 border border-[#D4AF37]/15 rotate-45 animate-bounce" style={{ animationDuration: '3s' }} />
@@ -1022,10 +1477,10 @@ export default function Home() {
           </div>
 
           <p className="text-lg sm:text-xl md:text-2xl text-amber-100/90 mb-4 font-light">
-            Moral, Social & Cultural Studies
+            {t('subtitle')}
           </p>
           <p className="text-sm sm:text-base text-amber-200/70 mb-8 italic">
-            — Interactive Learning Platform —
+            {t('interactivePlatform')}
           </p>
 
           {/* Mr. Ahmed Ali prominence */}
@@ -1043,9 +1498,18 @@ export default function Home() {
           </div>
 
           {/* Tagline */}
-          <p className="text-base sm:text-lg text-white/80 mb-12 font-medium">
-            ✨ Making Learning <span className="text-[#D4AF37] font-bold">Active</span>, Not Passive ✨
+          <p className="text-base sm:text-lg text-white/80 mb-4 font-medium">
+            {t('tagline').split('Active')[0]}<span className="text-[#D4AF37] font-bold">{language === 'en' ? 'Active' : t('tagline').split(/[,.]/)[0].split(' ').slice(-1)[0]}</span>{language === 'en' ? ', Not Passive' : ''}
           </p>
+
+          {/* Stats Counter */}
+          <div className="flex items-center justify-center gap-4 sm:gap-6 mb-10 text-white/60 text-xs sm:text-sm">
+            <span className="flex items-center gap-1.5"><GraduationCap className="w-4 h-4 text-[#D4AF37]" /> 4 Grades</span>
+            <span className="w-1 h-1 rounded-full bg-[#D4AF37]/40" />
+            <span className="flex items-center gap-1.5"><BookOpen className="w-4 h-4 text-[#D4AF37]" /> 24 Units</span>
+            <span className="w-1 h-1 rounded-full bg-[#D4AF37]/40" />
+            <span className="flex items-center gap-1.5"><Sparkles className="w-4 h-4 text-[#D4AF37]" /> 100+ Activities</span>
+          </div>
 
           {/* Decorative bottom ornament */}
           <div className="flex justify-center mb-12">
@@ -1094,16 +1558,16 @@ export default function Home() {
       <section className="relative bg-[#FFF9F0] py-16 px-4">
         <ArabicPattern opacity={0.03} color="#722F37" />
         <div className="relative z-10 max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-[#722F37] mb-3">Why MSCS Academy?</h2>
+          <h2 className="text-3xl font-bold text-center text-[#722F37] mb-3">{t('whyTitle')}</h2>
           <DecorativeBorder color="#D4AF37" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {[
-              { icon: <Brain className="w-8 h-8" />, title: 'Interactive Learning', desc: 'Quizzes, timelines, maps, and drag-and-drop activities that make learning unforgettable', color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200' },
-              { icon: <Target className="w-8 h-8" />, title: 'Standards-Aligned', desc: 'Every lesson follows UAE curriculum standards with clear objectives and success criteria', color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-              { icon: <MapPin className="w-8 h-8" />, title: 'UAE & Real-World Links', desc: 'Every lesson connects to UAE culture, values, and real-life applications', color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200' },
-              { icon: <Timer className="w-8 h-8" />, title: 'Built-in Timers', desc: 'Structured activities with countdown timers keep lessons on pace', color: 'text-teal-600', bg: 'bg-teal-50', border: 'border-teal-200' },
-              { icon: <Award className="w-8 h-8" />, title: 'Instant Feedback', desc: 'Quizzes with immediate scoring and explanations help students learn from mistakes', color: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-200' },
-              { icon: <Users className="w-8 h-8" />, title: 'Student-Centered', desc: 'KWL charts, Venn diagrams, and collaborative activities put students first', color: 'text-purple-600', bg: 'bg-purple-50', border: 'border-purple-200' },
+              { icon: <Brain className="w-8 h-8" />, title: t('feature1'), desc: t('feature1d'), color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200' },
+              { icon: <Target className="w-8 h-8" />, title: t('feature2'), desc: t('feature2d'), color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+              { icon: <MapPin className="w-8 h-8" />, title: t('feature3'), desc: t('feature3d'), color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200' },
+              { icon: <Timer className="w-8 h-8" />, title: t('feature4'), desc: t('feature4d'), color: 'text-teal-600', bg: 'bg-teal-50', border: 'border-teal-200' },
+              { icon: <Award className="w-8 h-8" />, title: t('feature5'), desc: t('feature5d'), color: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-200' },
+              { icon: <Users className="w-8 h-8" />, title: t('feature6'), desc: t('feature6d'), color: 'text-purple-600', bg: 'bg-purple-50', border: 'border-purple-200' },
             ].map((feature, i) => (
               <Card key={i} className={`${feature.border} ${feature.bg} border-2 hover:shadow-lg transition-shadow`}>
                 <CardContent className="p-6 text-center">
@@ -1121,7 +1585,7 @@ export default function Home() {
       <section className="relative bg-gradient-to-br from-[#722F37] to-[#5A1A23] py-16 px-4">
         <ArabicPattern opacity={0.06} color="#D4AF37" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-3">Meet Your Instructor</h2>
+          <h2 className="text-3xl font-bold text-white mb-3">{t('meetInstructor')}</h2>
           <DecorativeBorder color="#D4AF37" />
           <div className="mt-8 bg-white/10 backdrop-blur-sm rounded-xl border border-[#D4AF37]/20 p-8">
             <div className="w-20 h-20 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-4">
@@ -1137,8 +1601,7 @@ export default function Home() {
               <ExternalLink className="w-5 h-5" />
             </a>
             <p className="text-amber-100/80 mt-3 text-sm leading-relaxed">
-              Dedicated educator specializing in Moral, Social, and Cultural Studies for UAE students.
-              Creating engaging, standards-aligned lessons that bring history and culture to life.
+              {t('instructorDesc')}
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Badge className="bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30">MSCS Specialist</Badge>
@@ -1156,12 +1619,12 @@ export default function Home() {
             <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer" className="text-[#D4AF37] hover:text-amber-400 transition-colors font-semibold">
               Mr. Ahmed Ali
             </a>
-            {' '}— MSCS Academy: Making Learning Active, Not Passive
+            {' '}— {t('footerTagline')}
           </p>
           <div className="flex justify-center gap-4 mt-4">
-            <button onClick={() => navigateTo('aboutPage')} className="text-xs text-white/40 hover:text-[#D4AF37] transition-colors">About</button>
-            <button onClick={() => navigateTo('loginPage')} className="text-xs text-white/40 hover:text-[#D4AF37] transition-colors">Student Login</button>
-            <button onClick={() => navigateTo('consentPage')} className="text-xs text-white/40 hover:text-[#D4AF37] transition-colors">Parental Consent</button>
+            <button onClick={() => navigateTo('aboutPage')} className="text-xs text-white/40 hover:text-[#D4AF37] transition-colors">{t('about')}</button>
+            <button onClick={() => navigateTo('loginPage')} className="text-xs text-white/40 hover:text-[#D4AF37] transition-colors">{t('studentLogin')}</button>
+            <button onClick={() => navigateTo('consentPage')} className="text-xs text-white/40 hover:text-[#D4AF37] transition-colors">{t('parentalConsent')}</button>
           </div>
         </div>
       </footer>
@@ -1229,7 +1692,7 @@ export default function Home() {
                   <Card
                     key={unit.id}
                     className={`border-2 hover:shadow-lg transition-all cursor-pointer group ${
-                      unit.priority ? 'border-[#D4AF37] bg-amber-50/50' : 'border-gray-200 bg-white hover:border-amber-300'
+                      'border-gray-200 bg-white hover:border-amber-300'
                     }`}
                     onClick={() => {
                       setSelectedTerm(term);
@@ -1248,11 +1711,7 @@ export default function Home() {
                         <CardTitle className="text-sm font-bold text-gray-800 leading-tight group-hover:text-[#722F37] transition-colors">
                           {unit.title}
                         </CardTitle>
-                        {unit.priority && (
-                          <Badge className="bg-[#D4AF37] text-white border-0 shrink-0 ml-2">
-                            <Star className="w-3 h-3 mr-1" /> Priority
-                          </Badge>
-                        )}
+                        
                       </div>
                     </CardHeader>
                     <CardContent>
@@ -1755,7 +2214,7 @@ export default function Home() {
               <p className="text-rose-100 text-sm">Test your understanding — you&apos;ve got this! 💪</p>
             </div>
 
-            <QuizEngine questions={ottomanQuizQuestions} />
+            <QuizEngine questions={ottomanQuizQuestions} lessonId="ottoman-lesson-1" studentCode={studentName || 'anonymous'} />
           </div>
         ),
       },
@@ -2103,6 +2562,13 @@ export default function Home() {
 
               <Button
                 onClick={() => {
+                  // Master login for teacher dashboard
+                  if (loginCode === 'MSCS-MASTER-2026-ADMIN') {
+                    setIsLoggedIn(true);
+                    setStudentName('MASTER');
+                    navigateTo('teacherDashboard');
+                    return;
+                  }
                   const pattern = /^MSCS-\d[A-Z]-\d{4}-\d{3}$/;
                   if (pattern.test(loginCode)) {
                     setIsLoggedIn(true);
@@ -2133,6 +2599,146 @@ export default function Home() {
       </div>
     </div>
   );
+
+  // ───────────────────────────────────────────────────────────
+  // TEACHER DASHBOARD
+  // ───────────────────────────────────────────────────────────
+
+  const renderTeacherDashboard = () => {
+    // Read all quiz results from localStorage
+    let allResults: any[] = [];
+    if (typeof window !== 'undefined') {
+      try {
+        allResults = JSON.parse(localStorage.getItem('mscs_quiz_results') || '[]');
+      } catch (e) { allResults = []; }
+    }
+
+    // Calculate stats
+    const totalStudents = new Set(allResults.map((r: any) => r.studentCode)).size;
+    const totalQuizzes = allResults.length;
+    const avgScore = totalQuizzes > 0
+      ? Math.round(allResults.reduce((acc: number, r: any) => acc + r.percentage, 0) / totalQuizzes)
+      : 0;
+    const highestScore = allResults.length > 0
+      ? Math.max(...allResults.map((r: any) => r.percentage))
+      : 0;
+
+    return (
+      <div className="min-h-screen bg-[#FFF9F0]">
+        {/* Header */}
+        <div className="relative bg-gradient-to-r from-[#722F37] to-[#5A1A23] py-8 px-4">
+          <ArabicPattern opacity={0.06} color="#D4AF37" />
+          <div className="relative z-10 max-w-5xl mx-auto">
+            <Button variant="ghost" onClick={() => navigateTo('landing')} className="text-white/80 hover:text-white hover:bg-white/10 mb-4">
+              <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home
+            </Button>
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
+                <Shield className="w-7 h-7 text-[#D4AF37]" />
+              </div>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-white">Teacher Dashboard</h1>
+                <p className="text-amber-200/80 text-sm">MSCS Academy — Student Performance Overview</p>
+              </div>
+            </div>
+            <div className="mt-3">
+              <AhmedAliLink size="md" />
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
+          {/* Stats Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[
+              { label: 'Total Students', value: totalStudents, icon: <Users className="w-5 h-5" />, color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200' },
+              { label: 'Quizzes Completed', value: totalQuizzes, icon: <Trophy className="w-5 h-5" />, color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+              { label: 'Average Score', value: `${avgScore}%`, icon: <Target className="w-5 h-5" />, color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200' },
+              { label: 'Highest Score', value: `${highestScore}%`, icon: <Award className="w-5 h-5" />, color: 'text-[#D4AF37]', bg: 'bg-amber-50', border: 'border-[#D4AF37]' },
+            ].map((stat, i) => (
+              <Card key={i} className={`border-2 ${stat.border} ${stat.bg}`}>
+                <CardContent className="p-4 text-center">
+                  <div className={`${stat.color} flex justify-center mb-2`}>{stat.icon}</div>
+                  <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
+                  <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Results Table */}
+          <Card className="border-2 border-amber-200 overflow-hidden">
+            <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-amber-200">
+              <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                <FileText className="w-5 h-5 text-[#D4AF37]" /> Student Quiz Results
+              </h3>
+              <p className="text-xs text-gray-500 mt-1">All formative assessment scores from your students</p>
+            </div>
+            <div className="overflow-x-auto">
+              {allResults.length === 0 ? (
+                <div className="p-8 text-center">
+                  <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                  <h4 className="font-bold text-gray-400">No Quiz Results Yet</h4>
+                  <p className="text-sm text-gray-400 mt-1">Students have not completed any quizzes yet. Results will appear here automatically.</p>
+                </div>
+              ) : (
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-gray-50 border-b">
+                      <th className="text-left px-4 py-3 font-semibold text-gray-600">#</th>
+                      <th className="text-left px-4 py-3 font-semibold text-gray-600">Student Code</th>
+                      <th className="text-left px-4 py-3 font-semibold text-gray-600">Lesson</th>
+                      <th className="text-center px-4 py-3 font-semibold text-gray-600">Score</th>
+                      <th className="text-center px-4 py-3 font-semibold text-gray-600">Percentage</th>
+                      <th className="text-left px-4 py-3 font-semibold text-gray-600">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {allResults.map((result: any, idx: number) => (
+                      <tr key={idx} className="border-b hover:bg-amber-50/50 transition-colors">
+                        <td className="px-4 py-3 text-gray-400">{idx + 1}</td>
+                        <td className="px-4 py-3">
+                          <span className="font-mono text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded">
+                            {result.studentCode}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-gray-700">{result.lessonId || 'Unknown'}</td>
+                        <td className="px-4 py-3 text-center">
+                          <span className={`font-bold ${
+                            result.percentage >= 75 ? 'text-emerald-600' : result.percentage >= 50 ? 'text-amber-600' : 'text-rose-600'
+                          }`}>
+                            {result.score}/{result.total}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          <Badge className={`${
+                            result.percentage >= 75 ? 'bg-emerald-100 text-emerald-700' : result.percentage >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'
+                          } border-0`}>
+                            {result.percentage}%
+                          </Badge>
+                        </td>
+                        <td className="px-4 py-3 text-xs text-gray-500">
+                          {new Date(result.completedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </Card>
+
+          {/* Disclaimer */}
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-center">
+            <p className="text-xs text-amber-700">
+              <strong>Note:</strong> This data is stored locally in the browser. For permanent records, results should be exported periodically.
+              Teacher-Created Study Material — Not an Official ADEK Resource.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   // ───────────────────────────────────────────────────────────
   // PARENTAL CONSENT PAGE
@@ -2237,6 +2843,7 @@ export default function Home() {
       {view === 'aboutPage' && renderAboutPage()}
       {view === 'loginPage' && renderLoginPage()}
       {view === 'consentPage' && renderConsentPage()}
+      {view === 'teacherDashboard' && renderTeacherDashboard()}
     </div>
   );
 }
