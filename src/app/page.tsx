@@ -28,7 +28,7 @@ import {
   markLessonComplete, getLessonCompletions, isLessonCompleted,
   getGradeCompletionPercentage, getNextLesson, deleteStudentData,
   saveDiagnosticResult, getDiagnosticResults, hasDiagnosticResult,
-  diagnosticQuestions,
+  diagnosticQuestions, studentifyText,
   type QuizQuestion, type ActivityItem, type UAELink, type WarmUpActivity,
   type QuizResult, type GradeInfo, type TermInfo, type UnitInfo, type LessonData,
   type DiagnosticResult, type LessonCompletion,
@@ -581,6 +581,8 @@ export default function Home() {
   const [diagnosticAnswers, setDiagnosticAnswers] = useState<Record<string, number>>({});
   const [diagnosticComplete, setDiagnosticComplete] = useState(false);
   const [diagnosticSubmitted, setDiagnosticSubmitted] = useState(false);
+  const [diagnosticTimer, setDiagnosticTimer] = useState(0);
+  const [diagnosticTimerRunning, setDiagnosticTimerRunning] = useState(false);
   const [deleteConfirmCode, setDeleteConfirmCode] = useState('');
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
@@ -816,7 +818,7 @@ export default function Home() {
             </div>
             <div className="mt-4 flex items-center gap-2">
               <AhmedAliLink size="md" />
-              <Button size="sm" variant="outline" onClick={() => { setDiagnosticGrade(grade.key); setDiagnosticAnswers({}); setDiagnosticSubmitted(false); navigateTo('diagnosticPage'); }}
+              <Button size="sm" variant="outline" onClick={() => { setDiagnosticGrade(grade.key); setDiagnosticAnswers({}); setDiagnosticSubmitted(false); setDiagnosticTimer(0); setDiagnosticTimerRunning(false); navigateTo('diagnosticPage'); }}
                 className="ml-auto border-[#D4AF37] text-[#D4AF37] hover:bg-amber-50">
                 <Brain className="w-3 h-3 mr-1" /> Diagnostic Assessment
               </Button>
@@ -977,10 +979,10 @@ export default function Home() {
 
     // Standards from SLO codes
     const standards = lesson.slo_codes.split(',').map(s => s.trim()).filter(s => s.length > 0);
-    // Objectives from lesson objective
-    const objectives = lesson.objective.replace(/^SWBAT\s*/i, '').split(/[;.]/).map(s => s.trim()).filter(s => s.length > 10).slice(0, 4);
-    // Success criteria
-    const successCriteria = lesson.success_criteria.replace(/^Student can:\s*/i, '').split(/[;(]/).map(s => s.trim().replace(/^\(\d+\)\s*/, '')).filter(s => s.length > 5).slice(0, 5);
+    // Objectives from lesson objective (studentified)
+    const objectives = studentifyText(lesson.objective.replace(/^SWBAT\s*/i, '')).split(/[;.]/).map(s => s.trim()).filter(s => s.length > 10).slice(0, 4);
+    // Success criteria (studentified)
+    const successCriteria = studentifyText(lesson.success_criteria.replace(/^Student can:\s*/i, '')).split(/[;(]/).map(s => s.trim().replace(/^\(\d+\)\s*/, '')).filter(s => s.length > 5).slice(0, 5);
 
     // Map markers based on lesson topic
     const mapMarkers = generateMapMarkers(lesson);
@@ -1077,7 +1079,7 @@ export default function Home() {
                 <CardTitle className="text-sm font-bold text-gray-800">Prior Learning</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-700 leading-relaxed">{lesson.prior_learning}</p>
+                <p className="text-sm text-gray-700 leading-relaxed">{studentifyText(lesson.prior_learning)}</p>
               </CardContent>
             </Card>
 
@@ -1171,13 +1173,13 @@ export default function Home() {
                     </div>
                     <ActivityTimer duration={activity.duration} />
                   </div>
-                  <h4 className="font-bold text-gray-800 mt-2">{activity.title}</h4>
-                  <p className="text-xs text-gray-600 mt-1">{activity.description}</p>
+                  <h4 className="font-bold text-gray-800 mt-2">{studentifyText(activity.title)}</h4>
+                  <p className="text-xs text-gray-600 mt-1">{studentifyText(activity.description)}</p>
                 </div>
                 {activity.content && (
                   <CardContent className="pt-3 pb-4">
                     <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-700 leading-relaxed border border-gray-100">
-                      {activity.content}
+                      {studentifyText(activity.content || '')}
                     </div>
                   </CardContent>
                 )}
@@ -1271,7 +1273,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-amber-800">Homework Task</h4>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.homework}</p>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{studentifyText(lesson.homework)}</p>
                   </div>
                 </div>
               </CardContent>
@@ -1285,7 +1287,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-emerald-800">Resources</h4>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.resources}</p>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{studentifyText(lesson.resources)}</p>
                   </div>
                 </div>
               </CardContent>
@@ -1299,7 +1301,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-rose-800">Assessment</h4>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.assessment}</p>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{studentifyText(lesson.assessment)}</p>
                     <Badge className="mt-2 bg-rose-100 text-rose-700 border-rose-200 text-[10px]">
                       {lesson.assessment_type}
                     </Badge>
@@ -1508,11 +1510,36 @@ export default function Home() {
     );
   };
 
-  // Helper to generate map markers based on lesson topic
+  // Helper to generate map markers ONLY for geography-related lessons
+  // Maps should NOT appear for ethics, justice, health, diversity, governance, financial literacy, etc.
   function generateMapMarkers(lesson: LessonData): Array<{ name: string; desc: string; lat: number; lng: number; color: string }> {
     const title = lesson.title.toLowerCase();
+    const domains = lesson.domains.toLowerCase();
 
-    // Ottoman Empire specific markers
+    // Only show maps for geography-focused lessons
+    const isGeographyLesson =
+      title.includes('geography') || title.includes('geographic') ||
+      title.includes('land and resources') || title.includes('physical geography') ||
+      title.includes('land and physical') || title.includes('landscape') ||
+      title.includes('map') || title.includes('region') || title.includes('continent') ||
+      title.includes('silk road') || title.includes('trade route') ||
+      title.includes('east asia') || title.includes('south asia') ||
+      title.includes('central asia') || title.includes('west asia') ||
+      title.includes('africa') || title.includes('african') ||
+      title.includes('america') || title.includes('american') ||
+      title.includes('ottoman') || title.includes('europe') ||
+      title.includes('renaissance') || title.includes('medieval') ||
+      title.includes('middle ages') || title.includes('venice') ||
+      title.includes('china') || title.includes('korea') || title.includes('india') ||
+      title.includes('uae geography') || title.includes('uae heritage') ||
+      title.includes('emirat') && (title.includes('geograph') || title.includes('land') || title.includes('heritage')) ||
+      domains.includes('s3'); // S3 = Geography domain
+
+    if (!isGeographyLesson) {
+      return [];
+    }
+
+    // Ottoman Empire specific markers (geographic expansion)
     if (title.includes('ottoman')) {
       return [
         { name: 'Istanbul (Constantinople)', desc: 'Conquered in 1453 by Muhammad al-Fatih', lat: 41.0082, lng: 28.9784, color: '#722F37' },
@@ -1523,8 +1550,8 @@ export default function Home() {
       ];
     }
 
-    // UAE specific markers
-    if (title.includes('uae') || title.includes('emirat') || title.includes('zayed') || title.includes('heritage') || title.includes('government') || title.includes('governance') || title.includes('federal') || title.includes('citizen') || title.includes('constitution')) {
+    // UAE geography/heritage markers (only for geography-focused UAE lessons)
+    if ((title.includes('uae') || title.includes('emirat')) && (title.includes('geograph') || title.includes('heritage') || title.includes('land') || title.includes('physical') || title.includes('map') || title.includes('region'))) {
       return [
         { name: 'Abu Dhabi', desc: 'Capital of the UAE, seat of federal government', lat: 24.4539, lng: 54.3773, color: '#722F37' },
         { name: 'Dubai', desc: 'Major commercial and financial hub', lat: 25.2048, lng: 55.2708, color: '#D4AF37' },
@@ -1587,12 +1614,17 @@ export default function Home() {
       ];
     }
 
-    // Default: UAE centered
-    return [
-      { name: 'UAE', desc: 'United Arab Emirates — our home', lat: 23.4241, lng: 53.8478, color: '#D4AF37' },
-      { name: 'Abu Dhabi', desc: 'Capital city', lat: 24.4539, lng: 54.3773, color: '#722F37' },
-      { name: 'Al Ain', desc: 'The Garden City', lat: 24.1915, lng: 55.7606, color: '#047857' },
-    ];
+    // For S3 domain lessons that don't match a specific region, show UAE geography
+    if (domains.includes('s3')) {
+      return [
+        { name: 'UAE', desc: 'United Arab Emirates — geographic overview', lat: 23.4241, lng: 53.8478, color: '#D4AF37' },
+        { name: 'Abu Dhabi', desc: 'Capital city', lat: 24.4539, lng: 54.3773, color: '#722F37' },
+        { name: 'Al Ain', desc: 'The Garden City', lat: 24.1915, lng: 55.7606, color: '#047857' },
+      ];
+    }
+
+    // Default: no map for non-geography lessons
+    return [];
   }
 
 
