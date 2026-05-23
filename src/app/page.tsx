@@ -17,7 +17,7 @@ import {
   BarChart3, Filter, LogOut
 } from 'lucide-react';
 import {
-  getGradeInfo, getLesson, getCleanTitle, getUnitContextFromTitle,
+  getGradeInfo, getUnitData, getLesson, getLessonId, getCleanTitle, getUnitContextFromTitle,
   generateQuizQuestions, parseActivities, generateUAELinks, generateWarmUp,
   saveQuizResult, getAllQuizResults, getResultsByGrade, exportResultsAsCSV,
   getPlatformStats,
