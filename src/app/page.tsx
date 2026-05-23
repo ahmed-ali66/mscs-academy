@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo, Component, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -529,6 +529,55 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
   );
 }
 
+
+// ═══════════════════════════════════════════════════════════════
+// ERROR BOUNDARY
+// ═══════════════════════════════════════════════════════════════
+
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+  errorInfo: { componentStack: string } | null;
+}
+
+class ErrorBoundary extends Component<{ children: ReactNode }, ErrorBoundaryState> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null, errorInfo: null };
+  }
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error: Error, errorInfo: { componentStack: string }) {
+    console.error('MSCS Academy Error:', error, errorInfo);
+    this.setState({ errorInfo });
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+          <h2 style={{ color: '#722F37', marginBottom: '10px' }}>Something went wrong</h2>
+          <div style={{ background: '#fff1f2', border: '2px solid #fca5a5', borderRadius: '8px', padding: '16px', marginBottom: '16px' }}>
+            <p style={{ fontWeight: 'bold', color: '#dc2626', marginBottom: '8px' }}>{this.state.error?.message}</p>
+            <pre style={{ fontSize: '11px', overflow: 'auto', color: '#7f1d1d', whiteSpace: 'pre-wrap' }}>{this.state.error?.stack}</pre>
+          </div>
+          {this.state.errorInfo && (
+            <div style={{ background: '#fef3c7', border: '2px solid #fcd34d', borderRadius: '8px', padding: '16px' }}>
+              <p style={{ fontWeight: 'bold', marginBottom: '8px' }}>Component Stack:</p>
+              <pre style={{ fontSize: '11px', overflow: 'auto', whiteSpace: 'pre-wrap' }}>{this.state.errorInfo.componentStack}</pre>
+            </div>
+          )}
+          <button onClick={() => { this.setState({ hasError: false, error: null, errorInfo: null }); window.location.href = '/'; }}
+            style={{ marginTop: '16px', padding: '8px 16px', background: '#722F37', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>
+            Go Home
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 // ═══════════════════════════════════════════════════════════════
 // MAIN APPLICATION
@@ -2035,6 +2084,7 @@ export default function Home() {
   // ════════════════════════════════════════════════════════════
 
   return (
+    <ErrorBoundary>
     <div className="min-h-screen">
       {view === 'landing' && renderLanding()}
       {view === 'gradeSelect' && renderGradeSelect()}
@@ -2119,5 +2169,6 @@ export default function Home() {
         </div>
       )}
     </div>
+    </ErrorBoundary>
   );
 }
