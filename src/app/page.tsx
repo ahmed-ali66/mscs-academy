@@ -203,20 +203,20 @@ function LicensedTo() {
 }
 
 // KWL Chart
-function KWLColumn({ title, icon, items, onAdd, onUpdate, color, bgColor, borderColor }: {
+function KWLColumn({ title, icon, items, onAdd, onUpdate, colorStyle, bgColorStyle, borderColorStyle }: {
   title: string; icon: React.ReactNode; items: string[];
   onAdd: () => void; onUpdate: (index: number, value: string) => void;
-  color: string; bgColor: string; borderColor: string;
+  colorStyle: React.CSSProperties; bgColorStyle: React.CSSProperties; borderColorStyle: React.CSSProperties;
 }) {
   return (
-    <div className={`flex-1 min-w-0 rounded-xl border-2 ${borderColor} ${bgColor} p-3`}>
-      <div className={`flex items-center gap-2 mb-3 font-bold ${color}`}>
+    <div className="flex-1 min-w-0 rounded-xl border-2 p-3" style={{ ...borderColorStyle, ...bgColorStyle }}>
+      <div className="flex items-center gap-2 mb-3 font-bold" style={colorStyle}>
         {icon}<span className="text-sm">{title}</span>
       </div>
       <div className="space-y-2">
         {items.map((item, idx) => (
           <Input key={idx} value={item} onChange={(e) => onUpdate(idx, e.target.value)}
-            placeholder={`${title}...`} className="text-xs bg-white/80 border-0 focus:ring-1 focus:ring-amber-400" />
+            placeholder={`${title}...`} className="text-xs border-0 focus:ring-1 focus:ring-amber-400" style={{ backgroundColor: 'rgba(255,255,255,0.8)' }} />
         ))}
         <Button variant="ghost" size="sm" onClick={onAdd} className="w-full text-xs h-7">+ Add</Button>
       </div>
@@ -233,13 +233,13 @@ function KWLChart() {
     <div className="flex gap-3 overflow-x-auto pb-2">
       <KWLColumn title="What I Know" icon={<Eye className="w-4 h-4" />} items={knowItems}
         onAdd={() => setKnowItems([...knowItems, ''])} onUpdate={(i, v) => { const a = [...knowItems]; a[i] = v; setKnowItems(a); }}
-        color="text-amber-700" bgColor="bg-amber-50/50" borderColor="border-amber-300" />
+        colorStyle={{ color: '#B45309' }} bgColorStyle={{ backgroundColor: 'rgba(255,251,235,0.5)' }} borderColorStyle={{ borderColor: '#FCD34D' }} />
       <KWLColumn title="Want to Know" icon={<Lightbulb className="w-4 h-4" />} items={wantItems}
         onAdd={() => setWantItems([...wantItems, ''])} onUpdate={(i, v) => { const a = [...wantItems]; a[i] = v; setWantItems(a); }}
-        color="text-emerald-700" bgColor="bg-emerald-50/50" borderColor="border-emerald-300" />
+        colorStyle={{ color: '#047857' }} bgColorStyle={{ backgroundColor: 'rgba(236,253,245,0.5)' }} borderColorStyle={{ borderColor: '#6EE7B7' }} />
       <KWLColumn title="What I Learned" icon={<CheckCircle2 className="w-4 h-4" />} items={learnedItems}
         onAdd={() => setLearnedItems([...learnedItems, ''])} onUpdate={(i, v) => { const a = [...learnedItems]; a[i] = v; setLearnedItems(a); }}
-        color="text-rose-700" bgColor="bg-rose-50/50" borderColor="border-rose-300" />
+        colorStyle={{ color: '#BE123C' }} bgColorStyle={{ backgroundColor: 'rgba(255,241,242,0.5)' }} borderColorStyle={{ borderColor: '#FDA4AF' }} />
     </div>
   );
 }
@@ -520,17 +520,17 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
     <div className="space-y-4">
       <div className="grid grid-cols-3 gap-3">
         {[
-          { title: leftTitle, items: leftItems, bgColor: 'bg-amber-50/50', borderColor: 'border-amber-300', headerBg: 'bg-amber-200', itemBg: 'bg-amber-100', itemBorder: 'border-amber-200' },
-          { title: centerTitle, items: centerItems, bgColor: 'bg-rose-50/50', borderColor: 'border-rose-300', headerBg: 'bg-rose-200', itemBg: 'bg-rose-100', itemBorder: 'border-rose-200' },
-          { title: rightTitle, items: rightItems, bgColor: 'bg-emerald-50/50', borderColor: 'border-emerald-300', headerBg: 'bg-emerald-200', itemBg: 'bg-emerald-100', itemBorder: 'border-emerald-200' },
+          { title: leftTitle, items: leftItems, bgStyle: { backgroundColor: 'rgba(255,251,235,0.5)' }, borderStyle: { borderColor: '#FCD34D' }, headerStyle: { backgroundColor: '#FDE68A' }, itemStyle: { backgroundColor: '#FEF3C7' }, itemBorderStyle: { borderColor: '#FDE68A' } },
+          { title: centerTitle, items: centerItems, bgStyle: { backgroundColor: 'rgba(255,241,242,0.5)' }, borderStyle: { borderColor: '#FDA4AF' }, headerStyle: { backgroundColor: '#FECDD3' }, itemStyle: { backgroundColor: '#FFE4E6' }, itemBorderStyle: { borderColor: '#FECDD3' } },
+          { title: rightTitle, items: rightItems, bgStyle: { backgroundColor: 'rgba(236,253,245,0.5)' }, borderStyle: { borderColor: '#6EE7B7' }, headerStyle: { backgroundColor: '#A7F3D0' }, itemStyle: { backgroundColor: '#D1FAE5' }, itemBorderStyle: { borderColor: '#A7F3D0' } },
         ].map((col, i) => (
-          <div key={i} className={`rounded-xl border-2 ${col.borderColor} ${col.bgColor} overflow-hidden`}>
-            <div className={`${col.headerBg} px-3 py-2.5 text-center`}>
+          <div key={i} className="rounded-xl border-2 overflow-hidden" style={{ ...col.borderStyle, ...col.bgStyle }}>
+            <div className="px-3 py-2.5 text-center" style={col.headerStyle}>
               <h4 className="text-sm font-bold text-gray-800">{col.title}</h4>
             </div>
             <div className="p-3 space-y-2">
               {col.items.map((item, j) => (
-                <div key={j} className={`${col.itemBg} border ${col.itemBorder} rounded-lg px-3 py-1.5 text-xs text-gray-700 font-medium`}>
+                <div key={j} className="border rounded-lg px-3 py-1.5 text-xs text-gray-700 font-medium" style={{ ...col.itemStyle, ...col.itemBorderStyle }}>
                   {item}
                 </div>
               ))}
@@ -559,18 +559,29 @@ function LessonTimeline({ data }: { data: { title: string; events: Array<{ year:
   return (
     <div className="space-y-4">
       <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
-        <Calendar className="w-4 h-4 text-amber-600" /> {data.title}
+        <Calendar className="w-4 h-4" style={{ color: '#D97706' }} /> {data.title}
       </h4>
       <div className="relative">
-        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#D4AF37] via-amber-300 to-amber-100" />
+        <div className="absolute left-4 top-0 bottom-0 w-0.5" style={{ background: 'linear-gradient(to bottom, #D4AF37, #FCD34D, #FEF3C7)' }} />
         <div className="space-y-3">
           {data.events.map((evt, i) => (
             <div key={i} className="flex items-start gap-4 relative cursor-pointer" onClick={() => setActiveEvent(activeEvent === i ? null : i)}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 z-10 transition-all duration-300 ${activeEvent === i ? 'bg-[#722F37] border-2 border-[#D4AF37] scale-110' : 'bg-amber-100 border-2 border-amber-400'}`}>
-                <span className={`text-[9px] font-bold ${activeEvent === i ? 'text-white' : 'text-amber-700'}`}>{i + 1}</span>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 z-10 transition-all duration-300"
+                style={activeEvent === i
+                  ? { backgroundColor: '#722F37', border: '2px solid #D4AF37', transform: 'scale(1.1)' }
+                  : { backgroundColor: '#FEF3C7', border: '2px solid #FBBF24' }
+                }>
+                <span className="text-[9px] font-bold" style={{ color: activeEvent === i ? '#FFFFFF' : '#B45309' }}>{i + 1}</span>
               </div>
-              <div className={`flex-1 rounded-lg p-3 transition-all duration-300 border ${activeEvent === i ? 'bg-[#722F37]/5 border-[#722F37]/30 shadow-md' : 'bg-white border-amber-200 hover:border-amber-300'}`}>
-                <span className="text-xs font-bold text-[#722F37]">{evt.year}</span>
+              <div className="flex-1 rounded-lg p-3 transition-all duration-300 border"
+                style={activeEvent === i
+                  ? { backgroundColor: 'rgba(114,47,55,0.05)', borderColor: 'rgba(114,47,55,0.3)', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }
+                  : { backgroundColor: '#FFFFFF', borderColor: '#FDE68A' }
+                }
+                onMouseEnter={(e) => { if (activeEvent !== i) (e.currentTarget as HTMLElement).style.borderColor = '#FCD34D'; }}
+                onMouseLeave={(e) => { if (activeEvent !== i) (e.currentTarget as HTMLElement).style.borderColor = '#FDE68A'; }}
+              >
+                <span className="text-xs font-bold" style={{ color: '#722F37' }}>{evt.year}</span>
                 <p className={`text-sm text-gray-700 mt-0.5 transition-all ${activeEvent === i ? 'font-medium' : ''}`}>{evt.event}</p>
               </div>
             </div>
@@ -584,31 +595,33 @@ function LessonTimeline({ data }: { data: { title: string; events: Array<{ year:
 // Lesson Diagram (Hub & Spoke) Component
 function LessonDiagram({ data }: { data: { title: string; items: string[] } }) {
   const diagramColors = [
-    { bg: 'bg-amber-50', border: 'border-amber-300', text: 'text-amber-800', accent: 'bg-amber-400' },
-    { bg: 'bg-emerald-50', border: 'border-emerald-300', text: 'text-emerald-800', accent: 'bg-emerald-400' },
-    { bg: 'bg-blue-50', border: 'border-blue-300', text: 'text-blue-800', accent: 'bg-blue-400' },
-    { bg: 'bg-purple-50', border: 'border-purple-300', text: 'text-purple-800', accent: 'bg-purple-400' },
-    { bg: 'bg-rose-50', border: 'border-rose-300', text: 'text-rose-800', accent: 'bg-rose-400' },
-    { bg: 'bg-cyan-50', border: 'border-cyan-300', text: 'text-cyan-800', accent: 'bg-cyan-400' },
-    { bg: 'bg-orange-50', border: 'border-orange-300', text: 'text-orange-800', accent: 'bg-orange-400' },
+    { bgStyle: { backgroundColor: '#FFFBEB' }, borderStyle: { borderColor: '#FCD34D' }, textStyle: { color: '#92400E' }, accentStyle: { backgroundColor: '#FBBF24' } },
+    { bgStyle: { backgroundColor: '#ECFDF5' }, borderStyle: { borderColor: '#6EE7B7' }, textStyle: { color: '#065F46' }, accentStyle: { backgroundColor: '#34D399' } },
+    { bgStyle: { backgroundColor: '#EFF6FF' }, borderStyle: { borderColor: '#93C5FD' }, textStyle: { color: '#1E40AF' }, accentStyle: { backgroundColor: '#60A5FA' } },
+    { bgStyle: { backgroundColor: '#FAF5FF' }, borderStyle: { borderColor: '#C4B5FD' }, textStyle: { color: '#6B21A8' }, accentStyle: { backgroundColor: '#C084FC' } },
+    { bgStyle: { backgroundColor: '#FFF1F2' }, borderStyle: { borderColor: '#FDA4AF' }, textStyle: { color: '#9F1239' }, accentStyle: { backgroundColor: '#FB7185' } },
+    { bgStyle: { backgroundColor: '#ECFEFF' }, borderStyle: { borderColor: '#67E8F9' }, textStyle: { color: '#155E75' }, accentStyle: { backgroundColor: '#22D3EE' } },
+    { bgStyle: { backgroundColor: '#FFF7ED' }, borderStyle: { borderColor: '#FDBA74' }, textStyle: { color: '#9A3412' }, accentStyle: { backgroundColor: '#FB923C' } },
   ];
   return (
     <div className="space-y-4">
       <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
-        <Brain className="w-4 h-4 text-purple-600" /> {data.title}
+        <Brain className="w-4 h-4" style={{ color: '#9333EA' }} /> {data.title}
       </h4>
       <div className="flex flex-col items-center gap-4">
-        <div className="w-36 h-36 rounded-full bg-gradient-to-br from-[#722F37] to-[#5A1A23] flex items-center justify-center text-white text-center px-4 shadow-lg relative">
-          <div className="absolute inset-0 rounded-full border-2 border-[#D4AF37]/30" />
+        <div className="w-36 h-36 rounded-full flex items-center justify-center text-white text-center px-4 shadow-lg relative"
+          style={{ background: 'linear-gradient(to bottom right, #722F37, #5A1A23)' }}>
+          <div className="absolute inset-0 rounded-full" style={{ border: '2px solid rgba(212,175,55,0.3)' }} />
           <span className="text-sm font-bold leading-tight">{data.title}</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full">
           {data.items.map((item, i) => {
             const c = diagramColors[i % diagramColors.length];
             return (
-              <div key={i} className={`rounded-xl border-2 ${c.border} ${c.bg} p-3 text-center hover:shadow-md transition-shadow`}>
-                <div className={`w-6 h-6 rounded-full ${c.accent} mx-auto mb-2`} />
-                <span className={`text-sm font-medium ${c.text}`}>{item}</span>
+              <div key={i} className="rounded-xl border-2 p-3 text-center hover:shadow-md transition-shadow"
+                style={{ ...c.borderStyle, ...c.bgStyle }}>
+                <div className="w-6 h-6 rounded-full mx-auto mb-2" style={c.accentStyle} />
+                <span className="text-sm font-medium" style={c.textStyle}>{item}</span>
               </div>
             );
           })}
