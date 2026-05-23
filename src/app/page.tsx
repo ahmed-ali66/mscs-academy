@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import 'leaflet/dist/leaflet.css';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -235,6 +234,14 @@ function InteractiveMap({ markers }: { markers: Array<{ name: string; desc: stri
 
   useEffect(() => {
     if (typeof window === 'undefined' || !mapRef.current || leafletMapRef.current) return;
+    // Inject leaflet CSS dynamically to avoid SSR crash
+    if (!document.querySelector('link[data-leaflet-css]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
+      link.setAttribute('data-leaflet-css', '1');
+      document.head.appendChild(link);
+    }
     let cancelled = false;
     import('leaflet').then((L) => {
       if (cancelled || !mapRef.current || leafletMapRef.current) return;
@@ -779,7 +786,7 @@ export default function Home() {
                 {term.units.map(unit => {
                   // Fetch actual lessons for this unit
                   const unitData = getUnitData(grade.key, term.key, unit.key);
-                  const lessonCount = unitData ? unitData.lessons.length : unit.lessonsCount;
+                  const lessonCount = unitData ? unitData.lessons.length : unit.lessonCount;
 
                   return (
                     <Card key={unit.key} className="border-2 hover:shadow-lg transition-all cursor-pointer group border-gray-200 bg-white hover:border-amber-300"
