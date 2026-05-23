@@ -15,7 +15,7 @@ import {
   Sparkles, Crown, Shield, Globe, Heart, Lightbulb,
   Timer, FileText, Map, Brain, Target, Award, ExternalLink,
   Mountain, Landmark, Scroll, Swords, Calendar, Eye, Download,
-  BarChart3, Filter
+  BarChart3, Filter, LogOut
 } from 'lucide-react';
 import {
   getGradeInfo, getLesson, getCleanTitle, getUnitContextFromTitle,
@@ -479,6 +479,12 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
     setNewItem('');
   };
 
+  const colorStyles: Record<string, { border: string; bg: string; bgLight: string; bgHeader: string; bgItem: string; borderItem: string }> = {
+    amber: { border: '#fcd34d', bg: '#fffbeb', bgLight: '#fef3c7', bgHeader: '#fde68a', bgItem: '#fef3c7', borderItem: '#fde68a' },
+    rose: { border: '#fda4af', bg: '#fff1f2', bgLight: '#ffe4e6', bgHeader: '#fecdd3', bgItem: '#ffe4e6', borderItem: '#fecdd3' },
+    emerald: { border: '#6ee7b7', bg: '#ecfdf5', bgLight: '#d1fae5', bgHeader: '#a7f3d0', bgItem: '#d1fae5', borderItem: '#a7f3d0' },
+  };
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-3 gap-3">
@@ -487,13 +493,13 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
           { title: centerTitle, items: centerItems, color: 'rose' },
           { title: rightTitle, items: rightItems, color: 'emerald' },
         ].map((col, i) => (
-          <div key={i} className={`rounded-xl border-2 border-${col.color}-300 bg-${col.color}-50 overflow-hidden`}>
-            <div className={`bg-${col.color}-200 px-3 py-2.5 text-center`}>
+          <div key={i} className="rounded-xl border-2 overflow-hidden" style={{ borderColor: colorStyles[col.color].border, backgroundColor: colorStyles[col.color].bg }}>
+            <div className="px-3 py-2.5 text-center" style={{ backgroundColor: colorStyles[col.color].bgHeader }}>
               <h4 className="text-sm font-bold text-gray-800">{col.title}</h4>
             </div>
             <div className="p-3 space-y-2">
               {col.items.map((item, j) => (
-                <div key={j} className={`bg-${col.color}-100 border border-${col.color}-200 rounded-lg px-3 py-1.5 text-xs text-gray-700 font-medium`}>
+                <div key={j} className="border rounded-lg px-3 py-1.5 text-xs text-gray-700 font-medium" style={{ backgroundColor: colorStyles[col.color].bgItem, borderColor: colorStyles[col.color].borderItem }}>
                   {item}
                 </div>
               ))}
@@ -1163,26 +1169,36 @@ export default function Home() {
               <p className="text-emerald-100 text-sm">How does this lesson connect to our lives in the UAE?</p>
             </div>
 
-            {uaeLinks.map((link, i) => {
-              const icons = { building: <Landmark className="w-5 h-5" />, star: <Star className="w-5 h-5" />, globe: <Globe className="w-5 h-5" />, mountain: <Mountain className="w-5 h-5" />, heart: <Heart className="w-5 h-5" /> };
-              const colors = ['emerald', 'amber', 'rose', 'teal', 'purple'];
-              const color = colors[i % colors.length];
-              return (
-                <Card key={i} className={`border-2 border-${color}-200 bg-${color}-50/30`}>
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-3">
-                      <div className={`w-10 h-10 rounded-full bg-${color}-100 border border-${color}-300 flex items-center justify-center shrink-0 text-${color}-600`}>
-                        {icons[link.icon]}
+            {(() => {
+              const linkColorMap: Record<string, { bg: string; border: string; iconBg: string; iconBorder: string; iconText: string; titleText: string }> = {
+                emerald: { bg: '#ecfdf5', border: '#a7f3d0', iconBg: '#d1fae5', iconBorder: '#6ee7b7', iconText: '#059669', titleText: '#065f46' },
+                amber: { bg: '#fffbeb', border: '#fde68a', iconBg: '#fef3c7', iconBorder: '#fcd34d', iconText: '#d97706', titleText: '#92400e' },
+                rose: { bg: '#fff1f2', border: '#fecdd3', iconBg: '#ffe4e6', iconBorder: '#fda4af', iconText: '#e11d48', titleText: '#9f1239' },
+                teal: { bg: '#f0fdfa', border: '#99f6e4', iconBg: '#ccfbf1', iconBorder: '#5eead4', iconText: '#0d9488', titleText: '#115e59' },
+                purple: { bg: '#faf5ff', border: '#e9d5ff', iconBg: '#f3e8ff', iconBorder: '#c4b5fd', iconText: '#7c3aed', titleText: '#6b21a8' },
+              };
+              const colorKeys = ['emerald', 'amber', 'rose', 'teal', 'purple'];
+              return uaeLinks.map((link, i) => {
+                const icons = { building: <Landmark className="w-5 h-5" />, star: <Star className="w-5 h-5" />, globe: <Globe className="w-5 h-5" />, mountain: <Mountain className="w-5 h-5" />, heart: <Heart className="w-5 h-5" /> };
+                const colorKey = colorKeys[i % colorKeys.length];
+                const cs = linkColorMap[colorKey];
+                return (
+                  <Card key={i} className="border-2" style={{ borderColor: cs.border, backgroundColor: cs.bg }}>
+                    <CardContent className="p-5">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: cs.iconBg, border: `1px solid ${cs.iconBorder}`, color: cs.iconText }}>
+                          {icons[link.icon]}
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-sm" style={{ color: cs.titleText }}>{link.title}</h4>
+                          <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.description}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className={`font-bold text-${color}-800 text-sm`}>{link.title}</h4>
-                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.description}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+                    </CardContent>
+                  </Card>
+                );
+              });
+            })()}
 
             {mapMarkers.length > 0 && (
               <div>
@@ -1877,12 +1893,14 @@ export default function Home() {
                 </div>
               )}
               <Button onClick={() => {
-                if (loginCode === 'MSCS-MASTER-2026-ADMIN') {
-                  setIsLoggedIn(true); setStudentName('MASTER'); navigateTo('teacherDashboard'); return;
+                const trimmedCode = loginCode.trim().toUpperCase();
+                setLoginCode(trimmedCode);
+                if (trimmedCode === 'MSCS-MASTER-2026-ADMIN' || trimmedCode === 'MSCS-TEACHER-2026-ADMIN') {
+                  setIsLoggedIn(true); setStudentName('TEACHER'); navigateTo('teacherDashboard'); return;
                 }
-                const pattern = /^MSCS-\d[A-Z]-\d{4}-\d{3}$/;
-                if (pattern.test(loginCode)) {
-                  setIsLoggedIn(true); setStudentName(loginCode); navigateTo('landing');
+                const pattern = /^MSCS-\d{1,2}[A-Z]-\d{4}-\d{1,3}$/;
+                if (pattern.test(trimmedCode)) {
+                  setIsLoggedIn(true); setStudentName(trimmedCode); navigateTo('landing');
                 } else {
                   setLoginError('Invalid code format. Use: MSCS-7A-2026-014');
                 }
@@ -1896,7 +1914,7 @@ export default function Home() {
               )}
               <div className="text-center">
                 <p className="text-xs text-gray-400">Demo: Enter any valid format like MSCS-8A-2026-001</p>
-                <p className="text-xs text-gray-400 mt-1">Teacher: MSCS-MASTER-2026-ADMIN</p>
+                <p className="text-xs text-gray-400 mt-1">Teacher: MSCS-MASTER-2026-ADMIN or MSCS-TEACHER-2026-ADMIN</p>
               </div>
             </div>
           </CardContent>
@@ -2001,6 +2019,26 @@ export default function Home() {
       {view === 'loginPage' && renderLoginPage()}
       {view === 'consentPage' && renderConsentPage()}
       {view === 'teacherDashboard' && renderTeacherDashboard()}
+
+      {/* Logout Button - visible when logged in on student/teacher views */}
+      {isLoggedIn && (view === 'gradeSelect' || view === 'unitSelect' || view === 'lessonView' || view === 'teacherDashboard') && (
+        <div className="fixed top-3 right-3 z-50">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setIsLoggedIn(false);
+              setStudentName('');
+              setLoginCode('');
+              navigateTo('landing');
+            }}
+            className="bg-white/95 backdrop-blur-sm border-[#722F37]/30 shadow-lg hover:bg-rose-50 hover:border-[#722F37] text-[#722F37] gap-2 text-xs"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span className="max-w-[120px] truncate">{studentName}</span>
+          </Button>
+        </div>
+      )}
 
       {/* Classroom Rules Popup */}
       {showClassroomRules && (
