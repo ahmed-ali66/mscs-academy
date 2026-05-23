@@ -153,6 +153,7 @@ The UAE works to achieve fair distribution through:
     interactiveStrategies: [
       { strategy: 'Problem-Based Learning', description: 'Create a fair distribution plan for limited school tablets', duration: 8, instructions: 'Your school has 20 new tablets but 30 students. Work in groups of 4 to create a fair distribution plan. Present your plan to the class.' },
       { strategy: 'Index Cards', description: 'Write an example of fair but not equal distribution', duration: 4, instructions: 'On your index card, write one example of fair (but not equal) distribution. We will share and discuss as a class.' },
+      { strategy: 'Blogs', description: 'Write a short blog post about fairness in your daily life', duration: 5, instructions: 'Write a short blog post (5-7 sentences) about a time when you experienced fair or unfair treatment. How did it affect you? What would fairness look like in that situation?' },
     ],
   },
 
@@ -269,6 +270,7 @@ The UAE uses all three standards:
     interactiveStrategies: [
       { strategy: 'Flip Charts', description: 'Create a flip chart comparing Merit, Need, and Equality standards', duration: 8, instructions: 'In groups of 4, create a flip chart comparing Merit, Need, and Equality. Give one real-world example for each standard. Present to the class.' },
       { strategy: 'Think-Pair-Share', description: 'Discuss which standard of justice is most important', duration: 4, instructions: 'Which standard do you think is most important? Discuss with your partner and be ready to explain why.' },
+      { strategy: 'Collaborative Work', description: 'Rank situations by which standard of justice they represent', duration: 6, instructions: 'In groups of 3, sort the 8 scenario cards into Merit, Need, or Equality categories. If a scenario could fit more than one, discuss why. Be ready to defend your choices.' },
     ],
   },
 
@@ -326,6 +328,7 @@ In the UAE, the Federal National Council gives citizens a voice in governance. T
     interactiveStrategies: [
       { strategy: 'Role Playing', description: 'Role-play a just vs. unjust leader making a decision', duration: 8, instructions: 'One student plays a just leader, another plays an unjust leader. Each must decide: Should we build a new school or a new mall? Show how each leader makes their decision.' },
       { strategy: 'Student Presentations', description: 'Research and present about a just leader', duration: 7, instructions: 'Research a leader known for justice (past or present). Prepare a 2-minute presentation about what made them just.' },
+      { strategy: 'Wikis', description: 'Collaboratively build a wiki page about justice in UAE leadership', duration: 6, instructions: 'Contribute one fact about justice in UAE governance to the class wiki. Include the majlis system, FNC, or Shura. Read others\' contributions and add new information.' },
     ],
   },
 ];
@@ -390,6 +393,7 @@ It is also believed that following a Mediterranean diet can benefit the health o
     interactiveStrategies: [
       { strategy: 'Collaborative Work', description: 'Design a healthy meal plan using the 5 food groups', duration: 8, instructions: 'In groups of 4, design a healthy meal plan for one day using the 5 food groups. Include breakfast, lunch, dinner, and a snack. Present your plan.' },
       { strategy: 'Content Recall', description: 'List the 5 food groups from memory', duration: 3, instructions: 'List the 5 food groups from memory on your index card. Which food group should take up the largest portion of your plate?' },
+      { strategy: 'Blogs', description: 'Write a food diary blog post for one day', duration: 5, instructions: 'Write a blog post recording everything you ate yesterday. Categorize each food into the 5 food groups. Were you missing any group? What could you add?' },
     ],
   },
 
@@ -446,6 +450,7 @@ Basic rules of hygiene are necessary in order to stay healthy. If they are not f
     interactiveStrategies: [
       { strategy: 'Simulations', description: 'Categorize exercises and demonstrate each type', duration: 7, instructions: 'Simulate an exercise routine: As a class, categorize these activities into Aerobic, Anaerobic, or Flexibility. Stand up and demonstrate one exercise from each category!' },
       { strategy: 'Think-Pair-Share', description: 'Share your favourite physical activities and their types', duration: 5, instructions: 'Share with your partner: What physical activities do you enjoy? Which type of exercise are they? How could you add more variety?' },
+      { strategy: 'Flip Charts', description: 'Create a flip chart of 3 exercise types with examples', duration: 6, instructions: 'In groups of 3, create a flip chart with 3 columns: Aerobic, Anaerobic, Flexibility. List at least 5 activities under each. Include a drawing of someone doing one exercise from each type.' },
     ],
   },
 
@@ -490,6 +495,7 @@ The government of the UAE is working closely with other organisations to address
     interactiveStrategies: [
       { strategy: 'Problem-Based Learning', description: 'Identify health challenges and suggest improvements', duration: 8, instructions: 'Read the scenarios about Nadia, Fahad, Sophie, and Adnan. In pairs, identify each person\'s health challenge and suggest specific changes they could make to improve their health.' },
       { strategy: 'Role Playing', description: 'Role-play a health advisor conversation', duration: 6, instructions: 'Role-play a conversation between a student with an unhealthy habit and a health advisor. The advisor should give specific, helpful advice using what you learned.' },
+      { strategy: 'Wikis', description: 'Build a class health tips wiki', duration: 5, instructions: 'Add one practical health tip to the class wiki based on today\'s lesson. Read your classmates\' tips and add a new one that hasn\'t been shared yet.' },
     ],
   },
 ];
@@ -623,6 +629,7 @@ When Basil II became emperor in 976 CE, he focused on defeating his enemies. Aft
     interactiveStrategies: [
       { strategy: 'Timeline Activity', description: 'Identify the most important Byzantine events', duration: 5, instructions: 'Using the timeline, identify the 3 most important events in Byzantine history. Justify your choices to your partner.' },
       { strategy: 'Flip Charts', description: 'Compare the Plague of Justinian to a modern pandemic', duration: 8, instructions: 'Create a flip chart comparing the Plague of Justinian to a modern pandemic. How were they similar? How were they different?' },
+      { strategy: 'Think-Pair-Share', description: 'Compare the Golden Age of Byzantium to the Golden Age of Islamic Culture', duration: 5, instructions: 'How were the Golden Age of Byzantium and the Golden Age of Islamic Culture similar? Both happened around the same time. Discuss with your partner.' },
     ],
   },
 
@@ -675,6 +682,7 @@ The Venetians controlled several important ports, such as Constantinople. It was
     interactiveStrategies: [
       { strategy: 'Simulations', description: 'Simulate the treaty of 1082 between Venice and Byzantium', duration: 8, instructions: 'Simulate the treaty of 1082: One group is Venice, another is Byzantium. Negotiate a deal. Was it fair? What would you change?' },
       { strategy: 'Summarizing', description: 'Summarize why Venice became powerful', duration: 3, instructions: 'Summarize in one sentence why Venice became so powerful. Write it on your index card.' },
+      { strategy: 'Blogs', description: 'Write a blog post about whether the Venice-Byzantium treaty was fair', duration: 5, instructions: 'Write a blog post (5-7 sentences): Was the treaty between Venice and Byzantium fair? Venice promised to help fight the Normans but didn\'t keep their promise. Give your opinion with reasons.' },
     ],
   },
 
@@ -738,6 +746,7 @@ The First Hundred Years' War lasted until 1259, exactly one hundred years after 
     interactiveStrategies: [
       { strategy: 'Role Playing', description: 'Role-play the conflict between King Philip and King John', duration: 8, instructions: 'In groups, role-play the conflict between King Philip and King John. One side argues for France, the other for England. What were each side\'s claims?' },
       { strategy: 'Content Recall', description: 'Write key events from the timeline without notes', duration: 4, instructions: 'Without notes, write the key events on the timeline: Who signed the Magna Carta? When? What was the Treaty of Paris?' },
+      { strategy: 'Student Presentations', description: 'Present why the Magna Carta still matters today', duration: 6, instructions: 'Research why the Magna Carta is considered important even today. Prepare a 2-minute presentation connecting it to modern ideas of rights and justice.' },
     ],
   },
 
@@ -799,6 +808,7 @@ Despite the horrifying nature of the plague, some good came from it. Living stan
     interactiveStrategies: [
       { strategy: 'Problem-Based Learning', description: 'Create a survival plan during the Black Death', duration: 8, instructions: 'Imagine you are a village leader during the Black Death. What measures would you take to protect your people? Work in groups to create a survival plan using only the knowledge available in the 14th century.' },
       { strategy: 'Think-Pair-Share', description: 'Discuss if anything positive can come from disaster', duration: 5, instructions: 'Can anything positive come from a disaster? Think about the Black Death. Share with your partner one surprising way life improved after the plague.' },
+      { strategy: 'Collaborative Work', description: 'Create a comparison chart of famine vs. plague effects', duration: 6, instructions: 'In groups of 3, create a comparison chart: Great Famine vs. Black Death. Compare causes, death toll, duration, and long-term effects. Which crisis had a bigger impact on Europe?' },
     ],
   },
 ];

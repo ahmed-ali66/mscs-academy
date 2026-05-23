@@ -756,6 +756,8 @@ function InteractiveStrategyCard({ strategy, index }: { strategy: { strategy: st
     'Simulations': <Sparkles className="w-4 h-4" />,
     'Collaborative Work': <Users className="w-4 h-4" />,
     'Timeline Activity': <Calendar className="w-4 h-4" />,
+    'Blogs': <FileText className="w-4 h-4" />,
+    'Wikis': <BookOpen className="w-4 h-4" />,
   };
   const strategyColors = [
     { bg: 'bg-amber-50', border: 'border-amber-300', header: 'bg-amber-100', text: 'text-amber-800', badge: 'bg-amber-200 text-amber-800' },
@@ -1500,6 +1502,7 @@ export default function Home() {
                         <Sparkles className="w-5 h-5 text-[#722F37]" />
                         <h4 className="font-bold text-[#722F37] text-sm">Active Learning Strategies</h4>
                         <Badge className="bg-[#722F37]/10 text-[#722F37] border-[#722F37]/20 text-[10px]">Student-Led</Badge>
+                        <Badge className="bg-emerald-100 text-emerald-700 border-emerald-300 text-[10px] ml-auto">80% Student / 20% Teacher</Badge>
                       </div>
                       <div className="space-y-3">
                         {realContent.interactiveStrategies.map((s, i) => (
