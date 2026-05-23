@@ -1341,6 +1341,14 @@ export default function Home() {
               <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
                 <Lightbulb className="w-4 h-4 text-[#D4AF37]" /> KWL Chart
               </h4>
+              {(realContent?.kwlExplanation) && (
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3 text-xs text-amber-800 leading-relaxed">
+                  <div className="flex items-start gap-2">
+                    <Info className="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-600" />
+                    <span><strong>What is KWL?</strong> {realContent.kwlExplanation}</span>
+                  </div>
+                </div>
+              )}
               <KWLChart />
             </div>
 
@@ -1429,6 +1437,7 @@ export default function Home() {
                   <CardHeader className="pb-2 bg-amber-50/50">
                     <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
                       <BookOpen className="w-4 h-4" /> {realContent.reading1Title}
+                      {realContent.reading1Time && <Badge className="bg-amber-200 text-amber-800 text-[10px] ml-auto"><Timer className="w-2.5 h-2.5 mr-1" />{realContent.reading1Time} min reading</Badge>}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-3 pb-4">
@@ -1444,6 +1453,7 @@ export default function Home() {
                     <CardHeader className="pb-2 bg-emerald-50/50">
                       <CardTitle className="text-sm font-bold text-emerald-800 flex items-center gap-2">
                         <BookOpen className="w-4 h-4" /> {realContent.reading2Title}
+                        {realContent.reading2Time && <Badge className="bg-emerald-200 text-emerald-800 text-[10px] ml-auto"><Timer className="w-2.5 h-2.5 mr-1" />{realContent.reading2Time} min reading</Badge>}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-3 pb-4">
@@ -1597,44 +1607,58 @@ export default function Home() {
             })}
 
             {/* Dynamic Visual — renders based on lesson's visualType */}
-            {realContent?.visualType === 'map' && mapMarkers.length > 0 && (
-              <div>
-                <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
-                  <Map className="w-4 h-4 text-emerald-600" /> Interactive Map
-                </h4>
-                <InteractiveMap markers={mapMarkers} />
-              </div>
-            )}
-
-            {realContent?.visualType === 'venn' && realContent.visualData && (
-              <ComparisonChart
-                leftTitle={(realContent.visualData as Record<string, unknown>).leftTitle as string || 'Left'}
-                rightTitle={(realContent.visualData as Record<string, unknown>).rightTitle as string || 'Right'}
-                centerTitle={(realContent.visualData as Record<string, unknown>).centerTitle as string || 'Shared'}
-                leftItems={((realContent.visualData as Record<string, unknown>).leftItems as string[]) || []}
-                rightItems={((realContent.visualData as Record<string, unknown>).rightItems as string[]) || []}
-                centerItems={((realContent.visualData as Record<string, unknown>).centerItems as string[]) || []}
-              />
-            )}
-
-            {realContent?.visualType === 'chart' && realContent.visualData && (
-              <LessonBarChart data={realContent.visualData as { title: string; items: Array<{ label: string; value: number; description: string }> }} />
-            )}
-
-            {realContent?.visualType === 'piechart' && realContent.visualData && (
-              <LessonPieChart data={realContent.visualData as { title: string; items: Array<{ label: string; value: number; description: string }> }} />
-            )}
-
-            {realContent?.visualType === 'timeline' && realContent.visualData && (
-              <LessonTimeline data={realContent.visualData as { title: string; events: Array<{ year: string; event: string }> }} />
-            )}
-
-            {realContent?.visualType === 'diagram' && realContent.visualData && (
-              <LessonDiagram data={realContent.visualData as { title: string; items: string[] }} />
-            )}
-
-            {realContent?.visualType === 'mindmap' && realContent.visualData && (
-              <LessonMindMap data={realContent.visualData as { title: string; center: string; branches: Array<{ label: string; children: string[] }> }} />
+            {realContent?.visualType && realContent.visualType !== 'none' && (
+              <Card className="border-2 border-[#722F37] bg-gradient-to-br from-[#722F37]/5 to-transparent overflow-hidden">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    {realContent.visualType === 'map' ? <Map className="w-5 h-5 text-[#722F37]" /> :
+                     realContent.visualType === 'timeline' ? <Calendar className="w-5 h-5 text-[#722F37]" /> :
+                     realContent.visualType === 'venn' ? <Target className="w-5 h-5 text-[#722F37]" /> :
+                     realContent.visualType === 'diagram' ? <Brain className="w-5 h-5 text-[#722F37]" /> :
+                     realContent.visualType === 'chart' ? <BarChart3 className="w-5 h-5 text-[#722F37]" /> :
+                     realContent.visualType === 'piechart' ? <BarChart3 className="w-5 h-5 text-[#722F37]" /> :
+                     <Sparkles className="w-5 h-5 text-[#722F37]" />}
+                    <h4 className="font-bold text-[#722F37] text-sm">
+                      {realContent.visualType === 'map' ? 'Interactive Map' :
+                       realContent.visualType === 'timeline' ? 'Historical Timeline' :
+                       realContent.visualType === 'venn' ? 'Comparison Chart' :
+                       realContent.visualType === 'diagram' ? 'Concept Diagram' :
+                       realContent.visualType === 'chart' ? 'Data Chart' :
+                       realContent.visualType === 'piechart' ? 'Data Chart' :
+                       realContent.visualType === 'mindmap' ? 'Mind Map' : 'Visual'}
+                    </h4>
+                    <Badge className="bg-[#722F37]/10 text-[#722F37] border-[#722F37]/20 text-[10px]">Interactive</Badge>
+                  </div>
+                  {realContent.visualType === 'map' && mapMarkers.length > 0 && (
+                    <InteractiveMap markers={mapMarkers} />
+                  )}
+                  {realContent.visualType === 'venn' && realContent.visualData && (
+                    <ComparisonChart
+                      leftTitle={(realContent.visualData as Record<string, unknown>).leftTitle as string || 'Left'}
+                      rightTitle={(realContent.visualData as Record<string, unknown>).rightTitle as string || 'Right'}
+                      centerTitle={(realContent.visualData as Record<string, unknown>).centerTitle as string || 'Shared'}
+                      leftItems={((realContent.visualData as Record<string, unknown>).leftItems as string[]) || []}
+                      rightItems={((realContent.visualData as Record<string, unknown>).rightItems as string[]) || []}
+                      centerItems={((realContent.visualData as Record<string, unknown>).centerItems as string[]) || []}
+                    />
+                  )}
+                  {realContent.visualType === 'chart' && realContent.visualData && (
+                    <LessonBarChart data={realContent.visualData as { title: string; items: Array<{ label: string; value: number; description: string }> }} />
+                  )}
+                  {realContent.visualType === 'piechart' && realContent.visualData && (
+                    <LessonPieChart data={realContent.visualData as { title: string; items: Array<{ label: string; value: number; description: string }> }} />
+                  )}
+                  {realContent.visualType === 'timeline' && realContent.visualData && (
+                    <LessonTimeline data={realContent.visualData as { title: string; events: Array<{ year: string; event: string }> }} />
+                  )}
+                  {realContent.visualType === 'diagram' && realContent.visualData && (
+                    <LessonDiagram data={realContent.visualData as { title: string; items: string[] }} />
+                  )}
+                  {realContent.visualType === 'mindmap' && realContent.visualData && (
+                    <LessonMindMap data={realContent.visualData as { title: string; center: string; branches: Array<{ label: string; children: string[] }> }} />
+                  )}
+                </CardContent>
+              </Card>
             )}
 
             {(!realContent?.visualType || realContent.visualType === 'none') && (

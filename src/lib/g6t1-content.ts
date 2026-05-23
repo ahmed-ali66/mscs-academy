@@ -10,6 +10,9 @@ export interface LessonContent {
   reading1Content: string;
   reading2Title?: string;
   reading2Content?: string;
+  reading1Time?: number;  // minutes assigned for reading Reading 1
+  reading2Time?: number;  // minutes assigned for reading Reading 2
+  kwlExplanation?: string; // Explanation of what KWL is for students
   discussionQuestions: string[];
   keyFacts: string[];
   visualType: 'none' | 'map' | 'timeline' | 'diagram' | 'chart' | 'venn' | 'mindmap' | 'piechart';
@@ -29,14 +32,16 @@ export interface LessonContent {
   }[];
 }
 
+const KWL_EXPLANATION = "KWL stands for Know, Want to know, Learned. It's a thinking tool that helps you track your learning. Start by writing what you already Know about the topic, then write what you Want to know, and after the lesson write what you Learned!";
+
 // ═══════════════════════════════════════════════════════════════
-// UNIT 1: EQUALITY AND JUSTICE AS FAIRNESS
+// UNIT 1: EQUALITY AND JUSTICE AS FAIRNESS (2 lessons)
 // ═══════════════════════════════════════════════════════════════
 
 export const g6t1Unit1: LessonContent[] = [
   // Lesson 1: Aspects of Equality Among People
   {
-    lessonId: 'G6_T1_Unit1_l1',
+    lessonId: 'G6_T1_Unit 1_l1',
     keyVocabulary: ['equality', 'fairness', 'justice'],
     reading1Title: 'The Monkey and the Scale',
     reading1Content: `Once upon a time, there were two cats named Fulla and Yasmina. Fulla and Yasmina were good friends and would often help each other look for food.
@@ -64,6 +69,9 @@ After our union, I came to know Sheikh Zayed (may God have mercy upon him) more 
 Sheikh Zayed welcomed everyone into his majlis, regardless of their origin, tribe, sect, denomination or religion. Sheikh Zayed was generous with everyone; he taught everyone and loved everyone. Everyone loved him in return, irrespective of their differences, and they all prayed for his soul.
 
 This is the legacy of Sheikh Zayed and Sheikh Rashid. Sheikh Zayed's greatest legacies were his values, spirit and morals."`,
+    reading1Time: 7,
+    reading2Time: 5,
+    kwlExplanation: KWL_EXPLANATION,
     discussionQuestions: [
       'What happened between the monkey and the cats? Why did both cats end up with nothing?',
       'How could Fulla and Yasmina have solved their dispute fairly without the monkey?',
@@ -104,11 +112,11 @@ This is the legacy of Sheikh Zayed and Sheikh Rashid. Sheikh Zayed's greatest le
     ],
   },
 
-  // Lesson 2: How is Fair Distribution Accomplished
+  // Lesson 2: Distributive Justice (merged from former L2-L5)
   {
-    lessonId: 'G6_T1_Unit1_l2',
-    keyVocabulary: ['fair distribution', 'resources', 'allocation'],
-    reading1Title: 'How Is Fair Distribution Accomplished?',
+    lessonId: 'G6_T1_Unit 1_l2',
+    keyVocabulary: ['distributive justice', 'fair distribution', 'merit', 'need', 'equality', 'accountability', 'standards'],
+    reading1Title: 'Fair Distribution and the Elephant and the Blind Men',
     reading1Content: `Fair distribution means making sure that resources, opportunities, and benefits are shared in a way that is just and equitable. This does not always mean giving everyone exactly the same thing — it means giving each person what they need to have a fair chance at success.
 
 Think about a classroom. If a teacher gives every student the same size chair, that seems equal. But what if one student is much taller than the others? That student would be uncomfortable. Fair distribution means considering people's different needs and circumstances.
@@ -120,49 +128,11 @@ The UAE works to achieve fair distribution through:
 - Free healthcare for all citizens
 - Subsidised housing programmes
 - Social support for low-income families
-- Equal job opportunities protected by law`,
-    discussionQuestions: [
-      'What is the difference between giving everyone the same thing and giving everyone what they need?',
-      'How does the UAE ensure fair distribution of resources?',
-      'Can you think of a situation where equal treatment is not the same as fair treatment?',
-    ],
-    keyFacts: [
-      'Fair distribution means sharing resources in a way that is just and equitable',
-      'Equal treatment and fair treatment are not always the same thing',
-      'Governments use laws, taxes, and social programmes to achieve fair distribution',
-      'The UAE provides free education, free healthcare, subsidised housing, and social support',
-      'Fair distribution considers people\'s different needs and circumstances',
-    ],
-    visualType: 'chart',
-    visualData: {
-      title: 'UAE Fair Distribution Systems',
-      items: [
-        { label: 'Free Education', value: 95, description: 'K-12 and university for all citizens' },
-        { label: 'Free Healthcare', value: 90, description: 'Comprehensive coverage for citizens' },
-        { label: 'Housing Support', value: 75, description: 'Subsidised housing programmes' },
-        { label: 'Job Protection', value: 85, description: 'Equal opportunity laws' },
-      ],
-    },
-    quizQuestions: [
-      { id: 'u1l2q1', question: 'What is the difference between equal treatment and fair treatment?', options: ['They are exactly the same', 'Equal treatment gives everyone the same thing; fair treatment gives everyone what they need', 'Fair treatment always means giving more to some people', 'Equal treatment is always better'], correctAnswer: 1, explanation: 'Equal treatment means giving everyone the same thing regardless of circumstances. Fair treatment considers different needs and gives each person what they need for a fair chance.' },
-      { id: 'u1l2q2', question: 'Which of the following is an example of fair (but not equal) distribution?', options: ['Giving every student the same textbook', 'Providing extra tutoring for students who are struggling', 'Charging everyone the same price for food', 'Giving every employee the same salary'], correctAnswer: 1, explanation: 'Extra tutoring for struggling students is fair (not equal) because it addresses different needs so everyone has a chance to succeed.' },
-      { id: 'u1l2q3', question: 'How does the UAE support fair distribution of resources?', options: ['By charging for all services', 'Through free education, healthcare, housing programmes, and equal opportunity laws', 'By giving everyone the same amount of money', 'By not getting involved in distribution'], correctAnswer: 1, explanation: 'The UAE supports fair distribution through free education, free healthcare, subsidised housing, social support, and equal opportunity laws.' },
-      { id: 'u1l2q4', question: 'Why might a government use taxes as a tool for fair distribution?', options: ['To punish wealthy people', 'To collect money that can be used for public services like education and healthcare', 'Taxes have nothing to do with fair distribution', 'Only to build roads'], correctAnswer: 1, explanation: 'Taxes allow governments to collect revenue and redistribute it through public services, ensuring all people have access to essential resources regardless of their personal wealth.' },
-      { id: 'u1l2q5', question: 'In a classroom, a teacher gives extra time on a test to a student with a learning disability. Is this fair?', options: ['No, because it is not equal treatment', 'Yes, because fair treatment means giving each person what they need to have an equal opportunity', 'Only if all students get extra time', 'It depends on the student\'s grade'], correctAnswer: 1, explanation: 'Fairness does not always mean sameness. Giving a student with a learning disability extra time levels the playing field so they have an equal opportunity to demonstrate their knowledge.' },
-    ],
-    interactiveStrategies: [
-      { strategy: 'Problem-Based Learning', description: 'Create a fair distribution plan for limited school tablets', duration: 8, instructions: 'Your school has 20 new tablets but 30 students. Work in groups of 4 to create a fair distribution plan. Present your plan to the class.' },
-      { strategy: 'Index Cards', description: 'Write an example of fair but not equal distribution', duration: 4, instructions: 'On your index card, write one example of fair (but not equal) distribution. We will share and discuss as a class.' },
-      { strategy: 'Blogs', description: 'Write a short blog post about fairness in your daily life', duration: 5, instructions: 'Write a short blog post (5-7 sentences) about a time when you experienced fair or unfair treatment. How did it affect you? What would fairness look like in that situation?' },
-    ],
-  },
+- Equal job opportunities protected by law
 
-  // Lesson 3: Distributive Justice
-  {
-    lessonId: 'G6_T1_Unit1_l3',
-    keyVocabulary: ['distributive justice', 'equality', 'fairness', 'justice'],
-    reading1Title: 'The Elephant and the Blind Men',
-    reading1Content: `An Indian parable tells the story of six blind men who heard that an enormous elephant would be brought to their town to take part in an annual celebration. The six men went to talk to the town governor and asked his permission to touch the elephant when it came. They had heard about elephants and how big they were, but they could not imagine their shape or form. The governor agreed and asked each of them to describe the elephant in one sentence after touching it.
+---
+
+An Indian parable tells the story of six blind men who heard that an enormous elephant would be brought to their town to take part in an annual celebration. The six men went to talk to the town governor and asked his permission to touch the elephant when it came. They had heard about elephants and how big they were, but they could not imagine their shape or form. The governor agreed and asked each of them to describe the elephant in one sentence after touching it.
 
 On the day of the celebration and in the presence of the townspeople, the six men surrounded the elephant and began to touch it. When they had finished, they each described the elephant in front of the governor and the huge crowd of people.
 
@@ -170,58 +140,11 @@ The first man said, "The elephant looks like a rope." Surprised, the second man 
 
 During each description, everyone, except the governor, laughed loudly. After the six men had finished, the governor stood up and made a sign to the crowd to stop laughing. When everyone was quiet, he addressed them:
 
-"Every one of them was right about the description of the part of the elephant they touched. The first man said the elephant looked like a rope because he touched the tail. The second one said the elephant is like a wall because he touched its side. The third one said it is like a spear because he touched the tusk. The fourth one said the elephant is like a snake because he touched the trunk. The fifth one said the elephant is like a fan because he touched one of its ears. And the last one said the elephant is like a tree trunk because he touched its leg. So, each of the six was partially right; the only mistake they made was not waiting to know the whole truth. We also, without exception, often make this mistake. We speak about part of the truth and we think that this part is the whole truth."`,
-    reading2Title: 'Healthcare Funding and Distributive Justice',
-    reading2Content: `Human societies are experiencing changes caused by ageing and overpopulation. In addition, health problems such as heart disease, obesity and diabetes are increasing at serious rates. This is putting pressure on the finances of healthcare systems around the world and making it more difficult for countries to increase development and fight poverty.
+"Every one of them was right about the description of the part of the elephant they touched. The first man said the elephant looked like a rope because he touched the tail. The second one said the elephant is like a wall because he touched its side. The third one said it is like a spear because he touched the tusk. The fourth one said the elephant is like a snake because he touched the trunk. The fifth one said the elephant is like a fan because he touched one of its ears. And the last one said the elephant is like a tree trunk because he touched its leg. So, each of the six was partially right; the only mistake they made was not waiting to know the whole truth. We also, without exception, often make this mistake. We speak about part of the truth and we think that this part is the whole truth."
 
-Types of healthcare systems vary widely throughout the world. Each has its own history and unique organisational structure. However, all healthcare systems are funded by one or more of the following resources:
-1. Public taxes imposed by the government
-2. The social health insurance system
-3. Private health insurance
-4. Direct payment of costs by those who receive healthcare
-5. Grants and donations given by charitable institutions and individuals
-
-Most countries have social care systems that are funded with a unique mixture of these five resources. However, the distribution of these resources and the financial amounts differ from one country to another.`,
-    discussionQuestions: [
-      'Was the governor being fair or unfair towards the six blind men when he made them describe the elephant in front of other people?',
-      'What is the lesson of the Elephant and the Blind Men for understanding justice?',
-      'What do you think is the best way to fund a healthcare system?',
-      'What are the challenges that prevent countries from achieving justice in the healthcare sector?',
-    ],
-    keyFacts: [
-      'Distributive justice is about how resources, opportunities, and benefits are fairly distributed in society',
-      'The parable of the Elephant and the Blind Men teaches that partial perspectives can lead to incomplete understanding',
-      'Seeing the "whole truth" is essential for making fair judgments about distribution',
-      'Healthcare systems worldwide are funded through five main sources: public taxes, social insurance, private insurance, direct payment, and donations',
-      'The UAE provides healthcare through a mix of government funding and mandatory health insurance',
-      'Fair distribution in healthcare means ensuring all people can access medical treatment regardless of income',
-      'The scales of justice symbol represents the balance needed in distributive justice',
-    ],
-    visualType: 'diagram',
-    visualData: {
-      title: '5 Sources of Healthcare Funding',
-      items: ['Public Taxes', 'Social Health Insurance', 'Private Health Insurance', 'Direct Payment', 'Grants & Donations'],
-    },
-    quizQuestions: [
-      { id: 'u1l3q1', question: 'In the parable of the Elephant and the Blind Men, what was the governor\'s key message?', options: ['The blind men were stupid', 'Each person was partially right but none saw the whole truth — we must consider all perspectives before making judgments', 'The elephant was too big to describe', 'Only the governor could see the truth'], correctAnswer: 1, explanation: 'The governor explained that each blind man was partially correct about the part they touched, but the mistake was not waiting to know the whole truth. This is a lesson about seeking complete understanding before making judgments.' },
-      { id: 'u1l3q2', question: 'How many main sources fund healthcare systems worldwide?', options: ['2', '3', '5', '7'], correctAnswer: 2, explanation: 'There are 5 main sources: public taxes, social health insurance, private health insurance, direct payment, and grants/donations.' },
-      { id: 'u1l3q3', question: 'What does the symbol of the scales of justice represent in distributive justice?', options: ['That heavier things are more valuable', 'The need to weigh and balance different needs and contributions fairly', 'That justice is about money only', 'That one side should always win'], correctAnswer: 1, explanation: 'The scales of justice symbolise the careful balance needed to weigh different perspectives, needs, and contributions to achieve fair distribution.' },
-      { id: 'u1l3q4', question: 'Why is it difficult for countries to achieve distributive justice in healthcare?', options: ['Because healthcare is not important', 'Because resources are limited and demand is growing due to ageing populations, overpopulation, and rising disease rates', 'Because only wealthy people need healthcare', 'Because there is only one way to fund healthcare'], correctAnswer: 1, explanation: 'Ageing populations, overpopulation, and increasing rates of diseases like heart disease, obesity, and diabetes put pressure on healthcare finances, making fair distribution challenging.' },
-      { id: 'u1l3q5', question: 'The parable of the Elephant and the Blind Men is most relevant to distributive justice because it teaches that:', options: ['Blind people cannot understand justice', 'Animals are not important to society', 'Partial perspectives can lead to unfair conclusions — we need to understand the full picture before distributing resources', 'Only leaders should make distribution decisions'], correctAnswer: 2, explanation: 'The parable shows that when we only see part of the picture, our judgments can be incomplete or biased. For distributive justice, we must consider all perspectives and the full situation before deciding how to distribute resources fairly.' },
-    ],
-    interactiveStrategies: [
-      { strategy: 'Think-Pair-Share', description: 'Discuss how partial perspectives can lead to unfair decisions', duration: 5, instructions: 'Think about the Elephant and the Blind Men story. How might seeing only part of the picture lead to unfair decisions? Discuss with your partner.' },
-      { strategy: 'Simulations', description: 'Simulate a healthcare funding allocation decision', duration: 7, instructions: 'Simulate a healthcare funding decision: You are a government with limited budget. Allocate funds across 5 healthcare sources. Defend your choices.' },
-      { strategy: 'Content Recall', description: 'List the 5 sources of healthcare funding from memory', duration: 3, instructions: 'Without looking at your notes, list the 5 sources of healthcare funding on your index card.' },
-    ],
-  },
-
-  // Lesson 4: Standards of Distributive Justice
-  {
-    lessonId: 'G6_T1_Unit1_l4',
-    keyVocabulary: ['standards', 'criteria', 'merit', 'need', 'equality'],
-    reading1Title: 'Standards of Distributive Justice',
-    reading1Content: `When societies decide how to distribute resources, they use different standards or criteria. Three of the most important standards are:
+This parable teaches us that partial perspectives can lead to incomplete understanding — and seeing the "whole truth" is essential for making fair judgments about how to distribute resources in society.`,
+    reading2Title: 'Standards of Distributive Justice and Justice in Leadership',
+    reading2Content: `When societies decide how to distribute resources, they use different standards or criteria. Three of the most important standards are:
 
 1. Merit — Distributing resources based on what people have earned through their effort, skill, or contribution. For example, a student who studies hard and scores well on an exam earns a high grade.
 
@@ -237,51 +160,22 @@ No single standard is perfect on its own. A just society usually combines all th
 The UAE uses all three standards:
 - Merit: Government jobs and promotions are based on qualifications and performance
 - Need: Social support programmes target low-income families
-- Equality: Free education and healthcare are available to all citizens equally`,
-    discussionQuestions: [
-      'Which standard of distributive justice do you think is most important: merit, need, or equality? Why?',
-      'Can you think of a situation where two standards conflict with each other?',
-      'How does the UAE balance these three standards in practice?',
-    ],
-    keyFacts: [
-      'Three standards of distributive justice: merit, need, and equality',
-      'Merit means distributing based on effort, skill, or contribution',
-      'Need means distributing based on what people require to live decently',
-      'Equality means distributing the same resources to everyone',
-      'No single standard is perfect — a just society combines all three',
-      'The UAE uses all three: merit for jobs, need for social support, equality for basic services',
-    ],
-    visualType: 'venn',
-    visualData: {
-      leftTitle: 'Merit',
-      rightTitle: 'Need',
-      centerTitle: 'Equality',
-      leftItems: ['Effort-based rewards', 'Qualifications', 'Performance pay'],
-      rightItems: ['Basic necessities', 'Support for the vulnerable', 'Healthcare access'],
-      centerItems: ['Free education for all', 'Equal rights under law', 'Equal opportunity'],
-    },
-    quizQuestions: [
-      { id: 'u1l4q1', question: 'Which standard of distributive justice would support giving a scholarship to a student with the highest grades?', options: ['Need', 'Equality', 'Merit', 'None of them'], correctAnswer: 2, explanation: 'Merit-based distribution rewards effort, skill, and achievement. A scholarship for the highest-achieving student is based on merit.' },
-      { id: 'u1l4q2', question: 'A government provides free school meals to children from low-income families but not to wealthier families. Which standard does this follow?', options: ['Merit', 'Need', 'Equality', 'None of them'], correctAnswer: 1, explanation: 'Providing free meals based on low income follows the need standard — giving resources to those who require them most.' },
-      { id: 'u1l4q3', question: 'Why is no single standard of distributive justice perfect on its own?', options: ['Because people do not care about justice', 'Because each standard alone can lead to unfair outcomes — a balance is needed', 'Because there are too many people', 'Because only equality matters'], correctAnswer: 1, explanation: 'Each standard has limitations: merit alone ignores the disadvantaged, need alone ignores effort, and equality alone ignores different circumstances. A just society balances all three.' },
-      { id: 'u1l4q4', question: 'The UAE provides free education to all citizens. Which standard of distributive justice does this represent?', options: ['Merit only', 'Need only', 'Equality', 'None of them'], correctAnswer: 2, explanation: 'Free education for all citizens equally, regardless of income or achievement, represents the equality standard of distributive justice.' },
-      { id: 'u1l4q5', question: 'Can merit and equality ever conflict? Which example shows this?', options: ['No, they always agree', 'Yes — giving everyone the same grade regardless of effort (equality) conflicts with rewarding those who worked hardest (merit)', 'Merit and equality are the same thing', 'Only need conflicts with other standards'], correctAnswer: 1, explanation: 'Merit and equality can conflict when equal treatment (giving everyone the same) does not reward individual effort and achievement. This is why societies must balance multiple standards.' },
-    ],
-    interactiveStrategies: [
-      { strategy: 'Flip Charts', description: 'Create a flip chart comparing Merit, Need, and Equality standards', duration: 8, instructions: 'In groups of 4, create a flip chart comparing Merit, Need, and Equality. Give one real-world example for each standard. Present to the class.' },
-      { strategy: 'Think-Pair-Share', description: 'Discuss which standard of justice is most important', duration: 4, instructions: 'Which standard do you think is most important? Discuss with your partner and be ready to explain why.' },
-      { strategy: 'Collaborative Work', description: 'Rank situations by which standard of justice they represent', duration: 6, instructions: 'In groups of 3, sort the 8 scenario cards into Merit, Need, or Equality categories. If a scenario could fit more than one, discuss why. Be ready to defend your choices.' },
-    ],
-  },
+- Equality: Free education and healthcare are available to all citizens equally
 
-  // Lesson 5: Justice in Leadership
-  {
-    lessonId: 'G6_T1_Unit1_l5',
-    keyVocabulary: ['leadership', 'justice', 'responsibility', 'accountability'],
-    reading1Title: 'Justice in Leadership',
-    reading1Content: `A leader who is just treats all people fairly and makes decisions based on what is right, not what benefits them personally. Justice in leadership means being accountable, transparent, and committed to the welfare of all people — not just a select few.
+---
 
-Throughout history, just leaders have been remembered for their fairness. The UAE's founding father, Sheikh Zayed bin Sultan Al Nahyan, is an example of a leader who embodied justice. He was known for his open majlis where anyone could bring their concerns, regardless of their status or background.
+Healthcare systems around the world also face the challenge of distributive justice. Human societies are experiencing changes caused by ageing and overpopulation. Health problems such as heart disease, obesity and diabetes are increasing at serious rates, putting pressure on healthcare finances. All healthcare systems are funded by one or more of these five resources:
+1. Public taxes imposed by the government
+2. The social health insurance system
+3. Private health insurance
+4. Direct payment of costs by those who receive healthcare
+5. Grants and donations given by charitable institutions and individuals
+
+Most countries fund healthcare with a unique mixture of these five resources, but the distribution differs from country to country.
+
+---
+
+A leader who is just treats all people fairly and makes decisions based on what is right, not what benefits them personally. Justice in leadership means being accountable, transparent, and committed to the welfare of all people — not just a select few.
 
 Key principles of justice in leadership:
 1. Accountability — Leaders must answer for their decisions and actions
@@ -292,56 +186,64 @@ Key principles of justice in leadership:
 
 The Prophet Muhammad (peace be upon him) said: "The just leader will be with Allah on the Day of Judgment, seated on a throne of light on His right hand." This shows the immense importance Islam places on justice in leadership.
 
+Throughout history, just leaders have been remembered for their fairness. The UAE's founding father, Sheikh Zayed bin Sultan Al Nahyan, is an example of a leader who embodied justice. He was known for his open majlis where anyone could bring their concerns, regardless of their status or background.
+
 In the UAE, the Federal National Council gives citizens a voice in governance. The President and the Rulers of each emirate hold regular majlis sessions where people can raise concerns directly. This system of consultative governance (Shura) ensures that leadership remains connected to the needs of the people.`,
+    reading1Time: 8,
+    reading2Time: 5,
+    kwlExplanation: KWL_EXPLANATION,
     discussionQuestions: [
-      'What makes a leader just or unjust?',
-      'How does the UAE majlis system promote justice in leadership?',
-      'Why is accountability important for leaders?',
-      'Can you name a historical leader known for justice? What did they do?',
+      'What is the difference between giving everyone the same thing and giving everyone what they need?',
+      'What does the parable of the Elephant and the Blind Men teach us about making fair decisions?',
+      'Which standard of distributive justice do you think is most important: merit, need, or equality? Why?',
+      'How does the UAE ensure fair distribution of resources through its government programmes?',
+      'What makes a leader just or unjust, and how does the UAE majlis system promote justice in leadership?',
     ],
     keyFacts: [
+      'Fair distribution means sharing resources in a way that is just and equitable, not necessarily identical',
+      'Equal treatment and fair treatment are not always the same thing',
+      'The parable of the Elephant and the Blind Men teaches that partial perspectives can lead to unfair conclusions',
+      'Three standards of distributive justice: merit, need, and equality',
+      'Merit means distributing based on effort, skill, or contribution',
+      'Need means distributing based on what people require to live decently',
+      'Equality means distributing the same resources to everyone',
+      'No single standard is perfect — a just society combines all three',
+      'The UAE uses all three: merit for jobs, need for social support, equality for basic services',
+      'Healthcare systems worldwide are funded through five main sources: public taxes, social insurance, private insurance, direct payment, and donations',
       'Just leaders treat all people fairly and make decisions based on what is right',
       'Key principles of just leadership: accountability, transparency, inclusiveness, consistency, wisdom',
       'Sheikh Zayed is an example of a just leader who welcomed everyone to his majlis',
-      'Islam places great emphasis on justice in leadership',
       'The UAE uses consultative governance (Shura) through the Federal National Council and majlis sessions',
-      'Accountability means leaders must answer for their decisions',
     ],
-    visualType: 'chart',
+    visualType: 'diagram',
     visualData: {
-      title: '5 Principles of Justice in Leadership',
-      items: [
-        { label: 'Accountability', value: 95, description: 'Leaders answer for their decisions' },
-        { label: 'Transparency', value: 90, description: 'Decisions made openly' },
-        { label: 'Inclusiveness', value: 88, description: 'All affected people have a voice' },
-        { label: 'Consistency', value: 92, description: 'Rules applied equally to everyone' },
-        { label: 'Wisdom', value: 85, description: 'Long-term consequences considered' },
-      ],
+      title: '5 Sources of Healthcare Funding',
+      items: ['Public Taxes', 'Social Health Insurance', 'Private Health Insurance', 'Direct Payment', 'Grants & Donations'],
     },
     quizQuestions: [
-      { id: 'u1l5q1', question: 'What does accountability in leadership mean?', options: ['Leaders should never explain their decisions', 'Leaders must answer for their decisions and actions', 'Only followers are accountable', 'Accountability is not important for leaders'], correctAnswer: 1, explanation: 'Accountability means leaders must explain and take responsibility for their decisions and actions, ensuring they serve the people fairly.' },
-      { id: 'u1l5q2', question: 'How does the UAE majlis system promote justice in leadership?', options: ['It allows only wealthy people to speak', 'It gives citizens a direct way to raise concerns to their leaders', 'It has no connection to justice', 'Leaders use it to give speeches only'], correctAnswer: 1, explanation: 'The majlis system allows any citizen to directly approach their ruler with concerns, promoting transparency, inclusiveness, and accountability in leadership.' },
-      { id: 'u1l5q3', question: 'Why is consistency important in just leadership?', options: ['It means leaders never change their mind', 'Rules should be applied equally to everyone, without favouritism', 'Only some people should follow the rules', 'Consistency is not related to justice'], correctAnswer: 1, explanation: 'Consistency means applying rules equally to all people without favouritism or discrimination, which is essential for fair leadership.' },
-      { id: 'u1l5q4', question: 'Sheikh Zayed is remembered as a just leader because:', options: ['He was wealthy', 'He welcomed everyone to his majlis regardless of status or background', 'He never made any decisions', 'He only met with important people'], correctAnswer: 1, explanation: 'Sheikh Zayed was known for his open majlis where anyone — regardless of status, tribe, or background — could come and be heard. This embodies justice in leadership.' },
-      { id: 'u1l5q5', question: 'What is consultative governance (Shura)?', options: ['A leader making all decisions alone', 'A system where leaders consult with the people before making important decisions', 'A type of election', 'A court system'], correctAnswer: 1, explanation: 'Shura (consultative governance) means leaders consult with the people and consider their views before making decisions, ensuring inclusiveness and shared wisdom.' },
+      { id: 'u1l2q1', question: 'What is the difference between equal treatment and fair treatment?', options: ['They are exactly the same', 'Equal treatment gives everyone the same thing; fair treatment gives everyone what they need', 'Fair treatment always means giving more to some people', 'Equal treatment is always better'], correctAnswer: 1, explanation: 'Equal treatment means giving everyone the same thing regardless of circumstances. Fair treatment considers different needs and gives each person what they need for a fair chance.' },
+      { id: 'u1l2q2', question: 'In the parable of the Elephant and the Blind Men, what was the governor\'s key message?', options: ['The blind men were stupid', 'Each person was partially right but none saw the whole truth — we must consider all perspectives before making judgments', 'The elephant was too big to describe', 'Only the governor could see the truth'], correctAnswer: 1, explanation: 'The governor explained that each blind man was partially correct about the part they touched, but the mistake was not waiting to know the whole truth. This is a lesson about seeking complete understanding before making judgments.' },
+      { id: 'u1l2q3', question: 'Which standard of distributive justice would support giving a scholarship to a student with the highest grades?', options: ['Need', 'Equality', 'Merit', 'None of them'], correctAnswer: 2, explanation: 'Merit-based distribution rewards effort, skill, and achievement. A scholarship for the highest-achieving student is based on merit.' },
+      { id: 'u1l2q4', question: 'How does the UAE majlis system promote justice in leadership?', options: ['It allows only wealthy people to speak', 'It gives citizens a direct way to raise concerns to their leaders', 'It has no connection to justice', 'Leaders use it to give speeches only'], correctAnswer: 1, explanation: 'The majlis system allows any citizen to directly approach their ruler with concerns, promoting transparency, inclusiveness, and accountability in leadership.' },
+      { id: 'u1l2q5', question: 'Why is no single standard of distributive justice perfect on its own?', options: ['Because people do not care about justice', 'Because each standard alone can lead to unfair outcomes — a balance is needed', 'Because there are too many people', 'Because only equality matters'], correctAnswer: 1, explanation: 'Each standard has limitations: merit alone ignores the disadvantaged, need alone ignores effort, and equality alone ignores different circumstances. A just society balances all three.' },
     ],
     interactiveStrategies: [
-      { strategy: 'Role Playing', description: 'Role-play a just vs. unjust leader making a decision', duration: 8, instructions: 'One student plays a just leader, another plays an unjust leader. Each must decide: Should we build a new school or a new mall? Show how each leader makes their decision.' },
-      { strategy: 'Student Presentations', description: 'Research and present about a just leader', duration: 7, instructions: 'Research a leader known for justice (past or present). Prepare a 2-minute presentation about what made them just.' },
-      { strategy: 'Wikis', description: 'Collaboratively build a wiki page about justice in UAE leadership', duration: 6, instructions: 'Contribute one fact about justice in UAE governance to the class wiki. Include the majlis system, FNC, or Shura. Read others\' contributions and add new information.' },
+      { strategy: 'Problem-Based Learning', description: 'Create a fair distribution plan for limited school tablets', duration: 8, instructions: 'Your school has 20 new tablets but 30 students. Work in groups of 4 to create a fair distribution plan using the standards of merit, need, and equality. Present your plan to the class.' },
+      { strategy: 'Simulations', description: 'Simulate a healthcare funding allocation decision', duration: 7, instructions: 'Simulate a healthcare funding decision: You are a government with limited budget. Allocate funds across 5 healthcare sources. Defend your choices using the standards of distributive justice.' },
+      { strategy: 'Flip Charts', description: 'Create a flip chart comparing Merit, Need, and Equality standards', duration: 8, instructions: 'In groups of 4, create a flip chart comparing Merit, Need, and Equality. Give one real-world example for each standard. Present to the class.' },
     ],
   },
 ];
 
 // ═══════════════════════════════════════════════════════════════
-// UNIT 2: PHYSICAL HEALTH AND DIET
+// UNIT 2: PHYSICAL HEALTH AND DIET (2 lessons)
 // ═══════════════════════════════════════════════════════════════
 
 export const g6t1Unit2: LessonContent[] = [
-  // Lesson 1: How Healthy Is Your Lifestyle?
+  // Lesson 1: How Healthy Is Your Lifestyle? (merged from former L1 and L2)
   {
-    lessonId: 'G6_T1_Unit2_l1',
-    keyVocabulary: ['nutrition', 'diet', 'carbohydrate'],
+    lessonId: 'G6_T1_Unit 2_l1',
+    keyVocabulary: ['nutrition', 'diet', 'carbohydrate', 'aerobic', 'flexibility', 'anaerobic', 'hygiene'],
     reading1Title: 'Learning the Health Habit',
     reading1Content: `With child obesity and other health problems like diabetes on the rise in developed countries, child nutrition and health have become frequent topics of discussion.
 
@@ -349,18 +251,36 @@ These issues have an effect not only on the future of children, but also on the 
 
 Experts suggest that good nutrition, physical exercise, and sleeping patterns are among the most important factors that contribute to our health. They also suggest that it is essential that good habits are learned early on in life.
 
-It is important to understand the nutritional value of food and how to prepare and cook quick and easy healthy meals. Exercise should be incorporated into our daily routine, and we should make sure to get enough sleep to ensure we have the healthy minds and bodies we need to achieve our full potential in life and avoid health problems, like obesity or diabetes, in later life.`,
-    reading2Title: 'The Mediterranean Diet',
-    reading2Content: `The Mediterranean diet is known for its health benefits and claims to deter chronic diseases, especially those which are related to the heart.
+It is important to understand the nutritional value of food and how to prepare and cook quick and easy healthy meals. Exercise should be incorporated into our daily routine, and we should make sure to get enough sleep to ensure we have the healthy minds and bodies we need to achieve our full potential in life and avoid health problems, like obesity or diabetes, in later life.
+
+The Mediterranean Diet
+The Mediterranean diet is known for its health benefits and claims to deter chronic diseases, especially those which are related to the heart.
 
 It places great emphasis on olive oil, fish, whole grains, fruit and vegetables, and legumes as its main foods. If you follow this traditional diet, then red meat, dairy and sugary desserts are not eaten on a regular basis. As a result, this kind of diet is low in saturated fat and cholesterol, both of which can be dangerous for heart health. In this kind of diet, protein is obtained from fish and legumes like lentils and beans, all of which are abundant in these countries.
 
 It is also believed that following a Mediterranean diet can benefit the health of your brain. One study revealed that the risk of developing diseases like Parkinson's or Alzheimer's is greatly reduced for people who follow that diet.`,
+    reading2Title: 'Types of Exercise and Healthy Habits',
+    reading2Content: `Aerobic (also known as Cardiovascular or Cardio)
+Aerobic means relating to free oxygen. During this type of exercise you are using large muscle groups which require you to breathe at a higher intensity than when you are at rest. The increase in oxygen intake pumps the blood around your body at a quicker rate so the oxygen can get to your muscles. This type of exercise helps maintain a healthy weight as well as regulating digestive health and strengthening the immune system.
+
+Anaerobic (also known as strength or resistance training)
+This type of exercise tones your muscles making them stronger and firmer. It requires short intense actions that are not reliant on a huge use of oxygen. It also improves the health of your bones, as well as your balance and coordination.
+
+Flexibility and Stretching
+This type of exercise stretches and lengthens your muscles to increase your range of movement. It helps to keep joints flexible and muscles limber. Stretching should only be started when muscles are warm and the body temperature is raised. This type of exercise also creates good posture, helps to prevent injury during more intensive exercise and increases the length of life and overall health of the individual.
+
+Sports activities have many benefits for physical and mental health. Studies showed that regular moderate sports have a positive effect on the immune system. When one exercises, the heart pumps more blood, consequently, improving blood circulation. The lungs' intake of oxygen is increased and the muscles become stronger. All of this makes the immune system better prepared to fight bacteria. Sports also have a positive mental effect on people. Playing sports whether alone or in a team is a good way of releasing stress, it is motivating and rewarding. It also improves the memory and boosts communication.
+
+Basic rules of hygiene are necessary in order to stay healthy. If they are not followed, then it is easy for infections and diseases to threaten our health and the health of everyone we come into contact with. These basic rules include washing hands frequently. Did you know that imposing the rule of washing hands very thoroughly before a surgery remains one of the greatest measures that saved lives? Brushing teeth at least twice a day is another important habit that preserves the health of your teeth.`,
+    reading1Time: 7,
+    reading2Time: 5,
+    kwlExplanation: KWL_EXPLANATION,
     discussionQuestions: [
       'In what ways do health issues affect the country as well as the individual?',
       'Why is it easier to learn good habits early in life?',
-      'What family habits can contribute to health problems?',
+      'Classify these activities: Swimming, Sprinting, Zumba, Ballet, Martial Arts, Football, Gymnastics, Walking, Push Ups — which are aerobic, anaerobic, or flexibility?',
       'What are the main food groups, and how should they be portioned on your plate?',
+      'How can sports be motivating, rewarding, and improve memory and communication?',
     ],
     keyFacts: [
       'The three pillars of health: good nutrition, physical exercise, and adequate sleep',
@@ -371,8 +291,15 @@ It is also believed that following a Mediterranean diet can benefit the health o
       'The Mediterranean diet may reduce risk of Parkinson\'s and Alzheimer\'s diseases',
       'The 5 food groups: fruits, vegetables, proteins, grains, dairy',
       'The average 6-13 year old should sleep 9-11 hours per day',
+      'Three types of exercise: aerobic (cardio), anaerobic (strength), and flexibility (stretching)',
+      'Aerobic exercise uses large muscle groups and increases oxygen intake — helps maintain healthy weight and immune system',
+      'Anaerobic exercise tones muscles, strengthens bones, and improves balance and coordination',
+      'Flexibility exercises increase range of movement, prevent injury, and improve posture',
+      'Regular moderate exercise strengthens the immune system and improves blood circulation',
+      'Sports improve mental health by reducing stress, boosting memory, and improving communication',
+      'Basic hygiene (hand washing, tooth brushing) prevents the spread of infections',
     ],
-    visualType: 'chart',
+    visualType: 'piechart',
     visualData: {
       title: 'The 5 Food Groups',
       items: [
@@ -385,78 +312,21 @@ It is also believed that following a Mediterranean diet can benefit the health o
     },
     quizQuestions: [
       { id: 'u2l1q1', question: 'What are the three main factors that experts say contribute to our health?', options: ['Medication, rest, and supplements', 'Good nutrition, physical exercise, and sleeping patterns', 'Only exercise matters', 'Avoiding all unhealthy food completely'], correctAnswer: 1, explanation: 'Experts identify good nutrition, physical exercise, and adequate sleep as the three most important factors for health.' },
-      { id: 'u2l1q2', question: 'Why is it important to learn healthy habits early in life?', options: ['It is not important', 'Habits formed early are harder to change, and good habits prevent health problems in adulthood', 'Only adults need healthy habits', 'Children naturally eat healthy'], correctAnswer: 1, explanation: 'Habits established in childhood tend to persist into adulthood. Learning healthy habits early prevents chronic health problems later in life.' },
+      { id: 'u2l1q2', question: 'Which type of exercise uses large muscle groups and increases oxygen intake?', options: ['Anaerobic', 'Flexibility', 'Aerobic (Cardio)', 'None of these'], correctAnswer: 2, explanation: 'Aerobic exercise uses large muscle groups and increases oxygen intake, pumping blood faster and strengthening the immune system.' },
       { id: 'u2l1q3', question: 'What is the Mediterranean diet known for?', options: ['Being expensive', 'Deterring chronic diseases, especially heart-related ones, through emphasis on olive oil, fish, whole grains, and vegetables', 'Being only for people from the Mediterranean', 'Containing only meat'], correctAnswer: 1, explanation: 'The Mediterranean diet is associated with reduced risk of chronic diseases, particularly heart disease, due to its emphasis on healthy fats, whole grains, fruits, vegetables, and legumes.' },
-      { id: 'u2l1q4', question: 'How many hours of sleep should the average 6-13 year old get per day?', options: ['5-6 hours', '7-8 hours', '9-11 hours', '12-14 hours'], correctAnswer: 2, explanation: 'The recommended sleep duration for children aged 6-13 is 9-11 hours per day, essential for healthy growth and cognitive development.' },
-      { id: 'u2l1q5', question: 'Which statement about healthy eating is TRUE?', options: ['Frying is the healthiest cooking method', 'Eating homemade food contributes to a healthy body', 'Using electronic devices helps us sleep well', 'Regular exercise can harm bones and muscles'], correctAnswer: 1, explanation: 'Homemade meals tend to be healthier because you control the ingredients and cooking methods. Frying adds unhealthy fats, screens disrupt sleep, and proper exercise strengthens bones and muscles.' },
+      { id: 'u2l1q4', question: 'Why should stretching only begin when muscles are warm?', options: ['Cold muscles stretch better', 'Stretching cold muscles can cause injury; warm muscles are more flexible and less prone to damage', 'It does not matter when you stretch', 'Stretching is not important'], correctAnswer: 1, explanation: 'Stretching cold muscles increases the risk of injury. Warming up raises body temperature and makes muscles more pliable and ready for stretching.' },
+      { id: 'u2l1q5', question: 'How many hours of sleep should the average 6-13 year old get per day?', options: ['5-6 hours', '7-8 hours', '9-11 hours', '12-14 hours'], correctAnswer: 2, explanation: 'The recommended sleep duration for children aged 6-13 is 9-11 hours per day, essential for healthy growth and cognitive development.' },
     ],
     interactiveStrategies: [
       { strategy: 'Collaborative Work', description: 'Design a healthy meal plan using the 5 food groups', duration: 8, instructions: 'In groups of 4, design a healthy meal plan for one day using the 5 food groups. Include breakfast, lunch, dinner, and a snack. Present your plan.' },
-      { strategy: 'Content Recall', description: 'List the 5 food groups from memory', duration: 3, instructions: 'List the 5 food groups from memory on your index card. Which food group should take up the largest portion of your plate?' },
-      { strategy: 'Blogs', description: 'Write a food diary blog post for one day', duration: 5, instructions: 'Write a blog post recording everything you ate yesterday. Categorize each food into the 5 food groups. Were you missing any group? What could you add?' },
-    ],
-  },
-
-  // Lesson 2: Exercise and Healthy Habits
-  {
-    lessonId: 'G6_T1_Unit2_l2',
-    keyVocabulary: ['aerobic', 'flexibility', 'movement', 'anaerobic', 'hygiene'],
-    reading1Title: 'Types of Exercise',
-    reading1Content: `Aerobic (also known as Cardiovascular or Cardio)
-Aerobic means relating to free oxygen. During this type of exercise you are using large muscle groups which require you to breathe at a higher intensity than when you are at rest. The increase in oxygen intake pumps the blood around your body at a quicker rate so the oxygen can get to your muscles. This type of exercise helps maintain a healthy weight as well as regulating digestive health and strengthening the immune system.
-
-Anaerobic (also known as strength or resistance training)
-This type of exercise tones your muscles making them stronger and firmer. It requires short intense actions that are not reliant on a huge use of oxygen. It also improves the health of your bones, as well as your balance and coordination.
-
-Flexibility and Stretching
-This type of exercise stretches and lengthens your muscles to increase your range of movement. It helps to keep joints flexible and muscles limber. Stretching should only be started when muscles are warm and the body temperature is raised. This type of exercise also creates good posture, helps to prevent injury during more intensive exercise and increases the length of life and overall health of the individual.`,
-    reading2Title: 'Health Benefits of Sports and Hygiene',
-    reading2Content: `Sports activities have many benefits for physical and mental health. Studies showed that regular moderate sports have a positive effect on the immune system. When one exercises, the heart pumps more blood, consequently, improving blood circulation. The lungs' intake of oxygen is increased and the muscles become stronger. All of this makes the immune system better prepared to fight bacteria. Sports also have a positive mental effect on people. Playing sports whether alone or in a team is a good way of releasing stress, it is motivating and rewarding. It also improves the memory and boosts communication.
-
-Basic rules of hygiene are necessary in order to stay healthy. If they are not followed, then it is easy for infections and diseases to threaten our health and the health of everyone we come into contact with. These basic rules include washing hands frequently. Did you know that imposing the rule of washing hands very thoroughly before a surgery remains one of the greatest measures that saved lives? Brushing teeth at least twice a day is another important habit that preserves the health of your teeth.`,
-    discussionQuestions: [
-      'Classify these activities: Swimming, Sprinting, Zumba, Ballet, Martial Arts, Football, Gymnastics, Walking, Push Ups — which are aerobic, anaerobic, or flexibility?',
-      'How can sports be motivating, rewarding, and improve memory and communication?',
-      'Why is washing hands before surgery considered one of the greatest life-saving measures?',
-    ],
-    keyFacts: [
-      'Three types of exercise: aerobic (cardio), anaerobic (strength), and flexibility (stretching)',
-      'Aerobic exercise uses large muscle groups and increases oxygen intake — helps maintain healthy weight and immune system',
-      'Anaerobic exercise tones muscles, strengthens bones, and improves balance and coordination',
-      'Flexibility exercises increase range of movement, prevent injury, and improve posture',
-      'Stretching should only begin when muscles are warm',
-      'Regular moderate exercise strengthens the immune system and improves blood circulation',
-      'Sports improve mental health by reducing stress, boosting memory, and improving communication',
-      'Basic hygiene (hand washing, tooth brushing) prevents the spread of infections',
-    ],
-    visualType: 'mindmap',
-    visualData: {
-      title: 'Exercise & Healthy Habits',
-      center: 'Healthy Lifestyle',
-      branches: [
-        { label: 'Aerobic (Cardio)', children: ['Swimming', 'Walking', 'Zumba', 'Football', 'Strengthens heart & immune system'] },
-        { label: 'Anaerobic (Strength)', children: ['Sprinting', 'Push Ups', 'Martial Arts', 'Tones muscles & bones'] },
-        { label: 'Flexibility (Stretching)', children: ['Ballet', 'Gymnastics', 'Yoga', 'Prevents injury & improves posture'] },
-        { label: 'Hygiene Habits', children: ['Wash hands frequently', 'Brush teeth 2x daily', 'Prevents infections & disease'] },
-      ],
-    },
-    quizQuestions: [
-      { id: 'u2l2q1', question: 'Which type of exercise uses large muscle groups and increases oxygen intake?', options: ['Anaerobic', 'Flexibility', 'Aerobic (Cardio)', 'None of these'], correctAnswer: 2, explanation: 'Aerobic exercise uses large muscle groups and increases oxygen intake, pumping blood faster and strengthening the immune system.' },
-      { id: 'u2l2q2', question: 'What is the key difference between aerobic and anaerobic exercise?', options: ['There is no difference', 'Aerobic requires oxygen for sustained activity; anaerobic uses short intense actions without relying on oxygen', 'Anaerobic is better for the heart', 'Aerobic builds more muscle'], correctAnswer: 1, explanation: 'Aerobic exercise relies on oxygen for sustained activity (like running or swimming), while anaerobic exercise involves short, intense actions that do not require large oxygen use (like sprinting or push ups).' },
-      { id: 'u2l2q3', question: 'Why should stretching only begin when muscles are warm?', options: ['Cold muscles stretch better', 'Stretching cold muscles can cause injury; warm muscles are more flexible and less prone to damage', 'It does not matter when you stretch', 'Stretching is not important'], correctAnswer: 1, explanation: 'Stretching cold muscles increases the risk of injury. Warming up raises body temperature and makes muscles more pliable and ready for stretching.' },
-      { id: 'u2l2q4', question: 'Which of the following is BOTH a physical and mental benefit of sports?', options: ['Only stronger muscles', 'Improved blood circulation AND reduced stress with better memory', 'Only weight loss', 'Only better coordination'], correctAnswer: 1, explanation: 'Sports benefit both body (improved circulation, stronger muscles, better immune system) and mind (reduced stress, improved memory, boosted communication).' },
-      { id: 'u2l2q5', question: 'Why is hand washing considered one of the greatest life-saving measures in medical history?', options: ['It makes hands smell nice', 'Thorough hand washing before surgery prevents the spread of bacteria and infections, saving countless lives', 'It is only important for doctors', 'It replaces the need for medicine'], correctAnswer: 1, explanation: 'Imposing thorough hand washing before surgery was a breakthrough that dramatically reduced infection rates and saved millions of lives.' },
-    ],
-    interactiveStrategies: [
       { strategy: 'Simulations', description: 'Categorize exercises and demonstrate each type', duration: 7, instructions: 'Simulate an exercise routine: As a class, categorize these activities into Aerobic, Anaerobic, or Flexibility. Stand up and demonstrate one exercise from each category!' },
-      { strategy: 'Think-Pair-Share', description: 'Share your favourite physical activities and their types', duration: 5, instructions: 'Share with your partner: What physical activities do you enjoy? Which type of exercise are they? How could you add more variety?' },
-      { strategy: 'Flip Charts', description: 'Create a flip chart of 3 exercise types with examples', duration: 6, instructions: 'In groups of 3, create a flip chart with 3 columns: Aerobic, Anaerobic, Flexibility. List at least 5 activities under each. Include a drawing of someone doing one exercise from each type.' },
+      { strategy: 'Content Recall', description: 'List the 5 food groups and 3 exercise types from memory', duration: 4, instructions: 'Without looking at your notes, list the 5 food groups and the 3 types of exercise on your index card.' },
     ],
   },
 
-  // Lesson 3: Challenges to Health and Getting Help
+  // Lesson 2: Challenges to Health and Getting Help
   {
-    lessonId: 'G6_T1_Unit2_l3',
+    lessonId: 'G6_T1_Unit 2_l2',
     keyVocabulary: ['challenge', 'consequence', 'disease', 'obesity', 'sedentary'],
     reading1Title: 'Challenges to Health',
     reading1Content: `Some colleges in the UAE are leading by example when it comes to facing the challenge of global obesity and promoting healthy living. Students are being taught about health and wellbeing right from the basics of food intake and energy levels. Healthy living is reinforced by the college. The cafeteria serves only healthy meals and soft drinks have been banned on campus.
@@ -466,11 +336,32 @@ A sedentary lifestyle, in which young people spend most of the day sitting eithe
 Another cause of increased weight among young people is fizzy drinks. A recent study found that many young people consume more than one 330ml can a day. Results showed more tooth decay among soda drinkers. Also, people who drink soft drinks had nearly five times more risk of suffering a bone fracture than those who did not.
 
 The government of the UAE is working closely with other organisations to address the problem and efforts are ongoing to ensure the health of the population.`,
+    reading2Title: 'Getting Help and Taking Responsibility',
+    reading2Content: `When facing health challenges, it is important to know where to get help and to take responsibility for your own health.
+
+Hippocrates, the ancient Greek physician known as the "father of medicine," said: "If we could give every individual the right amount of nourishment and exercise, not too little and not too much, we would have found the safest way to health." This means that balance in both diet and physical activity is the key to health — neither too much nor too little.
+
+Individuals, families, and society all share responsibility for ensuring healthy lives:
+- Individuals: Making smart daily choices about food, exercise, and sleep
+- Families: Creating a home environment that supports healthy habits
+- Society: Providing education, healthcare, and safe spaces for physical activity
+
+If you or someone you know is struggling with health issues, there are many places to get help:
+- School counsellors and nurses
+- Family doctors and healthcare clinics
+- Community health programmes
+- Government health initiatives and hotlines
+
+Remember: asking for help is a sign of strength, not weakness. The earlier you address a health concern, the easier it is to overcome.`,
+    reading1Time: 7,
+    reading2Time: 4,
+    kwlExplanation: KWL_EXPLANATION,
     discussionQuestions: [
       'Why do you think a ban on soft drinks was introduced in UAE colleges?',
       'What reasons can you give for the sedentary lifestyle mentioned in the article?',
       'What are the responsibilities of the individual, family, and society in ensuring healthy lives?',
       'Why is obesity referred to as "a global health problem"?',
+      'Where can someone go to get help with a health challenge?',
     ],
     keyFacts: [
       'A sedentary lifestyle (too much sitting) is a major cause of obesity',
@@ -478,7 +369,9 @@ The government of the UAE is working closely with other organisations to address
       'Fizzy drinks cause tooth decay and increase bone fracture risk by nearly 5 times',
       'The UAE has banned soft drinks in some school cafeterias',
       'Obesity is considered a global health problem',
-      'Walking 30 minutes daily at elevated heart rate is an achievable fitness goal',
+      'Hippocrates taught that balance in nourishment and exercise is the safest way to health',
+      'Individuals, families, and society all share responsibility for health',
+      'Help is available from school counsellors, doctors, community programmes, and government initiatives',
     ],
     visualType: 'diagram',
     visualData: {
@@ -486,14 +379,14 @@ The government of the UAE is working closely with other organisations to address
       items: ['Sedentary Lifestyle → Walk 30 min/day', 'Fizzy Drinks → Water & Milk', 'Poor Diet → Balanced Meals', 'Lack of Sleep → 9-11 Hours', 'Screen Time → Physical Activity'],
     },
     quizQuestions: [
-      { id: 'u2l3q1', question: 'What is a sedentary lifestyle?', options: ['A lifestyle with lots of exercise', 'A lifestyle where people spend most of the day sitting with little physical activity', 'A lifestyle focused on healthy eating only', 'A lifestyle with too much sleep'], correctAnswer: 1, explanation: 'A sedentary lifestyle means spending most of the day sitting — at school, at home, or in front of screens — with very little physical activity.' },
-      { id: 'u2l3q2', question: 'People who drink soft drinks have how many times more risk of bone fracture compared to non-drinkers?', options: ['2 times', '3 times', '5 times', '10 times'], correctAnswer: 2, explanation: 'Studies show that people who consume soft drinks have nearly 5 times the risk of suffering a bone fracture compared to those who do not.' },
-      { id: 'u2l3q3', question: 'What minimum daily exercise does the article recommend as "a great start"?', options: ['10 minutes of stretching', 'Walking for 30 minutes a day with heart rate above 130 bpm', 'Running for an hour', 'Lifting weights for 45 minutes'], correctAnswer: 1, explanation: 'The article recommends walking for 30 minutes a day while keeping your heart rate above 130 beats per minute as a good starting point for fitness.' },
-      { id: 'u2l3q4', question: 'Why have some UAE colleges banned soft drinks on campus?', options: ['To save money', 'Because soft drinks contribute to obesity, tooth decay, and bone health problems', 'Because students do not like them', 'To promote water companies'], correctAnswer: 1, explanation: 'Soft drinks are linked to obesity, tooth decay, and increased bone fracture risk. Banning them on campus promotes healthier choices among students.' },
-      { id: 'u2l3q5', question: 'Hippocrates said: "If we could give every individual the right amount of nourishment and exercise, not too little and not too much, we would have found the safest way to health." What does this mean?', options: ['Only exercise matters for health', 'Balance in both diet and physical activity is the key to health — neither too much nor too little', 'Nourishment is more important than exercise', 'Health is impossible to achieve'], correctAnswer: 1, explanation: 'Hippocrates emphasised that health comes from the right balance — proper nourishment and appropriate exercise, without excess or deficiency in either.' },
+      { id: 'u2l2q1', question: 'What is a sedentary lifestyle?', options: ['A lifestyle with lots of exercise', 'A lifestyle where people spend most of the day sitting with little physical activity', 'A lifestyle focused on healthy eating only', 'A lifestyle with too much sleep'], correctAnswer: 1, explanation: 'A sedentary lifestyle means spending most of the day sitting — at school, at home, or in front of screens — with very little physical activity.' },
+      { id: 'u2l2q2', question: 'People who drink soft drinks have how many times more risk of bone fracture compared to non-drinkers?', options: ['2 times', '3 times', '5 times', '10 times'], correctAnswer: 2, explanation: 'Studies show that people who consume soft drinks have nearly 5 times the risk of suffering a bone fracture compared to those who do not.' },
+      { id: 'u2l2q3', question: 'What minimum daily exercise does the article recommend as "a great start"?', options: ['10 minutes of stretching', 'Walking for 30 minutes a day with heart rate above 130 bpm', 'Running for an hour', 'Lifting weights for 45 minutes'], correctAnswer: 1, explanation: 'The article recommends walking for 30 minutes a day while keeping your heart rate above 130 beats per minute as a good starting point for fitness.' },
+      { id: 'u2l2q4', question: 'Why have some UAE colleges banned soft drinks on campus?', options: ['To save money', 'Because soft drinks contribute to obesity, tooth decay, and bone health problems', 'Because students do not like them', 'To promote water companies'], correctAnswer: 1, explanation: 'Soft drinks are linked to obesity, tooth decay, and increased bone fracture risk. Banning them on campus promotes healthier choices among students.' },
+      { id: 'u2l2q5', question: 'Hippocrates said: "If we could give every individual the right amount of nourishment and exercise, not too little and not too much, we would have found the safest way to health." What does this mean?', options: ['Only exercise matters for health', 'Balance in both diet and physical activity is the key to health — neither too much nor too little', 'Nourishment is more important than exercise', 'Health is impossible to achieve'], correctAnswer: 1, explanation: 'Hippocrates emphasised that health comes from the right balance — proper nourishment and appropriate exercise, without excess or deficiency in either.' },
     ],
     interactiveStrategies: [
-      { strategy: 'Problem-Based Learning', description: 'Identify health challenges and suggest improvements', duration: 8, instructions: 'Read the scenarios about Nadia, Fahad, Sophie, and Adnan. In pairs, identify each person\'s health challenge and suggest specific changes they could make to improve their health.' },
+      { strategy: 'Problem-Based Learning', description: 'Identify health challenges and suggest improvements', duration: 8, instructions: 'Read the scenarios about people with unhealthy habits. In pairs, identify each person\'s health challenge and suggest specific changes they could make to improve their health.' },
       { strategy: 'Role Playing', description: 'Role-play a health advisor conversation', duration: 6, instructions: 'Role-play a conversation between a student with an unhealthy habit and a health advisor. The advisor should give specific, helpful advice using what you learned.' },
       { strategy: 'Wikis', description: 'Build a class health tips wiki', duration: 5, instructions: 'Add one practical health tip to the class wiki based on today\'s lesson. Read your classmates\' tips and add a new one that hasn\'t been shared yet.' },
     ],
@@ -501,11 +394,57 @@ The government of the UAE is working closely with other organisations to address
 ];
 
 // ═══════════════════════════════════════════════════════════════
-// UNIT 3: PERSPECTIVES OF PEOPLE THROUGH TIME
+// UNIT 3 (General): PERSPECTIVES OF PEOPLE THROUGH TIME (5 lessons)
 // ═══════════════════════════════════════════════════════════════
 
 export const g6t1Unit3: LessonContent[] = [
-  // Lesson 1: After the Fall of the Roman Empire
+  // Lesson 1: Setting Classroom Rules & Diagnostic Assessment (Week 1)
+  {
+    lessonId: 'G6_T1_General_l1',
+    keyVocabulary: ['expectations', 'respect', 'participation', 'consent', 'assessment'],
+    reading1Title: 'Welcome to MSCS Academy!',
+    reading1Content: `Welcome to a new year of Moral, Social, and Cultural Studies! This year, you will explore important questions about fairness, health, history, and what it means to be a responsible citizen.
+
+In this course, you will:
+• Learn about equality, justice, and fairness
+• Discover how to stay healthy and make good choices
+• Explore the fascinating history of civilizations
+• Develop skills to think critically about the world around you
+
+Our classroom is a community where everyone's voice matters. To make this a great learning environment, we need to agree on some rules together. Good rules help everyone feel safe, respected, and ready to learn.
+
+Remember: This is YOUR learning journey. The more you put into it, the more you will get out of it!`,
+    reading1Time: 5,
+    kwlExplanation: KWL_EXPLANATION,
+    discussionQuestions: [
+      'What rule do you think is most important for our classroom? Why?',
+      'How can we make sure everyone feels respected during discussions?',
+      'What are you most looking forward to learning in MSCS this year?',
+    ],
+    keyFacts: [
+      'MSCS stands for Moral, Social, and Cultural Studies',
+      'This course covers 9 domain standards from history to ethics to digital literacy',
+      'Every lesson follows a structured 45-minute format with active learning strategies',
+      'You will use KWL charts, quizzes, discussions, and hands-on activities',
+      'Respect and participation are the foundations of our classroom community',
+      'Parental consent is required before you can take online assessments',
+    ],
+    visualType: 'none',
+    quizQuestions: [
+      { id: 'g1q1', question: 'What does MSCS stand for?', options: ['Math, Science, and Computer Studies', 'Moral, Social, and Cultural Studies', 'Music, Sports, and Creative Skills', 'Modern Social and Civic Studies'], correctAnswer: 1, explanation: 'MSCS stands for Moral, Social, and Cultural Studies — a subject that helps you understand values, society, and culture.' },
+      { id: 'g1q2', question: 'Why are classroom rules important?', options: ['They are not important', 'They help everyone feel safe, respected, and ready to learn', 'They only exist to punish students', 'They are set by the government'], correctAnswer: 1, explanation: 'Classroom rules create a safe and respectful environment where everyone can focus on learning.' },
+      { id: 'g1q3', question: 'How many domain standards does the MSCS curriculum cover?', options: ['3', '5', '9', '12'], correctAnswer: 2, explanation: 'The MSCS curriculum covers 9 domain standards (S1-S9), ranging from history and governance to ethics and digital literacy.' },
+      { id: 'g1q4', question: 'What is required before you can take online assessments?', options: ['Nothing', 'A permission slip from a friend', 'Parental consent from a parent or guardian aged 18+', 'A password from the teacher'], correctAnswer: 2, explanation: 'UAE law requires parental consent for students to participate in digital learning activities and assessments.' },
+      { id: 'g1q5', question: 'What does KWL stand for?', options: ['Kids Who Learn', 'Know, Want to know, Learned', 'Keep Working Longer', 'Knowledge, Wisdom, Learning'], correctAnswer: 1, explanation: 'KWL stands for Know, Want to know, Learned — a thinking tool that helps you track your learning before, during, and after a lesson.' },
+    ],
+    interactiveStrategies: [
+      { strategy: 'Collaborative Work', description: 'Co-create classroom rules as a class', duration: 10, instructions: 'Work in small groups to brainstorm 3-5 classroom rules. Write each rule on a sticky note. We will share and vote on the best rules as a class to create our classroom agreement.' },
+      { strategy: 'Think-Pair-Share', description: 'Share your expectations for the year', duration: 5, instructions: 'Think about what you hope to learn this year. Share with your partner: What topic are you most excited about? What do you want to get better at?' },
+      { strategy: 'Index Cards', description: 'Write your personal learning goal', duration: 3, instructions: 'On your index card, write one personal learning goal for this year. Keep this card — we will revisit it at the end of the term to see how you did!' },
+    ],
+  },
+
+  // Lesson 2: After the Fall of the Roman Empire
   {
     lessonId: 'G6_T1_General_l2',
     keyVocabulary: ['Common Era (CE)', 'to benefit', 'to conquer', 'destruction', 'domestic', 'barbarian', 'fierce', 'to storm', 'bow', 'present-day'],
@@ -525,6 +464,9 @@ These tensions grew. The Goths declared war against the Romans and won several l
 At about the same time, another fierce group of nomads called the Huns attacked the edges of the empire. The Huns were horsemen armed with larger, more powerful bows than the Romans. Within a decade, the Huns, led by Attila, conquered the eastern territories of the Empire, establishing a kingdom where Hungary, Slovakia, and Romania are today.
 
 The Hun dominance started to decline when their leader, Attila, died in 453 CE. Attacks by other Germanic peoples continued. The Visigoths and Franks took control of most of Western Europe, including France and Spain. The Suevi established a kingdom in the Northwest of the Iberian Peninsula (today part of Spain and Portugal). The Vandals conquered the Roman province of Africa (now present-day Tunisia, Algeria, and Libya). Gradually, the Western Roman Empire began to decline.`,
+    reading1Time: 8,
+    reading2Time: undefined,
+    kwlExplanation: KWL_EXPLANATION,
     discussionQuestions: [
       'Why were common people dissatisfied with the Pax Romana even though it was a period of peace?',
       'Why did the Romans call outsiders "Barbarians"?',
@@ -566,7 +508,7 @@ The Hun dominance started to decline when their leader, Attila, died in 453 CE. 
     ],
   },
 
-  // Lesson 2: The High Middle Ages of Europe
+  // Lesson 3: The High Middle Ages of Europe
   {
     lessonId: 'G6_T1_General_l3',
     keyVocabulary: ['overnight', 'centre of power', 'province', 'capital', 'invader', 'figure', 'prominent', 'border', 'stability'],
@@ -588,6 +530,8 @@ In the 9th century CE, emperors from Macedonia, a country north of Greece, broug
 When Basil I became emperor in 867 CE, art and literature flourished. The movement was similar to the Golden Age of Islamic Culture that was happening in the Middle East. During this period, the Byzantine Empire regained control over territories it had lost.
 
 When Basil II became emperor in 976 CE, he focused on defeating his enemies. After many hard-fought battles, he finally defeated the Bulgarians at the Battle of Kleidion in 1014 CE and annexed Bulgaria into the empire. From there, he expanded into Georgia and Armenia in 1022 CE. These victories helped establish the Byzantine Empire as the largest and most powerful in Europe.`,
+    reading1Time: 7,
+    kwlExplanation: KWL_EXPLANATION,
     discussionQuestions: [
       'What was the Byzantine Empire and why did it survive after the Western Roman Empire fell?',
       'How did the Plague of Justinian affect the Byzantine Empire?',
@@ -647,6 +591,8 @@ The Venetian maritime fleets were useful in many ways. They were called galleys.
 These ships were so powerful that, in 1082, the Byzantine Emperor, Alexios I Komnenos, signed a treaty with Venice. In exchange for the Venetians' help against the Normans, a fierce group of warriors from France, the Venetians enjoyed free trade throughout the empire, without tariffs.
 
 The Venetians controlled several important ports, such as Constantinople. It was a very good deal for the Venetians, who became quite wealthy through trade. They developed such a strong relationship with Egypt that they became Egypt's exclusive European trading partner for spices and other goods.`,
+    reading1Time: 6,
+    kwlExplanation: KWL_EXPLANATION,
     discussionQuestions: [
       'Why was Venice able to become so wealthy and powerful during the Middle Ages?',
       'What was the treaty between Venice and the Byzantine Emperor Alexios I Komnenos?',
@@ -686,7 +632,7 @@ The Venetians controlled several important ports, such as Constantinople. It was
     ],
   },
 
-  // Lesson 4: The Late Middle Ages - The First Hundred Years' War
+  // Lesson 4: The Late Middle Ages: The First Hundred Years' War
   {
     lessonId: 'G6_T1_General_l5',
     keyVocabulary: ['reputation', 'to take place', 'account', 'to convince', 'to expand', 'strategy', 'victorious', 'treaty'],
@@ -706,6 +652,8 @@ John became King of England in 1199 CE after Richard died from injuries in battl
 In 1215, the king signed the Magna Carta, a document that protected the rights of wealthy landowners. King John did not follow the rules of the Magna Carta and so the landowners fought with the king. England was weakened by wars within its own country at the same time as outside the country.
 
 The First Hundred Years' War lasted until 1259, exactly one hundred years after it began. It ended with the signing of the Treaty of Paris on December 4, 1259. The treaty was signed by King John's son, Henry III, and the King of France, Louis IX. By signing the treaty, Henry III agreed to give up many of his lands in France.`,
+    reading1Time: 7,
+    kwlExplanation: KWL_EXPLANATION,
     discussionQuestions: [
       'What were the main causes of the First Hundred Years\' War?',
       'Why was Richard called "the Lionheart"?',
@@ -770,6 +718,8 @@ Another major crisis to hit Europe was the bubonic plague, which was called the 
 In crowded European cities, where personal hygiene practices were poor, the bubonic plague spread quickly. Some scientists estimate that the plague killed up to 200 million people — a third to half of all Europeans — in just four years, from 1347 to 1351.
 
 Despite the horrifying nature of the plague, some good came from it. Living standards generally improved as wages increased and the price of food and other goods fell.`,
+    reading1Time: 7,
+    kwlExplanation: KWL_EXPLANATION,
     discussionQuestions: [
       'What caused the Great Famine of 1315-17 CE?',
       'How did the Black Death spread so quickly through Europe?',
@@ -832,12 +782,10 @@ export function getAllG6T1Content(): Record<string, LessonContent> {
   return g6t1ContentMap;
 }
 
-// Helper: Get content by grade, term, unit, lesson index
 export function getLessonContentByPath(gradeKey: string, termKey: string, unitKey: string, lessonIndex: number): LessonContent | null {
-  // Map the path to a lessonId format
   const possibleIds = [
     `${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`,
-    `${gradeKey}_${termKey}_General_l${lessonIndex + 1}`, // "General" unit lessons
+    `${gradeKey}_${termKey}_General_l${lessonIndex + 1}`,
   ];
   for (const id of possibleIds) {
     if (g6t1ContentMap[id]) return g6t1ContentMap[id];
