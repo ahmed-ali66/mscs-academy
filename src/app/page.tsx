@@ -553,6 +553,193 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
   );
 }
 
+// Lesson Timeline Component
+function LessonTimeline({ data }: { data: { title: string; events: Array<{ year: string; event: string }> } }) {
+  const [activeEvent, setActiveEvent] = useState<number | null>(null);
+  return (
+    <div className="space-y-4">
+      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
+        <Calendar className="w-4 h-4 text-amber-600" /> {data.title}
+      </h4>
+      <div className="relative">
+        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#D4AF37] via-amber-300 to-amber-100" />
+        <div className="space-y-3">
+          {data.events.map((evt, i) => (
+            <div key={i} className="flex items-start gap-4 relative cursor-pointer" onClick={() => setActiveEvent(activeEvent === i ? null : i)}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 z-10 transition-all duration-300 ${activeEvent === i ? 'bg-[#722F37] border-2 border-[#D4AF37] scale-110' : 'bg-amber-100 border-2 border-amber-400'}`}>
+                <span className={`text-[9px] font-bold ${activeEvent === i ? 'text-white' : 'text-amber-700'}`}>{i + 1}</span>
+              </div>
+              <div className={`flex-1 rounded-lg p-3 transition-all duration-300 border ${activeEvent === i ? 'bg-[#722F37]/5 border-[#722F37]/30 shadow-md' : 'bg-white border-amber-200 hover:border-amber-300'}`}>
+                <span className="text-xs font-bold text-[#722F37]">{evt.year}</span>
+                <p className={`text-sm text-gray-700 mt-0.5 transition-all ${activeEvent === i ? 'font-medium' : ''}`}>{evt.event}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Lesson Diagram (Hub & Spoke) Component
+function LessonDiagram({ data }: { data: { title: string; items: string[] } }) {
+  const diagramColors = [
+    { bg: 'bg-amber-50', border: 'border-amber-300', text: 'text-amber-800', accent: 'bg-amber-400' },
+    { bg: 'bg-emerald-50', border: 'border-emerald-300', text: 'text-emerald-800', accent: 'bg-emerald-400' },
+    { bg: 'bg-blue-50', border: 'border-blue-300', text: 'text-blue-800', accent: 'bg-blue-400' },
+    { bg: 'bg-purple-50', border: 'border-purple-300', text: 'text-purple-800', accent: 'bg-purple-400' },
+    { bg: 'bg-rose-50', border: 'border-rose-300', text: 'text-rose-800', accent: 'bg-rose-400' },
+    { bg: 'bg-cyan-50', border: 'border-cyan-300', text: 'text-cyan-800', accent: 'bg-cyan-400' },
+    { bg: 'bg-orange-50', border: 'border-orange-300', text: 'text-orange-800', accent: 'bg-orange-400' },
+  ];
+  return (
+    <div className="space-y-4">
+      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
+        <Brain className="w-4 h-4 text-purple-600" /> {data.title}
+      </h4>
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-36 h-36 rounded-full bg-gradient-to-br from-[#722F37] to-[#5A1A23] flex items-center justify-center text-white text-center px-4 shadow-lg relative">
+          <div className="absolute inset-0 rounded-full border-2 border-[#D4AF37]/30" />
+          <span className="text-sm font-bold leading-tight">{data.title}</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full">
+          {data.items.map((item, i) => {
+            const c = diagramColors[i % diagramColors.length];
+            return (
+              <div key={i} className={`rounded-xl border-2 ${c.border} ${c.bg} p-3 text-center hover:shadow-md transition-shadow`}>
+                <div className={`w-6 h-6 rounded-full ${c.accent} mx-auto mb-2`} />
+                <span className={`text-sm font-medium ${c.text}`}>{item}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Lesson Bar Chart Component (using Recharts)
+function LessonBarChart({ data }: { data: { title: string; items: Array<{ label: string; value: number; description: string }> } }) {
+  const COLORS = ['#722F37', '#D4AF37', '#047857', '#D97706', '#7C3AED', '#3B82F6', '#EF4444'];
+  const chartData = data.items.map(item => ({ name: item.label, value: item.value, description: item.description }));
+  return (
+    <div className="space-y-4">
+      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
+        <BarChart3 className="w-4 h-4 text-amber-600" /> {data.title}
+      </h4>
+      <div className="bg-white rounded-xl border border-gray-100 p-4">
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <XAxis dataKey="name" tick={{ fontSize: 10 }} />
+            <YAxis tick={{ fontSize: 10 }} domain={[0, 100]} />
+            <RechartsTooltip
+              formatter={(value: number, _name: string, props: { payload: { description: string } }) => [`${value}%`, props.payload.description]}
+              contentStyle={{ fontSize: '12px', borderRadius: '8px' }}
+            />
+            <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+              {chartData.map((_, i) => (
+                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        {data.items.map((item, i) => (
+          <div key={i} className="flex items-start gap-2 text-xs">
+            <div className="w-3 h-3 rounded shrink-0 mt-0.5" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
+            <div><span className="font-bold">{item.label}</span> <span className="text-gray-500">— {item.description}</span></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Lesson Pie Chart Component (using Recharts)
+function LessonPieChart({ data }: { data: { title: string; items: Array<{ label: string; value: number; description: string }> } }) {
+  const COLORS = ['#722F37', '#D4AF37', '#047857', '#D97706', '#7C3AED', '#3B82F6', '#EF4444'];
+  const chartData = data.items.map(item => ({ name: item.label, value: item.value, description: item.description }));
+  return (
+    <div className="space-y-4">
+      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
+        <BarChart3 className="w-4 h-4 text-amber-600" /> {data.title}
+      </h4>
+      <div className="bg-white rounded-xl border border-gray-100 p-4">
+        <ResponsiveContainer width="100%" height={250}>
+          <PieChart>
+            <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`} labelLine={{ strokeWidth: 1 }} style={{ fontSize: '10px' }}>
+              {chartData.map((_, i) => (
+                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+              ))}
+            </Pie>
+            <RechartsTooltip formatter={(value: number, _name: string, props: { payload: { description: string } }) => [`${value}%`, props.payload.description]} contentStyle={{ fontSize: '12px', borderRadius: '8px' }} />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        {data.items.map((item, i) => (
+          <div key={i} className="flex items-start gap-2 text-xs">
+            <div className="w-3 h-3 rounded shrink-0 mt-0.5" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
+            <div><span className="font-bold">{item.label}</span> <span className="text-gray-500">— {item.description}</span></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Lesson Mind Map Component
+function LessonMindMap({ data }: { data: { title: string; center: string; branches: Array<{ label: string; children: string[] }> } }) {
+  const branchColors = [
+    { bg: 'bg-amber-50', border: 'border-amber-300', text: 'text-amber-800', dot: 'bg-amber-400', headerBg: 'bg-amber-200' },
+    { bg: 'bg-emerald-50', border: 'border-emerald-300', text: 'text-emerald-800', dot: 'bg-emerald-400', headerBg: 'bg-emerald-200' },
+    { bg: 'bg-blue-50', border: 'border-blue-300', text: 'text-blue-800', dot: 'bg-blue-400', headerBg: 'bg-blue-200' },
+    { bg: 'bg-purple-50', border: 'border-purple-300', text: 'text-purple-800', dot: 'bg-purple-400', headerBg: 'bg-purple-200' },
+    { bg: 'bg-rose-50', border: 'border-rose-300', text: 'text-rose-800', dot: 'bg-rose-400', headerBg: 'bg-rose-200' },
+  ];
+  const [expandedBranch, setExpandedBranch] = useState<number | null>(null);
+  return (
+    <div className="space-y-4">
+      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
+        <Brain className="w-4 h-4 text-purple-600" /> {data.title}
+      </h4>
+      <div className="flex justify-center">
+        <div className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#722F37] to-[#5A1A23] text-white font-bold text-center shadow-lg border border-[#D4AF37]/30">
+          {data.center}
+        </div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {data.branches.map((branch, i) => {
+          const color = branchColors[i % branchColors.length];
+          const isExpanded = expandedBranch === i;
+          return (
+            <div key={i} className={`rounded-xl border-2 ${color.border} ${color.bg} overflow-hidden transition-all duration-300 ${isExpanded ? 'shadow-md' : ''}`}>
+              <button className={`w-full ${color.headerBg} px-3 py-2 flex items-center gap-2 text-left`} onClick={() => setExpandedBranch(isExpanded ? null : i)}>
+                <div className={`w-3 h-3 rounded-full ${color.dot} shrink-0`} />
+                <span className={`font-bold text-sm ${color.text} flex-1`}>{branch.label}</span>
+                <ChevronDown className={`w-4 h-4 ${color.text} transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+              </button>
+              <div className={`p-3 space-y-1 transition-all ${isExpanded ? '' : ''}`}>
+                {(isExpanded ? branch.children : branch.children.slice(0, 2)).map((child, j) => (
+                  <div key={j} className="text-xs text-gray-600 flex items-center gap-1.5 pl-4">
+                    <span className="text-gray-400">→</span> {child}
+                  </div>
+                ))}
+                {!isExpanded && branch.children.length > 2 && (
+                  <button className="text-[10px] text-gray-400 pl-4 hover:text-gray-600" onClick={() => setExpandedBranch(i)}>
+                    +{branch.children.length - 2} more...
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 // ═══════════════════════════════════════════════════════════════
 // MAIN APPLICATION
@@ -1334,7 +1521,8 @@ export default function Home() {
               );
             })}
 
-            {mapMarkers.length > 0 && (
+            {/* Dynamic Visual — renders based on lesson's visualType */}
+            {realContent?.visualType === 'map' && mapMarkers.length > 0 && (
               <div>
                 <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
                   <Map className="w-4 h-4 text-emerald-600" /> Interactive Map
@@ -1343,12 +1531,45 @@ export default function Home() {
               </div>
             )}
 
-            <ComparisonChart
-              leftTitle="Key Concepts" rightTitle="UAE Application" centerTitle="Shared"
-              leftItems={standards.slice(0, 3).map(s => `Standard: ${s}`)}
-              rightItems={['UAE national values', 'Local community context', 'Emirati cultural perspective']}
-              centerItems={['Critical thinking', 'Real-world relevance', 'Active citizenship']}
-            />
+            {realContent?.visualType === 'venn' && realContent.visualData && (
+              <ComparisonChart
+                leftTitle={(realContent.visualData as Record<string, unknown>).leftTitle as string || 'Left'}
+                rightTitle={(realContent.visualData as Record<string, unknown>).rightTitle as string || 'Right'}
+                centerTitle={(realContent.visualData as Record<string, unknown>).centerTitle as string || 'Shared'}
+                leftItems={((realContent.visualData as Record<string, unknown>).leftItems as string[]) || []}
+                rightItems={((realContent.visualData as Record<string, unknown>).rightItems as string[]) || []}
+                centerItems={((realContent.visualData as Record<string, unknown>).centerItems as string[]) || []}
+              />
+            )}
+
+            {realContent?.visualType === 'chart' && realContent.visualData && (
+              <LessonBarChart data={realContent.visualData as { title: string; items: Array<{ label: string; value: number; description: string }> }} />
+            )}
+
+            {realContent?.visualType === 'piechart' && realContent.visualData && (
+              <LessonPieChart data={realContent.visualData as { title: string; items: Array<{ label: string; value: number; description: string }> }} />
+            )}
+
+            {realContent?.visualType === 'timeline' && realContent.visualData && (
+              <LessonTimeline data={realContent.visualData as { title: string; events: Array<{ year: string; event: string }> }} />
+            )}
+
+            {realContent?.visualType === 'diagram' && realContent.visualData && (
+              <LessonDiagram data={realContent.visualData as { title: string; items: string[] }} />
+            )}
+
+            {realContent?.visualType === 'mindmap' && realContent.visualData && (
+              <LessonMindMap data={realContent.visualData as { title: string; center: string; branches: Array<{ label: string; children: string[] }> }} />
+            )}
+
+            {(!realContent?.visualType || realContent.visualType === 'none') && (
+              <ComparisonChart
+                leftTitle="Key Concepts" rightTitle="UAE Application" centerTitle="Shared"
+                leftItems={standards.slice(0, 3).map(s => `Standard: ${s}`)}
+                rightItems={['UAE national values', 'Local community context', 'Emirati cultural perspective']}
+                centerItems={['Critical thinking', 'Real-world relevance', 'Active citizenship']}
+              />
+            )}
 
             <AhmedAliLink />
             <DisclaimerBanner />

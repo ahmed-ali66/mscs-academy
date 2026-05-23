@@ -12,7 +12,7 @@ export interface LessonContent {
   reading2Content?: string;
   discussionQuestions: string[];
   keyFacts: string[];
-  visualType: 'none' | 'map' | 'timeline' | 'diagram' | 'chart' | 'venn';
+  visualType: 'none' | 'map' | 'timeline' | 'diagram' | 'chart' | 'venn' | 'mindmap' | 'piechart';
   visualData?: Record<string, unknown>;
   quizQuestions: {
     id: string;
@@ -393,13 +393,15 @@ Basic rules of hygiene are necessary in order to stay healthy. If they are not f
       'Sports improve mental health by reducing stress, boosting memory, and improving communication',
       'Basic hygiene (hand washing, tooth brushing) prevents the spread of infections',
     ],
-    visualType: 'chart',
+    visualType: 'mindmap',
     visualData: {
-      title: '3 Types of Exercise',
-      items: [
-        { label: 'Aerobic', value: 35, description: 'Swimming, Walking, Zumba, Football — heart health' },
-        { label: 'Anaerobic', value: 30, description: 'Sprinting, Push Ups, Martial Arts — muscle strength' },
-        { label: 'Flexibility', value: 35, description: 'Ballet, Gymnastics, Stretching — range of movement' },
+      title: 'Exercise & Healthy Habits',
+      center: 'Healthy Lifestyle',
+      branches: [
+        { label: 'Aerobic (Cardio)', children: ['Swimming', 'Walking', 'Zumba', 'Football', 'Strengthens heart & immune system'] },
+        { label: 'Anaerobic (Strength)', children: ['Sprinting', 'Push Ups', 'Martial Arts', 'Tones muscles & bones'] },
+        { label: 'Flexibility (Stretching)', children: ['Ballet', 'Gymnastics', 'Yoga', 'Prevents injury & improves posture'] },
+        { label: 'Hygiene Habits', children: ['Wash hands frequently', 'Brush teeth 2x daily', 'Prevents infections & disease'] },
       ],
     },
     quizQuestions: [
