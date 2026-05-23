@@ -77,3 +77,42 @@ Stage Summary:
 - 4 AI-generated educational images added to /public/images/g6t3/
 - All Ash'ari framework enrichments are hidden and never attributed
 - Build passes successfully
+
+---
+Task ID: 4
+Agent: Main Agent
+Task: Add G7T1 content — 3 Units, 16 Lessons from actual MoE textbook
+
+Work Log:
+- Read project structure: curriculum_mapping.json (primary data), lessons.ts (parser), page.tsx (renderer)
+- Identified that G7T1 had wrong structure: "General" (10 lessons with exams/breaks), "Unit 1" (2 lessons), "Unit 2" (2 lessons)
+- Completely restructured G7T1 to match the actual MoE textbook:
+  - Unit 1: Individual Responsibilities and Duties and Moral Obligations (5 lessons)
+  - Unit 2: Making Good Decisions (5 lessons)
+  - Unit 3: East Asia — PRIORITY UNIT (6 lessons including Korea's Renaissance)
+- Removed "General" category from G7T1 entirely — no exam/break lessons cluttering the view
+- Each of the 16 lessons has detailed scope_sequence_detail with:
+  - Learning objectives specific to the textbook content
+  - Success criteria aligned to lesson activities
+  - Prior learning engagement connecting to previous lessons
+  - Detailed teaching_learning_activities (IN-CLASS + DISTANCE LEARNING Plan B)
+  - Assessment closure with specific strategies
+  - Resources and materials referencing textbook pages
+  - Homework extensions with creative activities
+- Updated lessons.ts with grade+term-aware unit title overrides (G7_T1_Unit 1/2/3)
+- Added 4 new topic quiz banks: Duties and Responsibilities, Moral Rules, Making Good Decisions, Protection Against Crimes
+- Updated findTopicQuiz function with G7T1-specific keyword mappings
+- Added 15 hero image mappings in page.tsx for all G7T1 lessons
+- Generated 15 AI educational images for /public/images/g7t1/ directory
+- Verified build compiles successfully (next build — zero errors)
+- Committed and pushed to GitHub (ahmed-ali66/mscs-academy)
+- G7T2 and G7T3 left untouched
+
+Stage Summary:
+- G7T1 fully restructured with 3 units and 16 instructional lessons
+- All content matches the actual MoE Grade 7 Volume 1 textbook
+- 4 new quiz banks (20 questions total) for G7T1 topics
+- 15 educational hero images generated
+- Unit title overrides now grade+term-aware
+- No extra/unrelated units visible — only the specified textbook content
+- Build passes, deployed to GitHub (auto-deploys to Vercel)
