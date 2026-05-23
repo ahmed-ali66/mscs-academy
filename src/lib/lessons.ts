@@ -864,7 +864,8 @@ export function saveQuizResult(result: QuizResult): void {
   try {
     const existing = getAllQuizResults();
     existing.push(result);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+    const encoded = btoa(JSON.stringify(existing));
+    localStorage.setItem(STORAGE_KEY, encoded);
   } catch { /* ignore */ }
 }
 
@@ -872,7 +873,14 @@ export function getAllQuizResults(): QuizResult[] {
   if (typeof window === 'undefined') return [];
   try {
     const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+    if (!data) return [];
+    // Try decoded (new format) first, fallback to plain JSON (legacy)
+    try {
+      const decoded = atob(data);
+      return JSON.parse(decoded);
+    } catch {
+      return JSON.parse(data);
+    }
   } catch {
     return [];
   }
@@ -928,3 +936,265 @@ export function getPlatformStats(): { totalGrades: number; totalLessons: number;
     totalActivities,
   };
 }
+
+// ═══════════════════════════════════════════════════════════════
+// CYBERSECURITY UTILITIES
+// ═══════════════════════════════════════════════════════════════
+
+export const MASTER_PASSWORD_HASH = btoa('AhmedAli@MSCS2026');
+export const MASTER_LOGIN_CODE = 'MSCS-MASTER-2026-ADMIN';
+export const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
+
+export function verifyMasterPassword(input: string): boolean {
+  return btoa(input) === MASTER_PASSWORD_HASH;
+}
+
+// Rate limiting for login attempts
+const LOGIN_ATTEMPTS_KEY = 'mscs_login_attempts';
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOCKOUT_DURATION_MS = 5 * 60 * 1000; // 5 minutes
+
+interface LoginAttempt {
+  count: number;
+  lockoutUntil: number;
+}
+
+export function checkLoginRateLimit(): { allowed: boolean; remainingAttempts: number; lockoutUntil: number } {
+  if (typeof window === 'undefined') return { allowed: true, remainingAttempts: MAX_LOGIN_ATTEMPTS, lockoutUntil: 0 };
+  try {
+    const data = localStorage.getItem(LOGIN_ATTEMPTS_KEY);
+    const attempt: LoginAttempt = data ? JSON.parse(data) : { count: 0, lockoutUntil: 0 };
+    const now = Date.now();
+
+    if (attempt.lockoutUntil && now < attempt.lockoutUntil) {
+      return { allowed: false, remainingAttempts: 0, lockoutUntil: attempt.lockoutUntil };
+    }
+
+    if (attempt.lockoutUntil && now >= attempt.lockoutUntil) {
+      attempt.count = 0;
+      attempt.lockoutUntil = 0;
+    }
+
+    return { allowed: attempt.count < MAX_LOGIN_ATTEMPTS, remainingAttempts: MAX_LOGIN_ATTEMPTS - attempt.count, lockoutUntil: 0 };
+  } catch {
+    return { allowed: true, remainingAttempts: MAX_LOGIN_ATTEMPTS, lockoutUntil: 0 };
+  }
+}
+
+export function recordFailedLogin(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const data = localStorage.getItem(LOGIN_ATTEMPTS_KEY);
+    const attempt: LoginAttempt = data ? JSON.parse(data) : { count: 0, lockoutUntil: 0 };
+    attempt.count += 1;
+    if (attempt.count >= MAX_LOGIN_ATTEMPTS) {
+      attempt.lockoutUntil = Date.now() + LOCKOUT_DURATION_MS;
+    }
+    localStorage.setItem(LOGIN_ATTEMPTS_KEY, JSON.stringify(attempt));
+  } catch { /* ignore */ }
+}
+
+export function resetLoginAttempts(): void {
+  if (typeof window === 'undefined') return;
+  try { localStorage.removeItem(LOGIN_ATTEMPTS_KEY); } catch { /* ignore */ }
+}
+
+// Session management
+const SESSION_KEY = 'mscs_session_last_activity';
+
+export function updateSessionActivity(): void {
+  if (typeof window === 'undefined') return;
+  try { localStorage.setItem(SESSION_KEY, Date.now().toString()); } catch { /* ignore */ }
+}
+
+export function isSessionExpired(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const lastActivity = localStorage.getItem(SESSION_KEY);
+    if (!lastActivity) return true;
+    return Date.now() - parseInt(lastActivity) > SESSION_TIMEOUT_MS;
+  } catch { return false; }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LESSON COMPLETION TRACKING
+// ═══════════════════════════════════════════════════════════════
+
+const COMPLETION_KEY = 'mscs_lesson_completions';
+
+export interface LessonCompletion {
+  lessonId: string;
+  studentCode: string;
+  completedAt: string;
+  gradeKey: string;
+}
+
+export function markLessonComplete(lessonId: string, studentCode: string, gradeKey: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const completions = getLessonCompletions();
+    const existing = completions.find(c => c.lessonId === lessonId && c.studentCode === studentCode);
+    if (!existing) {
+      completions.push({ lessonId, studentCode, completedAt: new Date().toISOString(), gradeKey });
+      localStorage.setItem(COMPLETION_KEY, btoa(JSON.stringify(completions)));
+    }
+  } catch { /* ignore */ }
+}
+
+export function getLessonCompletions(): LessonCompletion[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const data = localStorage.getItem(COMPLETION_KEY);
+    if (!data) return [];
+    try { return JSON.parse(atob(data)); } catch { return JSON.parse(data); }
+  } catch { return []; }
+}
+
+export function isLessonCompleted(lessonId: string, studentCode: string): boolean {
+  return getLessonCompletions().some(c => c.lessonId === lessonId && c.studentCode === studentCode);
+}
+
+export function getGradeCompletionPercentage(gradeKey: string, studentCode: string): number {
+  const grade = getGradeInfo().find(g => g.key === gradeKey);
+  if (!grade) return 0;
+  const completions = getLessonCompletions().filter(c => c.gradeKey === gradeKey && c.studentCode === studentCode);
+  let totalLessons = 0;
+  for (const term of grade.terms) {
+    for (const unit of term.units) {
+      totalLessons += unit.lessonCount;
+    }
+  }
+  return totalLessons > 0 ? Math.round((completions.length / totalLessons) * 100) : 0;
+}
+
+export function getNextLesson(gradeKey: string, termKey: string, unitKey: string, currentLessonIndex: number): { gradeKey: string; termKey: string; unitKey: string; lessonIndex: number } | null {
+  const grade = getGradeInfo().find(g => g.key === gradeKey);
+  if (!grade) return null;
+  const allUnits: { termKey: string; unitKey: string; lessonCount: number }[] = [];
+  for (const term of grade.terms) {
+    for (const unit of term.units) {
+      allUnits.push({ termKey: term.key, unitKey: unit.key, lessonCount: unit.lessonCount });
+    }
+  }
+  const currentUnitIdx = allUnits.findIndex(u => u.termKey === termKey && u.unitKey === unitKey);
+  if (currentUnitIdx === -1) return null;
+  if (currentLessonIndex + 1 < allUnits[currentUnitIdx].lessonCount) {
+    return { gradeKey, termKey, unitKey, lessonIndex: currentLessonIndex + 1 };
+  }
+  if (currentUnitIdx + 1 < allUnits.length) {
+    return { gradeKey, termKey: allUnits[currentUnitIdx + 1].termKey, unitKey: allUnits[currentUnitIdx + 1].unitKey, lessonIndex: 0 };
+  }
+  return null;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// STUDENT DATA MANAGEMENT
+// ═══════════════════════════════════════════════════════════════
+
+export function deleteStudentData(studentCode: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    // Remove quiz results
+    const results = getAllQuizResults().filter(r => r.studentCode !== studentCode);
+    localStorage.setItem(STORAGE_KEY, btoa(JSON.stringify(results)));
+    // Remove completions
+    const completions = getLessonCompletions().filter(c => c.studentCode !== studentCode);
+    localStorage.setItem(COMPLETION_KEY, btoa(JSON.stringify(completions)));
+  } catch { /* ignore */ }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DIAGNOSTIC ASSESSMENT STORAGE
+// ═══════════════════════════════════════════════════════════════
+
+const DIAGNOSTIC_KEY = 'mscs_diagnostic_results';
+
+export interface DiagnosticResult {
+  studentCode: string;
+  gradeKey: string;
+  grade: number;
+  score: number;
+  total: number;
+  percentage: number;
+  completedAt: string;
+  answers: Record<string, number | string>;
+}
+
+export function saveDiagnosticResult(result: DiagnosticResult): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const existing = getDiagnosticResults();
+    existing.push(result);
+    localStorage.setItem(DIAGNOSTIC_KEY, btoa(JSON.stringify(existing)));
+  } catch { /* ignore */ }
+}
+
+export function getDiagnosticResults(): DiagnosticResult[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const data = localStorage.getItem(DIAGNOSTIC_KEY);
+    if (!data) return [];
+    try { return JSON.parse(atob(data)); } catch { return JSON.parse(data); }
+  } catch { return []; }
+}
+
+export function hasDiagnosticResult(studentCode: string, gradeKey: string): boolean {
+  return getDiagnosticResults().some(r => r.studentCode === studentCode && r.gradeKey === gradeKey);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DIAGNOSTIC ASSESSMENT QUESTIONS
+// Cumulative, progressively challenging, DOK1→DOK4
+// Target: top students score ~50-65%
+// ═══════════════════════════════════════════════════════════════
+
+export const diagnosticQuestions: Record<string, QuizQuestion[]> = {
+  'G6': [
+    { id: 'g6d1', question: 'Which of the following BEST defines "social justice"?', type: 'multiple-choice', options: ['Treating everyone exactly the same regardless of circumstances', 'Ensuring fair distribution of resources, opportunities, and rights within a society', 'Following laws without questioning them', 'Giving the most resources to the most powerful people'], correctAnswer: 1, explanation: 'Social justice involves the fair and equitable distribution of wealth, opportunities, and privileges within a society, considering both equality and equity.' },
+    { id: 'g6d2', question: 'A school provides free lunch to students from low-income families while other students pay. Which principle does this illustrate?', type: 'multiple-choice', options: ['Equality (treating everyone the same)', 'Equity (giving each person what they need to succeed)', 'Favoritism', 'Discrimination'], correctAnswer: 1, explanation: 'Equity recognizes that different people need different support to reach the same outcome — this is different from equality, which treats everyone identically.' },
+    { id: 'g6d3', question: 'Which historical document FIRST established the principle that rulers are subject to the law?', type: 'multiple-choice', options: ['The Universal Declaration of Human Rights', 'The Magna Carta (1215)', 'The UAE Constitution', 'The United Nations Charter'], correctAnswer: 1, explanation: 'The Magna Carta, signed in 1215, was the first document to establish that even kings were subject to the law — a revolutionary concept that shaped modern governance.' },
+    { id: 'g6d4', question: 'A community has 100 people. Decision A benefits 60 people but harms 40. Decision B benefits everyone equally but less. According to utilitarian ethics, which decision is preferable?', type: 'multiple-choice', options: ['Decision B because it is fair', 'Decision A because it maximizes total benefit for the majority', 'Neither, because any harm is unacceptable', 'It depends on who the 60 people are'], correctAnswer: 1, explanation: 'Utilitarianism, developed by philosophers like Bentham and Mill, argues that the right action is the one that produces the greatest good for the greatest number.' },
+    { id: 'g6d5', question: 'How does the UAE\'s majlis system compare to ancient Athenian democracy?', type: 'multiple-choice', options: ['They are identical systems', 'Both involve citizen participation, but the majlis is consultative while Athens used direct voting', 'The majlis is more democratic than Athens', 'Athens had no citizen participation'], correctAnswer: 1, explanation: 'Both systems value citizen input, but the Athenian model used direct voting on laws, while the majlis is a consultative tradition where leaders hear concerns before making decisions.' },
+    { id: 'g6d6', question: 'A student argues that "if something is legal, it must be moral." Which counterexample BEST challenges this claim?', type: 'multiple-choice', options: ['Speeding is illegal and also immoral', 'Historically, slavery was legal in many countries yet was deeply immoral', 'Murder is both illegal and immoral', 'Taxes are legal but some people dislike them'], correctAnswer: 1, explanation: 'The fact that slavery was once legal but universally recognized as immoral today proves that legality and morality are separate concepts — laws can be unjust.' },
+    { id: 'g6d7', question: 'Why might two people observe the same historical event and describe it differently?', type: 'multiple-choice', options: ['One of them is lying', 'Different perspectives, cultural backgrounds, and biases shape how people interpret events', 'History is always objective', 'It is impossible to know what really happened'], correctAnswer: 1, explanation: 'Historical interpretation is influenced by perspective, cultural context, and personal bias — this is why historians emphasize examining multiple sources and viewpoints.' },
+    { id: 'g6d8', question: 'Which concept BEST explains why a country with abundant oil reserves might still have poor citizens?', type: 'multiple-choice', options: ['Scarcity', 'The resource curse (paradox of plenty)', 'Opportunity cost', 'Supply and demand'], correctAnswer: 1, explanation: 'The resource curse describes how countries with abundant natural resources often experience slower economic growth, corruption, and inequality because resource wealth is not distributed equitably.' },
+    { id: 'g6d9', question: 'If you could design a perfect society, which philosophical approach would prioritize individual freedoms over collective welfare?', type: 'multiple-choice', options: ['Utilitarianism', 'Communitarianism', 'Libertarianism', 'Socialism'], correctAnswer: 2, explanation: 'Libertarianism emphasizes individual liberty as the highest political priority, arguing that people should be free to make their own choices with minimal government interference.' },
+    { id: 'g6d10', question: 'A philosopher argues: "The right thing to do is whatever a virtuous person would do." Which ethical framework is this?', type: 'multiple-choice', options: ['Consequentialism (judging actions by outcomes)', 'Virtue ethics (judging actions by the character they express)', 'Deontology (judging actions by rules and duties)', 'Pragmatism (judging actions by practical results)'], correctAnswer: 1, explanation: 'Virtue ethics, originating with Aristotle, focuses not on rules or outcomes but on developing good character — the right action is what a person of wisdom and virtue would choose.' },
+  ],
+  'G7': [
+    { id: 'g7d1', question: 'What is the PRIMARY difference between a nation and a state in political science?', type: 'multiple-choice', options: ['They are identical terms', 'A nation is a cultural community sharing identity; a state is a political entity with sovereign territory', 'A state is always larger than a nation', 'Nations have armies but states do not'], correctAnswer: 1, explanation: 'A nation refers to a group of people who share common culture, language, or identity, while a state is a political organization with defined territory, government, and sovereignty.' },
+    { id: 'g7d2', question: 'Which governing principle is MOST similar between the Iroquois Confederacy and the UAE\'s federal system?', type: 'multiple-choice', options: ['They share no similarities', 'Both unite distinct political entities under a central authority while preserving individual autonomy', 'Both are military alliances only', 'Both have exactly the same structure'], correctAnswer: 1, explanation: 'The Iroquois Confederacy united six nations under a Great Council while preserving each nation\'s autonomy — similar to how the UAE federation unites seven emirates under federal authority while preserving local governance.' },
+    { id: 'g7d3', question: 'In economics, what does the "invisible hand" refer to?', type: 'multiple-choice', options: ['Government regulation of markets', 'The self-regulating nature of markets where individual self-interest can benefit society', 'A conspiracy by wealthy merchants', 'Charitable donations by businesses'], correctAnswer: 1, explanation: 'Adam Smith\'s "invisible hand" describes how individuals pursuing their own self-interest in a free market can unintentionally create social benefits, as if guided by an unseen force.' },
+    { id: 'g7d4', question: 'Which of the following is an example of "soft power" in international relations?', type: 'multiple-choice', options: ['Military intervention', 'Economic sanctions', 'Cultural diplomacy and educational exchange programs', 'Trade embargoes'], correctAnswer: 2, explanation: 'Soft power, a concept by Joseph Nye, refers to influencing others through attraction and persuasion rather than coercion — cultural diplomacy and educational exchanges are classic examples.' },
+    { id: 'g7d5', question: 'A government censors news about a protest. A citizen shares the information on social media. Which ethical framework would MOST strongly support the citizen\'s action?', type: 'multiple-choice', options: ['Authoritarianism', 'Social contract theory (citizens have rights that governments must respect)', 'Legal positivism (whatever the law says is right)', 'Cultural relativism'], correctAnswer: 1, explanation: 'Social contract theory holds that governments derive their authority from the consent of the governed, and citizens retain fundamental rights — including free expression — that governments cannot legitimately suppress.' },
+    { id: 'g7d6', question: 'What is the "tragedy of the commons" and how does it relate to environmental policy?', type: 'multiple-choice', options: ['It refers to natural disasters that affect everyone', 'It describes how shared resources are depleted when individuals act in self-interest, requiring regulation', 'It means common people suffer most from environmental damage', 'It is a historical event'], correctAnswer: 1, explanation: 'The tragedy of the commons occurs when individuals overuse a shared resource (like fishing grounds) for personal gain, depleting it for everyone — this is why environmental regulations are necessary.' },
+    { id: 'g7d7', question: 'How does the concept of "cultural relativism" differ from "universal human rights"?', type: 'multiple-choice', options: ['They are the same concept', 'Cultural relativism argues values are culture-specific; universal human rights asserts some rights apply to all people regardless of culture', 'Cultural relativism is always wrong', 'Universal human rights only apply in Western countries'], correctAnswer: 1, explanation: 'Cultural relativism holds that moral standards vary between cultures, while universal human rights theory argues that certain fundamental rights exist regardless of cultural differences — creating an important philosophical tension.' },
+    { id: 'g7d8', question: 'Which factor MOST significantly contributed to the fall of the Ottoman Empire?', type: 'multiple-choice', options: ['A single military defeat', 'Internal stagnation, failure to industrialize, rising nationalism, and external pressure from European powers', 'Religious conflict alone', 'Natural disasters'], correctAnswer: 1, explanation: 'The Ottoman Empire declined due to a complex combination of internal factors (stagnation, resistance to reform) and external pressures (industrialized Europe, nationalist movements), not any single cause.' },
+    { id: 'g7d9', question: 'In a research study, a researcher intentionally excludes data that contradicts their hypothesis. Which principle does this violate?', type: 'multiple-choice', options: ['Efficiency principle', 'Academic integrity and objectivity', 'Cost-benefit analysis', 'Pragmatic research principle'], correctAnswer: 1, explanation: 'Cherry-picking data to support a hypothesis violates academic integrity and objectivity — researchers must report all findings honestly, even those that contradict their expectations.' },
+    { id: 'g7d10', question: 'A country has high GDP but also high income inequality. Which measure would give a MORE accurate picture of average citizen well-being?', type: 'multiple-choice', options: ['GDP alone', 'GDP per capita adjusted for the Gini coefficient (inequality measure)', 'Total exports', 'Population size'], correctAnswer: 1, explanation: 'GDP alone does not reveal income distribution. Adjusting for the Gini coefficient — which measures inequality — gives a more accurate picture of how wealth is actually distributed among citizens.' },
+  ],
+  'G8': [
+    { id: 'g8d1', question: 'Which philosopher argued that the social contract requires citizens to obey laws ONLY if those laws reflect the "general will" of the people?', type: 'multiple-choice', options: ['Thomas Hobbes', 'John Locke', 'Jean-Jacques Rousseau', 'Niccolò Machiavelli'], correctAnswer: 2, explanation: 'Rousseau\'s concept of the "general will" holds that legitimate political authority comes from the collective will of citizens, not from monarchy or force.' },
+    { id: 'g8d2', question: 'What is the "Iron Law of Oligarchy" and how does it challenge democratic ideals?', type: 'multiple-choice', options: ['It means all governments use iron weapons', 'It argues that even democratic organizations inevitably evolve into oligarchies controlled by a small elite', 'It is a law about iron production', 'It means oligarchy is the best form of government'], correctAnswer: 1, explanation: 'Robert Michels\' Iron Law of Oligarchy suggests that even in democratic organizations, a small group eventually consolidates power due to specialization, information control, and organizational complexity.' },
+    { id: 'g8d3', question: 'How does the concept of "manifest destiny" compare to contemporary concepts of cultural imperialism?', type: 'multiple-choice', options: ['They are unrelated', 'Both justify expansion of influence, but manifest destiny was framed as divine right while cultural imperialism operates through economic and media influence', 'Manifest destiny was beneficial while cultural imperialism is harmful', 'They are the exact same concept in different time periods'], correctAnswer: 1, explanation: 'Manifest destiny was the 19th-century belief that American expansion was divinely ordained, while modern cultural imperialism spreads influence through media, economics, and technology rather than territorial conquest.' },
+    { id: 'g8d4', question: 'A country\'s constitution guarantees freedom of speech, but also prohibits hate speech. Which constitutional principle does this tension illustrate?', type: 'multiple-choice', options: ['Constitutional contradiction', 'Balancing of competing rights and legitimate limitations on freedoms', 'Government hypocrisy', 'A flawed constitution'], correctAnswer: 1, explanation: 'All constitutions must balance competing rights — freedom of expression versus protection from harm. This is not a contradiction but a necessary limitation to protect the rights and safety of others.' },
+    { id: 'g8d5', question: 'In the context of global trade, what is "comparative advantage" and why does it matter?', type: 'multiple-choice', options: ['It means one country is better at everything', 'It means countries benefit from specializing in what they produce most efficiently and trading for the rest', 'It only applies to wealthy nations', 'It is the same as absolute advantage'], correctAnswer: 1, explanation: 'Comparative advantage, developed by David Ricardo, shows that even if one country is better at producing everything, both countries benefit from trade when each specializes in their most efficient production.' },
+    { id: 'g8d6', question: 'Which statement BEST describes the relationship between industrialization and social inequality during the 19th century?', type: 'multiple-choice', options: ['Industrialization eliminated all inequality', 'Industrialization created new forms of inequality even as it increased overall wealth', 'Industrialization only benefited the wealthy', 'Social inequality was unchanged by industrialization'], correctAnswer: 1, explanation: 'The Industrial Revolution generated unprecedented wealth but also created harsh working conditions and new class divisions, demonstrating that economic growth alone does not ensure social justice.' },
+    { id: 'g8d7', question: 'What is the fundamental difference between criminal justice and restorative justice?', type: 'multiple-choice', options: ['There is no difference', 'Criminal justice focuses on punishment of offenders; restorative justice focuses on repairing harm to victims and communities', 'Restorative justice is less effective', 'Criminal justice is only used in Western countries'], correctAnswer: 1, explanation: 'Criminal justice asks "what law was broken and how should the offender be punished?" while restorative justice asks "who was harmed and how can the harm be repaired?" — fundamentally different approaches.' },
+    { id: 'g8d8', question: 'A historian discovers that a widely-accepted historical account was based on forged documents. Which methodological principle should guide their response?', type: 'multiple-choice', options: ['Ignore the discovery to maintain consensus', 'Apply source criticism, verify through independent evidence, and revise the historical narrative accordingly', 'Assume all historical documents are forged', 'Only trust documents from the last 100 years'], correctAnswer: 1, explanation: 'Source criticism — evaluating the authenticity, reliability, and bias of evidence — is fundamental to historical methodology. When forgeries are discovered, historians must revise their accounts based on verified evidence.' },
+    { id: 'g8d9', question: 'Which concept BEST explains why democracies sometimes make decisions that most citizens disagree with?', type: 'multiple-choice', options: ['Democratic failure', 'The principal-agent problem (elected representatives may not act according to constituents\' preferences)', 'Voter ignorance', 'Conspiracy theories'], correctAnswer: 1, explanation: 'The principal-agent problem describes the disconnect between voters (principals) and their elected representatives (agents), who may pursue their own interests rather than those of their constituents.' },
+    { id: 'g8d10', question: 'In ethical reasoning, what is the difference between a "right" and a "duty"?', type: 'multiple-choice', options: ['They are the same thing', 'A right is an entitlement to something; a duty is an obligation to act or refrain from acting', 'Rights are more important than duties', 'Duties only apply to governments'], correctAnswer: 1, explanation: 'Rights and duties are correlative — for every right, there is a corresponding duty. Your right to education creates a duty for society to provide it, and your right to safety creates a duty for others not to harm you.' },
+  ],
+  'G9': [
+    { id: 'g9d1', question: 'Which political theorist argued that power is not merely repressive but also productive — meaning it shapes knowledge, norms, and social realities?', type: 'multiple-choice', options: ['Karl Marx', 'John Stuart Mill', 'Michel Foucault', 'Plato'], correctAnswer: 2, explanation: 'Foucault\'s analysis of power showed that it doesn\'t merely suppress — it actively produces knowledge, norms, and social categories that shape how we think and behave.' },
+    { id: 'g9d2', question: 'What is the "democratic peace theory" and what evidence supports it?', type: 'multiple-choice', options: ['It claims democracy brings world peace', 'It argues that democracies rarely go to war with each other, supported by statistical analysis of historical conflicts', 'It means only democracies have armies', 'It was proven false by all historical evidence'], correctAnswer: 1, explanation: 'Democratic peace theory, supported by extensive empirical research, holds that while democracies fight wars, they rarely fight wars against other democracies — though the reasons for this remain debated.' },
+    { id: 'g9d3', question: 'In international law, what is the doctrine of "Responsibility to Protect" (R2P) and how does it challenge state sovereignty?', type: 'multiple-choice', options: ['It means powerful countries can invade any country', 'It holds that sovereignty includes the duty to protect citizens, and when a state fails, the international community has a responsibility to intervene', 'It eliminates all national sovereignty', 'It only applies to economic sanctions'], correctAnswer: 1, explanation: 'R2P, adopted by the UN in 2005, redefines sovereignty as a responsibility rather than an absolute right — if a state fails to protect its citizens from mass atrocities, the international community may intervene.' },
+    { id: 'g9d4', question: 'Which economic concept explains why foreign aid sometimes fails to improve conditions in developing countries?', type: 'multiple-choice', options: ['Aid is always harmful', 'Institutional capture (aid can be diverted by corrupt elites and weaken local institutions)', 'Developing countries do not need aid', 'Aid only works in small amounts'], correctAnswer: 1, explanation: 'Institutional capture occurs when aid flows through corrupt channels, enriching elites rather than helping the intended beneficiaries, and can even undermine local governance and economic development.' },
+    { id: 'g9d5', question: 'What is the "banality of evil" as described by Hannah Arendt, and how does it apply to civic responsibility?', type: 'multiple-choice', options: ['It means evil is always obvious', 'It describes how ordinary people can commit terrible acts by simply following orders without critical thinking', 'It only applies to historical events', 'It means evil is banal and unimportant'], correctAnswer: 1, explanation: 'Arendt\'s concept, based on the Eichmann trial, shows that great evil does not require monstrous people — it can result from ordinary individuals who fail to think critically about their actions and responsibilities.' },
+    { id: 'g9d6', question: 'How does Amartya Sen\'s "capability approach" differ from GDP as a measure of development?', type: 'multiple-choice', options: ['They measure the same thing', 'GDP measures economic output; the capability approach measures what people are actually able to do and be', 'Sen\'s approach is only theoretical', 'GDP is always more accurate'], correctAnswer: 1, explanation: 'Sen\'s capability approach argues that development should be measured by the real freedoms and capabilities people have — such as the ability to be healthy, educated, and politically engaged — not just economic output.' },
+    { id: 'g9d7', question: 'In the context of digital governance, what is the "digital divide" and how does it threaten democratic participation?', type: 'multiple-choice', options: ['It refers to broken computers', 'It describes unequal access to digital technology and literacy, which can exclude disadvantaged groups from civic participation in an increasingly digital society', 'It only affects elderly people', 'It is being solved naturally by technology'], correctAnswer: 1, explanation: 'The digital divide creates a two-tier society where those without digital access cannot participate fully in modern civic life, access government services, or engage in digital democracy — deepening existing inequalities.' },
+    { id: 'g9d8', question: 'A country implements a universal basic income (UBI). Which philosophical argument BEST supports this policy?', type: 'multiple-choice', options: ['UBI is always the cheapest option', 'UBI ensures all citizens have the minimum material conditions necessary to exercise their freedoms meaningfully', 'UBI eliminates the need for government', 'UBI is supported by all economists'], correctAnswer: 1, explanation: 'The philosophical case for UBI rests on the idea that meaningful freedom requires material security — you cannot truly exercise your liberties if you are struggling to meet basic needs.' },
+    { id: 'g9d9', question: 'What is the fundamental critique that post-colonial theory makes of Western development models?', type: 'multiple-choice', options: ['Western models are perfect', 'They impose Western cultural and economic assumptions as universal, ignoring indigenous knowledge and perpetuating dependency', 'Post-colonial theory rejects all development', 'Only Western countries can develop'], correctAnswer: 1, explanation: 'Post-colonial theorists argue that Western development models often replicate colonial power structures by presenting Western cultural and economic norms as universal standards that "developing" nations must adopt.' },
+    { id: 'g9d10', question: 'In evaluating conflicting historical narratives about a colonial event, which methodological approach is MOST rigorous?', type: 'multiple-choice', options: ['Accept the narrative from the more powerful country', 'Triangulate multiple independent sources from different perspectives, evaluate source reliability, and identify systematic biases', 'Only trust written documents', 'Choose the most recent interpretation'], correctAnswer: 1, explanation: 'Triangulation — comparing multiple independent sources from different perspectives — is the most rigorous method for evaluating conflicting historical narratives, as it helps identify bias and approach closer to truth.' },
+  ],
+};

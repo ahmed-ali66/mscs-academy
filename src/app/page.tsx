@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import 'leaflet/dist/leaflet.css';
+import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend as RechartsLegend, ResponsiveContainer } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -22,8 +23,15 @@ import {
   generateQuizQuestions, parseActivities, generateUAELinks, generateWarmUp,
   saveQuizResult, getAllQuizResults, getResultsByGrade, exportResultsAsCSV,
   getPlatformStats, getUnitData, getLessonId,
+  verifyMasterPassword, MASTER_LOGIN_CODE, checkLoginRateLimit,
+  recordFailedLogin, resetLoginAttempts, isSessionExpired, updateSessionActivity,
+  markLessonComplete, getLessonCompletions, isLessonCompleted,
+  getGradeCompletionPercentage, getNextLesson, deleteStudentData,
+  saveDiagnosticResult, getDiagnosticResults, hasDiagnosticResult,
+  diagnosticQuestions,
   type QuizQuestion, type ActivityItem, type UAELink, type WarmUpActivity,
   type QuizResult, type GradeInfo, type TermInfo, type UnitInfo, type LessonData,
+  type DiagnosticResult, type LessonCompletion,
 } from '@/lib/lessons';
 
 // ═══════════════════════════════════════════════════════════════
@@ -115,20 +123,20 @@ function ConfettiCelebration() {
 
 const translations: Record<string, Record<string, string>> = {
   en: { subtitle: 'Moral, Social & Cultural Studies', tagline: 'Making Learning Active, Not Passive', interactivePlatform: '— Interactive Learning Platform —', whyTitle: 'Why MSCS Academy?', feature1: 'Interactive Learning', feature1d: 'Quizzes, timelines, maps, and drag-and-drop activities that make learning unforgettable', feature2: 'Standards-Aligned', feature2d: 'Every lesson follows UAE curriculum standards with clear objectives and success criteria', feature3: 'UAE & Real-World Links', feature3d: 'Every lesson connects to UAE culture, values, and real-life applications', feature4: 'Built-in Timers', feature4d: 'Structured activities with countdown timers keep lessons on pace', feature5: 'Instant Feedback', feature5d: 'Quizzes with immediate scoring and explanations help students learn from mistakes', feature6: 'Student-Centered', feature6d: 'KWL charts, Venn diagrams, and collaborative activities put students first', meetInstructor: 'Meet Your Instructor', instructorDesc: 'Dedicated educator specializing in Moral, Social, and Cultural Studies for UAE students. Creating engaging, standards-aligned lessons that bring history and culture to life.', footerTagline: 'MSCS Academy: Making Learning Active, Not Passive', about: 'About', studentLogin: 'Student Login', parentalConsent: 'Parental Consent', selectGrade: 'Select your grade to begin' },
-  ar: { subtitle: 'الدراسات الأخلاقية والاجتماعية والثقافية', tagline: 'نجعل التعلم نشطاً، وليس سلبياً', interactivePlatform: '— منصة تعلم تفاعلية —', whyTitle: 'لماذا أكاديمية MSCS؟', feature1: 'تعلم تفاعلي', feature1d: 'اختبارات وخطوط زمنية وخرائط وأنشطة سحب وإفلات تجعل التعلم لا يُنسى', feature2: 'ملاءمة للمعايير', feature2d: 'كل درس يتبع معايير المنهج الإماراتي بأهداف واضحة ومعايير نجاح', feature3: 'روابط الإمارات والعالم الحقيقي', feature3d: 'كل درس يرتبط بثقافة الإمارات وقيمها والتطبيقات الواقعية', feature4: 'مؤقتات مدمجة', feature4d: 'أنشطة منظمة بمؤقتات عد تنازلي تحافظ على وتيرة الدرس', feature5: 'تغذية راجعة فورية', feature5d: 'اختبارات مع تسجيل فوري وشروحات تساعد الطلاب على التعلم من أخطائهم', feature6: 'محوره الطالب', feature6d: 'رسوم KWL ومخططات فين وأنشطة تعاونية تضع الطالب في المقام الأول', meetInstructor: 'تعرف على معلمك', instructorDesc: 'معلم متخصص في الدراسات الأخلاقية والاجتماعية والثقافية لطلاب الإمارات.', footerTagline: 'أكاديمية MSCS: نجعل التعلم نشطاً، وليس سلبياً', about: 'حول', studentLogin: 'تسجيل دخول الطالب', parentalConsent: 'موافقة الوالدين', selectGrade: 'اختر صفك للبدء' },
-  ur: { subtitle: 'اخلاقی، سماجی اور ثقافتی علوم', tagline: 'سیکھنے کو فعال بنانا، غیر فعال نہیں', interactivePlatform: '— انٹرایکٹو لرننگ پلیٹ فارم —', whyTitle: 'MSCS اکیڈمی کیوں؟', feature1: 'انٹرایکٹو لرننگ', feature1d: 'کوئز، ٹائم لائن، نقشے اور ڈریگ اینڈ ڈراپ سرگرمیاں', feature2: 'معیارات کے مطابق', feature2d: 'ہر سبق یو اے ای کریکولم معیارات کی پیروی کرتا ہے', feature3: 'یو اے ای اور حقیقی دنیا کے روابط', feature3d: 'ہر سبق یو اے ای کی ثقافت سے جڑتا ہے', feature4: 'بلٹ ان ٹائمرز', feature4d: 'کاؤنٹ ڈاؤن ٹائمرز کے ساتھ منظم سرگرمیاں', feature5: 'فوری فیڈبیک', feature5d: 'فوری اسکورنگ اور وضاحت کے ساتھ کوئز', feature6: 'طلباء مرکزی', feature6d: 'KWL چارٹس اور تعاون کی سرگرمیاں', meetInstructor: 'اپنے استاد سے ملیں', instructorDesc: 'یو اے ای کے طلباء کے لیے متخصص معلم۔', footerTagline: 'MSCS اکیڈمی: سیکھنے کو فعال بنانا', about: 'ہمارے بارے میں', studentLogin: 'طالب علم لاگ ان', parentalConsent: 'والدین کی رضامندی', selectGrade: 'شروع کرنے کے لیے اپنا گریڈ منتخب کریں' },
-  fa: { subtitle: 'مطالعات اخلاقی، اجتماعی و فرهنگی', tagline: 'یادگیری را فعال می‌کنیم، نه غیرفعال', interactivePlatform: '— پلتفرم یادگیری تعاملی —', whyTitle: 'چرا آکادمی MSCS؟', feature1: 'یادگیری تعاملی', feature1d: 'آزمون‌ها، خط زمانی، نقشه‌ها و فعالیت‌های تعاملی', feature2: 'همسو با استانداردها', feature2d: 'هر درس از استانداردهای امارات پیروی می‌کند', feature3: 'ارتباط امارات و دنیای واقعی', feature3d: 'هر درس به فرهنگ امارات متصل است', feature4: 'تایمرهای داخلی', feature4d: 'فعالیت‌های ساختاریافته با تایمر', feature5: 'بازخورد فوری', feature5d: 'آزمون‌ها با امتیازدهی فوری', feature6: 'دانش‌آموز محور', feature6d: 'نمودارهای KWL و فعالیت‌های مشارکتی', meetInstructor: 'با معلم خود آشنا شوید', instructorDesc: 'معلم متخصص در مطالعات MSCS برای دانش‌آمویان امارات.', footerTagline: 'آکادمی MSCS: یادگیری فعال', about: 'درباره ما', studentLogin: 'ورود دانش‌آموز', parentalConsent: 'رضایت والدین', selectGrade: 'پایه خود را انتخاب کنید' },
-  es: { subtitle: 'Estudios Morales, Sociales y Culturales', tagline: 'Haciendo el Aprendizaje Activo, No Pasivo', interactivePlatform: '— Plataforma de Aprendizaje Interactivo —', whyTitle: '¿Por qué MSCS Academy?', feature1: 'Aprendizaje Interactivo', feature1d: 'Cuestionarios, líneas de tiempo, mapas y actividades interactivas', feature2: 'Alineado con Estándares', feature2d: 'Cada lección sigue los estándares del plan de estudios de EAU', feature3: 'Conexiones EAU y Mundo Real', feature3d: 'Cada lección conecta con la cultura de EAU', feature4: 'Temporizadores Integrados', feature4d: 'Actividades estructuradas con temporizadores', feature5: 'Retroalimentación Instantánea', feature5d: 'Cuestionarios con puntuación inmediata', feature6: 'Centrado en el Estudiante', feature6d: 'Gráficos KWL y actividades colaborativas', meetInstructor: 'Conoce a Tu Instructor', instructorDesc: 'Educador especializado en Estudios MSCS para estudiantes de EAU.', footerTagline: 'MSCS Academy: Aprendizaje Activo', about: 'Acerca de', studentLogin: 'Inicio de Sesión del Estudiante', parentalConsent: 'Consentimiento de los Padres', selectGrade: 'Selecciona tu grado para comenzar' },
-  ru: { subtitle: 'Нравственные, социальные и культурные исследования', tagline: 'Делаем обучение активным, а не пассивным', interactivePlatform: '— Интерактивная обучающая платформа —', whyTitle: 'Почему MSCS Academy?', feature1: 'Интерактивное обучение', feature1d: 'Тесты, временные шкалы, карты и интерактивные задания', feature2: 'Соответствие стандартам', feature2d: 'Каждый урок следует стандартам ОАЭ', feature3: 'Связи ОАЭ и реального мира', feature3d: 'Каждый урок связан с культурой ОАЭ', feature4: 'Встроенные таймеры', feature4d: 'Структурированные задания с таймерами', feature5: 'Мгновенная обратная связь', feature5d: 'Тесты с мгновенным оцениванием', feature6: 'Ориентировано на студента', feature6d: 'Диаграммы KWL и совместные задания', meetInstructor: 'Познакомьтесь с преподавателем', instructorDesc: 'Преподаватель, специализирующийся на MSCS для студентов ОАЭ.', footerTagline: 'MSCS Academy: Активное обучение', about: 'О нас', studentLogin: 'Вход для студентов', parentalConsent: 'Согласие родителей', selectGrade: 'Выберите свой класс' },
-  tr: { subtitle: 'Ahlaki, Sosyal ve Kültürel Çalışmalar', tagline: 'Öğrenmeyi Aktif Kılıyoruz, Pasif Değil', interactivePlatform: '— İnteraktif Öğrenme Platformu —', whyTitle: 'Neden MSCS Academy?', feature1: 'İnteraktif Öğrenme', feature1d: 'Testler, zaman çizelgeleri, haritalar ve interaktif etkinlikler', feature2: 'Standartlara Uygun', feature2d: 'Her ders BAE müfredat standartlarını takip eder', feature3: 'BAE ve Gerçek Dünya Bağlantıları', feature3d: 'Her ders BAE kültürüyle bağlantılıdır', feature4: 'Dahili Zamanlayıcılar', feature4d: 'Geri sayım zamanlayıcılarıyla yapılandırılmış etkinlikler', feature5: 'Anında Geri Bildirim', feature5d: 'Anında puanlama ve açıklamalarla testler', feature6: 'Öğrenci Merkezli', feature6d: 'KWL çizelgeleri ve işbirlikçi etkinlikler', meetInstructor: 'Eğitmeninizle Tanışın', instructorDesc: 'BAE öğrencileri için MSCS alanında uzmanlaşmış eğitmen.', footerTagline: 'MSCS Academy: Aktif Öğrenme', about: 'Hakkımızda', studentLogin: 'Öğrenci Girişi', parentalConsent: 'Ebeveyn Onayı', selectGrade: 'Başlamak için sınıfınızı seçin' },
-  fr: { subtitle: 'Études Morales, Sociales et Culturelles', tagline: "Rendre l'Apprentissage Actif, Non Passif", interactivePlatform: "— Plateforme d'Apprentissage Interactif —", whyTitle: 'Pourquoi MSCS Academy?', feature1: 'Apprentissage Interactif', feature1d: 'Quiz, chronologies, cartes et activités interactives', feature2: 'Aligné sur les Normes', feature2d: 'Chaque leçon suit les normes du programme des EAU', feature3: 'Liens EAU et Monde Réel', feature3d: 'Chaque leçon se connecte à la culture des EAU', feature4: 'Minuteries Intégrées', feature4d: 'Activités structurées avec minuteries', feature5: 'Retour Instantané', feature5d: 'Quiz avec notation immédiate', feature6: "Centré sur l'Étudiant", feature6d: 'Tableaux KWL et activités collaboratives', meetInstructor: 'Rencontrez Votre Instructeur', instructorDesc: "Éducateur spécialisé dans les Études MSCS pour les étudiants des EAU.", footerTagline: "MSCS Academy: Apprentissage Actif", about: 'À Propos', studentLogin: 'Connexion Étudiant', parentalConsent: 'Consentement Parental', selectGrade: 'Sélectionnez votre niveau' },
+  ar: { subtitle: 'الدراسات الأخلاقية والاجتماعية والثقافية', tagline: 'نحو تعلّم نشط لا تلقيني', interactivePlatform: '— منصة تعلّم تفاعلية —', whyTitle: 'لماذا أكاديمية MSCS؟', feature1: 'تعلّم تفاعلي', feature1d: 'اختبارات وخطوط زمنية وخرائط وأنشطة تفاعلية تجعل التعلّم لا يُنسى', feature2: 'مواءمة المعايير', feature2d: 'كل درس يلتزم بمعايير المنهج الإماراتي مع أهداف واضحة ومعايير نجاح محددة', feature3: 'الربط بالإمارات والواقع', feature3d: 'يربط كل درس بين المفاهيم وثقافة الإمارات وقيمها وتطبيقاتها العملية', feature4: 'مؤقتات مدمجة', feature4d: 'أنشطة منظمة بمؤقتات عد تنازلي تحافظ على وتيرة الدرس', feature5: 'تغذية راجعة فورية', feature5d: 'اختبارات فورية مع تصحيح وتوضيح تساعد الطالب على الاستفادة من أخطائه', feature6: 'الطالب محور العملية', feature6d: 'مخططات KWL ومخططات فين وأنشطة تعاونية تضع الطالب في المقام الأول', meetInstructor: 'تعرّف على معلمك', instructorDesc: 'معلم متخصص في الدراسات الأخلاقية والاجتماعية والثقافية لطلاب الإمارات.', footerTagline: 'أكاديمية MSCS: نحو تعلّم نشط لا تلقيني', about: 'حول', studentLogin: 'دخول الطالب', parentalConsent: 'موافقة ولي الأمر', selectGrade: 'اختر صفك للبدء' },
+  ur: { subtitle: 'اخلاقی، سماجی اور ثقافتی علوم', tagline: 'فعال تعلیم، غیر فعال نہیں', interactivePlatform: '— تعاملی تعلیم کا پلیٹ فارم —', whyTitle: 'MSCS اکیڈمی کیوں؟', feature1: 'تعاملی تعلیم', feature1d: 'کوئز، ٹائم لائنز، نقشے اور ڈریگ اینڈ ڈراپ سرگرمیاں جو تعلیم کو یادگار بناتی ہیں', feature2: 'معیارات کے مطابق', feature2d: 'ہر سبق یو اے ای کریکولم کے معیارات کی پیروی کرتا ہے مع واضح اهداف اور کامیابی کے معیار', feature3: 'یو اے ای اور عملی زندگی کا ربط', feature3d: 'ہر سبق یو اے ای کی ثقافت اور اقدار سے جڑتا ہے', feature4: 'بلٹ ان ٹائمرز', feature4d: 'کاؤنٹ ڈاؤن ٹائمرز کے ساتھ منظم سرگرمیاں', feature5: 'فوری رائے', feature5d: 'فوری اسکورنگ اور تشریح کے ساتھ کوئز', feature6: 'طلباء مرکزی', feature6d: 'KWL چارٹس اور تعاونی سرگرمیاں', meetInstructor: 'اپنے استاد سے ملیں', instructorDesc: 'یو اے ای کے طلباء کے لیے MSCS میں متخصص معلم۔', footerTagline: 'MSCS اکیڈمی: فعال تعلیم کا پلیٹ فارم', about: 'ہمارے بارے میں', studentLogin: 'طالب علم لاگ ان', parentalConsent: 'والدین کی رضامندی', selectGrade: 'شروع کرنے کے لیے اپنا گریڈ منتخب کریں' },
+  fa: { subtitle: 'مطالعات اخلاقی، اجتماعی و فرهنگی', tagline: 'یادگیری فعال، نه انفعالی', interactivePlatform: '— پلتفرم یادگیری تعاملی —', whyTitle: 'چرا آکادمی MSCS؟', feature1: 'یادگیری تعاملی', feature1d: 'آزمون‌ها، خط زمانی، نقشه‌ها و فعالیت‌های تعاملی که یادگیری را ماندگار می‌کنند', feature2: 'همسو با استانداردها', feature2d: 'هر درس منطبق بر استانداردهای آموزشی امارات با اهداف و معیارهای موفقیت شفاف', feature3: 'ارتباط با امارات و دنیای واقعی', feature3d: 'هر درس فرهنگ و ارزش‌های امارات را به کاربردهای عملی پیوند می‌دهد', feature4: 'تایمرهای داخلی', feature4d: 'فعالیت‌های ساختاریافته با تایمر شمارش معکوس', feature5: 'بازخورد آنی', feature5d: 'آزمون‌ها با امتیازدهی و توضیح فوری', feature6: 'محوریت دانش‌آموز', feature6d: 'نمودارهای KWL و فعالیت‌های مشارکتی', meetInstructor: 'با استاد خود آشنا شوید', instructorDesc: 'معلم متخصص در مطالعات MSCS برای دانش‌آمویان امارات.', footerTagline: 'آکادمی MSCS: یادگیری فعال، نه انفعالی', about: 'درباره ما', studentLogin: 'ورود دانش‌آموز', parentalConsent: 'رضایت والدین', selectGrade: 'پایه تحصیلی خود را انتخاب کنید' },
+  es: { subtitle: 'Estudios Morales, Sociales y Culturales', tagline: 'Aprendizaje Activo, No Pasivo', interactivePlatform: '— Plataforma de Aprendizaje Interactivo —', whyTitle: '¿Por qué MSCS Academy?', feature1: 'Aprendizaje Interactivo', feature1d: 'Cuestionarios, líneas temporales, mapas y actividades interactivas que hacen el aprendizaje inolvidable', feature2: 'Alineado con Estándares', feature2d: 'Cada lección sigue los estándares del currículo emiratí con objetivos y criterios de éxito claros', feature3: 'Conexiones con EAU y el Mundo Real', feature3d: 'Cada lección vincula los conceptos con la cultura y los valores emiratíes', feature4: 'Temporizadores Integrados', feature4d: 'Actividades estructuradas con temporizadores de cuenta regresiva', feature5: 'Retroalimentación Inmediata', feature5d: 'Cuestionarios con puntuación y explicaciones instantáneas', feature6: 'Centrado en el Estudiante', feature6d: 'Diagramas KWL y actividades colaborativas centradas en el estudiante', meetInstructor: 'Conoce a Tu Instructor', instructorDesc: 'Educador especializado en Estudios MSCS para estudiantes de EAU.', footerTagline: 'MSCS Academy: Aprendizaje Activo', about: 'Acerca de', studentLogin: 'Acceso del Estudiante', parentalConsent: 'Consentimiento de los Padres', selectGrade: 'Selecciona tu grado para comenzar' },
+  ru: { subtitle: 'Нравственные, социальные и культурные исследования', tagline: 'Активное обучение, а не пассивное', interactivePlatform: '— Интерактивная образовательная платформа —', whyTitle: 'Почему MSCS Academy?', feature1: 'Интерактивное обучение', feature1d: 'Тесты, временные шкалы, карты и интерактивные задания для глубокого усвоения', feature2: 'Соответствие стандартам', feature2d: 'Каждый урок соответствует стандартам учебной программы ОАЭ с чёткими целями', feature3: 'Связи с ОАЭ и реальным миром', feature3d: 'Каждый урок связан с культурой и ценностями ОАЭ', feature4: 'Встроенные таймеры', feature4d: 'Структурированные задания с таймерами обратного отсчёта', feature5: 'Мгновенная обратная связь', feature5d: 'Тесты с мгновенным оцениванием и пояснениями', feature6: 'Ориентировано на студента', feature6d: 'Диаграммы KWL и совместные задания', meetInstructor: 'Познакомьтесь с преподавателем', instructorDesc: 'Преподаватель, специализирующийся на MSCS для студентов ОАЭ.', footerTagline: 'MSCS Academy: Активное обучение', about: 'О нас', studentLogin: 'Вход для студентов', parentalConsent: 'Согласие родителей', selectGrade: 'Выберите свой класс' },
+  tr: { subtitle: 'Ahlaki, Sosyal ve Kültürel Çalışmalar', tagline: 'Aktif Öğrenme, Pasif Değil', interactivePlatform: '— İnteraktif Öğrenme Platformu —', whyTitle: 'Neden MSCS Academy?', feature1: 'İnteraktif Öğrenme', feature1d: 'Öğrenmeyi unutulmaz kılan testler, zaman çizelgeleri, haritalar ve etkileşimli etkinlikler', feature2: 'Standartlara Uygun', feature2d: 'Her ders BAE müfredat standartlarını açık hedefler ve başarı kriterleriyle takip eder', feature3: 'BAE ve Gerçek Dünya Bağlantıları', feature3d: 'Her ders BAE kültürü ve değerleriyle kavramları ilişkilendirir', feature4: 'Dahili Zamanlayıcılar', feature4d: 'Geri sayım zamanlayıcılarıyla yapılandırılmış etkinlikler', feature5: 'Anında Geri Bildirim', feature5d: 'Anında puanlama ve açıklamalarla testler', feature6: 'Öğrenci Merkezli', feature6d: 'KWL çizelgeleri ve işbirlikçi etkinlikler', meetInstructor: 'Eğitmeninizle Tanışın', instructorDesc: 'BAE öğrencileri için MSCS alanında uzmanlaşmış eğitmen.', footerTagline: 'MSCS Academy: Aktif Öğrenme', about: 'Hakkımızda', studentLogin: 'Öğrenci Girişi', parentalConsent: 'Ebeveyn Onayı', selectGrade: 'Başlamak için sınıfınızı seçin' },
+  fr: { subtitle: 'Études Morales, Sociales et Culturelles', tagline: 'Un Apprentissage Actif, Non Passif', interactivePlatform: "— Plateforme d'Apprentissage Interactif —", whyTitle: 'Pourquoi MSCS Academy?', feature1: 'Apprentissage Interactif', feature1d: 'Quiz, frises chronologiques, cartes et activités interactives pour un apprentissage mémorable', feature2: 'Conforme aux Normes', feature2d: 'Chaque leçon suit les standards du programme émirati avec des objectifs clairs', feature3: 'Liens EAU et Monde Réel', feature3d: 'Chaque leçon relie les concepts à la culture et aux valeurs émiraties', feature4: 'Minuteries Intégrées', feature4d: 'Activités structurées avec minuteries à rebours', feature5: 'Retour Instantané', feature5d: 'Quiz avec notation et explications immédiates', feature6: "Centré sur l'Étudiant", feature6d: 'Tableaux KWL et activités collaboratives', meetInstructor: 'Rencontrez Votre Instructeur', instructorDesc: "Éducateur spécialisé dans les Études MSCS pour les étudiants des EAU.", footerTagline: "MSCS Academy: Apprentissage Actif", about: 'À Propos', studentLogin: 'Connexion Étudiant', parentalConsent: 'Consentement Parental', selectGrade: 'Sélectionnez votre niveau' },
 };
 
 // ═══════════════════════════════════════════════════════════════
 // TYPES
 // ═══════════════════════════════════════════════════════════════
 
-type ViewType = 'landing' | 'gradeSelect' | 'unitSelect' | 'lessonView' | 'aboutPage' | 'loginPage' | 'consentPage' | 'teacherDashboard';
+type ViewType = 'landing' | 'gradeSelect' | 'unitSelect' | 'lessonView' | 'aboutPage' | 'loginPage' | 'consentPage' | 'teacherDashboard' | 'diagnosticPage';
 
 // ═══════════════════════════════════════════════════════════════
 // HELPER COMPONENTS
@@ -181,6 +189,14 @@ function DisclaimerBanner() {
   return (
     <div className="bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 text-center">
       <p className="text-[10px] text-amber-700">Teacher-Created Study Material — Not an Official ADEK Resource</p>
+    </div>
+  );
+}
+
+function LicensedTo() {
+  return (
+    <div className="text-center py-2 border-t border-[#D4AF37]/20">
+      <p className="text-[9px] text-[#D4AF37]/50">Licensed to: Mr. Ahmed Ali — MSCS Academy</p>
     </div>
   );
 }
@@ -273,10 +289,11 @@ function InteractiveMap({ markers }: { markers: Array<{ name: string; desc: stri
 }
 
 // Quiz Engine
-function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitKey, lessonTitle, dokLevel, domains, onComplete }: {
+function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitKey, lessonTitle, dokLevel, domains, onComplete, onLoginRequired }: {
   questions: QuizQuestion[]; lessonId: string; studentCode: string;
   gradeNum: number; termNum: number; unitKey: string; lessonTitle: string;
   dokLevel: string; domains: string; onComplete?: (score: number) => void;
+  onLoginRequired?: () => void;
 }) {
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number | string>>({});
@@ -284,6 +301,25 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
   const [quizComplete, setQuizComplete] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [markSaved, setMarkSaved] = useState(false);
+
+  // Require login
+  if (!studentCode || studentCode === 'anonymous') {
+    return (
+      <div className="text-center py-8 space-y-4">
+        <div className="w-16 h-16 rounded-full bg-amber-100 border-2 border-[#D4AF37] flex items-center justify-center mx-auto">
+          <Shield className="w-8 h-8 text-[#D4AF37]" />
+        </div>
+        <h3 className="text-xl font-bold text-gray-800">Sign In Required</h3>
+        <p className="text-sm text-gray-600 max-w-md mx-auto">
+          You need to sign in first to track your marks and save your progress. Please go to Student Login and enter your access code before taking assessments.
+        </p>
+        <Button onClick={() => onLoginRequired?.()} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
+          <LogIn className="w-4 h-4 mr-2" /> Go to Student Login
+        </Button>
+        <p className="text-xs text-gray-400">Your quiz results will be saved and tracked throughout the year.</p>
+      </div>
+    );
+  }
 
   const question = questions[currentQ];
   const isAnswered = answers[question.id] !== undefined;
@@ -538,6 +574,15 @@ export default function Home() {
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
   const [language, setLanguage] = useState('en');
   const [dashboardGrade, setDashboardGrade] = useState<number>(0);
+  const [masterPassword, setMasterPassword] = useState('');
+  const [loginLocked, setLoginLocked] = useState(false);
+  const [loginLockedUntil, setLoginLockedUntil] = useState(0);
+  const [diagnosticGrade, setDiagnosticGrade] = useState<string>('');
+  const [diagnosticAnswers, setDiagnosticAnswers] = useState<Record<string, number>>({});
+  const [diagnosticComplete, setDiagnosticComplete] = useState(false);
+  const [diagnosticSubmitted, setDiagnosticSubmitted] = useState(false);
+  const [deleteConfirmCode, setDeleteConfirmCode] = useState('');
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
   const gradeInfoList = useMemo(() => getGradeInfo(), []);
   const platformStats = useMemo(() => getPlatformStats(), []);
@@ -549,6 +594,24 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Session timeout check
+  useEffect(() => {
+    if (!isLoggedIn) return;
+    const interval = setInterval(() => {
+      if (isSessionExpired()) {
+        setIsLoggedIn(false);
+        setStudentName('');
+        navigateTo('landing');
+      }
+    }, 60000);
+    // Update activity on any interaction
+    const handleActivity = () => updateSessionActivity();
+    window.addEventListener('click', handleActivity);
+    window.addEventListener('keydown', handleActivity);
+    updateSessionActivity();
+    return () => { clearInterval(interval); window.removeEventListener('click', handleActivity); window.removeEventListener('keydown', handleActivity); };
+  }, [isLoggedIn]);
 
   const navigateTo = (newView: ViewType) => { setView(newView); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const navigateSlide = (direction: 'left' | 'right') => { setSlideDirection(direction); setIsAnimating(true); setTimeout(() => setIsAnimating(false), 400); };
@@ -573,17 +636,17 @@ export default function Home() {
         <ArabicPattern opacity={0.08} color="#D4AF37" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-black/30" />
 
-        <div className="absolute top-4 right-4 z-20">
+        <div className="absolute top-4 left-4 z-20">
           <select value={language} onChange={e => setLanguage(e.target.value)}
-            className="bg-white/10 backdrop-blur-md border border-[#D4AF37]/30 rounded-lg px-3 py-2 text-sm text-white cursor-pointer hover:bg-white/20 transition-colors">
-            <option value="en" className="text-black">🇬🇧 English</option>
-            <option value="ar" className="text-black">🇸🇦 العربية</option>
-            <option value="ur" className="text-black">🇵🇰 اردو</option>
-            <option value="fa" className="text-black">🇮🇷 فارسی</option>
-            <option value="es" className="text-black">🇪🇸 Español</option>
-            <option value="ru" className="text-black">🇷🇺 Русский</option>
-            <option value="tr" className="text-black">🇹🇷 Türkçe</option>
-            <option value="fr" className="text-black">🇫🇷 Français</option>
+            className="bg-white/10 backdrop-blur-md border border-[#D4AF37]/30 rounded-lg px-2 py-1.5 text-xs text-white cursor-pointer hover:bg-white/20 transition-colors">
+            <option value="en" className="text-black">EN</option>
+            <option value="ar" className="text-black">AR</option>
+            <option value="ur" className="text-black">UR</option>
+            <option value="fa" className="text-black">FA</option>
+            <option value="es" className="text-black">ES</option>
+            <option value="ru" className="text-black">RU</option>
+            <option value="tr" className="text-black">TR</option>
+            <option value="fr" className="text-black">FR</option>
           </select>
         </div>
 
@@ -753,6 +816,10 @@ export default function Home() {
             </div>
             <div className="mt-4 flex items-center gap-2">
               <AhmedAliLink size="md" />
+              <Button size="sm" variant="outline" onClick={() => { setDiagnosticGrade(grade.key); setDiagnosticAnswers({}); setDiagnosticSubmitted(false); navigateTo('diagnosticPage'); }}
+                className="ml-auto border-[#D4AF37] text-[#D4AF37] hover:bg-amber-50">
+                <Brain className="w-3 h-3 mr-1" /> Diagnostic Assessment
+              </Button>
             </div>
           </div>
         </div>
@@ -1267,13 +1334,19 @@ export default function Home() {
             <QuizEngine
               questions={quizQuestions}
               lessonId={lessonId}
-              studentCode={studentName || 'anonymous'}
+              studentCode={studentName || ''}
               gradeNum={selectedGrade.number}
               termNum={selectedTerm.number}
               unitKey={selectedUnit.key}
               lessonTitle={cleanTitle}
               dokLevel={lesson.dok}
               domains={lesson.domains}
+              onLoginRequired={() => navigateTo('loginPage')}
+              onComplete={(score) => {
+                if (studentName && studentName !== 'MASTER') {
+                  markLessonComplete(lessonId, studentName, selectedGrade.key);
+                }
+              }}
             />
 
             <AhmedAliLink />
@@ -1313,10 +1386,25 @@ export default function Home() {
 
             <DisclaimerBanner />
 
-            <div className="flex justify-center gap-3">
+            <div className="flex justify-center gap-3 flex-wrap">
               <Button onClick={() => setCurrentSlide(0)} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
                 <Play className="w-4 h-4 mr-2" /> Restart Lesson
               </Button>
+              {getNextLesson(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex) && (
+                <Button onClick={() => {
+                  const next = getNextLesson(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex)!;
+                  const nextUnitData = getUnitData(selectedGrade.key, next.termKey, next.unitKey);
+                  if (nextUnitData && nextUnitData.lessons[next.lessonIndex]) {
+                    setSelectedTerm(selectedGrade.terms.find(t => t.key === next.termKey) || null);
+                    setSelectedUnit(selectedGrade.terms.find(t => t.key === next.termKey)?.units.find(u => u.key === next.unitKey) || null);
+                    setSelectedLesson(nextUnitData.lessons[next.lessonIndex]);
+                    setSelectedLessonIndex(next.lessonIndex);
+                    setCurrentSlide(0);
+                  }
+                }} className="bg-[#D4AF37] hover:bg-amber-600 text-white">
+                  <ArrowRight className="w-4 h-4 mr-2" /> Next Lesson
+                </Button>
+              )}
               <Button variant="outline" onClick={() => navigateTo('gradeSelect')} className="border-[#D4AF37] text-[#D4AF37]">
                 <HomeIcon className="w-4 h-4 mr-2" /> Back to {selectedGrade.title}
               </Button>
@@ -1340,6 +1428,15 @@ export default function Home() {
                 </Button>
                 <Separator orientation="vertical" className="h-5" />
                 <div className="min-w-0">
+                  <div className="flex items-center gap-1 text-[10px] text-gray-400">
+                    <button onClick={() => navigateTo('landing')} className="hover:text-[#D4AF37]">Home</button>
+                    <ChevronRight className="w-2.5 h-2.5" />
+                    <button onClick={() => navigateTo('gradeSelect')} className="hover:text-[#D4AF37]">{selectedGrade.title}</button>
+                    <ChevronRight className="w-2.5 h-2.5" />
+                    <span>T{selectedTerm.number}</span>
+                    <ChevronRight className="w-2.5 h-2.5" />
+                    <span className="text-gray-500 truncate max-w-[120px]">{selectedUnit.title}</span>
+                  </div>
                   <h1 className="text-xs font-bold text-gray-800 truncate">{cleanTitle}</h1>
                   <AhmedAliLink />
                 </div>
@@ -1652,11 +1749,96 @@ export default function Home() {
             </CardContent>
           </Card>
 
+          {/* Charts Section */}
+          {filteredResults.length > 0 && (
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Grade Distribution Bar Chart */}
+              <Card className="border-2 border-amber-200 overflow-hidden">
+                <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-amber-200">
+                  <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5 text-[#D4AF37]" /> Average Score by Grade
+                  </h3>
+                </div>
+                <CardContent className="p-4">
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={[6,7,8,9].map(g => {
+                      const gResults = allResults.filter(r => r.grade === g);
+                      return { grade: `G${g}`, avg: gResults.length > 0 ? Math.round(gResults.reduce((a,r) => a + r.percentage, 0) / gResults.length) : 0, students: new Set(gResults.map(r => r.studentCode)).size };
+                    })}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="grade" />
+                      <YAxis domain={[0, 100]} />
+                      <RechartsTooltip />
+                      <Bar dataKey="avg" fill="#722F37" radius={[4,4,0,0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              {/* Term Performance Line Chart */}
+              <Card className="border-2 border-emerald-200 overflow-hidden">
+                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 border-b border-emerald-200">
+                  <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5 text-emerald-600" /> Term Performance Trend
+                  </h3>
+                </div>
+                <CardContent className="p-4">
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={termScores.map(ts => ({ name: `T${ts.term}`, avg: ts.avgPercentage, quizzes: ts.totalQuizzes }))}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis domain={[0, 100]} />
+                      <RechartsTooltip />
+                      <Bar dataKey="avg" fill="#047857" radius={[4,4,0,0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Diagnostic Results */}
+          {getDiagnosticResults().length > 0 && (
+            <Card className="border-2 border-teal-200 overflow-hidden">
+              <div className="bg-gradient-to-r from-teal-50 to-cyan-50 p-4 border-b border-teal-200">
+                <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                  <Brain className="w-5 h-5 text-teal-600" /> Diagnostic Assessment Results
+                </h3>
+              </div>
+              <CardContent className="p-4">
+                <div className="overflow-x-auto max-h-60">
+                  <table className="w-full text-sm">
+                    <thead className="sticky top-0 bg-gray-50">
+                      <tr className="border-b">
+                        <th className="text-left px-3 py-2 font-semibold text-gray-600">Student</th>
+                        <th className="text-center px-3 py-2 font-semibold text-gray-600">Grade</th>
+                        <th className="text-center px-3 py-2 font-semibold text-gray-600">Score</th>
+                        <th className="text-center px-3 py-2 font-semibold text-gray-600">%</th>
+                        <th className="text-left px-3 py-2 font-semibold text-gray-600">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {getDiagnosticResults().map((r, i) => (
+                        <tr key={i} className="border-b hover:bg-teal-50/30">
+                          <td className="px-3 py-2"><span className="font-mono text-xs bg-teal-100 text-teal-800 px-2 py-0.5 rounded">{r.studentCode}</span></td>
+                          <td className="px-3 py-2 text-center">G{r.grade}</td>
+                          <td className="px-3 py-2 text-center font-bold">{r.score}/{r.total}</td>
+                          <td className="px-3 py-2 text-center"><Badge className={`${r.percentage >= 65 ? 'bg-emerald-100 text-emerald-700' : r.percentage >= 40 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'} border-0`}>{r.percentage}%</Badge></td>
+                          <td className="px-3 py-2 text-xs text-gray-500">{new Date(r.completedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Per-Student Table */}
           <Card className="border-2 border-amber-200 overflow-hidden">
             <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-amber-200">
               <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#D4AF37]" /> Student Performance
+                <Users className="w-5 h-5 text-[#D4AF37]" /> Student Management
               </h3>
             </div>
             <div className="overflow-x-auto max-h-96">
@@ -1674,6 +1856,7 @@ export default function Home() {
                       <th className="text-center px-4 py-3 font-semibold text-gray-600">Quizzes</th>
                       <th className="text-center px-4 py-3 font-semibold text-gray-600">Avg Score</th>
                       <th className="text-left px-4 py-3 font-semibold text-gray-600">Last Active</th>
+                      <th className="text-center px-4 py-3 font-semibold text-gray-600">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1690,6 +1873,22 @@ export default function Home() {
                         </td>
                         <td className="px-4 py-3 text-xs text-gray-500">
                           {new Date(student.lastActive).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          {deleteTarget === student.code ? (
+                            <div className="flex items-center gap-1 justify-center">
+                              <Input value={deleteConfirmCode} onChange={e => setDeleteConfirmCode(e.target.value)} placeholder="Type code" className="text-xs w-24 h-7" />
+                              <Button size="sm" variant="destructive" onClick={() => {
+                                if (deleteConfirmCode === student.code) { deleteStudentData(student.code); setDeleteTarget(null); setDeleteConfirmCode(''); }
+                              }} className="h-7 text-xs">Confirm</Button>
+                              <Button size="sm" variant="outline" onClick={() => { setDeleteTarget(null); setDeleteConfirmCode(''); }} className="h-7 text-xs">Cancel</Button>
+                            </div>
+                          ) : (
+                            <Button size="sm" variant="ghost" onClick={() => { setDeleteTarget(student.code); setDeleteConfirmCode(''); }}
+                              className="text-rose-500 hover:text-rose-700 hover:bg-rose-50 h-7 text-xs">
+                              Remove
+                            </Button>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -1848,14 +2047,41 @@ export default function Home() {
                   placeholder="MSCS-7A-2026-014" className="text-center font-mono text-lg tracking-wider" />
                 <p className="text-xs text-gray-400 mt-1">Format: MSCS-Grade-Section-Year-Number</p>
               </div>
+              {loginCode === MASTER_LOGIN_CODE && (
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-1"><Shield className="w-3 h-3" /> Teacher Password</label>
+                  <Input type="password" value={masterPassword} onChange={e => { setMasterPassword(e.target.value); setLoginError(''); }}
+                    placeholder="Enter teacher password" className="text-center font-mono" />
+                  <p className="text-xs text-gray-400 mt-1">Required for teacher dashboard access</p>
+                </div>
+              )}
               {loginError && (
                 <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm text-rose-700 flex items-center gap-2">
                   <XCircle className="w-4 h-4 shrink-0" />{loginError}
                 </div>
               )}
               <Button onClick={() => {
-                if (loginCode === 'MSCS-MASTER-2026-ADMIN') {
-                  setIsLoggedIn(true); setStudentName('MASTER'); navigateTo('teacherDashboard'); return;
+                if (loginCode === MASTER_LOGIN_CODE) {
+                  // Teacher login requires password
+                  if (!masterPassword) {
+                    setLoginError('Password required for teacher login');
+                    return;
+                  }
+                  const rateCheck = checkLoginRateLimit();
+                  if (!rateCheck.allowed) {
+                    setLoginLocked(true);
+                    setLoginLockedUntil(rateCheck.lockoutUntil);
+                    setLoginError(`Too many failed attempts. Try again in ${Math.ceil((rateCheck.lockoutUntil - Date.now()) / 60000)} minutes.`);
+                    return;
+                  }
+                  if (verifyMasterPassword(masterPassword)) {
+                    resetLoginAttempts();
+                    setIsLoggedIn(true); setStudentName('MASTER'); navigateTo('teacherDashboard'); return;
+                  } else {
+                    recordFailedLogin();
+                    setLoginError('Invalid password. Access denied.');
+                    return;
+                  }
                 }
                 const pattern = /^MSCS-\d[A-Z]-\d{4}-\d{3}$/;
                 if (pattern.test(loginCode)) {
@@ -1872,8 +2098,8 @@ export default function Home() {
                 </div>
               )}
               <div className="text-center">
-                <p className="text-xs text-gray-400">Demo: Enter any valid format like MSCS-8A-2026-001</p>
-                <p className="text-xs text-gray-400 mt-1">Teacher: MSCS-MASTER-2026-ADMIN</p>
+                <p className="text-xs text-gray-400">Student: Enter any valid format like MSCS-8A-2026-001</p>
+                <p className="text-xs text-gray-400 mt-1">Teacher: MSCS-MASTER-2026-ADMIN + Password</p>
               </div>
             </div>
           </CardContent>
@@ -1965,6 +2191,133 @@ export default function Home() {
   );
 
   // ════════════════════════════════════════════════════════════
+  // DIAGNOSTIC ASSESSMENT PAGE
+  // ════════════════════════════════════════════════════════════
+
+  const renderDiagnosticPage = () => {
+    const gradeKey = diagnosticGrade;
+    const questions = diagnosticQuestions[gradeKey] || [];
+    const gradeInfo = gradeInfoList.find(g => g.key === gradeKey);
+
+    if (!gradeInfo) return null;
+
+    if (!isLoggedIn || !studentName || studentName === 'MASTER') {
+      return (
+        <div className="min-h-screen bg-[#FFF9F0] flex items-center justify-center p-4">
+          <Card className="border-2 border-[#D4AF37] max-w-md w-full">
+            <CardContent className="p-8 text-center space-y-4">
+              <Shield className="w-12 h-12 text-[#D4AF37] mx-auto" />
+              <h2 className="text-xl font-bold text-gray-800">Student Login Required</h2>
+              <p className="text-sm text-gray-600">You must be logged in with your student access code to take the diagnostic assessment.</p>
+              <Button onClick={() => navigateTo('loginPage')} className="bg-[#722F37] hover:bg-[#5A1A23] text-white"><LogIn className="w-4 h-4 mr-2" /> Go to Student Login</Button>
+              <Button variant="outline" onClick={() => navigateTo('gradeSelect')} className="border-[#D4AF37] text-[#D4AF37]">Back to Grades</Button>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    }
+
+    if (diagnosticSubmitted) {
+      const score = questions.reduce((acc, q) => acc + (diagnosticAnswers[q.id] === q.correctAnswer ? 1 : 0), 0);
+      const pct = Math.round((score / questions.length) * 100);
+      return (
+        <div className="min-h-screen bg-[#FFF9F0] flex items-center justify-center p-4">
+          {pct >= 50 && <ConfettiCelebration />}
+          <Card className="border-2 border-[#D4AF37] max-w-lg w-full">
+            <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-6 text-center rounded-t-xl">
+              <Award className="w-12 h-12 text-[#D4AF37] mx-auto mb-3" />
+              <h2 className="text-2xl font-bold text-white">Diagnostic Complete!</h2>
+              <p className="text-amber-200 text-sm mt-1">{gradeInfo.title} — Start of Year Assessment</p>
+            </div>
+            <CardContent className="p-6 text-center space-y-4">
+              <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full border-4 ${pct >= 65 ? 'border-emerald-400 bg-emerald-50' : pct >= 40 ? 'border-amber-400 bg-amber-50' : 'border-rose-400 bg-rose-50'}`}>
+                <div>
+                  <div className={`text-2xl font-bold ${pct >= 65 ? 'text-emerald-600' : pct >= 40 ? 'text-amber-600' : 'text-rose-600'}`}>{score}/{questions.length}</div>
+                  <div className={`text-sm ${pct >= 65 ? 'text-emerald-500' : pct >= 40 ? 'text-amber-500' : 'text-rose-500'}`}>{pct}%</div>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600">This establishes your baseline for the year. Your teacher will use this to track your growth.</p>
+              <Badge className="bg-amber-100 text-amber-700 border-amber-300"><CheckCircle2 className="w-3 h-3 mr-1" /> Result Saved</Badge>
+              <div className="pt-4"><Button onClick={() => navigateTo('gradeSelect')} className="bg-[#722F37] hover:bg-[#5A1A23] text-white"><HomeIcon className="w-4 h-4 mr-2" /> Back to {gradeInfo.title}</Button></div>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    }
+
+    return (
+      <div className="min-h-screen bg-[#FFF9F0] flex flex-col">
+        <div className="relative bg-gradient-to-r from-[#722F37] to-[#5A1A23] py-8 px-4">
+          <ArabicPattern opacity={0.06} color="#D4AF37" />
+          <div className="relative z-10 max-w-3xl mx-auto">
+            <Button variant="ghost" onClick={() => navigateTo('gradeSelect')} className="text-white/80 hover:text-white hover:bg-white/10 mb-3">
+              <ChevronLeft className="w-4 h-4 mr-1" /> Back to {gradeInfo.title}
+            </Button>
+            <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Brain className="w-6 h-6 text-[#D4AF37]" /> Diagnostic Assessment</h1>
+            <p className="text-amber-200/80 text-sm mt-1">{gradeInfo.title} — Start of Year Baseline</p>
+            <p className="text-white/60 text-xs mt-2">This assessment measures your current knowledge level. It is intentionally challenging — scoring 50-65% is normal and expected.</p>
+          </div>
+        </div>
+        <div className="max-w-3xl mx-auto px-4 py-8 flex-1 space-y-6">
+          {questions.map((q, idx) => {
+            const answered = diagnosticAnswers[q.id] !== undefined;
+            const isCorrect = answered && diagnosticAnswers[q.id] === q.correctAnswer;
+            const dokLevel = idx < 3 ? 'DOK 1' : idx < 6 ? 'DOK 2' : idx < 8 ? 'DOK 3' : 'DOK 4';
+            return (
+              <Card key={q.id} className={`border-2 ${answered ? (isCorrect ? 'border-emerald-300 bg-emerald-50/30' : 'border-rose-300 bg-rose-50/30') : 'border-amber-200'}`}>
+                <CardContent className="p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium text-gray-500">Question {idx + 1} of {questions.length}</span>
+                    <Badge variant="outline" className={`text-[10px] ${idx < 3 ? 'border-emerald-300 text-emerald-700' : idx < 6 ? 'border-amber-300 text-amber-700' : idx < 8 ? 'border-rose-300 text-rose-700' : 'border-purple-300 text-purple-700'}`}>{dokLevel}</Badge>
+                  </div>
+                  <h4 className="font-bold text-gray-800 text-sm">{q.question}</h4>
+                  <div className="space-y-2">
+                    {q.options?.map((option, optIdx) => {
+                      let cls = 'border-gray-200 bg-white hover:border-[#D4AF37] hover:bg-amber-50 cursor-pointer';
+                      if (answered) {
+                        if (q.correctAnswer === optIdx) cls = 'border-emerald-400 bg-emerald-50 ring-2 ring-emerald-200';
+                        else if (diagnosticAnswers[q.id] === optIdx) cls = 'border-rose-400 bg-rose-50 ring-2 ring-rose-200';
+                        else cls = 'border-gray-200 bg-gray-50 opacity-50';
+                      }
+                      return (
+                        <button key={optIdx} onClick={() => { if (!answered) setDiagnosticAnswers(prev => ({ ...prev, [q.id]: optIdx })); }} disabled={answered}
+                          className={`w-full text-left px-4 py-2.5 rounded-lg border-2 text-sm transition-all ${cls}`}>
+                          <span className="font-medium mr-2 text-gray-500">{String.fromCharCode(65 + optIdx)})</span>{option}
+                          {answered && q.correctAnswer === optIdx && <CheckCircle2 className="inline w-4 h-4 ml-2 text-emerald-600" />}
+                          {answered && diagnosticAnswers[q.id] === optIdx && q.correctAnswer !== optIdx && <XCircle className="inline w-4 h-4 ml-2 text-rose-600" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {answered && q.explanation && (
+                    <div className={`p-3 rounded-lg border text-xs ${isCorrect ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
+                      <span className="font-bold">{isCorrect ? 'Correct!' : 'Not quite!'}</span> {q.explanation}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
+          <div className="text-center py-4">
+            {Object.keys(diagnosticAnswers).length < questions.length ? (
+              <p className="text-sm text-gray-500">Answer all {questions.length} questions to submit your diagnostic assessment.</p>
+            ) : (
+              <Button onClick={() => {
+                const score = questions.reduce((acc, q) => acc + (diagnosticAnswers[q.id] === q.correctAnswer ? 1 : 0), 0);
+                saveDiagnosticResult({ studentCode: studentName, gradeKey, grade: gradeInfo.number, score, total: questions.length, percentage: Math.round((score / questions.length) * 100), completedAt: new Date().toISOString(), answers: diagnosticAnswers });
+                setDiagnosticSubmitted(true);
+                if (score / questions.length >= 0.5) SoundFX.celebrate();
+              }} className="bg-[#722F37] hover:bg-[#5A1A23] text-white px-8 py-3 text-lg">
+                <Trophy className="w-5 h-5 mr-2" /> Submit Diagnostic Assessment
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // ════════════════════════════════════════════════════════════
   // MAIN RENDER
   // ════════════════════════════════════════════════════════════
 
@@ -1978,6 +2331,8 @@ export default function Home() {
       {view === 'loginPage' && renderLoginPage()}
       {view === 'consentPage' && renderConsentPage()}
       {view === 'teacherDashboard' && renderTeacherDashboard()}
+      {view === 'diagnosticPage' && renderDiagnosticPage()}
+      <LicensedTo />
     </div>
   );
 }
