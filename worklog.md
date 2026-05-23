@@ -61,3 +61,24 @@ Stage Summary:
   - U3L4 (Hundred Years' War): Timeline
   - U3L5 (Crises/Late Middle Ages): Timeline
 - Build passes with no errors
+---
+Task ID: 1
+Agent: Main Agent
+Task: Implement complete G6T2 curriculum (17 lessons) with textbook content, fix visual rendering
+
+Work Log:
+- Read current codebase structure: lessons.ts, page.tsx, g6t1-content.ts, curriculum_mapping.json
+- Identified root cause of visual components not rendering: getLessonContentByPath only had G6T1 data, so realContent was null for G6T2
+- Updated curriculum_mapping.json: added all 17 G6T2 instructional lessons (Unit 4: 5, Unit 5: 5, Unit 6: 7), moved Unit 6 lessons from General to proper Unit 6 key
+- Created g6t2-content.ts (1,180 lines) with full enriched content for all 17 lessons
+- Updated g6t1-content.ts: modified getLessonContentByPath to also check g6t2ContentMap
+- Exported g6t2ContentMap from g6t2-content.ts
+- Updated lessons.ts: added unit title overrides and descriptions for G6T2 units
+- Verified build succeeds (npx next build compiles)
+- Committed all changes locally
+
+Stage Summary:
+- G6T2 now has 17 complete lessons with textbook readings, vocabulary, discussion questions, key facts, visual components (timeline, diagram, chart, piechart, mindmap, map, venn), quiz questions, and interactive strategies
+- Visual components should now render for G6T2 because getLessonContentByPath will find the content
+- Could NOT push to GitHub or deploy to Vercel (no authentication credentials available)
+- User needs to push: git push origin main
