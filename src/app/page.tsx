@@ -33,6 +33,7 @@ import {
   type QuizResult, type GradeInfo, type TermInfo, type UnitInfo, type LessonData,
   type DiagnosticResult, type LessonCompletion,
 } from '@/lib/lessons';
+import { getLessonContentByPath, type LessonContent } from '@/lib/g6t1-content';
 
 // ═══════════════════════════════════════════════════════════════
 // SOUND EFFECTS
@@ -972,7 +973,15 @@ export default function Home() {
     const cleanTitle = getCleanTitle(lesson.title);
     const unitContext = getUnitContextFromTitle(lesson.title);
     const lessonId = getLessonId(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
-    const quizQuestions = generateQuizQuestions(lesson, selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
+
+    // Try to get real G6T1 content
+    const realContent = getLessonContentByPath(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
+
+    // Use real quiz questions if available, otherwise fall back to generated
+    const quizQuestions = realContent
+      ? realContent.quizQuestions.map((q, i) => ({ ...q, id: q.id || `${lessonId}_rc${i + 1}`, type: 'multiple-choice' as const }))
+      : generateQuizQuestions(lesson, selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
+
     const activities = parseActivities(lesson.activities);
     const uaeLinks = generateUAELinks(lesson);
     const warmUp = generateWarmUp(lesson);
@@ -984,8 +993,10 @@ export default function Home() {
     // Success criteria (studentified)
     const successCriteria = studentifyText(lesson.success_criteria.replace(/^Student can:\s*/i, '')).split(/[;(]/).map(s => s.trim().replace(/^\(\d+\)\s*/, '')).filter(s => s.length > 5).slice(0, 5);
 
-    // Map markers based on lesson topic
-    const mapMarkers = generateMapMarkers(lesson);
+    // Map markers: use real content markers if available, otherwise generate from topic
+    const mapMarkers = realContent?.visualType === 'map' && realContent.visualData?.markers
+      ? (realContent.visualData.markers as Array<{ name: string; desc: string; lat: number; lng: number; color: string }>)
+      : generateMapMarkers(lesson);
 
     const slides = [
       // SLIDE 1: Title & Introduction
@@ -1137,20 +1148,113 @@ export default function Home() {
         ),
       },
 
-      // SLIDE 4: Core Activities
+      // SLIDE 4: Core Activities & Readings
       {
-        id: 4, type: 'activities' as const, title: 'Core Activities',
+        id: 4, type: 'activities' as const, title: 'Lesson Content & Activities',
         content: (
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl p-5 text-white">
               <div className="flex items-center gap-2 mb-2">
                 <Swords className="w-6 h-6 text-amber-200" />
-                <h3 className="text-xl font-bold">Core Activities</h3>
+                <h3 className="text-xl font-bold">Lesson Content & Activities</h3>
               </div>
-              <p className="text-amber-100 text-sm">Work through each activity — use the timers to stay on track!</p>
+              <p className="text-amber-100 text-sm">Read the passages carefully, then work through the activities!</p>
             </div>
 
-            {activities.map((activity, idx) => (
+            {/* Real textbook reading content for G6T1 */}
+            {realContent && (
+              <>
+                {/* Key Vocabulary */}
+                {realContent.keyVocabulary.length > 0 && (
+                  <Card className="border-2 border-[#D4AF37] bg-amber-50/30">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Lightbulb className="w-4 h-4 text-[#D4AF37]" />
+                        <h4 className="font-bold text-amber-800 text-sm">Key Vocabulary</h4>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {realContent.keyVocabulary.map(v => (
+                          <Badge key={v} className="bg-[#D4AF37]/20 text-amber-800 border border-[#D4AF37]/30">{v}</Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Reading 1 */}
+                <Card className="border-2 border-amber-200">
+                  <CardHeader className="pb-2 bg-amber-50/50">
+                    <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
+                      <BookOpen className="w-4 h-4" /> {realContent.reading1Title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-3 pb-4">
+                    <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+                      {realContent.reading1Content}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Reading 2 (if available) */}
+                {realContent.reading2Title && realContent.reading2Content && (
+                  <Card className="border-2 border-emerald-200">
+                    <CardHeader className="pb-2 bg-emerald-50/50">
+                      <CardTitle className="text-sm font-bold text-emerald-800 flex items-center gap-2">
+                        <BookOpen className="w-4 h-4" /> {realContent.reading2Title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-3 pb-4">
+                      <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+                        {realContent.reading2Content}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Key Facts */}
+                {realContent.keyFacts.length > 0 && (
+                  <Card className="border-2 border-rose-200 bg-rose-50/30">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Star className="w-4 h-4 text-rose-600" />
+                        <h4 className="font-bold text-rose-800 text-sm">Key Facts to Remember</h4>
+                      </div>
+                      <ul className="space-y-2">
+                        {realContent.keyFacts.map((fact, i) => (
+                          <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-rose-500 mt-0.5 shrink-0" />
+                            <span>{fact}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Discussion Questions */}
+                {realContent.discussionQuestions.length > 0 && (
+                  <Card className="border-2 border-blue-200 bg-blue-50/30">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Users className="w-4 h-4 text-blue-600" />
+                        <h4 className="font-bold text-blue-800 text-sm">Discuss & Reflect</h4>
+                      </div>
+                      <div className="space-y-2">
+                        {realContent.discussionQuestions.map((q, i) => (
+                          <div key={i} className="flex items-start gap-2 text-xs text-gray-700 bg-white rounded-lg p-2.5 border border-blue-100">
+                            <span className="font-bold text-blue-600 shrink-0">Q{i + 1}.</span>
+                            <span>{q}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </>
+            )}
+
+            {/* Fallback: show activities from curriculum mapping when no real content */}
+            {!realContent && activities.map((activity, idx) => (
               <Card key={activity.id} className={`border-2 overflow-hidden ${idx % 2 === 0 ? 'border-amber-200' : 'border-rose-200'}`}>
                 <div className={`px-4 py-3 ${idx % 2 === 0 ? 'bg-amber-50' : 'bg-rose-50'}`}>
                   <div className="flex items-center justify-between flex-wrap gap-2">

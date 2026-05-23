@@ -8,9 +8,11 @@ export function studentifyText(text: string): string {
   if (!text) return text;
   return text
     .replace(/\bSWBAT\b/gi, 'You will be able to')
+    .replace(/\bStudents will be able to\b/gi, 'You will be able to')
     .replace(/\bstudents\s+will\b/gi, 'you will')
     .replace(/\bstudents\s+can\b/gi, 'you can')
     .replace(/\bstudents\s+should\b/gi, 'you should')
+    .replace(/\bstudents\s+may\b/gi, 'you may')
     .replace(/\bthe teacher\s+should\b/gi, 'your instructor will')
     .replace(/\bthe teacher\b/gi, 'your instructor')
     .replace(/\bTeacher Guide\b/gi, 'Study Guide')
@@ -23,7 +25,10 @@ export function studentifyText(text: string): string {
     .replace(/p\.(\d+)/gi, 'page $1')
     .replace(/\bActivate prior knowledge\b/gi, 'Recall what you already know')
     .replace(/\bFormative:\s*/gi, '')
-    .replace(/\bSummative:\s*/gi, '');
+    .replace(/\bSummative:\s*/gi, '')
+    .replace(/\bPrior learning engagement:\s*/gi, '')
+    .replace(/\bLearning objective:\s*/gi, '')
+    .replace(/\bSuccess criteria:\s*/gi, '');
 }
 
 // ═══════════════════════════════════════════════════════════════
