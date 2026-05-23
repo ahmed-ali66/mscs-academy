@@ -1,84 +1,79 @@
-# MSCS Academy Worklog
-
 ---
-Task ID: 1
-Agent: Main
-Task: Implement G6T1 real textbook content and fix Points 1-7 from user feedback
+Task ID: 2
+Agent: Main Agent
+Task: Revise entire app concept to eliminate all HIGH risks and achieve 100% legal compliance
 
 Work Log:
-- Created `/home/z/my-project/src/lib/g6t1-content.ts` with real textbook content extracted from G6 T1 student textbook
-- Unit 1 (Equality and Justice): 5 lessons with full readings (Monkey and the Scale, Message of Tolerance, Elephant and the Blind Men, Healthcare Funding, Justice in Leadership)
-- Unit 2 (Physical Health and Diet): 3 lessons with full readings (Learning the Health Habit, Mediterranean Diet, Types of Exercise, Challenges to Health)
-- Unit 3 (Perspectives of People through Time): 5 lessons with full readings (Fall of Roman Empire, Byzantine Empire, Republic of Venice, First Hundred Years' War, Great Famine and Black Death)
-- Each lesson includes: key vocabulary, reading passages, discussion questions, key facts, visual type hints, and 5 lesson-specific quiz questions
-- Updated `studentifyText()` in lessons.ts with additional patterns (Students will be able to, students may, Prior learning engagement, etc.)
-- Updated page.tsx to import and use `getLessonContentByPath()` for G6T1 real content
-- Lesson viewer Slide 4 now shows real textbook readings, key vocabulary, key facts, and discussion questions when real content is available
-- Falls back to generated activities for grades/terms without real content yet
-- Quiz questions now use lesson-specific questions from real textbook content when available
-- Map markers use real content markers for geography lessons (Unit 3)
-- Removed duplicate `studentifyText` function definition
+- Read Ahmed Ali's resume (docx) — extracted full professional profile
+- Read Ahmed Ali's digital card (mr-ahmed-ali.vercel.app) — extracted additional details
+- Identified Ahmed as: ADEK-approved MSCS & Islamic Ed teacher, Grades 1-12, UAE Teaching License valid until Feb 2029, IELTS Band 7, PGDip Ed from Al-Azhar, BA Philosophy from Alexandria, MUN Faculty Head, BPA member, podcast creator
+- Analyzed all HIGH risks from previous research compendium
+- Eliminated Emirates ID as username → replaced with teacher-generated anonymized student codes
+- Eliminated all hidden/sneaky charges → restructured as transparent B2B freemium (students NEVER pay)
+- Designed full parental consent system compliant with Child Digital Safety Law (Fed Decree-Law 26/2025)
+- Designed minimal data collection architecture (PDPL compliant)
+- Created comprehensive T&C clauses for parent/guardian (18+) signature
+- Designed ADEK-aligned assessment structure (diagnostic, prior knowledge, formative, summative)
+- Created pre-launch checklist for zero-risk deployment
+- Wrote About section content using Ahmed's real credentials
+- Saved revised framework to /home/z/my-project/download/Zero_Risk_Compliance_Framework_Ahmed_Ali.md
+
+Stage Summary:
+- All HIGH risks eliminated: Emirates ID collection, hidden charges, ADEK fee violations, Child Digital Safety violations, Wadeema's Law violations
+- Remaining MEDIUM risks (employment contract, data breach) mitigated to LOW through minimal data + encryption
+- App model: FREE for students, B2B monetization (Teacher Pro, Parent Premium, School License)
+- Student identification: Anonymized codes, no sensitive personal data
+- Parental consent: Mandatory, documented, 18+ signatory, compliant with UAE Child Digital Safety Law
+
+---
+Task ID: 3
+Agent: Main Agent
+Task: Implement 9 user feedback fixes for MSCS Academy
+
+Work Log:
+- Read entire page.tsx (~2,600+ lines) to understand the monolithic SPA architecture
+- Installed react-leaflet, leaflet, @types/leaflet for real map support
+- Fix 1: Redesigned InteractiveTimeline from horizontal overlapping layout to clear vertical timeline with cards, proper spacing, and "Place Event" buttons
+- Fix 2: Replaced SVG-based OttomanMap with real Leaflet/OpenStreetMap showing Ottoman Empire boundary polygon + 8 circle markers with popups for key locations
+- Fix 3: Redesigned VennDiagram from overlapping circles with 9px text to clean 3-column comparison layout (Origins | Both | Holy Sites) with readable text
+- Fix 4: Added 5th quiz question about Battle of Manzikert, updated QuizEngine to save scores to localStorage with student code, show "Mark Saved" badge, display percentage
+- Fix 5: Added master login (MSCS-MASTER-2026-ADMIN) that routes to new teacherDashboard view with stats cards and student results table reading from localStorage
+- Fix 6: Removed "Priority" badge and priority-based styling from unit cards
+- Fix 7: Enhanced landing page with language selector, stats counter (4 Grades/24 Units/100+ Activities), translated all static text using translation system
+- Fix 8: Added SoundFX utility using Web Audio API (correct=ascending chime, incorrect=buzz, celebrate=ascending arpeggio), ConfettiCelebration component with CSS animation
+- Fix 9: Added language selector with 8 languages (EN, AR, UR, FA, ES, RU, TR, FR) with full translations for landing page
+- Added confetti CSS keyframe animation and Leaflet CSS fixes to globals.css
+- Build verified: compiled successfully with no errors
+
+Stage Summary:
+- All 9 user feedback items implemented successfully
+- Production build passes with zero errors
+- App running at localhost:3000 with 200 status
+- Key new features: Real Leaflet map, vertical timeline, 3-column Venn, sound effects, confetti, score saving, teacher dashboard, 8-language support
+---
+Task ID: 1
+Agent: Main Agent
+Task: Add G6T3 content, classroom rules popup, quiz banks, images, and enrichments
+
+Work Log:
+- Read and analyzed the full project structure (lessons.ts, page.tsx, curriculum_mapping.json)
+- Added 4 new G6T3-specific quiz banks to lessons.ts: Government Services (5Q), Political Systems (5Q), Laws (5Q), Rights and Responsibilities (5Q)
+- Added topic mapping keywords for new quiz banks in findTopicQuiz function
+- Enriched all 7 G6T3 instructional lessons with detailed teaching_learning_activities based on the Student Book and Teacher Guide
+- Added Ash'ari-influenced reflections embedded naturally into each lesson's teaching activities (never attributed to any thinker)
+- Reorganized G6T3 curriculum data: created "Unit 7: Government Services" with 6 lessons, separated from General (8 lessons for assessments/exams)
+- Updated lesson 6 title from "Human Rights and Responsibilities" to "Rights and Responsibilities" to match the textbook
+- Added Classroom Rules popup modal in page.tsx based on ADEK/UAE MoE guidelines (8 rules with acknowledgements)
+- Added showClassroomRules state and popup trigger when entering any lesson
+- Generated 4 educational images for G6T3 lessons using z-ai-generate CLI tool
+- Added getLessonHeroImage function for lesson-specific hero images
+- Added hero image display in title slide (background) and core activities slide (featured image)
+- Verified build compiles successfully after all changes
+
+Stage Summary:
+- G6T3 content is fully implemented with 6 Unit 7 lessons and 8 General/assessment lessons
+- 4 topic-specific quiz banks added with 20 total questions
+- Classroom rules popup based on ADEK/UAE MoE added
+- 4 AI-generated educational images added to /public/images/g6t3/
+- All Ash'ari framework enrichments are hidden and never attributed
 - Build passes successfully
-
-Stage Summary:
-- G6 T1 now has 13 lessons with REAL textbook content (readings, quizzes, vocabulary, facts)
-- Maps only appear for geography-focused lessons (Unit 3 in G6T1)
-- Teacher-facing language converted to student-facing throughout
-- Diagnostic assessments already had hard/progressive/100-mark structure from previous session
-- Next: Need G6 T2, T3 textbooks, then G7-G9 textbooks to populate remaining content
----
-Task ID: visual-components-1
-Agent: Main Agent
-Task: Add relevant visual and interactive elements to every G6T1 lesson (Timeline, Diagram, BarChart, PieChart, MindMap)
-
-Work Log:
-- Analyzed current state: g6t1-content.ts has visualType/visualData defined for all 13 G6T1 lessons, but only maps were rendering in Slide 5
-- Added 'mindmap' and 'piechart' to the LessonContent interface visualType union
-- Changed U2L2 (Exercise & Healthy Habits) from 'chart' to 'mindmap' visualType with branching data
-- Built 5 new React components in page.tsx:
-  1. LessonTimeline — Interactive vertical timeline with clickable events and gradient line
-  2. LessonDiagram — Hub & spoke diagram with central circle and color-coded satellite items
-  3. LessonBarChart — Recharts bar chart with color-coded bars, tooltips, and legend grid
-  4. LessonPieChart — Recharts pie chart with percentage labels and tooltips
-  5. LessonMindMap — Expandable mind map with central node and collapsible branches
-- Updated Slide 5 to dynamically render the correct visual based on realContent.visualType
-- Added fallback ComparisonChart for lessons with no visualType or 'none'
-- Verified Next.js build compiles successfully
-
-Stage Summary:
-- All 13 G6T1 lessons now have their assigned visual type rendering correctly:
-  - U1L1 (Equality): Venn diagram
-  - U1L2 (Fair Distribution): Bar chart
-  - U1L3 (Distributive Justice): Hub-spoke diagram
-  - U1L4 (Standards of Justice): Venn diagram
-  - U1L5 (Justice in Leadership): Bar chart
-  - U2L1 (Health & Diet): Bar chart (Food Groups)
-  - U2L2 (Exercise): Mind map
-  - U2L3 (Challenges to Health): Hub-spoke diagram
-  - U3L1 (Fall of Rome): Interactive map
-  - U3L2 (Byzantine Empire): Timeline
-  - U3L3 (Republic of Venice): Interactive map
-  - U3L4 (Hundred Years' War): Timeline
-  - U3L5 (Crises/Late Middle Ages): Timeline
-- Build passes with no errors
----
-Task ID: 1
-Agent: Main Agent
-Task: Implement complete G6T2 curriculum (17 lessons) with textbook content, fix visual rendering
-
-Work Log:
-- Read current codebase structure: lessons.ts, page.tsx, g6t1-content.ts, curriculum_mapping.json
-- Identified root cause of visual components not rendering: getLessonContentByPath only had G6T1 data, so realContent was null for G6T2
-- Updated curriculum_mapping.json: added all 17 G6T2 instructional lessons (Unit 4: 5, Unit 5: 5, Unit 6: 7), moved Unit 6 lessons from General to proper Unit 6 key
-- Created g6t2-content.ts (1,180 lines) with full enriched content for all 17 lessons
-- Updated g6t1-content.ts: modified getLessonContentByPath to also check g6t2ContentMap
-- Exported g6t2ContentMap from g6t2-content.ts
-- Updated lessons.ts: added unit title overrides and descriptions for G6T2 units
-- Verified build succeeds (npx next build compiles)
-- Committed all changes locally
-
-Stage Summary:
-- G6T2 now has 17 complete lessons with textbook readings, vocabulary, discussion questions, key facts, visual components (timeline, diagram, chart, piechart, mindmap, map, venn), quiz questions, and interactive strategies
-- Visual components should now render for G6T2 because getLessonContentByPath will find the content
-- Could NOT push to GitHub or deploy to Vercel (no authentication credentials available)
-- User needs to push: git push origin main

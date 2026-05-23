@@ -6375,123 +6375,8 @@
           "units": {
             "General": {
               "unit_name": "General",
-              "lesson_count": 14,
+              "lesson_count": 8,
               "lessons": [
-                {
-                  "week_number": 27,
-                  "date_range": "Mar 23 - Mar 27",
-                  "phase": "Instruction",
-                  "lesson_title": "How the Government Functions",
-                  "domains": "Civics & Governance\n(Government Systems)",
-                  "slo_codes": "S2.4",
-                  "dok_level": "DOK 1–2",
-                  "learning_activity": "Picture sort activity: Students sort cards showing govern...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT explain the functions and responsibilities of government leaders and public servants, and identify the purpose of government in society.",
-                    "success_criteria": "I can define what a government is and why it exists.\nI can identify at least 3 roles of government leaders.\nI can name examples of public servants in my community.",
-                    "prior_learning_engagement": "Ask students: \"Who makes the rules in our school? In our city?\" Discuss why rules and leaders are needed. Show images of UAE leaders.",
-                    "teaching_learning_activities": "Picture sort activity: Students sort cards showing government roles into categories (leader, advisor, public servant). Discussion: Why do we need government? Read textbook pp. 9-15 together. Key terms: government, leader, public servant, citizen, law, responsibility.",
-                    "assessment_closure": "Exit Ticket: Write one role of a government leader and one role of a public servant.",
-                    "resources_materials": "MSC Grade 6 Student Book pp. 9-15\nPicture cards of government roles\nWhiteboard / Jamboard",
-                    "homework_extension": "Ask a family member: What does the government do for us? Write 3 examples.",
-                    "moe_standard": "C2-G6-S2.4",
-                    "learning_domain": "Civics & Governance\n(Government Systems)"
-                  }
-                },
-                {
-                  "week_number": 28,
-                  "date_range": "Mar 30 - Apr 3",
-                  "phase": "Instruction",
-                  "lesson_title": "How the Government Functions (Continued)",
-                  "domains": "Civics & Governance\n(Government Systems)",
-                  "slo_codes": "S2.4",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Comparison activity: Create a T-chart comparing political...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT compare the roles of political leaders and civil servants, and explain how government decisions affect daily life.",
-                    "success_criteria": "I can compare the roles of political leaders and civil servants with examples.\nI can explain how government decisions affect my daily life.\nI can describe the accountability of public servants.",
-                    "prior_learning_engagement": "Review: Name 3 roles of government leaders from last week. Ask: \"How does a government decision affect YOUR life?\"",
-                    "teaching_learning_activities": "Comparison activity: Create a T-chart comparing political leaders vs. civil servants. Case study: How a law is proposed and who is involved. Group discussion: What would happen if there were no government? Read textbook pp. 9-15 (review sections on responsibilities).",
-                    "assessment_closure": "T-Chart Check: Students present their comparison charts. Quick-write: One way a government decision affects your family.",
-                    "resources_materials": "MSC Grade 6 Student Book pp. 9-15\nComparison graphic organizer\nCase study handout\nPlickers / MS Forms",
-                    "homework_extension": "Interview a family member about a government service they use. Write a short paragraph.",
-                    "moe_standard": "C2-G6-S2.4",
-                    "learning_domain": "Civics & Governance\n(Government Systems)"
-                  }
-                },
-                {
-                  "week_number": 29,
-                  "date_range": "Apr 6 - Apr 10",
-                  "phase": "Instruction",
-                  "lesson_title": "Modern Political Systems",
-                  "domains": "Civics & Governance\n(Political Systems)",
-                  "slo_codes": "S1.3, S2.2",
-                  "dok_level": "DOK 1–4",
-                  "learning_activity": "Timeline activity: Major European revolutions (American, ...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT explain the causes of major European revolutions, compare different political systems (democracy, monarchy, authoritarianism), and identify how these systems affect citizens.",
-                    "success_criteria": "I can identify key European revolutions and explain why they occurred.\nI can categorize political systems by their features.\nI can compare how different systems affect citizens' lives.",
-                    "prior_learning_engagement": "Quick quiz on Week 1-2 content (Plickers). Ask: \"Have you heard of the French Revolution? What happened?\"",
-                    "teaching_learning_activities": "Timeline activity: Major European revolutions (American, French, Russian). Compare political systems: democracy vs. monarchy vs. authoritarianism. Group sorting: Match characteristics to political systems. Read textbook pp. 16-23. Discussion: Which system protects citizens' rights the most?",
-                    "assessment_closure": "Sorting Assessment: Students correctly match at least 4 characteristics to the right political system. Exit Ticket: Name one revolution and its outcome.",
-                    "resources_materials": "MSC Grade 6 Student Book pp. 16-23\nRevolution timeline cards\nPolitical system comparison chart\nPlickers / MS Forms",
-                    "homework_extension": "Research one revolution from today's lesson. Write 5 key facts. Bring to next class.",
-                    "moe_standard": "C2-G6-S1.3\nC2-G6-S2.2",
-                    "learning_domain": "Civics & Governance\n(Political Systems)"
-                  }
-                },
-                {
-                  "week_number": 30,
-                  "date_range": "Apr 13 - Apr 17",
-                  "phase": "Instruction",
-                  "lesson_title": "How Laws are Made",
-                  "domains": "Civics & Governance\n(Legal Systems)",
-                  "slo_codes": "S2.5",
-                  "dok_level": "DOK 1–4",
-                  "learning_activity": "Branch sorting: Students match responsibilities to legisl...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT explain how laws are created, interpreted, and enforced, and identify the three branches of government and their roles.",
-                    "success_criteria": "I can correctly match legal concepts to the right branch of government.\nI can explain the difference between civil and criminal law.\nI can describe how a law is created step by step.",
-                    "prior_learning_engagement": "Plickers: Quick review of political systems. Ask: \"What is a law? Who makes the laws in the UAE?\"",
-                    "teaching_learning_activities": "Branch sorting: Students match responsibilities to legislative, executive, and judicial branches. Simulation: Students role-play as lawmakers debating a new school rule. Read textbook pp. 24-32. Key concepts: legislative branch, executive branch, judicial branch, civil law, criminal law, constitution.",
-                    "assessment_closure": "Branch Match Quiz: Students correctly sort at least 5 responsibilities into the 3 branches. Simulation debrief: What did you learn about making laws?",
-                    "resources_materials": "MSC Grade 6 Student Book pp. 24-32\nBranch sorting cards\nSimulation scenario cards\nWhiteboard / Jamboard",
-                    "homework_extension": "Find a news article about a new law in the UAE. Summarize it in 3-4 sentences.",
-                    "moe_standard": "C2-G6-S2.5",
-                    "learning_domain": "Civics & Governance\n(Legal Systems)"
-                  }
-                },
-                {
-                  "week_number": 31,
-                  "date_range": "Apr 20 - Apr 24",
-                  "phase": "Instruction",
-                  "lesson_title": "How Laws are Interpreted",
-                  "domains": "Civics & Governance\n(Legal Systems & Democracy)",
-                  "slo_codes": "S2.2, S2.3",
-                  "dok_level": "DOK 1–2",
-                  "learning_activity": "Discussion: What is democracy? Compare types of voting sy...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT explain what democracy means, identify key features of democratic systems, and describe how laws are interpreted through the judicial system.",
-                    "success_criteria": "I can define democracy and list its key features.\nI can describe at least 2 types of voting systems.\nI can explain how judges interpret laws.",
-                    "prior_learning_engagement": "Review: Name the 3 branches of government. Ask: \"What happens if people disagree about what a law means?\"",
-                    "teaching_learning_activities": "Discussion: What is democracy? Compare types of voting systems (first-past-the-post, proportional representation). Judicial interpretation activity: Read a short scenario and debate how a judge might rule. Read textbook pp. 33-38. Key terms: democracy, election, voting, ballot, representative, constitution, judicial review.",
-                    "assessment_closure": "Venn Diagram: Compare democracy to another system. Exit Ticket: Why is it important that laws are interpreted fairly?",
-                    "resources_materials": "MSC Grade 6 Student Book pp. 33-38\nDemocracy comparison chart\nVoting system infographic\nFNC infographic\nPlickers / MS Forms",
-                    "homework_extension": "Watch a short video about elections. Write 3 things you learned about how voting works.",
-                    "moe_standard": "C2-G6-S2.2\nC2-G6-S2.3",
-                    "learning_domain": "Civics & Governance\n(Legal Systems & Democracy)"
-                  }
-                },
                 {
                   "week_number": 32,
                   "date_range": "Apr 27 - May 1",
@@ -6504,38 +6389,15 @@
                   "assessment": "Summative: Unit Quiz / Performance Task",
                   "resources": "MoE Textbook G6 V-3; Teacher Guide V-3",
                   "scope_sequence_detail": {
-                    "learning_objective": "SWBAT demonstrate mastery of Lessons 1–4 through a comprehensive written assessment covering government functions, political systems, law-making, and law interpretation.",
-                    "success_criteria": "I can answer assessment questions accurately for Lessons 1–4.\nI can identify my areas of strength and areas needing improvement.\nI can explain key concepts from the first half of the term.",
-                    "prior_learning_engagement": "Quick verbal review: 3 key questions from each of the 4 lessons. Students self-assess confidence on each topic.",
-                    "teaching_learning_activities": "Assessment Activity: Comprehensive worksheet covering all 4 lessons — multiple choice, short answer, matching, and 1 extended-response question. After completion: Peer review of selected answers. Teacher-led review of common gaps identified.",
-                    "assessment_closure": "Comprehensive Worksheet (graded): MCQ, matching, short answer, and extended response. Gap analysis: Teacher identifies class-wide and individual weaknesses for targeted review.",
-                    "resources_materials": "Comprehensive Worksheet (teacher-prepared)\nPlickers / MS Forms\nReview answer key\nWhiteboard",
-                    "homework_extension": "Review any topics you found difficult on the worksheet. Prepare questions for the next class.",
-                    "moe_standard": "C2-G6-S2.2–S2.5",
-                    "learning_domain": "Assessment &\nConsolidation"
-                  }
-                },
-                {
-                  "week_number": 33,
-                  "date_range": "May 4 - May 8",
-                  "phase": "Instruction",
-                  "lesson_title": "Human Rights and Responsibilities",
-                  "domains": "Civics & Governance\n(Human Rights)",
-                  "slo_codes": "S2.3, S8.3",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Rights sorting: Students categorize rights (education, sa...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT define human rights, identify key articles from the UN Convention on the Rights of the Child, and compare rights and responsibilities under different political systems.",
-                    "success_criteria": "I can define human rights and give 3 examples.\nI can identify at least 5 rights from the UN Convention on the Rights of the Child.\nI can compare how rights are protected in different countries.",
-                    "prior_learning_engagement": "Warm-Up: \"What rights do you think every child in the world should have?\" Discuss as a class. Quick review of democracy from Week 5.",
-                    "teaching_learning_activities": "Rights sorting: Students categorize rights (education, safety, health, expression). Read and discuss key articles from the UN Convention on the Rights of the Child. Compare: How are children's rights protected in the UAE vs. other countries? Read textbook pp. 39-44. Key terms: human rights, UN Convention, responsibility, equality, justice, freedom.",
-                    "assessment_closure": "Rights Match: Match 5 rights to their correct category. Reflection: Write about one right you are grateful to have and why it matters.",
-                    "resources_materials": "MSC Grade 6 Student Book pp. 39-44\nUN Convention summary\nSorting cards\nPlickers / MS Forms\nVideo (UNICEF)",
-                    "homework_extension": "Talk to a family member about human rights. Write a short paragraph about why human rights matter.",
-                    "moe_standard": "C2-G6-S2.3\nC2-G6-S8.3",
-                    "learning_domain": "Civics & Governance\n(Human Rights)"
+                    "learning_objective": "SWBAT demonstrate mastery of Lessons 1-4 through a comprehensive written assessment covering government functions, political systems, law-making, and judicial systems.",
+                    "success_criteria": "I can answer assessment questions accurately for Lessons 1-4.\nI can identify my areas of strength and areas needing improvement.\nI can explain key concepts from each lesson in my own words.",
+                    "prior_learning_engagement": "Quick Review: Students create a mind map of the 4 main topics: Government Functions, Political Systems, Laws, and Judicial System. Share with a partner.",
+                    "teaching_learning_activities": "Activity 1: Mind Map Review — Create a mind map connecting the 4 main topics. Include key terms, concepts, and examples for each (4 min).\n\nActivity 2: Comprehensive Worksheet — Complete written assessment: multiple choice (8 questions), short answer (4 questions), matching (6 items), and 1 extended-response question covering all 4 lessons (15 min).\n\nActivity 3: Self-Assessment — After completing the worksheet, students identify: Which lesson was my strongest? Which lesson do I need to review? What is one concept I still don't fully understand? (3 min).\n\nActivity 4: Peer Review — Exchange worksheets with a partner. Discuss any different answers. Help each other understand mistakes (5 min).\n\nReflection: Knowledge is most valuable when it is tested and refined. Every challenge we face in understanding makes our grasp of the truth stronger and more complete.",
+                    "assessment_closure": "Collect worksheets. Students write one question they still have about the unit on a sticky note for the teacher.",
+                    "resources_materials": "Comprehensive worksheet handout\nMind map template\nSticky notes\nTimer",
+                    "homework_extension": "Review your weakest area from the worksheet. Create a study guide with 5 key terms and definitions for that topic.",
+                    "moe_standard": "C2-G6-S2.2, S2.5",
+                    "learning_domain": "Assessment & Consolidation"
                   }
                 },
                 {
@@ -6697,6 +6559,150 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Final Exams"
+                  }
+                }
+              ]
+            },
+            "Unit 7": {
+              "unit_name": "Unit 7: Government Services",
+              "lesson_count": 6,
+              "lessons": [
+                {
+                  "week_number": 27,
+                  "date_range": "Mar 23 - Mar 27",
+                  "phase": "Instruction",
+                  "lesson_title": "How the Government Functions",
+                  "domains": "Civics & Governance\n(Government Systems)",
+                  "slo_codes": "S2.4",
+                  "dok_level": "DOK 1–2",
+                  "learning_activity": "Picture sort activity: Students sort cards showing govern...",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
+                  "scope_sequence_detail": {
+                    "learning_objective": "SWBAT explain the functions and responsibilities of government leaders and public servants, and identify the purpose of government in society.",
+                    "success_criteria": "I can define what a government is and why it exists.\nI can identify at least 3 roles of government leaders.\nI can name examples of public servants in my community.\nI can explain why a constitution is important for organizing government.",
+                    "prior_learning_engagement": "Ask students: \"Who makes the rules in our school? In our city?\" Discuss why rules and leaders are needed. Show images of UAE leaders and government buildings. Ask: What would happen if nobody was in charge?",
+                    "teaching_learning_activities": "Activity 1: Brainstorm Discussion — What is the purpose of government? What are its roles and responsibilities? Students fill in a Purpose-Roles-Responsibilities chart (3 min).\n\nActivity 2: Reading & Highlighting — Read textbook pp. 9-15. Students highlight new information about the roles and responsibilities of government, political leaders, and officials. Key terms: policy, role, regulate, grant, responsibility, unbiased, welfare (5 min).\n\nActivity 3: Concept Check Quiz — 4 multiple-choice questions about political leaders vs. officials, constitution definition, and responsibilities (3 min).\n\nActivity 4: Label & Describe — Students label pictures as 'Political Leader' or 'Official' and write job descriptions for each based on the text (4 min).\n\nActivity 5: Classroom Constitution — In groups of 3-4, students write a mini-constitution for their classroom: 3 roles/responsibilities for the teacher and 3 for the students (5 min).\n\nActivity 6: Civil Servants — Discuss why government officials are called 'civil servants.' Students answer: How do people become civil servants? What are examples of civil servant jobs? What challenges do they face? (4 min).\n\nReflection: True governance serves the welfare of all people, not just the powerful. When leaders and officials work together with sincerity and justice, society flourishes and every person's dignity is upheld.",
+                    "assessment_closure": "Exit Ticket: Write one role of a government leader and one role of a public servant. Explain why unbiased advice from officials is important for good governance.",
+                    "resources_materials": "MSC Grade 6 Student Book pp. 9-15\nPicture cards of government roles\nWhiteboard / Jamboard\nKWL Chart\nTimer for activities",
+                    "homework_extension": "Ask a family member: What does the government do for us? Write 3 examples. Research: Find one example of a civil servant job in the UAE and describe what they do.",
+                    "moe_standard": "C2-G6-S2.4",
+                    "learning_domain": "Civics & Governance\n(Government Systems)"
+                  }
+                },
+                {
+                  "week_number": 28,
+                  "date_range": "Mar 30 - Apr 3",
+                  "phase": "Instruction",
+                  "lesson_title": "How the Government Functions (Continued)",
+                  "domains": "Civics & Governance\n(Government Systems)",
+                  "slo_codes": "S2.4",
+                  "dok_level": "DOK 2–3",
+                  "learning_activity": "Comparison activity: Create a T-chart comparing political...",
+                  "assessment": "Formative: Observation / Think-Pair-Share",
+                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
+                  "scope_sequence_detail": {
+                    "learning_objective": "SWBAT compare the roles of political leaders and civil servants, and explain how government decisions affect daily life.",
+                    "success_criteria": "I can compare the roles of political leaders and civil servants with examples.\nI can explain how government decisions affect my daily life.\nI can describe the accountability of public servants.\nI can explain what it means for officials to give unbiased advice.",
+                    "prior_learning_engagement": "Review: Name 3 roles of government leaders from last lesson. Quick-Write: How does a government decision affect YOUR life? Think about roads, schools, hospitals, laws.",
+                    "teaching_learning_activities": "Activity 1: T-Chart Comparison — Create a detailed T-chart comparing Political Leaders vs. Civil Servants: How they get their position, their main responsibilities, who they report to, and how long they serve (4 min).\n\nActivity 2: Case Study — 'How a Law is Proposed': Walk through the process from idea to policy. Identify who is involved at each step — leader or official? (4 min).\n\nActivity 3: Group Discussion — 'What would happen if there were no government?' Students discuss and present consequences for security, education, health, economy (4 min).\n\nActivity 4: UAE Connection — Research the UAE Cabinet and FNC. Who are the political leaders? Who are the officials? How do they work together? (5 min).\n\nActivity 5: Unbiased Advice Scenario — Read 3 scenarios where an official must give advice. Students decide: Is the advice biased or unbiased? Why does it matter? (4 min).\n\nReflection: The strength of any system of governance lies in the sincerity of those who serve. When every person fulfills their duty with integrity and concern for the common good, the entire community thrives.",
+                    "assessment_closure": "T-Chart Check: Students present their comparison charts. Quick-write: One way a government decision affects your family. One reason officials must remain neutral.",
+                    "resources_materials": "MSC Grade 6 Student Book pp. 9-15\nComparison graphic organizer\nCase study handout\nUAE government website for research",
+                    "homework_extension": "Interview a family member about a government service they use. Write a short paragraph explaining how it connects to the roles of political leaders or civil servants.",
+                    "moe_standard": "C2-G6-S2.4",
+                    "learning_domain": "Civics & Governance\n(Government Systems)"
+                  }
+                },
+                {
+                  "week_number": 29,
+                  "date_range": "Apr 6 - Apr 10",
+                  "phase": "Instruction",
+                  "lesson_title": "Modern Political Systems",
+                  "domains": "Civics & Governance\n(Political Systems)",
+                  "slo_codes": "S1.3, S2.2",
+                  "dok_level": "DOK 1–4",
+                  "learning_activity": "Timeline activity: Major European revolutions (American, ...",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
+                  "scope_sequence_detail": {
+                    "learning_objective": "SWBAT explain the causes of major European revolutions, compare different political systems (democracy, monarchy, authoritarianism), and identify how these systems affect citizens.",
+                    "success_criteria": "I can identify key European revolutions and explain why they occurred.\nI can categorize political systems by their features.\nI can compare how different political systems affect citizens' lives.\nI can explain the connection between the Industrial Revolution, Social Revolution, and Political Revolution.",
+                    "prior_learning_engagement": "Ask: What do you know about revolutions? Have you heard of the French Revolution or American Revolution? What do you think motivates people to change their government?",
+                    "teaching_learning_activities": "Activity 1: Brainstorm — Discuss 3 things governments should do for people and 3 things people should do for government. Record in a two-column chart (2 min).\n\nActivity 2: Reading & Timeline — Read textbook pp. 17-23 about Forming Political Systems. Students create a timeline: American Revolution (1775), French Revolution (1789), Industrial Revolution (1760), German Revolution (1848), Russian Revolutions (1905, 1917). Match each to its location on a map of Europe (6 min).\n\nActivity 3: Revolution Types Match — Match descriptions to revolution types: Industrial (mass production, factories), Social (rural to urban migration), Political (separation from government). Discuss how they are interconnected (4 min).\n\nActivity 4: Map Activity — Label a blank map of Europe with revolution locations and dates. Discuss: Why did revolutions happen in this order and region? (4 min).\n\nActivity 5: Critical Thinking — Develop 3 more questions that framers of a government need to ask when creating a political system. Share with partner (3 min).\n\nReflection: Every society that seeks justice must ask difficult questions about how power is distributed and how the vulnerable are protected. The answers shape whether a people flourish or suffer.",
+                    "assessment_closure": "Exit Ticket: Name one European revolution, its date, and why it occurred. Explain one difference between the Industrial Revolution and the Social Revolution.",
+                    "resources_materials": "MSC Grade 6 Student Book pp. 17-23\nBlank timeline template\nBlank map of Europe\nColored markers\nDigital map tool",
+                    "homework_extension": "Research one European revolution in more detail. Write a short report: Who was involved? What changed? How did it affect ordinary people?",
+                    "moe_standard": "C2-G6-S1.3, S2.2",
+                    "learning_domain": "Civics & Governance\n(Political Systems)"
+                  }
+                },
+                {
+                  "week_number": 30,
+                  "date_range": "Apr 13 - Apr 17",
+                  "phase": "Instruction",
+                  "lesson_title": "How Laws are Made",
+                  "domains": "Civics & Governance\n(Legal Systems)",
+                  "slo_codes": "S2.5",
+                  "dok_level": "DOK 1–4",
+                  "learning_activity": "Branch sorting: Students match responsibilities to legisl...",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
+                  "scope_sequence_detail": {
+                    "learning_objective": "SWBAT explain how laws are created, interpreted, and enforced, and identify the three branches of government and their roles.",
+                    "success_criteria": "I can correctly match legal concepts to the right branch of government.\nI can explain the difference between civil and criminal law.\nI can describe how a bill becomes a law step by step.\nI can compare parliamentary and presidential systems.",
+                    "prior_learning_engagement": "Brainstorm with a partner: What laws do you know? Why do we have laws? What would happen without them?",
+                    "teaching_learning_activities": "Activity 1: Law Brainstorm — With a partner, list as many laws as you can think of. Categorize them: Who do they protect? What problem do they solve? (2 min).\n\nActivity 2: Reading & Note-Taking — Read textbook pp. 25-31 about Civil and Criminal Law. Highlight: legislative branch, executive branch, judicial branch, parliamentary system, presidential system, civil law, criminal law, jury. Create a 3-column chart: Branch / Function / Example (5 min).\n\nActivity 3: Legal Concepts Matching — Match each legal concept to its correct fact: Legislative Branch = drafts and debates laws; Presidential System = keeps branches separate; Civil Law = issues between individuals; Criminal Law = crimes against the state; Jury = listens to evidence (3 min).\n\nActivity 4: Bill to Law Sequencing — Put 6 steps in order: (1) Bill is drafted, (2) Bill is debated, (3) Bill is approved and becomes law, (4) Law is executed/enforced by police, (5) Accused person goes to trial, (6) Judge or jury interprets law and decides case (4 min).\n\nActivity 5: Civil vs. Criminal Law Sort — Sort 5 statements into Civil Law or Criminal Law columns (3 min).\n\nActivity 6: Classroom Bill Debate — In groups of 4, debate pros and cons of 3 classroom bills. Record debate notes and final decisions. Example bills: (a) Students marked absent if 1 minute late, (b) Only 4 grade levels (A/B/C/F), (c) All work individual, no group work (5 min).\n\nReflection: Laws are the threads that hold society together. When they are made wisely, enforced justly, and interpreted fairly, they become a shield that protects every member of the community, strong and vulnerable alike.",
+                    "assessment_closure": "Exit Ticket: Name the 3 branches of government and their function. Explain one difference between civil and criminal law.",
+                    "resources_materials": "MSC Grade 6 Student Book pp. 25-31\nBranch sorting cards\nBill debate handout\nVenn diagram template\nTimer",
+                    "homework_extension": "Find a news article about a new law in the UAE. Write: What branch of government created it? Is it civil or criminal? How does it protect people?",
+                    "moe_standard": "C2-G6-S2.5",
+                    "learning_domain": "Civics & Governance\n(Legal Systems)"
+                  }
+                },
+                {
+                  "week_number": 31,
+                  "date_range": "Apr 20 - Apr 24",
+                  "phase": "Instruction",
+                  "lesson_title": "How Laws are Interpreted",
+                  "domains": "Civics & Governance\n(Legal Systems & Democracy)",
+                  "slo_codes": "S2.2, S2.3",
+                  "dok_level": "DOK 1–2",
+                  "learning_activity": "Discussion: What is democracy? Compare types of voting sy...",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
+                  "scope_sequence_detail": {
+                    "learning_objective": "SWBAT explain how a country's judicial system works and describe the role of the judicial system in local, national, and international contexts.",
+                    "success_criteria": "I can define the judiciary and explain its role in government.\nI can distinguish between federal and local courts.\nI can explain the role of the International Court of Justice.\nI can identify which branch of government handles different situations.",
+                    "prior_learning_engagement": "Think about being a judge: What would be the most difficult part? Discuss: How do judges make sure their decisions are fair?",
+                    "teaching_learning_activities": "Activity 1: Judge Reflection — Write: What do you think is the most difficult part of being a judge? Share with partner (2 min).\n\nActivity 2: Reading & Comprehension — Read textbook pp. 34-37 about The Judicial System. Highlight key terms: court, federal, local, branch, International Court of Justice, United Nations. Answer True/False questions: (1) There is no international judicial system (F), (2) The judiciary should be non-political (T), (3) 'Local' refers to the whole country (F), (4) Federal judiciaries decide how to enforce local law (F) (5 min).\n\nActivity 3: Information Gap Activity — Partner A and Partner B each have incomplete information. Take turns asking questions to fill in the blanks: judiciary, executive, federal, local, United Nations, International Court of Justice, constitution, legislature (4 min).\n\nActivity 4: Three Branches Chart — Complete a detailed chart for all three branches: Legislative, Executive, Judicial. For each: What is its function? How does it operate? Key facts (4 min).\n\nActivity 5: Situation Analysis — Read 6 situations and identify which branch of government deals with each: constitutional violation (judicial), diplomatic agreement (executive), constitution amendment (legislative), new environmental law (legislative), declaring war (executive), arrested person on trial (judicial) (4 min).\n\nReflection: The pursuit of justice requires independence from influence and a commitment to truth. When those who interpret the law do so with wisdom and impartiality, they uphold the trust that society places in them.",
+                    "assessment_closure": "Exit Ticket: Explain the difference between federal and local courts. Name one function of each branch of government. What is the International Court of Justice?",
+                    "resources_materials": "MSC Grade 6 Student Book pp. 34-37\nInformation gap handout (Partner A & B)\nThree Branches chart template\nSituation cards\nTimer",
+                    "homework_extension": "Research the UAE court system. What types of courts exist? How are judges appointed? Write 5 facts about the UAE judicial system.",
+                    "moe_standard": "C2-G6-S2.2, S2.3",
+                    "learning_domain": "Civics & Governance\n(Legal Systems & Democracy)"
+                  }
+                },
+                {
+                  "week_number": 33,
+                  "date_range": "May 4 - May 8",
+                  "phase": "Instruction",
+                  "lesson_title": "Rights and Responsibilities",
+                  "domains": "Civics & Governance\n(Human Rights)",
+                  "slo_codes": "S2.3, S8.3",
+                  "dok_level": "DOK 2–3",
+                  "learning_activity": "Rights sorting: Students categorize rights (education, sa...",
+                  "assessment": "Formative: Observation / Think-Pair-Share",
+                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
+                  "scope_sequence_detail": {
+                    "learning_objective": "SWBAT define civil rights and political rights, compare how rights and responsibilities differ in different political systems, and explain how rights and responsibilities balance in the UAE context.",
+                    "success_criteria": "I can define civil rights and political rights and give examples of each.\nI can explain the difference between citizens and residents in terms of rights.\nI can describe how rights come with responsibilities.\nI can compare rights and responsibilities in the UAE with other systems.",
+                    "prior_learning_engagement": "Think about your responsibilities at home and at school. Make two lists. Share: Why do you have these responsibilities? What rights do you enjoy because of them?",
+                    "teaching_learning_activities": "Activity 1: Responsibilities Brainstorm — Create two lists: Responsibilities at Home and Responsibilities at School. Discuss why responsibilities exist and what would happen without them (2 min).\n\nActivity 2: Reading & Comprehension — Read textbook pp. 40-45 about Rights and Responsibilities. Highlight: citizen, resident, civil rights, political rights, hold office, extend to, reserved for. Answer 4 multiple-choice questions about rights vs. responsibilities (5 min).\n\nActivity 3: Rights Sorting — Look at 4 pictures and identify whether each shows a civil right or political right. Discuss why the distinction matters (3 min).\n\nActivity 4: Rights vs. Responsibilities Chart — Sort 5 actions into Right or Responsibility: paying taxes (responsibility), voting (right), obeying laws (responsibility), behaving respectfully (responsibility), living safely (right) (3 min).\n\nActivity 5: UAE Connection — Discuss: In the UAE, citizens and residents both enjoy safety and security (civil right). However, only citizens may vote in FNC elections or be appointed to FNC seats (political right). Why do you think political rights are reserved for citizens? How does this compare to other countries? (4 min).\n\nActivity 6: Critical Thinking Discussion — With a partner, discuss: How do people learn about their rights and responsibilities? How are they monitored and enforced? Write your thoughts (3 min).\n\nReflection: True justice is achieved when every person understands that their rights are protected by the fulfillment of their responsibilities. A society thrives when its members recognize that freedom and duty are inseparable companions on the path to the common good.",
+                    "assessment_closure": "Exit Ticket: Explain the difference between civil rights and political rights with one example of each. Why is it important for people to obey the laws of the country they live in?",
+                    "resources_materials": "MSC Grade 6 Student Book pp. 40-45\nRights sorting cards\nResponsibility chart template\nUAE FNC information sheet\nTimer",
+                    "homework_extension": "Write a paragraph: Why is it important for people who live in a country to obey the laws? What can happen if people ignore laws? How do laws help people have a happy and successful life?",
+                    "moe_standard": "C2-G6-S2.3, S8.3",
+                    "learning_domain": "Civics & Governance\n(Human Rights)"
                   }
                 }
               ]

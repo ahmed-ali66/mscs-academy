@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import 'leaflet/dist/leaflet.css';
-import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend as RechartsLegend, ResponsiveContainer } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -22,18 +21,10 @@ import {
   getGradeInfo, getLesson, getCleanTitle, getUnitContextFromTitle,
   generateQuizQuestions, parseActivities, generateUAELinks, generateWarmUp,
   saveQuizResult, getAllQuizResults, getResultsByGrade, exportResultsAsCSV,
-  getPlatformStats, getUnitData, getLessonId,
-  verifyMasterPassword, MASTER_LOGIN_CODE, checkLoginRateLimit,
-  recordFailedLogin, resetLoginAttempts, isSessionExpired, updateSessionActivity,
-  markLessonComplete, getLessonCompletions, isLessonCompleted,
-  getGradeCompletionPercentage, getNextLesson, deleteStudentData,
-  saveDiagnosticResult, getDiagnosticResults, hasDiagnosticResult,
-  diagnosticQuestions, studentifyText,
+  getPlatformStats,
   type QuizQuestion, type ActivityItem, type UAELink, type WarmUpActivity,
   type QuizResult, type GradeInfo, type TermInfo, type UnitInfo, type LessonData,
-  type DiagnosticResult, type LessonCompletion,
 } from '@/lib/lessons';
-import { getLessonContentByPath, type LessonContent } from '@/lib/g6t1-content';
 
 // ═══════════════════════════════════════════════════════════════
 // SOUND EFFECTS
@@ -124,20 +115,20 @@ function ConfettiCelebration() {
 
 const translations: Record<string, Record<string, string>> = {
   en: { subtitle: 'Moral, Social & Cultural Studies', tagline: 'Making Learning Active, Not Passive', interactivePlatform: '— Interactive Learning Platform —', whyTitle: 'Why MSCS Academy?', feature1: 'Interactive Learning', feature1d: 'Quizzes, timelines, maps, and drag-and-drop activities that make learning unforgettable', feature2: 'Standards-Aligned', feature2d: 'Every lesson follows UAE curriculum standards with clear objectives and success criteria', feature3: 'UAE & Real-World Links', feature3d: 'Every lesson connects to UAE culture, values, and real-life applications', feature4: 'Built-in Timers', feature4d: 'Structured activities with countdown timers keep lessons on pace', feature5: 'Instant Feedback', feature5d: 'Quizzes with immediate scoring and explanations help students learn from mistakes', feature6: 'Student-Centered', feature6d: 'KWL charts, Venn diagrams, and collaborative activities put students first', meetInstructor: 'Meet Your Instructor', instructorDesc: 'Dedicated educator specializing in Moral, Social, and Cultural Studies for UAE students. Creating engaging, standards-aligned lessons that bring history and culture to life.', footerTagline: 'MSCS Academy: Making Learning Active, Not Passive', about: 'About', studentLogin: 'Student Login', parentalConsent: 'Parental Consent', selectGrade: 'Select your grade to begin' },
-  ar: { subtitle: 'الدراسات الأخلاقية والاجتماعية والثقافية', tagline: 'نحو تعلّم نشط لا تلقيني', interactivePlatform: '— منصة تعلّم تفاعلية —', whyTitle: 'لماذا أكاديمية MSCS؟', feature1: 'تعلّم تفاعلي', feature1d: 'اختبارات وخطوط زمنية وخرائط وأنشطة تفاعلية تجعل التعلّم لا يُنسى', feature2: 'مواءمة المعايير', feature2d: 'كل درس يلتزم بمعايير المنهج الإماراتي مع أهداف واضحة ومعايير نجاح محددة', feature3: 'الربط بالإمارات والواقع', feature3d: 'يربط كل درس بين المفاهيم وثقافة الإمارات وقيمها وتطبيقاتها العملية', feature4: 'مؤقتات مدمجة', feature4d: 'أنشطة منظمة بمؤقتات عد تنازلي تحافظ على وتيرة الدرس', feature5: 'تغذية راجعة فورية', feature5d: 'اختبارات فورية مع تصحيح وتوضيح تساعد الطالب على الاستفادة من أخطائه', feature6: 'الطالب محور العملية', feature6d: 'مخططات KWL ومخططات فين وأنشطة تعاونية تضع الطالب في المقام الأول', meetInstructor: 'تعرّف على معلمك', instructorDesc: 'معلم متخصص في الدراسات الأخلاقية والاجتماعية والثقافية لطلاب الإمارات.', footerTagline: 'أكاديمية MSCS: نحو تعلّم نشط لا تلقيني', about: 'حول', studentLogin: 'دخول الطالب', parentalConsent: 'موافقة ولي الأمر', selectGrade: 'اختر صفك للبدء' },
-  ur: { subtitle: 'اخلاقی، سماجی اور ثقافتی علوم', tagline: 'فعال تعلیم، غیر فعال نہیں', interactivePlatform: '— تعاملی تعلیم کا پلیٹ فارم —', whyTitle: 'MSCS اکیڈمی کیوں؟', feature1: 'تعاملی تعلیم', feature1d: 'کوئز، ٹائم لائنز، نقشے اور ڈریگ اینڈ ڈراپ سرگرمیاں جو تعلیم کو یادگار بناتی ہیں', feature2: 'معیارات کے مطابق', feature2d: 'ہر سبق یو اے ای کریکولم کے معیارات کی پیروی کرتا ہے مع واضح اهداف اور کامیابی کے معیار', feature3: 'یو اے ای اور عملی زندگی کا ربط', feature3d: 'ہر سبق یو اے ای کی ثقافت اور اقدار سے جڑتا ہے', feature4: 'بلٹ ان ٹائمرز', feature4d: 'کاؤنٹ ڈاؤن ٹائمرز کے ساتھ منظم سرگرمیاں', feature5: 'فوری رائے', feature5d: 'فوری اسکورنگ اور تشریح کے ساتھ کوئز', feature6: 'طلباء مرکزی', feature6d: 'KWL چارٹس اور تعاونی سرگرمیاں', meetInstructor: 'اپنے استاد سے ملیں', instructorDesc: 'یو اے ای کے طلباء کے لیے MSCS میں متخصص معلم۔', footerTagline: 'MSCS اکیڈمی: فعال تعلیم کا پلیٹ فارم', about: 'ہمارے بارے میں', studentLogin: 'طالب علم لاگ ان', parentalConsent: 'والدین کی رضامندی', selectGrade: 'شروع کرنے کے لیے اپنا گریڈ منتخب کریں' },
-  fa: { subtitle: 'مطالعات اخلاقی، اجتماعی و فرهنگی', tagline: 'یادگیری فعال، نه انفعالی', interactivePlatform: '— پلتفرم یادگیری تعاملی —', whyTitle: 'چرا آکادمی MSCS؟', feature1: 'یادگیری تعاملی', feature1d: 'آزمون‌ها، خط زمانی، نقشه‌ها و فعالیت‌های تعاملی که یادگیری را ماندگار می‌کنند', feature2: 'همسو با استانداردها', feature2d: 'هر درس منطبق بر استانداردهای آموزشی امارات با اهداف و معیارهای موفقیت شفاف', feature3: 'ارتباط با امارات و دنیای واقعی', feature3d: 'هر درس فرهنگ و ارزش‌های امارات را به کاربردهای عملی پیوند می‌دهد', feature4: 'تایمرهای داخلی', feature4d: 'فعالیت‌های ساختاریافته با تایمر شمارش معکوس', feature5: 'بازخورد آنی', feature5d: 'آزمون‌ها با امتیازدهی و توضیح فوری', feature6: 'محوریت دانش‌آموز', feature6d: 'نمودارهای KWL و فعالیت‌های مشارکتی', meetInstructor: 'با استاد خود آشنا شوید', instructorDesc: 'معلم متخصص در مطالعات MSCS برای دانش‌آمویان امارات.', footerTagline: 'آکادمی MSCS: یادگیری فعال، نه انفعالی', about: 'درباره ما', studentLogin: 'ورود دانش‌آموز', parentalConsent: 'رضایت والدین', selectGrade: 'پایه تحصیلی خود را انتخاب کنید' },
-  es: { subtitle: 'Estudios Morales, Sociales y Culturales', tagline: 'Aprendizaje Activo, No Pasivo', interactivePlatform: '— Plataforma de Aprendizaje Interactivo —', whyTitle: '¿Por qué MSCS Academy?', feature1: 'Aprendizaje Interactivo', feature1d: 'Cuestionarios, líneas temporales, mapas y actividades interactivas que hacen el aprendizaje inolvidable', feature2: 'Alineado con Estándares', feature2d: 'Cada lección sigue los estándares del currículo emiratí con objetivos y criterios de éxito claros', feature3: 'Conexiones con EAU y el Mundo Real', feature3d: 'Cada lección vincula los conceptos con la cultura y los valores emiratíes', feature4: 'Temporizadores Integrados', feature4d: 'Actividades estructuradas con temporizadores de cuenta regresiva', feature5: 'Retroalimentación Inmediata', feature5d: 'Cuestionarios con puntuación y explicaciones instantáneas', feature6: 'Centrado en el Estudiante', feature6d: 'Diagramas KWL y actividades colaborativas centradas en el estudiante', meetInstructor: 'Conoce a Tu Instructor', instructorDesc: 'Educador especializado en Estudios MSCS para estudiantes de EAU.', footerTagline: 'MSCS Academy: Aprendizaje Activo', about: 'Acerca de', studentLogin: 'Acceso del Estudiante', parentalConsent: 'Consentimiento de los Padres', selectGrade: 'Selecciona tu grado para comenzar' },
-  ru: { subtitle: 'Нравственные, социальные и культурные исследования', tagline: 'Активное обучение, а не пассивное', interactivePlatform: '— Интерактивная образовательная платформа —', whyTitle: 'Почему MSCS Academy?', feature1: 'Интерактивное обучение', feature1d: 'Тесты, временные шкалы, карты и интерактивные задания для глубокого усвоения', feature2: 'Соответствие стандартам', feature2d: 'Каждый урок соответствует стандартам учебной программы ОАЭ с чёткими целями', feature3: 'Связи с ОАЭ и реальным миром', feature3d: 'Каждый урок связан с культурой и ценностями ОАЭ', feature4: 'Встроенные таймеры', feature4d: 'Структурированные задания с таймерами обратного отсчёта', feature5: 'Мгновенная обратная связь', feature5d: 'Тесты с мгновенным оцениванием и пояснениями', feature6: 'Ориентировано на студента', feature6d: 'Диаграммы KWL и совместные задания', meetInstructor: 'Познакомьтесь с преподавателем', instructorDesc: 'Преподаватель, специализирующийся на MSCS для студентов ОАЭ.', footerTagline: 'MSCS Academy: Активное обучение', about: 'О нас', studentLogin: 'Вход для студентов', parentalConsent: 'Согласие родителей', selectGrade: 'Выберите свой класс' },
-  tr: { subtitle: 'Ahlaki, Sosyal ve Kültürel Çalışmalar', tagline: 'Aktif Öğrenme, Pasif Değil', interactivePlatform: '— İnteraktif Öğrenme Platformu —', whyTitle: 'Neden MSCS Academy?', feature1: 'İnteraktif Öğrenme', feature1d: 'Öğrenmeyi unutulmaz kılan testler, zaman çizelgeleri, haritalar ve etkileşimli etkinlikler', feature2: 'Standartlara Uygun', feature2d: 'Her ders BAE müfredat standartlarını açık hedefler ve başarı kriterleriyle takip eder', feature3: 'BAE ve Gerçek Dünya Bağlantıları', feature3d: 'Her ders BAE kültürü ve değerleriyle kavramları ilişkilendirir', feature4: 'Dahili Zamanlayıcılar', feature4d: 'Geri sayım zamanlayıcılarıyla yapılandırılmış etkinlikler', feature5: 'Anında Geri Bildirim', feature5d: 'Anında puanlama ve açıklamalarla testler', feature6: 'Öğrenci Merkezli', feature6d: 'KWL çizelgeleri ve işbirlikçi etkinlikler', meetInstructor: 'Eğitmeninizle Tanışın', instructorDesc: 'BAE öğrencileri için MSCS alanında uzmanlaşmış eğitmen.', footerTagline: 'MSCS Academy: Aktif Öğrenme', about: 'Hakkımızda', studentLogin: 'Öğrenci Girişi', parentalConsent: 'Ebeveyn Onayı', selectGrade: 'Başlamak için sınıfınızı seçin' },
-  fr: { subtitle: 'Études Morales, Sociales et Culturelles', tagline: 'Un Apprentissage Actif, Non Passif', interactivePlatform: "— Plateforme d'Apprentissage Interactif —", whyTitle: 'Pourquoi MSCS Academy?', feature1: 'Apprentissage Interactif', feature1d: 'Quiz, frises chronologiques, cartes et activités interactives pour un apprentissage mémorable', feature2: 'Conforme aux Normes', feature2d: 'Chaque leçon suit les standards du programme émirati avec des objectifs clairs', feature3: 'Liens EAU et Monde Réel', feature3d: 'Chaque leçon relie les concepts à la culture et aux valeurs émiraties', feature4: 'Minuteries Intégrées', feature4d: 'Activités structurées avec minuteries à rebours', feature5: 'Retour Instantané', feature5d: 'Quiz avec notation et explications immédiates', feature6: "Centré sur l'Étudiant", feature6d: 'Tableaux KWL et activités collaboratives', meetInstructor: 'Rencontrez Votre Instructeur', instructorDesc: "Éducateur spécialisé dans les Études MSCS pour les étudiants des EAU.", footerTagline: "MSCS Academy: Apprentissage Actif", about: 'À Propos', studentLogin: 'Connexion Étudiant', parentalConsent: 'Consentement Parental', selectGrade: 'Sélectionnez votre niveau' },
+  ar: { subtitle: 'الدراسات الأخلاقية والاجتماعية والثقافية', tagline: 'نجعل التعلم نشطاً، وليس سلبياً', interactivePlatform: '— منصة تعلم تفاعلية —', whyTitle: 'لماذا أكاديمية MSCS؟', feature1: 'تعلم تفاعلي', feature1d: 'اختبارات وخطوط زمنية وخرائط وأنشطة سحب وإفلات تجعل التعلم لا يُنسى', feature2: 'ملاءمة للمعايير', feature2d: 'كل درس يتبع معايير المنهج الإماراتي بأهداف واضحة ومعايير نجاح', feature3: 'روابط الإمارات والعالم الحقيقي', feature3d: 'كل درس يرتبط بثقافة الإمارات وقيمها والتطبيقات الواقعية', feature4: 'مؤقتات مدمجة', feature4d: 'أنشطة منظمة بمؤقتات عد تنازلي تحافظ على وتيرة الدرس', feature5: 'تغذية راجعة فورية', feature5d: 'اختبارات مع تسجيل فوري وشروحات تساعد الطلاب على التعلم من أخطائهم', feature6: 'محوره الطالب', feature6d: 'رسوم KWL ومخططات فين وأنشطة تعاونية تضع الطالب في المقام الأول', meetInstructor: 'تعرف على معلمك', instructorDesc: 'معلم متخصص في الدراسات الأخلاقية والاجتماعية والثقافية لطلاب الإمارات.', footerTagline: 'أكاديمية MSCS: نجعل التعلم نشطاً، وليس سلبياً', about: 'حول', studentLogin: 'تسجيل دخول الطالب', parentalConsent: 'موافقة الوالدين', selectGrade: 'اختر صفك للبدء' },
+  ur: { subtitle: 'اخلاقی، سماجی اور ثقافتی علوم', tagline: 'سیکھنے کو فعال بنانا، غیر فعال نہیں', interactivePlatform: '— انٹرایکٹو لرننگ پلیٹ فارم —', whyTitle: 'MSCS اکیڈمی کیوں؟', feature1: 'انٹرایکٹو لرننگ', feature1d: 'کوئز، ٹائم لائن، نقشے اور ڈریگ اینڈ ڈراپ سرگرمیاں', feature2: 'معیارات کے مطابق', feature2d: 'ہر سبق یو اے ای کریکولم معیارات کی پیروی کرتا ہے', feature3: 'یو اے ای اور حقیقی دنیا کے روابط', feature3d: 'ہر سبق یو اے ای کی ثقافت سے جڑتا ہے', feature4: 'بلٹ ان ٹائمرز', feature4d: 'کاؤنٹ ڈاؤن ٹائمرز کے ساتھ منظم سرگرمیاں', feature5: 'فوری فیڈبیک', feature5d: 'فوری اسکورنگ اور وضاحت کے ساتھ کوئز', feature6: 'طلباء مرکزی', feature6d: 'KWL چارٹس اور تعاون کی سرگرمیاں', meetInstructor: 'اپنے استاد سے ملیں', instructorDesc: 'یو اے ای کے طلباء کے لیے متخصص معلم۔', footerTagline: 'MSCS اکیڈمی: سیکھنے کو فعال بنانا', about: 'ہمارے بارے میں', studentLogin: 'طالب علم لاگ ان', parentalConsent: 'والدین کی رضامندی', selectGrade: 'شروع کرنے کے لیے اپنا گریڈ منتخب کریں' },
+  fa: { subtitle: 'مطالعات اخلاقی، اجتماعی و فرهنگی', tagline: 'یادگیری را فعال می‌کنیم، نه غیرفعال', interactivePlatform: '— پلتفرم یادگیری تعاملی —', whyTitle: 'چرا آکادمی MSCS؟', feature1: 'یادگیری تعاملی', feature1d: 'آزمون‌ها، خط زمانی، نقشه‌ها و فعالیت‌های تعاملی', feature2: 'همسو با استانداردها', feature2d: 'هر درس از استانداردهای امارات پیروی می‌کند', feature3: 'ارتباط امارات و دنیای واقعی', feature3d: 'هر درس به فرهنگ امارات متصل است', feature4: 'تایمرهای داخلی', feature4d: 'فعالیت‌های ساختاریافته با تایمر', feature5: 'بازخورد فوری', feature5d: 'آزمون‌ها با امتیازدهی فوری', feature6: 'دانش‌آموز محور', feature6d: 'نمودارهای KWL و فعالیت‌های مشارکتی', meetInstructor: 'با معلم خود آشنا شوید', instructorDesc: 'معلم متخصص در مطالعات MSCS برای دانش‌آمویان امارات.', footerTagline: 'آکادمی MSCS: یادگیری فعال', about: 'درباره ما', studentLogin: 'ورود دانش‌آموز', parentalConsent: 'رضایت والدین', selectGrade: 'پایه خود را انتخاب کنید' },
+  es: { subtitle: 'Estudios Morales, Sociales y Culturales', tagline: 'Haciendo el Aprendizaje Activo, No Pasivo', interactivePlatform: '— Plataforma de Aprendizaje Interactivo —', whyTitle: '¿Por qué MSCS Academy?', feature1: 'Aprendizaje Interactivo', feature1d: 'Cuestionarios, líneas de tiempo, mapas y actividades interactivas', feature2: 'Alineado con Estándares', feature2d: 'Cada lección sigue los estándares del plan de estudios de EAU', feature3: 'Conexiones EAU y Mundo Real', feature3d: 'Cada lección conecta con la cultura de EAU', feature4: 'Temporizadores Integrados', feature4d: 'Actividades estructuradas con temporizadores', feature5: 'Retroalimentación Instantánea', feature5d: 'Cuestionarios con puntuación inmediata', feature6: 'Centrado en el Estudiante', feature6d: 'Gráficos KWL y actividades colaborativas', meetInstructor: 'Conoce a Tu Instructor', instructorDesc: 'Educador especializado en Estudios MSCS para estudiantes de EAU.', footerTagline: 'MSCS Academy: Aprendizaje Activo', about: 'Acerca de', studentLogin: 'Inicio de Sesión del Estudiante', parentalConsent: 'Consentimiento de los Padres', selectGrade: 'Selecciona tu grado para comenzar' },
+  ru: { subtitle: 'Нравственные, социальные и культурные исследования', tagline: 'Делаем обучение активным, а не пассивным', interactivePlatform: '— Интерактивная обучающая платформа —', whyTitle: 'Почему MSCS Academy?', feature1: 'Интерактивное обучение', feature1d: 'Тесты, временные шкалы, карты и интерактивные задания', feature2: 'Соответствие стандартам', feature2d: 'Каждый урок следует стандартам ОАЭ', feature3: 'Связи ОАЭ и реального мира', feature3d: 'Каждый урок связан с культурой ОАЭ', feature4: 'Встроенные таймеры', feature4d: 'Структурированные задания с таймерами', feature5: 'Мгновенная обратная связь', feature5d: 'Тесты с мгновенным оцениванием', feature6: 'Ориентировано на студента', feature6d: 'Диаграммы KWL и совместные задания', meetInstructor: 'Познакомьтесь с преподавателем', instructorDesc: 'Преподаватель, специализирующийся на MSCS для студентов ОАЭ.', footerTagline: 'MSCS Academy: Активное обучение', about: 'О нас', studentLogin: 'Вход для студентов', parentalConsent: 'Согласие родителей', selectGrade: 'Выберите свой класс' },
+  tr: { subtitle: 'Ahlaki, Sosyal ve Kültürel Çalışmalar', tagline: 'Öğrenmeyi Aktif Kılıyoruz, Pasif Değil', interactivePlatform: '— İnteraktif Öğrenme Platformu —', whyTitle: 'Neden MSCS Academy?', feature1: 'İnteraktif Öğrenme', feature1d: 'Testler, zaman çizelgeleri, haritalar ve interaktif etkinlikler', feature2: 'Standartlara Uygun', feature2d: 'Her ders BAE müfredat standartlarını takip eder', feature3: 'BAE ve Gerçek Dünya Bağlantıları', feature3d: 'Her ders BAE kültürüyle bağlantılıdır', feature4: 'Dahili Zamanlayıcılar', feature4d: 'Geri sayım zamanlayıcılarıyla yapılandırılmış etkinlikler', feature5: 'Anında Geri Bildirim', feature5d: 'Anında puanlama ve açıklamalarla testler', feature6: 'Öğrenci Merkezli', feature6d: 'KWL çizelgeleri ve işbirlikçi etkinlikler', meetInstructor: 'Eğitmeninizle Tanışın', instructorDesc: 'BAE öğrencileri için MSCS alanında uzmanlaşmış eğitmen.', footerTagline: 'MSCS Academy: Aktif Öğrenme', about: 'Hakkımızda', studentLogin: 'Öğrenci Girişi', parentalConsent: 'Ebeveyn Onayı', selectGrade: 'Başlamak için sınıfınızı seçin' },
+  fr: { subtitle: 'Études Morales, Sociales et Culturelles', tagline: "Rendre l'Apprentissage Actif, Non Passif", interactivePlatform: "— Plateforme d'Apprentissage Interactif —", whyTitle: 'Pourquoi MSCS Academy?', feature1: 'Apprentissage Interactif', feature1d: 'Quiz, chronologies, cartes et activités interactives', feature2: 'Aligné sur les Normes', feature2d: 'Chaque leçon suit les normes du programme des EAU', feature3: 'Liens EAU et Monde Réel', feature3d: 'Chaque leçon se connecte à la culture des EAU', feature4: 'Minuteries Intégrées', feature4d: 'Activités structurées avec minuteries', feature5: 'Retour Instantané', feature5d: 'Quiz avec notation immédiate', feature6: "Centré sur l'Étudiant", feature6d: 'Tableaux KWL et activités collaboratives', meetInstructor: 'Rencontrez Votre Instructeur', instructorDesc: "Éducateur spécialisé dans les Études MSCS pour les étudiants des EAU.", footerTagline: "MSCS Academy: Apprentissage Actif", about: 'À Propos', studentLogin: 'Connexion Étudiant', parentalConsent: 'Consentement Parental', selectGrade: 'Sélectionnez votre niveau' },
 };
 
 // ═══════════════════════════════════════════════════════════════
 // TYPES
 // ═══════════════════════════════════════════════════════════════
 
-type ViewType = 'landing' | 'gradeSelect' | 'unitSelect' | 'lessonView' | 'aboutPage' | 'loginPage' | 'consentPage' | 'teacherDashboard' | 'diagnosticPage';
+type ViewType = 'landing' | 'gradeSelect' | 'unitSelect' | 'lessonView' | 'aboutPage' | 'loginPage' | 'consentPage' | 'teacherDashboard';
 
 // ═══════════════════════════════════════════════════════════════
 // HELPER COMPONENTS
@@ -194,29 +185,21 @@ function DisclaimerBanner() {
   );
 }
 
-function LicensedTo() {
-  return (
-    <div className="text-center py-2 border-t border-[#D4AF37]/20">
-      <p className="text-[9px] text-[#D4AF37]/50">Licensed to: Mr. Ahmed Ali — MSCS Academy</p>
-    </div>
-  );
-}
-
 // KWL Chart
-function KWLColumn({ title, icon, items, onAdd, onUpdate, colorStyle, bgColorStyle, borderColorStyle }: {
+function KWLColumn({ title, icon, items, onAdd, onUpdate, color, bgColor, borderColor }: {
   title: string; icon: React.ReactNode; items: string[];
   onAdd: () => void; onUpdate: (index: number, value: string) => void;
-  colorStyle: React.CSSProperties; bgColorStyle: React.CSSProperties; borderColorStyle: React.CSSProperties;
+  color: string; bgColor: string; borderColor: string;
 }) {
   return (
-    <div className="flex-1 min-w-0 rounded-xl border-2 p-3" style={{ ...borderColorStyle, ...bgColorStyle }}>
-      <div className="flex items-center gap-2 mb-3 font-bold" style={colorStyle}>
+    <div className={`flex-1 min-w-0 rounded-xl border-2 ${borderColor} ${bgColor} p-3`}>
+      <div className={`flex items-center gap-2 mb-3 font-bold ${color}`}>
         {icon}<span className="text-sm">{title}</span>
       </div>
       <div className="space-y-2">
         {items.map((item, idx) => (
           <Input key={idx} value={item} onChange={(e) => onUpdate(idx, e.target.value)}
-            placeholder={`${title}...`} className="text-xs border-0 focus:ring-1 focus:ring-amber-400" style={{ backgroundColor: 'rgba(255,255,255,0.8)' }} />
+            placeholder={`${title}...`} className="text-xs bg-white/80 border-0 focus:ring-1 focus:ring-amber-400" />
         ))}
         <Button variant="ghost" size="sm" onClick={onAdd} className="w-full text-xs h-7">+ Add</Button>
       </div>
@@ -233,13 +216,13 @@ function KWLChart() {
     <div className="flex gap-3 overflow-x-auto pb-2">
       <KWLColumn title="What I Know" icon={<Eye className="w-4 h-4" />} items={knowItems}
         onAdd={() => setKnowItems([...knowItems, ''])} onUpdate={(i, v) => { const a = [...knowItems]; a[i] = v; setKnowItems(a); }}
-        colorStyle={{ color: '#B45309' }} bgColorStyle={{ backgroundColor: 'rgba(255,251,235,0.5)' }} borderColorStyle={{ borderColor: '#FCD34D' }} />
+        color="text-amber-700" bgColor="bg-amber-50/50" borderColor="border-amber-300" />
       <KWLColumn title="Want to Know" icon={<Lightbulb className="w-4 h-4" />} items={wantItems}
         onAdd={() => setWantItems([...wantItems, ''])} onUpdate={(i, v) => { const a = [...wantItems]; a[i] = v; setWantItems(a); }}
-        colorStyle={{ color: '#047857' }} bgColorStyle={{ backgroundColor: 'rgba(236,253,245,0.5)' }} borderColorStyle={{ borderColor: '#6EE7B7' }} />
+        color="text-emerald-700" bgColor="bg-emerald-50/50" borderColor="border-emerald-300" />
       <KWLColumn title="What I Learned" icon={<CheckCircle2 className="w-4 h-4" />} items={learnedItems}
         onAdd={() => setLearnedItems([...learnedItems, ''])} onUpdate={(i, v) => { const a = [...learnedItems]; a[i] = v; setLearnedItems(a); }}
-        colorStyle={{ color: '#BE123C' }} bgColorStyle={{ backgroundColor: 'rgba(255,241,242,0.5)' }} borderColorStyle={{ borderColor: '#FDA4AF' }} />
+        color="text-rose-700" bgColor="bg-rose-50/50" borderColor="border-rose-300" />
     </div>
   );
 }
@@ -290,11 +273,10 @@ function InteractiveMap({ markers }: { markers: Array<{ name: string; desc: stri
 }
 
 // Quiz Engine
-function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitKey, lessonTitle, dokLevel, domains, onComplete, onLoginRequired }: {
+function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitKey, lessonTitle, dokLevel, domains, onComplete }: {
   questions: QuizQuestion[]; lessonId: string; studentCode: string;
   gradeNum: number; termNum: number; unitKey: string; lessonTitle: string;
   dokLevel: string; domains: string; onComplete?: (score: number) => void;
-  onLoginRequired?: () => void;
 }) {
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number | string>>({});
@@ -302,25 +284,6 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
   const [quizComplete, setQuizComplete] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [markSaved, setMarkSaved] = useState(false);
-
-  // Require login
-  if (!studentCode || studentCode === 'anonymous') {
-    return (
-      <div className="text-center py-8 space-y-4">
-        <div className="w-16 h-16 rounded-full bg-amber-100 border-2 border-[#D4AF37] flex items-center justify-center mx-auto">
-          <Shield className="w-8 h-8 text-[#D4AF37]" />
-        </div>
-        <h3 className="text-xl font-bold text-gray-800">Sign In Required</h3>
-        <p className="text-sm text-gray-600 max-w-md mx-auto">
-          You need to sign in first to track your marks and save your progress. Please go to Student Login and enter your access code before taking assessments.
-        </p>
-        <Button onClick={() => onLoginRequired?.()} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
-          <LogIn className="w-4 h-4 mr-2" /> Go to Student Login
-        </Button>
-        <p className="text-xs text-gray-400">Your quiz results will be saved and tracked throughout the year.</p>
-      </div>
-    );
-  }
 
   const question = questions[currentQ];
   const isAnswered = answers[question.id] !== undefined;
@@ -520,17 +483,17 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
     <div className="space-y-4">
       <div className="grid grid-cols-3 gap-3">
         {[
-          { title: leftTitle, items: leftItems, bgStyle: { backgroundColor: 'rgba(255,251,235,0.5)' }, borderStyle: { borderColor: '#FCD34D' }, headerStyle: { backgroundColor: '#FDE68A' }, itemStyle: { backgroundColor: '#FEF3C7' }, itemBorderStyle: { borderColor: '#FDE68A' } },
-          { title: centerTitle, items: centerItems, bgStyle: { backgroundColor: 'rgba(255,241,242,0.5)' }, borderStyle: { borderColor: '#FDA4AF' }, headerStyle: { backgroundColor: '#FECDD3' }, itemStyle: { backgroundColor: '#FFE4E6' }, itemBorderStyle: { borderColor: '#FECDD3' } },
-          { title: rightTitle, items: rightItems, bgStyle: { backgroundColor: 'rgba(236,253,245,0.5)' }, borderStyle: { borderColor: '#6EE7B7' }, headerStyle: { backgroundColor: '#A7F3D0' }, itemStyle: { backgroundColor: '#D1FAE5' }, itemBorderStyle: { borderColor: '#A7F3D0' } },
+          { title: leftTitle, items: leftItems, color: 'amber' },
+          { title: centerTitle, items: centerItems, color: 'rose' },
+          { title: rightTitle, items: rightItems, color: 'emerald' },
         ].map((col, i) => (
-          <div key={i} className="rounded-xl border-2 overflow-hidden" style={{ ...col.borderStyle, ...col.bgStyle }}>
-            <div className="px-3 py-2.5 text-center" style={col.headerStyle}>
+          <div key={i} className={`rounded-xl border-2 border-${col.color}-300 bg-${col.color}-50 overflow-hidden`}>
+            <div className={`bg-${col.color}-200 px-3 py-2.5 text-center`}>
               <h4 className="text-sm font-bold text-gray-800">{col.title}</h4>
             </div>
             <div className="p-3 space-y-2">
               {col.items.map((item, j) => (
-                <div key={j} className="border rounded-lg px-3 py-1.5 text-xs text-gray-700 font-medium" style={{ ...col.itemStyle, ...col.itemBorderStyle }}>
+                <div key={j} className={`bg-${col.color}-100 border border-${col.color}-200 rounded-lg px-3 py-1.5 text-xs text-gray-700 font-medium`}>
                   {item}
                 </div>
               ))}
@@ -553,262 +516,6 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
   );
 }
 
-// Lesson Timeline Component
-function LessonTimeline({ data }: { data: { title: string; events: Array<{ year: string; event: string }> } }) {
-  const [activeEvent, setActiveEvent] = useState<number | null>(null);
-  return (
-    <div className="space-y-4">
-      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
-        <Calendar className="w-4 h-4" style={{ color: '#D97706' }} /> {data.title}
-      </h4>
-      <div className="relative">
-        <div className="absolute left-4 top-0 bottom-0 w-0.5" style={{ background: 'linear-gradient(to bottom, #D4AF37, #FCD34D, #FEF3C7)' }} />
-        <div className="space-y-3">
-          {data.events.map((evt, i) => (
-            <div key={i} className="flex items-start gap-4 relative cursor-pointer" onClick={() => setActiveEvent(activeEvent === i ? null : i)}>
-              <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 z-10 transition-all duration-300"
-                style={activeEvent === i
-                  ? { backgroundColor: '#722F37', border: '2px solid #D4AF37', transform: 'scale(1.1)' }
-                  : { backgroundColor: '#FEF3C7', border: '2px solid #FBBF24' }
-                }>
-                <span className="text-[9px] font-bold" style={{ color: activeEvent === i ? '#FFFFFF' : '#B45309' }}>{i + 1}</span>
-              </div>
-              <div className="flex-1 rounded-lg p-3 transition-all duration-300 border"
-                style={activeEvent === i
-                  ? { backgroundColor: 'rgba(114,47,55,0.05)', borderColor: 'rgba(114,47,55,0.3)', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }
-                  : { backgroundColor: '#FFFFFF', borderColor: '#FDE68A' }
-                }
-                onMouseEnter={(e) => { if (activeEvent !== i) (e.currentTarget as HTMLElement).style.borderColor = '#FCD34D'; }}
-                onMouseLeave={(e) => { if (activeEvent !== i) (e.currentTarget as HTMLElement).style.borderColor = '#FDE68A'; }}
-              >
-                <span className="text-xs font-bold" style={{ color: '#722F37' }}>{evt.year}</span>
-                <p className={`text-sm text-gray-700 mt-0.5 transition-all ${activeEvent === i ? 'font-medium' : ''}`}>{evt.event}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Lesson Diagram (Hub & Spoke) Component
-function LessonDiagram({ data }: { data: { title: string; items: string[] } }) {
-  const diagramColors = [
-    { bgStyle: { backgroundColor: '#FFFBEB' }, borderStyle: { borderColor: '#FCD34D' }, textStyle: { color: '#92400E' }, accentStyle: { backgroundColor: '#FBBF24' } },
-    { bgStyle: { backgroundColor: '#ECFDF5' }, borderStyle: { borderColor: '#6EE7B7' }, textStyle: { color: '#065F46' }, accentStyle: { backgroundColor: '#34D399' } },
-    { bgStyle: { backgroundColor: '#EFF6FF' }, borderStyle: { borderColor: '#93C5FD' }, textStyle: { color: '#1E40AF' }, accentStyle: { backgroundColor: '#60A5FA' } },
-    { bgStyle: { backgroundColor: '#FAF5FF' }, borderStyle: { borderColor: '#C4B5FD' }, textStyle: { color: '#6B21A8' }, accentStyle: { backgroundColor: '#C084FC' } },
-    { bgStyle: { backgroundColor: '#FFF1F2' }, borderStyle: { borderColor: '#FDA4AF' }, textStyle: { color: '#9F1239' }, accentStyle: { backgroundColor: '#FB7185' } },
-    { bgStyle: { backgroundColor: '#ECFEFF' }, borderStyle: { borderColor: '#67E8F9' }, textStyle: { color: '#155E75' }, accentStyle: { backgroundColor: '#22D3EE' } },
-    { bgStyle: { backgroundColor: '#FFF7ED' }, borderStyle: { borderColor: '#FDBA74' }, textStyle: { color: '#9A3412' }, accentStyle: { backgroundColor: '#FB923C' } },
-  ];
-  return (
-    <div className="space-y-4">
-      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
-        <Brain className="w-4 h-4" style={{ color: '#9333EA' }} /> {data.title}
-      </h4>
-      <div className="flex flex-col items-center gap-4">
-        <div className="w-36 h-36 rounded-full flex items-center justify-center text-white text-center px-4 shadow-lg relative"
-          style={{ background: 'linear-gradient(to bottom right, #722F37, #5A1A23)' }}>
-          <div className="absolute inset-0 rounded-full" style={{ border: '2px solid rgba(212,175,55,0.3)' }} />
-          <span className="text-sm font-bold leading-tight">{data.title}</span>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full">
-          {data.items.map((item, i) => {
-            const c = diagramColors[i % diagramColors.length];
-            return (
-              <div key={i} className="rounded-xl border-2 p-3 text-center hover:shadow-md transition-shadow"
-                style={{ ...c.borderStyle, ...c.bgStyle }}>
-                <div className="w-6 h-6 rounded-full mx-auto mb-2" style={c.accentStyle} />
-                <span className="text-sm font-medium" style={c.textStyle}>{item}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Lesson Bar Chart Component (using Recharts)
-function LessonBarChart({ data }: { data: { title: string; items: Array<{ label: string; value: number; description: string }> } }) {
-  const COLORS = ['#722F37', '#D4AF37', '#047857', '#D97706', '#7C3AED', '#3B82F6', '#EF4444'];
-  const chartData = data.items.map(item => ({ name: item.label, value: item.value, description: item.description }));
-  return (
-    <div className="space-y-4">
-      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
-        <BarChart3 className="w-4 h-4 text-amber-600" /> {data.title}
-      </h4>
-      <div className="bg-white rounded-xl border border-gray-100 p-4">
-        <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-            <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-            <YAxis tick={{ fontSize: 10 }} domain={[0, 100]} />
-            <RechartsTooltip
-              formatter={(value: number, _name: string, props: { payload: { description: string } }) => [`${value}%`, props.payload.description]}
-              contentStyle={{ fontSize: '12px', borderRadius: '8px' }}
-            />
-            <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-              {chartData.map((_, i) => (
-                <Cell key={i} fill={COLORS[i % COLORS.length]} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="grid grid-cols-2 gap-2">
-        {data.items.map((item, i) => (
-          <div key={i} className="flex items-start gap-2 text-xs">
-            <div className="w-3 h-3 rounded shrink-0 mt-0.5" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
-            <div><span className="font-bold">{item.label}</span> <span className="text-gray-500">— {item.description}</span></div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// Lesson Pie Chart Component (using Recharts)
-function LessonPieChart({ data }: { data: { title: string; items: Array<{ label: string; value: number; description: string }> } }) {
-  const COLORS = ['#722F37', '#D4AF37', '#047857', '#D97706', '#7C3AED', '#3B82F6', '#EF4444'];
-  const chartData = data.items.map(item => ({ name: item.label, value: item.value, description: item.description }));
-  return (
-    <div className="space-y-4">
-      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
-        <BarChart3 className="w-4 h-4 text-amber-600" /> {data.title}
-      </h4>
-      <div className="bg-white rounded-xl border border-gray-100 p-4">
-        <ResponsiveContainer width="100%" height={250}>
-          <PieChart>
-            <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={90} label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`} labelLine={{ strokeWidth: 1 }} style={{ fontSize: '10px' }}>
-              {chartData.map((_, i) => (
-                <Cell key={i} fill={COLORS[i % COLORS.length]} />
-              ))}
-            </Pie>
-            <RechartsTooltip formatter={(value: number, _name: string, props: { payload: { description: string } }) => [`${value}%`, props.payload.description]} contentStyle={{ fontSize: '12px', borderRadius: '8px' }} />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="grid grid-cols-2 gap-2">
-        {data.items.map((item, i) => (
-          <div key={i} className="flex items-start gap-2 text-xs">
-            <div className="w-3 h-3 rounded shrink-0 mt-0.5" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
-            <div><span className="font-bold">{item.label}</span> <span className="text-gray-500">— {item.description}</span></div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// Lesson Mind Map Component
-function LessonMindMap({ data }: { data: { title: string; center: string; branches: Array<{ label: string; children: string[] }> } }) {
-  const branchColors = [
-    { bg: 'bg-amber-50', border: 'border-amber-300', text: 'text-amber-800', dot: 'bg-amber-400', headerBg: 'bg-amber-200' },
-    { bg: 'bg-emerald-50', border: 'border-emerald-300', text: 'text-emerald-800', dot: 'bg-emerald-400', headerBg: 'bg-emerald-200' },
-    { bg: 'bg-blue-50', border: 'border-blue-300', text: 'text-blue-800', dot: 'bg-blue-400', headerBg: 'bg-blue-200' },
-    { bg: 'bg-purple-50', border: 'border-purple-300', text: 'text-purple-800', dot: 'bg-purple-400', headerBg: 'bg-purple-200' },
-    { bg: 'bg-rose-50', border: 'border-rose-300', text: 'text-rose-800', dot: 'bg-rose-400', headerBg: 'bg-rose-200' },
-  ];
-  const [expandedBranch, setExpandedBranch] = useState<number | null>(null);
-  return (
-    <div className="space-y-4">
-      <h4 className="text-sm font-bold text-gray-700 flex items-center gap-2">
-        <Brain className="w-4 h-4 text-purple-600" /> {data.title}
-      </h4>
-      <div className="flex justify-center">
-        <div className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#722F37] to-[#5A1A23] text-white font-bold text-center shadow-lg border border-[#D4AF37]/30">
-          {data.center}
-        </div>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {data.branches.map((branch, i) => {
-          const color = branchColors[i % branchColors.length];
-          const isExpanded = expandedBranch === i;
-          return (
-            <div key={i} className={`rounded-xl border-2 ${color.border} ${color.bg} overflow-hidden transition-all duration-300 ${isExpanded ? 'shadow-md' : ''}`}>
-              <button className={`w-full ${color.headerBg} px-3 py-2 flex items-center gap-2 text-left`} onClick={() => setExpandedBranch(isExpanded ? null : i)}>
-                <div className={`w-3 h-3 rounded-full ${color.dot} shrink-0`} />
-                <span className={`font-bold text-sm ${color.text} flex-1`}>{branch.label}</span>
-                <ChevronDown className={`w-4 h-4 ${color.text} transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
-              </button>
-              <div className={`p-3 space-y-1 transition-all ${isExpanded ? '' : ''}`}>
-                {(isExpanded ? branch.children : branch.children.slice(0, 2)).map((child, j) => (
-                  <div key={j} className="text-xs text-gray-600 flex items-center gap-1.5 pl-4">
-                    <span className="text-gray-400">→</span> {child}
-                  </div>
-                ))}
-                {!isExpanded && branch.children.length > 2 && (
-                  <button className="text-[10px] text-gray-400 pl-4 hover:text-gray-600" onClick={() => setExpandedBranch(i)}>
-                    +{branch.children.length - 2} more...
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-// Interactive Learning Strategy Card
-function InteractiveStrategyCard({ strategy, index }: { strategy: { strategy: string; description: string; duration: number; instructions: string }; index: number }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const strategyIcons: Record<string, React.ReactNode> = {
-    'Think-Pair-Share': <Users className="w-4 h-4" />,
-    'Role Playing': <Swords className="w-4 h-4" />,
-    'Problem-Based Learning': <Lightbulb className="w-4 h-4" />,
-    'Index Cards': <FileText className="w-4 h-4" />,
-    'Flip Charts': <BookOpen className="w-4 h-4" />,
-    'Summarizing': <Brain className="w-4 h-4" />,
-    'Student Presentations': <GraduationCap className="w-4 h-4" />,
-    'Content Recall': <Target className="w-4 h-4" />,
-    'Simulations': <Sparkles className="w-4 h-4" />,
-    'Collaborative Work': <Users className="w-4 h-4" />,
-    'Timeline Activity': <Calendar className="w-4 h-4" />,
-    'Blogs': <FileText className="w-4 h-4" />,
-    'Wikis': <BookOpen className="w-4 h-4" />,
-  };
-  const strategyColors = [
-    { bg: 'bg-amber-50', border: 'border-amber-300', header: 'bg-amber-100', text: 'text-amber-800', badge: 'bg-amber-200 text-amber-800' },
-    { bg: 'bg-emerald-50', border: 'border-emerald-300', header: 'bg-emerald-100', text: 'text-emerald-800', badge: 'bg-emerald-200 text-emerald-800' },
-    { bg: 'bg-purple-50', border: 'border-purple-300', header: 'bg-purple-100', text: 'text-purple-800', badge: 'bg-purple-200 text-purple-800' },
-    { bg: 'bg-blue-50', border: 'border-blue-300', header: 'bg-blue-100', text: 'text-blue-800', badge: 'bg-blue-200 text-blue-800' },
-  ];
-  const color = strategyColors[index % strategyColors.length];
-
-  return (
-    <Card className={`border-2 ${color.border} ${color.bg} overflow-hidden transition-all`}>
-      <button className={`w-full ${color.header} px-4 py-3 flex items-center gap-3 text-left`} onClick={() => setIsExpanded(!isExpanded)}>
-        <div className={`w-8 h-8 rounded-full ${color.badge} flex items-center justify-center shrink-0`}>
-          {strategyIcons[strategy.strategy] || <Sparkles className="w-4 h-4" />}
-        </div>
-        <div className="flex-1 min-w-0">
-          <h5 className={`font-bold text-sm ${color.text}`}>{strategy.strategy}</h5>
-          <p className="text-xs text-gray-600 mt-0.5 line-clamp-1">{strategy.description}</p>
-        </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <Badge className={`${color.badge} text-[10px]`}><Timer className="w-2.5 h-2.5 mr-1" />{strategy.duration} min</Badge>
-          <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
-        </div>
-      </button>
-      {isExpanded && (
-        <CardContent className="p-4 pt-3">
-          <div className="bg-white rounded-lg p-3 border border-gray-100">
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span className="text-xs font-bold text-gray-700">Your Task:</span>
-            </div>
-            <p className="text-sm text-gray-700 leading-relaxed">{strategy.instructions}</p>
-          </div>
-        </CardContent>
-      )}
-    </Card>
-  );
-}
 
 // ═══════════════════════════════════════════════════════════════
 // MAIN APPLICATION
@@ -831,17 +538,7 @@ export default function Home() {
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
   const [language, setLanguage] = useState('en');
   const [dashboardGrade, setDashboardGrade] = useState<number>(0);
-  const [masterPassword, setMasterPassword] = useState('');
-  const [loginLocked, setLoginLocked] = useState(false);
-  const [loginLockedUntil, setLoginLockedUntil] = useState(0);
-  const [diagnosticGrade, setDiagnosticGrade] = useState<string>('');
-  const [diagnosticAnswers, setDiagnosticAnswers] = useState<Record<string, number>>({});
-  const [diagnosticComplete, setDiagnosticComplete] = useState(false);
-  const [diagnosticSubmitted, setDiagnosticSubmitted] = useState(false);
-  const [diagnosticTimer, setDiagnosticTimer] = useState(0);
-  const [diagnosticTimerRunning, setDiagnosticTimerRunning] = useState(false);
-  const [deleteConfirmCode, setDeleteConfirmCode] = useState('');
-  const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
+  const [showClassroomRules, setShowClassroomRules] = useState(false);
 
   const gradeInfoList = useMemo(() => getGradeInfo(), []);
   const platformStats = useMemo(() => getPlatformStats(), []);
@@ -853,24 +550,6 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Session timeout check
-  useEffect(() => {
-    if (!isLoggedIn) return;
-    const interval = setInterval(() => {
-      if (isSessionExpired()) {
-        setIsLoggedIn(false);
-        setStudentName('');
-        navigateTo('landing');
-      }
-    }, 60000);
-    // Update activity on any interaction
-    const handleActivity = () => updateSessionActivity();
-    window.addEventListener('click', handleActivity);
-    window.addEventListener('keydown', handleActivity);
-    updateSessionActivity();
-    return () => { clearInterval(interval); window.removeEventListener('click', handleActivity); window.removeEventListener('keydown', handleActivity); };
-  }, [isLoggedIn]);
 
   const navigateTo = (newView: ViewType) => { setView(newView); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const navigateSlide = (direction: 'left' | 'right') => { setSlideDirection(direction); setIsAnimating(true); setTimeout(() => setIsAnimating(false), 400); };
@@ -895,17 +574,17 @@ export default function Home() {
         <ArabicPattern opacity={0.08} color="#D4AF37" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-black/30" />
 
-        <div className="absolute top-4 left-4 z-20">
+        <div className="absolute top-4 right-4 z-20">
           <select value={language} onChange={e => setLanguage(e.target.value)}
-            className="bg-white/10 backdrop-blur-md border border-[#D4AF37]/30 rounded-lg px-2 py-1.5 text-xs text-white cursor-pointer hover:bg-white/20 transition-colors">
-            <option value="en" className="text-black">EN</option>
-            <option value="ar" className="text-black">AR</option>
-            <option value="ur" className="text-black">UR</option>
-            <option value="fa" className="text-black">FA</option>
-            <option value="es" className="text-black">ES</option>
-            <option value="ru" className="text-black">RU</option>
-            <option value="tr" className="text-black">TR</option>
-            <option value="fr" className="text-black">FR</option>
+            className="bg-white/10 backdrop-blur-md border border-[#D4AF37]/30 rounded-lg px-3 py-2 text-sm text-white cursor-pointer hover:bg-white/20 transition-colors">
+            <option value="en" className="text-black">🇬🇧 English</option>
+            <option value="ar" className="text-black">🇸🇦 العربية</option>
+            <option value="ur" className="text-black">🇵🇰 اردو</option>
+            <option value="fa" className="text-black">🇮🇷 فارسی</option>
+            <option value="es" className="text-black">🇪🇸 Español</option>
+            <option value="ru" className="text-black">🇷🇺 Русский</option>
+            <option value="tr" className="text-black">🇹🇷 Türkçe</option>
+            <option value="fr" className="text-black">🇫🇷 Français</option>
           </select>
         </div>
 
@@ -1075,10 +754,6 @@ export default function Home() {
             </div>
             <div className="mt-4 flex items-center gap-2">
               <AhmedAliLink size="md" />
-              <Button size="sm" variant="outline" onClick={() => { setDiagnosticGrade(grade.key); setDiagnosticAnswers({}); setDiagnosticSubmitted(false); setDiagnosticTimer(0); setDiagnosticTimerRunning(false); navigateTo('diagnosticPage'); }}
-                className="ml-auto border-[#D4AF37] text-[#D4AF37] hover:bg-amber-50">
-                <Brain className="w-3 h-3 mr-1" /> Diagnostic Assessment
-              </Button>
             </div>
           </div>
         </div>
@@ -1098,7 +773,7 @@ export default function Home() {
                 {term.units.map(unit => {
                   // Fetch actual lessons for this unit
                   const unitData = getUnitData(grade.key, term.key, unit.key);
-                  const lessonCount = unitData ? unitData.lessons.length : unit.lessonCount;
+                  const lessonCount = unitData ? unitData.lessons.length : unit.lessonsCount;
 
                   return (
                     <Card key={unit.key} className="border-2 hover:shadow-lg transition-all cursor-pointer group border-gray-200 bg-white hover:border-amber-300"
@@ -1170,6 +845,7 @@ export default function Home() {
                     setSelectedLesson(lesson);
                     setSelectedLessonIndex(idx);
                     setCurrentSlide(0);
+                    setShowClassroomRules(true);
                     navigateTo('lessonView');
                   }}>
                   <CardContent className="p-5">
@@ -1229,30 +905,36 @@ export default function Home() {
     const cleanTitle = getCleanTitle(lesson.title);
     const unitContext = getUnitContextFromTitle(lesson.title);
     const lessonId = getLessonId(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
-
-    // Try to get real G6T1 content
-    const realContent = getLessonContentByPath(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
-
-    // Use real quiz questions if available, otherwise fall back to generated
-    const quizQuestions = realContent
-      ? realContent.quizQuestions.map((q, i) => ({ ...q, id: q.id || `${lessonId}_rc${i + 1}`, type: 'multiple-choice' as const }))
-      : generateQuizQuestions(lesson, selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
-
+    const quizQuestions = generateQuizQuestions(lesson, selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
     const activities = parseActivities(lesson.activities);
     const uaeLinks = generateUAELinks(lesson);
     const warmUp = generateWarmUp(lesson);
 
     // Standards from SLO codes
     const standards = lesson.slo_codes.split(',').map(s => s.trim()).filter(s => s.length > 0);
-    // Objectives from lesson objective (studentified)
-    const objectives = studentifyText(lesson.objective.replace(/^SWBAT\s*/i, '')).split(/[;.]/).map(s => s.trim()).filter(s => s.length > 10).slice(0, 4);
-    // Success criteria (studentified)
-    const successCriteria = studentifyText(lesson.success_criteria.replace(/^Student can:\s*/i, '')).split(/[;(]/).map(s => s.trim().replace(/^\(\d+\)\s*/, '')).filter(s => s.length > 5).slice(0, 5);
+    // Objectives from lesson objective
+    const objectives = lesson.objective.replace(/^SWBAT\s*/i, '').split(/[;.]/).map(s => s.trim()).filter(s => s.length > 10).slice(0, 4);
+    // Success criteria
+    const successCriteria = lesson.success_criteria.replace(/^Student can:\s*/i, '').split(/[;(]/).map(s => s.trim().replace(/^\(\d+\)\s*/, '')).filter(s => s.length > 5).slice(0, 5);
 
-    // Map markers: use real content markers if available, otherwise generate from topic
-    const mapMarkers = realContent?.visualType === 'map' && realContent.visualData?.markers
-      ? (realContent.visualData.markers as Array<{ name: string; desc: string; lat: number; lng: number; color: string }>)
-      : generateMapMarkers(lesson);
+    // Map markers based on lesson topic
+    const mapMarkers = generateMapMarkers(lesson);
+
+    // Lesson-specific hero images for G6T3
+    const getLessonHeroImage = (): string | null => {
+      const title = lesson.title.toLowerCase();
+      if (selectedGrade?.number === 6 && selectedTerm?.number === 3) {
+        if (title.includes('government functions')) return '/images/g6t3/government-functions.png';
+        if (title.includes('political systems') || title.includes('modern political')) return '/images/g6t3/political-systems.png';
+        if (title.includes('laws are made') || title.includes('how laws are made')) return '/images/g6t3/laws-made.png';
+        if (title.includes('laws are interpreted') || title.includes('how laws are interpreted')) return '/images/g6t3/laws-interpreted.png';
+        if (title.includes('rights and responsibilities') || title.includes('human rights')) return '/images/g6t3/rights-responsibilities.png';
+      }
+      // Ottoman hero for G8T3
+      if (title.includes('ottoman') || title.includes('suleyman') || title.includes('istanbul')) return '/ottoman-hero.png';
+      return null;
+    };
+    const heroImage = getLessonHeroImage();
 
     const slides = [
       // SLIDE 1: Title & Introduction
@@ -1262,6 +944,9 @@ export default function Home() {
           <div className="space-y-6">
             <div className="bg-gradient-to-br from-[#722F37] to-[#5A1A23] rounded-xl p-6 text-white relative overflow-hidden">
               <ArabicPattern opacity={0.06} color="#D4AF37" />
+              {heroImage && (
+                <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+              )}
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-4">
                   <Landmark className="w-8 h-8 text-[#D4AF37]" />
@@ -1346,7 +1031,7 @@ export default function Home() {
                 <CardTitle className="text-sm font-bold text-gray-800">Prior Learning</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-700 leading-relaxed">{studentifyText(lesson.prior_learning)}</p>
+                <p className="text-sm text-gray-700 leading-relaxed">{lesson.prior_learning}</p>
               </CardContent>
             </Card>
 
@@ -1354,14 +1039,6 @@ export default function Home() {
               <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
                 <Lightbulb className="w-4 h-4 text-[#D4AF37]" /> KWL Chart
               </h4>
-              {(realContent?.kwlExplanation) && (
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3 text-xs text-amber-800 leading-relaxed">
-                  <div className="flex items-start gap-2">
-                    <Info className="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-600" />
-                    <span><strong>What is KWL?</strong> {realContent.kwlExplanation}</span>
-                  </div>
-                </div>
-              )}
               <KWLChart />
             </div>
 
@@ -1387,8 +1064,8 @@ export default function Home() {
                 <blockquote className="text-lg sm:text-xl font-semibold text-[#D4AF37] italic leading-relaxed">
                   &ldquo;{warmUp.content}&rdquo;
                 </blockquote>
-                {warmUp.attribution && (
-                  <div className="mt-4 text-amber-200/80 text-sm">{warmUp.attribution}</div>
+                {warmUp.subtitle && (
+                  <div className="mt-4 text-amber-200/80 text-sm">{warmUp.subtitle}</div>
                 )}
                 <DecorativeBorder color="#D4AF37" />
               </div>
@@ -1401,7 +1078,7 @@ export default function Home() {
                   <h3 className="text-lg font-bold text-gray-800">Discussion</h3>
                 </div>
                 <p className="text-gray-700 text-sm max-w-lg mx-auto">
-                  {warmUp.discussionPrompt || `Take 2 minutes to think about "${warmUp.type}" and share your thoughts with a partner.`}
+                  {warmUp.discussionPrompt || 'Take 2 minutes to think and share your thoughts with a partner.'}
                 </p>
               </CardContent>
             </Card>
@@ -1412,134 +1089,26 @@ export default function Home() {
         ),
       },
 
-      // SLIDE 4: Core Activities & Readings
+      // SLIDE 4: Core Activities
       {
-        id: 4, type: 'activities' as const, title: 'Lesson Content & Activities',
+        id: 4, type: 'activities' as const, title: 'Core Activities',
         content: (
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl p-5 text-white">
               <div className="flex items-center gap-2 mb-2">
                 <Swords className="w-6 h-6 text-amber-200" />
-                <h3 className="text-xl font-bold">Lesson Content & Activities</h3>
+                <h3 className="text-xl font-bold">Core Activities</h3>
               </div>
-              <p className="text-amber-100 text-sm">Read the passages carefully, then work through the activities!</p>
+              <p className="text-amber-100 text-sm">Work through each activity — use the timers to stay on track!</p>
             </div>
 
-            {/* Real textbook reading content for G6T1 */}
-            {realContent && (
-              <>
-                {/* Key Vocabulary */}
-                {realContent.keyVocabulary.length > 0 && (
-                  <Card className="border-2 border-[#D4AF37] bg-amber-50/30">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Lightbulb className="w-4 h-4 text-[#D4AF37]" />
-                        <h4 className="font-bold text-amber-800 text-sm">Key Vocabulary</h4>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {realContent.keyVocabulary.map(v => (
-                          <Badge key={v} className="bg-[#D4AF37]/20 text-amber-800 border border-[#D4AF37]/30">{v}</Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Reading 1 */}
-                <Card className="border-2 border-amber-200">
-                  <CardHeader className="pb-2 bg-amber-50/50">
-                    <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
-                      <BookOpen className="w-4 h-4" /> {realContent.reading1Title}
-                      {realContent.reading1Time && <Badge className="bg-amber-200 text-amber-800 text-[10px] ml-auto"><Timer className="w-2.5 h-2.5 mr-1" />{realContent.reading1Time} min reading</Badge>}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-3 pb-4">
-                    <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-                      {realContent.reading1Content}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Reading 2 (if available) */}
-                {realContent.reading2Title && realContent.reading2Content && (
-                  <Card className="border-2 border-emerald-200">
-                    <CardHeader className="pb-2 bg-emerald-50/50">
-                      <CardTitle className="text-sm font-bold text-emerald-800 flex items-center gap-2">
-                        <BookOpen className="w-4 h-4" /> {realContent.reading2Title}
-                        {realContent.reading2Time && <Badge className="bg-emerald-200 text-emerald-800 text-[10px] ml-auto"><Timer className="w-2.5 h-2.5 mr-1" />{realContent.reading2Time} min reading</Badge>}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-3 pb-4">
-                      <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-                        {realContent.reading2Content}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Key Facts */}
-                {realContent.keyFacts.length > 0 && (
-                  <Card className="border-2 border-rose-200 bg-rose-50/30">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Star className="w-4 h-4 text-rose-600" />
-                        <h4 className="font-bold text-rose-800 text-sm">Key Facts to Remember</h4>
-                      </div>
-                      <ul className="space-y-2">
-                        {realContent.keyFacts.map((fact, i) => (
-                          <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-rose-500 mt-0.5 shrink-0" />
-                            <span>{fact}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Discussion Questions */}
-                {realContent.discussionQuestions.length > 0 && (
-                  <Card className="border-2 border-blue-200 bg-blue-50/30">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Users className="w-4 h-4 text-blue-600" />
-                        <h4 className="font-bold text-blue-800 text-sm">Discuss & Reflect</h4>
-                      </div>
-                      <div className="space-y-2">
-                        {realContent.discussionQuestions.map((q, i) => (
-                          <div key={i} className="flex items-start gap-2 text-xs text-gray-700 bg-white rounded-lg p-2.5 border border-blue-100">
-                            <span className="font-bold text-blue-600 shrink-0">Q{i + 1}.</span>
-                            <span>{q}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Interactive Learning Strategies */}
-                {realContent.interactiveStrategies && realContent.interactiveStrategies.length > 0 && (
-                  <Card className="border-2 border-[#722F37] bg-[#722F37]/5">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-2 mb-4">
-                        <Sparkles className="w-5 h-5 text-[#722F37]" />
-                        <h4 className="font-bold text-[#722F37] text-sm">Active Learning Strategies</h4>
-                        <Badge className="bg-[#722F37]/10 text-[#722F37] border-[#722F37]/20 text-[10px]">Student-Led</Badge>
-                        <Badge className="bg-emerald-100 text-emerald-700 border-emerald-300 text-[10px] ml-auto">80% Student / 20% Teacher</Badge>
-                      </div>
-                      <div className="space-y-3">
-                        {realContent.interactiveStrategies.map((s, i) => (
-                          <InteractiveStrategyCard key={i} strategy={s} index={i} />
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </>
+            {heroImage && (
+              <div className="rounded-xl overflow-hidden border-2 border-amber-200 shadow-md">
+                <img src={heroImage} alt={cleanTitle} className="w-full h-40 sm:h-48 object-cover" />
+              </div>
             )}
 
-            {/* Fallback: show activities from curriculum mapping when no real content */}
-            {!realContent && activities.map((activity, idx) => (
+            {activities.map((activity, idx) => (
               <Card key={activity.id} className={`border-2 overflow-hidden ${idx % 2 === 0 ? 'border-amber-200' : 'border-rose-200'}`}>
                 <div className={`px-4 py-3 ${idx % 2 === 0 ? 'bg-amber-50' : 'bg-rose-50'}`}>
                   <div className="flex items-center justify-between flex-wrap gap-2">
@@ -1562,13 +1131,13 @@ export default function Home() {
                     </div>
                     <ActivityTimer duration={activity.duration} />
                   </div>
-                  <h4 className="font-bold text-gray-800 mt-2">{studentifyText(activity.title)}</h4>
-                  <p className="text-xs text-gray-600 mt-1">{studentifyText(activity.description)}</p>
+                  <h4 className="font-bold text-gray-800 mt-2">{activity.title}</h4>
+                  <p className="text-xs text-gray-600 mt-1">{activity.description}</p>
                 </div>
                 {activity.content && (
                   <CardContent className="pt-3 pb-4">
                     <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-700 leading-relaxed border border-gray-100">
-                      {studentifyText(activity.content || '')}
+                      {activity.content}
                     </div>
                   </CardContent>
                 )}
@@ -1595,23 +1164,19 @@ export default function Home() {
             </div>
 
             {uaeLinks.map((link, i) => {
-              const icons: Record<string, React.ReactNode> = { building: <Landmark className="w-5 h-5" />, star: <Star className="w-5 h-5" />, globe: <Globe className="w-5 h-5" />, mountain: <Mountain className="w-5 h-5" />, heart: <Heart className="w-5 h-5" /> };
-              const colorStyles = [
-                { card: 'border-emerald-200 bg-emerald-50/30', icon: 'bg-emerald-100 border-emerald-300 text-emerald-600', title: 'text-emerald-800' },
-                { card: 'border-amber-200 bg-amber-50/30', icon: 'bg-amber-100 border-amber-300 text-amber-600', title: 'text-amber-800' },
-                { card: 'border-rose-200 bg-rose-50/30', icon: 'bg-rose-100 border-rose-300 text-rose-600', title: 'text-rose-800' },
-              ];
-              const style = colorStyles[i % colorStyles.length];
+              const icons = { building: <Landmark className="w-5 h-5" />, star: <Star className="w-5 h-5" />, globe: <Globe className="w-5 h-5" />, mountain: <Mountain className="w-5 h-5" />, heart: <Heart className="w-5 h-5" /> };
+              const colors = ['emerald', 'amber', 'rose', 'teal', 'purple'];
+              const color = colors[i % colors.length];
               return (
-                <Card key={i} className={`border-2 ${style.card}`}>
+                <Card key={i} className={`border-2 border-${color}-200 bg-${color}-50/30`}>
                   <CardContent className="p-5">
                     <div className="flex items-start gap-3">
-                      <div className={`w-10 h-10 rounded-full ${style.icon} flex items-center justify-center shrink-0`}>
-                        {icons[link.icon || 'globe']}
+                      <div className={`w-10 h-10 rounded-full bg-${color}-100 border border-${color}-300 flex items-center justify-center shrink-0 text-${color}-600`}>
+                        {icons[link.icon]}
                       </div>
                       <div>
-                        <h4 className={`font-bold ${style.title} text-sm`}>{link.title}</h4>
-                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.content}</p>
+                        <h4 className={`font-bold text-${color}-800 text-sm`}>{link.title}</h4>
+                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.description}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -1619,69 +1184,21 @@ export default function Home() {
               );
             })}
 
-            {/* Dynamic Visual — renders based on lesson's visualType */}
-            {realContent?.visualType && realContent.visualType !== 'none' && (
-              <Card className="border-2 border-[#722F37] bg-gradient-to-br from-[#722F37]/5 to-transparent overflow-hidden">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2 mb-4">
-                    {realContent.visualType === 'map' ? <Map className="w-5 h-5 text-[#722F37]" /> :
-                     realContent.visualType === 'timeline' ? <Calendar className="w-5 h-5 text-[#722F37]" /> :
-                     realContent.visualType === 'venn' ? <Target className="w-5 h-5 text-[#722F37]" /> :
-                     realContent.visualType === 'diagram' ? <Brain className="w-5 h-5 text-[#722F37]" /> :
-                     realContent.visualType === 'chart' ? <BarChart3 className="w-5 h-5 text-[#722F37]" /> :
-                     realContent.visualType === 'piechart' ? <BarChart3 className="w-5 h-5 text-[#722F37]" /> :
-                     <Sparkles className="w-5 h-5 text-[#722F37]" />}
-                    <h4 className="font-bold text-[#722F37] text-sm">
-                      {realContent.visualType === 'map' ? 'Interactive Map' :
-                       realContent.visualType === 'timeline' ? 'Historical Timeline' :
-                       realContent.visualType === 'venn' ? 'Comparison Chart' :
-                       realContent.visualType === 'diagram' ? 'Concept Diagram' :
-                       realContent.visualType === 'chart' ? 'Data Chart' :
-                       realContent.visualType === 'piechart' ? 'Data Chart' :
-                       realContent.visualType === 'mindmap' ? 'Mind Map' : 'Visual'}
-                    </h4>
-                    <Badge className="bg-[#722F37]/10 text-[#722F37] border-[#722F37]/20 text-[10px]">Interactive</Badge>
-                  </div>
-                  {realContent.visualType === 'map' && mapMarkers.length > 0 && (
-                    <InteractiveMap markers={mapMarkers} />
-                  )}
-                  {realContent.visualType === 'venn' && realContent.visualData && (
-                    <ComparisonChart
-                      leftTitle={(realContent.visualData as Record<string, unknown>).leftTitle as string || 'Left'}
-                      rightTitle={(realContent.visualData as Record<string, unknown>).rightTitle as string || 'Right'}
-                      centerTitle={(realContent.visualData as Record<string, unknown>).centerTitle as string || 'Shared'}
-                      leftItems={((realContent.visualData as Record<string, unknown>).leftItems as string[]) || []}
-                      rightItems={((realContent.visualData as Record<string, unknown>).rightItems as string[]) || []}
-                      centerItems={((realContent.visualData as Record<string, unknown>).centerItems as string[]) || []}
-                    />
-                  )}
-                  {realContent.visualType === 'chart' && realContent.visualData && (
-                    <LessonBarChart data={realContent.visualData as { title: string; items: Array<{ label: string; value: number; description: string }> }} />
-                  )}
-                  {realContent.visualType === 'piechart' && realContent.visualData && (
-                    <LessonPieChart data={realContent.visualData as { title: string; items: Array<{ label: string; value: number; description: string }> }} />
-                  )}
-                  {realContent.visualType === 'timeline' && realContent.visualData && (
-                    <LessonTimeline data={realContent.visualData as { title: string; events: Array<{ year: string; event: string }> }} />
-                  )}
-                  {realContent.visualType === 'diagram' && realContent.visualData && (
-                    <LessonDiagram data={realContent.visualData as { title: string; items: string[] }} />
-                  )}
-                  {realContent.visualType === 'mindmap' && realContent.visualData && (
-                    <LessonMindMap data={realContent.visualData as { title: string; center: string; branches: Array<{ label: string; children: string[] }> }} />
-                  )}
-                </CardContent>
-              </Card>
+            {mapMarkers.length > 0 && (
+              <div>
+                <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+                  <Map className="w-4 h-4 text-emerald-600" /> Interactive Map
+                </h4>
+                <InteractiveMap markers={mapMarkers} />
+              </div>
             )}
 
-            {(!realContent?.visualType || realContent.visualType === 'none') && (
-              <ComparisonChart
-                leftTitle="Key Concepts" rightTitle="UAE Application" centerTitle="Shared"
-                leftItems={standards.slice(0, 3).map(s => `Standard: ${s}`)}
-                rightItems={['UAE national values', 'Local community context', 'Emirati cultural perspective']}
-                centerItems={['Critical thinking', 'Real-world relevance', 'Active citizenship']}
-              />
-            )}
+            <ComparisonChart
+              leftTitle="Key Concepts" rightTitle="UAE Application" centerTitle="Shared"
+              leftItems={standards.slice(0, 3).map(s => `Standard: ${s}`)}
+              rightItems={['UAE national values', 'Local community context', 'Emirati cultural perspective']}
+              centerItems={['Critical thinking', 'Real-world relevance', 'Active citizenship']}
+            />
 
             <AhmedAliLink />
             <DisclaimerBanner />
@@ -1710,7 +1227,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-amber-800">Homework Task</h4>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{studentifyText(lesson.homework)}</p>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.homework}</p>
                   </div>
                 </div>
               </CardContent>
@@ -1724,7 +1241,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-emerald-800">Resources</h4>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{studentifyText(lesson.resources)}</p>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.resources}</p>
                   </div>
                 </div>
               </CardContent>
@@ -1738,7 +1255,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-bold text-rose-800">Assessment</h4>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{studentifyText(lesson.assessment)}</p>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.assessment}</p>
                     <Badge className="mt-2 bg-rose-100 text-rose-700 border-rose-200 text-[10px]">
                       {lesson.assessment_type}
                     </Badge>
@@ -1773,19 +1290,13 @@ export default function Home() {
             <QuizEngine
               questions={quizQuestions}
               lessonId={lessonId}
-              studentCode={studentName || ''}
+              studentCode={studentName || 'anonymous'}
               gradeNum={selectedGrade.number}
               termNum={selectedTerm.number}
               unitKey={selectedUnit.key}
               lessonTitle={cleanTitle}
               dokLevel={lesson.dok}
               domains={lesson.domains}
-              onLoginRequired={() => navigateTo('loginPage')}
-              onComplete={(score) => {
-                if (studentName && studentName !== 'MASTER') {
-                  markLessonComplete(lessonId, studentName, selectedGrade.key);
-                }
-              }}
             />
 
             <AhmedAliLink />
@@ -1825,25 +1336,10 @@ export default function Home() {
 
             <DisclaimerBanner />
 
-            <div className="flex justify-center gap-3 flex-wrap">
+            <div className="flex justify-center gap-3">
               <Button onClick={() => setCurrentSlide(0)} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
                 <Play className="w-4 h-4 mr-2" /> Restart Lesson
               </Button>
-              {getNextLesson(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex) && (
-                <Button onClick={() => {
-                  const next = getNextLesson(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex)!;
-                  const nextUnitData = getUnitData(selectedGrade.key, next.termKey, next.unitKey);
-                  if (nextUnitData && nextUnitData.lessons[next.lessonIndex]) {
-                    setSelectedTerm(selectedGrade.terms.find(t => t.key === next.termKey) || null);
-                    setSelectedUnit(selectedGrade.terms.find(t => t.key === next.termKey)?.units.find(u => u.key === next.unitKey) || null);
-                    setSelectedLesson(nextUnitData.lessons[next.lessonIndex]);
-                    setSelectedLessonIndex(next.lessonIndex);
-                    setCurrentSlide(0);
-                  }
-                }} className="bg-[#D4AF37] hover:bg-amber-600 text-white">
-                  <ArrowRight className="w-4 h-4 mr-2" /> Next Lesson
-                </Button>
-              )}
               <Button variant="outline" onClick={() => navigateTo('gradeSelect')} className="border-[#D4AF37] text-[#D4AF37]">
                 <HomeIcon className="w-4 h-4 mr-2" /> Back to {selectedGrade.title}
               </Button>
@@ -1867,15 +1363,6 @@ export default function Home() {
                 </Button>
                 <Separator orientation="vertical" className="h-5" />
                 <div className="min-w-0">
-                  <div className="flex items-center gap-1 text-[10px] text-gray-400">
-                    <button onClick={() => navigateTo('landing')} className="hover:text-[#D4AF37]">Home</button>
-                    <ChevronRight className="w-2.5 h-2.5" />
-                    <button onClick={() => navigateTo('gradeSelect')} className="hover:text-[#D4AF37]">{selectedGrade.title}</button>
-                    <ChevronRight className="w-2.5 h-2.5" />
-                    <span>T{selectedTerm.number}</span>
-                    <ChevronRight className="w-2.5 h-2.5" />
-                    <span className="text-gray-500 truncate max-w-[120px]">{selectedUnit.title}</span>
-                  </div>
                   <h1 className="text-xs font-bold text-gray-800 truncate">{cleanTitle}</h1>
                   <AhmedAliLink />
                 </div>
@@ -1947,36 +1434,11 @@ export default function Home() {
     );
   };
 
-  // Helper to generate map markers ONLY for geography-related lessons
-  // Maps should NOT appear for ethics, justice, health, diversity, governance, financial literacy, etc.
+  // Helper to generate map markers based on lesson topic
   function generateMapMarkers(lesson: LessonData): Array<{ name: string; desc: string; lat: number; lng: number; color: string }> {
     const title = lesson.title.toLowerCase();
-    const domains = lesson.domains.toLowerCase();
 
-    // Only show maps for geography-focused lessons
-    const isGeographyLesson =
-      title.includes('geography') || title.includes('geographic') ||
-      title.includes('land and resources') || title.includes('physical geography') ||
-      title.includes('land and physical') || title.includes('landscape') ||
-      title.includes('map') || title.includes('region') || title.includes('continent') ||
-      title.includes('silk road') || title.includes('trade route') ||
-      title.includes('east asia') || title.includes('south asia') ||
-      title.includes('central asia') || title.includes('west asia') ||
-      title.includes('africa') || title.includes('african') ||
-      title.includes('america') || title.includes('american') ||
-      title.includes('ottoman') || title.includes('europe') ||
-      title.includes('renaissance') || title.includes('medieval') ||
-      title.includes('middle ages') || title.includes('venice') ||
-      title.includes('china') || title.includes('korea') || title.includes('india') ||
-      title.includes('uae geography') || title.includes('uae heritage') ||
-      title.includes('emirat') && (title.includes('geograph') || title.includes('land') || title.includes('heritage')) ||
-      domains.includes('s3'); // S3 = Geography domain
-
-    if (!isGeographyLesson) {
-      return [];
-    }
-
-    // Ottoman Empire specific markers (geographic expansion)
+    // Ottoman Empire specific markers
     if (title.includes('ottoman')) {
       return [
         { name: 'Istanbul (Constantinople)', desc: 'Conquered in 1453 by Muhammad al-Fatih', lat: 41.0082, lng: 28.9784, color: '#722F37' },
@@ -1987,8 +1449,8 @@ export default function Home() {
       ];
     }
 
-    // UAE geography/heritage markers (only for geography-focused UAE lessons)
-    if ((title.includes('uae') || title.includes('emirat')) && (title.includes('geograph') || title.includes('heritage') || title.includes('land') || title.includes('physical') || title.includes('map') || title.includes('region'))) {
+    // UAE specific markers
+    if (title.includes('uae') || title.includes('emirat') || title.includes('zayed') || title.includes('heritage') || title.includes('government') || title.includes('governance') || title.includes('federal') || title.includes('citizen') || title.includes('constitution')) {
       return [
         { name: 'Abu Dhabi', desc: 'Capital of the UAE, seat of federal government', lat: 24.4539, lng: 54.3773, color: '#722F37' },
         { name: 'Dubai', desc: 'Major commercial and financial hub', lat: 25.2048, lng: 55.2708, color: '#D4AF37' },
@@ -2051,17 +1513,12 @@ export default function Home() {
       ];
     }
 
-    // For S3 domain lessons that don't match a specific region, show UAE geography
-    if (domains.includes('s3')) {
-      return [
-        { name: 'UAE', desc: 'United Arab Emirates — geographic overview', lat: 23.4241, lng: 53.8478, color: '#D4AF37' },
-        { name: 'Abu Dhabi', desc: 'Capital city', lat: 24.4539, lng: 54.3773, color: '#722F37' },
-        { name: 'Al Ain', desc: 'The Garden City', lat: 24.1915, lng: 55.7606, color: '#047857' },
-      ];
-    }
-
-    // Default: no map for non-geography lessons
-    return [];
+    // Default: UAE centered
+    return [
+      { name: 'UAE', desc: 'United Arab Emirates — our home', lat: 23.4241, lng: 53.8478, color: '#D4AF37' },
+      { name: 'Abu Dhabi', desc: 'Capital city', lat: 24.4539, lng: 54.3773, color: '#722F37' },
+      { name: 'Al Ain', desc: 'The Garden City', lat: 24.1915, lng: 55.7606, color: '#047857' },
+    ];
   }
 
 
@@ -2218,96 +1675,11 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          {/* Charts Section */}
-          {filteredResults.length > 0 && (
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Grade Distribution Bar Chart */}
-              <Card className="border-2 border-amber-200 overflow-hidden">
-                <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-amber-200">
-                  <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                    <BarChart3 className="w-5 h-5 text-[#D4AF37]" /> Average Score by Grade
-                  </h3>
-                </div>
-                <CardContent className="p-4">
-                  <ResponsiveContainer width="100%" height={250}>
-                    <BarChart data={[6,7,8,9].map(g => {
-                      const gResults = allResults.filter(r => r.grade === g);
-                      return { grade: `G${g}`, avg: gResults.length > 0 ? Math.round(gResults.reduce((a,r) => a + r.percentage, 0) / gResults.length) : 0, students: new Set(gResults.map(r => r.studentCode)).size };
-                    })}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="grade" />
-                      <YAxis domain={[0, 100]} />
-                      <RechartsTooltip />
-                      <Bar dataKey="avg" fill="#722F37" radius={[4,4,0,0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-
-              {/* Term Performance Line Chart */}
-              <Card className="border-2 border-emerald-200 overflow-hidden">
-                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 border-b border-emerald-200">
-                  <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                    <BarChart3 className="w-5 h-5 text-emerald-600" /> Term Performance Trend
-                  </h3>
-                </div>
-                <CardContent className="p-4">
-                  <ResponsiveContainer width="100%" height={250}>
-                    <BarChart data={termScores.map(ts => ({ name: `T${ts.term}`, avg: ts.avgPercentage, quizzes: ts.totalQuizzes }))}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis domain={[0, 100]} />
-                      <RechartsTooltip />
-                      <Bar dataKey="avg" fill="#047857" radius={[4,4,0,0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-
-          {/* Diagnostic Results */}
-          {getDiagnosticResults().length > 0 && (
-            <Card className="border-2 border-teal-200 overflow-hidden">
-              <div className="bg-gradient-to-r from-teal-50 to-cyan-50 p-4 border-b border-teal-200">
-                <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                  <Brain className="w-5 h-5 text-teal-600" /> Diagnostic Assessment Results
-                </h3>
-              </div>
-              <CardContent className="p-4">
-                <div className="overflow-x-auto max-h-60">
-                  <table className="w-full text-sm">
-                    <thead className="sticky top-0 bg-gray-50">
-                      <tr className="border-b">
-                        <th className="text-left px-3 py-2 font-semibold text-gray-600">Student</th>
-                        <th className="text-center px-3 py-2 font-semibold text-gray-600">Grade</th>
-                        <th className="text-center px-3 py-2 font-semibold text-gray-600">Score</th>
-                        <th className="text-center px-3 py-2 font-semibold text-gray-600">%</th>
-                        <th className="text-left px-3 py-2 font-semibold text-gray-600">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {getDiagnosticResults().map((r, i) => (
-                        <tr key={i} className="border-b hover:bg-teal-50/30">
-                          <td className="px-3 py-2"><span className="font-mono text-xs bg-teal-100 text-teal-800 px-2 py-0.5 rounded">{r.studentCode}</span></td>
-                          <td className="px-3 py-2 text-center">G{r.grade}</td>
-                          <td className="px-3 py-2 text-center font-bold">{r.score}/{r.total}</td>
-                          <td className="px-3 py-2 text-center"><Badge className={`${r.percentage >= 65 ? 'bg-emerald-100 text-emerald-700' : r.percentage >= 40 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'} border-0`}>{r.percentage}%</Badge></td>
-                          <td className="px-3 py-2 text-xs text-gray-500">{new Date(r.completedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
           {/* Per-Student Table */}
           <Card className="border-2 border-amber-200 overflow-hidden">
             <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-amber-200">
               <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#D4AF37]" /> Student Management
+                <Users className="w-5 h-5 text-[#D4AF37]" /> Student Performance
               </h3>
             </div>
             <div className="overflow-x-auto max-h-96">
@@ -2325,7 +1697,6 @@ export default function Home() {
                       <th className="text-center px-4 py-3 font-semibold text-gray-600">Quizzes</th>
                       <th className="text-center px-4 py-3 font-semibold text-gray-600">Avg Score</th>
                       <th className="text-left px-4 py-3 font-semibold text-gray-600">Last Active</th>
-                      <th className="text-center px-4 py-3 font-semibold text-gray-600">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -2342,22 +1713,6 @@ export default function Home() {
                         </td>
                         <td className="px-4 py-3 text-xs text-gray-500">
                           {new Date(student.lastActive).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          {deleteTarget === student.code ? (
-                            <div className="flex items-center gap-1 justify-center">
-                              <Input value={deleteConfirmCode} onChange={e => setDeleteConfirmCode(e.target.value)} placeholder="Type code" className="text-xs w-24 h-7" />
-                              <Button size="sm" variant="destructive" onClick={() => {
-                                if (deleteConfirmCode === student.code) { deleteStudentData(student.code); setDeleteTarget(null); setDeleteConfirmCode(''); }
-                              }} className="h-7 text-xs">Confirm</Button>
-                              <Button size="sm" variant="outline" onClick={() => { setDeleteTarget(null); setDeleteConfirmCode(''); }} className="h-7 text-xs">Cancel</Button>
-                            </div>
-                          ) : (
-                            <Button size="sm" variant="ghost" onClick={() => { setDeleteTarget(student.code); setDeleteConfirmCode(''); }}
-                              className="text-rose-500 hover:text-rose-700 hover:bg-rose-50 h-7 text-xs">
-                              Remove
-                            </Button>
-                          )}
                         </td>
                       </tr>
                     ))}
@@ -2516,41 +1871,14 @@ export default function Home() {
                   placeholder="MSCS-7A-2026-014" className="text-center font-mono text-lg tracking-wider" />
                 <p className="text-xs text-gray-400 mt-1">Format: MSCS-Grade-Section-Year-Number</p>
               </div>
-              {loginCode === MASTER_LOGIN_CODE && (
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-1"><Shield className="w-3 h-3" /> Teacher Password</label>
-                  <Input type="password" value={masterPassword} onChange={e => { setMasterPassword(e.target.value); setLoginError(''); }}
-                    placeholder="Enter teacher password" className="text-center font-mono" />
-                  <p className="text-xs text-gray-400 mt-1">Required for teacher dashboard access</p>
-                </div>
-              )}
               {loginError && (
                 <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm text-rose-700 flex items-center gap-2">
                   <XCircle className="w-4 h-4 shrink-0" />{loginError}
                 </div>
               )}
               <Button onClick={() => {
-                if (loginCode === MASTER_LOGIN_CODE) {
-                  // Teacher login requires password
-                  if (!masterPassword) {
-                    setLoginError('Password required for teacher login');
-                    return;
-                  }
-                  const rateCheck = checkLoginRateLimit();
-                  if (!rateCheck.allowed) {
-                    setLoginLocked(true);
-                    setLoginLockedUntil(rateCheck.lockoutUntil);
-                    setLoginError(`Too many failed attempts. Try again in ${Math.ceil((rateCheck.lockoutUntil - Date.now()) / 60000)} minutes.`);
-                    return;
-                  }
-                  if (verifyMasterPassword(masterPassword)) {
-                    resetLoginAttempts();
-                    setIsLoggedIn(true); setStudentName('MASTER'); navigateTo('teacherDashboard'); return;
-                  } else {
-                    recordFailedLogin();
-                    setLoginError('Invalid password. Access denied.');
-                    return;
-                  }
+                if (loginCode === 'MSCS-MASTER-2026-ADMIN') {
+                  setIsLoggedIn(true); setStudentName('MASTER'); navigateTo('teacherDashboard'); return;
                 }
                 const pattern = /^MSCS-\d[A-Z]-\d{4}-\d{3}$/;
                 if (pattern.test(loginCode)) {
@@ -2567,7 +1895,8 @@ export default function Home() {
                 </div>
               )}
               <div className="text-center">
-                <p className="text-xs text-gray-400">Student: Enter your access code (e.g., MSCS-8A-2026-001)</p>
+                <p className="text-xs text-gray-400">Demo: Enter any valid format like MSCS-8A-2026-001</p>
+                <p className="text-xs text-gray-400 mt-1">Teacher: MSCS-MASTER-2026-ADMIN</p>
               </div>
             </div>
           </CardContent>
@@ -2659,133 +1988,6 @@ export default function Home() {
   );
 
   // ════════════════════════════════════════════════════════════
-  // DIAGNOSTIC ASSESSMENT PAGE
-  // ════════════════════════════════════════════════════════════
-
-  const renderDiagnosticPage = () => {
-    const gradeKey = diagnosticGrade;
-    const questions = diagnosticQuestions[gradeKey] || [];
-    const gradeInfo = gradeInfoList.find(g => g.key === gradeKey);
-
-    if (!gradeInfo) return null;
-
-    if (!isLoggedIn || !studentName || studentName === 'MASTER') {
-      return (
-        <div className="min-h-screen bg-[#FFF9F0] flex items-center justify-center p-4">
-          <Card className="border-2 border-[#D4AF37] max-w-md w-full">
-            <CardContent className="p-8 text-center space-y-4">
-              <Shield className="w-12 h-12 text-[#D4AF37] mx-auto" />
-              <h2 className="text-xl font-bold text-gray-800">Student Login Required</h2>
-              <p className="text-sm text-gray-600">You must be logged in with your student access code to take the diagnostic assessment.</p>
-              <Button onClick={() => navigateTo('loginPage')} className="bg-[#722F37] hover:bg-[#5A1A23] text-white"><LogIn className="w-4 h-4 mr-2" /> Go to Student Login</Button>
-              <Button variant="outline" onClick={() => navigateTo('gradeSelect')} className="border-[#D4AF37] text-[#D4AF37]">Back to Grades</Button>
-            </CardContent>
-          </Card>
-        </div>
-      );
-    }
-
-    if (diagnosticSubmitted) {
-      const score = questions.reduce((acc, q) => acc + (diagnosticAnswers[q.id] === q.correctAnswer ? 1 : 0), 0);
-      const pct = Math.round((score / questions.length) * 100);
-      return (
-        <div className="min-h-screen bg-[#FFF9F0] flex items-center justify-center p-4">
-          {pct >= 50 && <ConfettiCelebration />}
-          <Card className="border-2 border-[#D4AF37] max-w-lg w-full">
-            <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-6 text-center rounded-t-xl">
-              <Award className="w-12 h-12 text-[#D4AF37] mx-auto mb-3" />
-              <h2 className="text-2xl font-bold text-white">Diagnostic Complete!</h2>
-              <p className="text-amber-200 text-sm mt-1">{gradeInfo.title} — Start of Year Assessment</p>
-            </div>
-            <CardContent className="p-6 text-center space-y-4">
-              <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full border-4 ${pct >= 65 ? 'border-emerald-400 bg-emerald-50' : pct >= 40 ? 'border-amber-400 bg-amber-50' : 'border-rose-400 bg-rose-50'}`}>
-                <div>
-                  <div className={`text-2xl font-bold ${pct >= 65 ? 'text-emerald-600' : pct >= 40 ? 'text-amber-600' : 'text-rose-600'}`}>{score}/{questions.length}</div>
-                  <div className={`text-sm ${pct >= 65 ? 'text-emerald-500' : pct >= 40 ? 'text-amber-500' : 'text-rose-500'}`}>{pct}%</div>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600">This establishes your baseline for the year. Your teacher will use this to track your growth.</p>
-              <Badge className="bg-amber-100 text-amber-700 border-amber-300"><CheckCircle2 className="w-3 h-3 mr-1" /> Result Saved</Badge>
-              <div className="pt-4"><Button onClick={() => navigateTo('gradeSelect')} className="bg-[#722F37] hover:bg-[#5A1A23] text-white"><HomeIcon className="w-4 h-4 mr-2" /> Back to {gradeInfo.title}</Button></div>
-            </CardContent>
-          </Card>
-        </div>
-      );
-    }
-
-    return (
-      <div className="min-h-screen bg-[#FFF9F0] flex flex-col">
-        <div className="relative bg-gradient-to-r from-[#722F37] to-[#5A1A23] py-8 px-4">
-          <ArabicPattern opacity={0.06} color="#D4AF37" />
-          <div className="relative z-10 max-w-3xl mx-auto">
-            <Button variant="ghost" onClick={() => navigateTo('gradeSelect')} className="text-white/80 hover:text-white hover:bg-white/10 mb-3">
-              <ChevronLeft className="w-4 h-4 mr-1" /> Back to {gradeInfo.title}
-            </Button>
-            <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Brain className="w-6 h-6 text-[#D4AF37]" /> Diagnostic Assessment</h1>
-            <p className="text-amber-200/80 text-sm mt-1">{gradeInfo.title} — Start of Year Baseline</p>
-            <p className="text-white/60 text-xs mt-2">This assessment measures your current knowledge level. It is intentionally challenging — scoring 50-65% is normal and expected.</p>
-          </div>
-        </div>
-        <div className="max-w-3xl mx-auto px-4 py-8 flex-1 space-y-6">
-          {questions.map((q, idx) => {
-            const answered = diagnosticAnswers[q.id] !== undefined;
-            const isCorrect = answered && diagnosticAnswers[q.id] === q.correctAnswer;
-            const dokLevel = idx < 3 ? 'DOK 1' : idx < 6 ? 'DOK 2' : idx < 8 ? 'DOK 3' : 'DOK 4';
-            return (
-              <Card key={q.id} className={`border-2 ${answered ? (isCorrect ? 'border-emerald-300 bg-emerald-50/30' : 'border-rose-300 bg-rose-50/30') : 'border-amber-200'}`}>
-                <CardContent className="p-4 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-gray-500">Question {idx + 1} of {questions.length}</span>
-                    <Badge variant="outline" className={`text-[10px] ${idx < 3 ? 'border-emerald-300 text-emerald-700' : idx < 6 ? 'border-amber-300 text-amber-700' : idx < 8 ? 'border-rose-300 text-rose-700' : 'border-purple-300 text-purple-700'}`}>{dokLevel}</Badge>
-                  </div>
-                  <h4 className="font-bold text-gray-800 text-sm">{q.question}</h4>
-                  <div className="space-y-2">
-                    {q.options?.map((option, optIdx) => {
-                      let cls = 'border-gray-200 bg-white hover:border-[#D4AF37] hover:bg-amber-50 cursor-pointer';
-                      if (answered) {
-                        if (q.correctAnswer === optIdx) cls = 'border-emerald-400 bg-emerald-50 ring-2 ring-emerald-200';
-                        else if (diagnosticAnswers[q.id] === optIdx) cls = 'border-rose-400 bg-rose-50 ring-2 ring-rose-200';
-                        else cls = 'border-gray-200 bg-gray-50 opacity-50';
-                      }
-                      return (
-                        <button key={optIdx} onClick={() => { if (!answered) setDiagnosticAnswers(prev => ({ ...prev, [q.id]: optIdx })); }} disabled={answered}
-                          className={`w-full text-left px-4 py-2.5 rounded-lg border-2 text-sm transition-all ${cls}`}>
-                          <span className="font-medium mr-2 text-gray-500">{String.fromCharCode(65 + optIdx)})</span>{option}
-                          {answered && q.correctAnswer === optIdx && <CheckCircle2 className="inline w-4 h-4 ml-2 text-emerald-600" />}
-                          {answered && diagnosticAnswers[q.id] === optIdx && q.correctAnswer !== optIdx && <XCircle className="inline w-4 h-4 ml-2 text-rose-600" />}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {answered && q.explanation && (
-                    <div className={`p-3 rounded-lg border text-xs ${isCorrect ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
-                      <span className="font-bold">{isCorrect ? 'Correct!' : 'Not quite!'}</span> {q.explanation}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            );
-          })}
-          <div className="text-center py-4">
-            {Object.keys(diagnosticAnswers).length < questions.length ? (
-              <p className="text-sm text-gray-500">Answer all {questions.length} questions to submit your diagnostic assessment.</p>
-            ) : (
-              <Button onClick={() => {
-                const score = questions.reduce((acc, q) => acc + (diagnosticAnswers[q.id] === q.correctAnswer ? 1 : 0), 0);
-                saveDiagnosticResult({ studentCode: studentName, gradeKey, grade: gradeInfo.number, score, total: questions.length, percentage: Math.round((score / questions.length) * 100), completedAt: new Date().toISOString(), answers: diagnosticAnswers });
-                setDiagnosticSubmitted(true);
-                if (score / questions.length >= 0.5) SoundFX.celebrate();
-              }} className="bg-[#722F37] hover:bg-[#5A1A23] text-white px-8 py-3 text-lg">
-                <Trophy className="w-5 h-5 mr-2" /> Submit Diagnostic Assessment
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // ════════════════════════════════════════════════════════════
   // MAIN RENDER
   // ════════════════════════════════════════════════════════════
 
@@ -2799,8 +2001,60 @@ export default function Home() {
       {view === 'loginPage' && renderLoginPage()}
       {view === 'consentPage' && renderConsentPage()}
       {view === 'teacherDashboard' && renderTeacherDashboard()}
-      {view === 'diagnosticPage' && renderDiagnosticPage()}
-      <LicensedTo />
+
+      {/* Classroom Rules Popup */}
+      {showClassroomRules && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={() => setShowClassroomRules(false)}>
+          <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden animate-in fade-in zoom-in-95" onClick={e => e.stopPropagation()}>
+            <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-5 relative overflow-hidden">
+              <ArabicPattern opacity={0.1} color="#D4AF37" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-[#D4AF37]" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold text-white">Classroom Rules</h2>
+                    <p className="text-amber-200/80 text-xs">Based on ADEK & UAE Ministry of Education Guidelines</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="p-5 space-y-3 max-h-[60vh] overflow-y-auto">
+              <p className="text-sm text-gray-600 italic mb-3">Welcome! Before we begin, please read and acknowledge these classroom expectations:</p>
+              {[
+                { icon: '🤝', title: 'Respect Everyone', desc: 'Treat your classmates, teacher, and all members of the school community with respect and kindness, regardless of background, culture, or beliefs.' },
+                { icon: '👂', title: 'Listen Attentively', desc: 'Pay close attention when the teacher or classmates are speaking. Raise your hand and wait for permission before sharing your thoughts.' },
+                { icon: '📖', title: 'Come Prepared', desc: 'Bring all required materials, complete homework on time, and be ready to participate actively in every lesson.' },
+                { icon: '✋', title: 'Be Honest & Trustworthy', desc: 'Always tell the truth, complete your own work, and never copy from others. Academic integrity is a core value in UAE schools.' },
+                { icon: '🛡️', title: 'Keep Our Space Safe', desc: 'Follow all safety rules, move calmly in the classroom and corridors, and report anything that could harm others.' },
+                { icon: '🌱', title: 'Embrace Diversity', desc: 'UAE is home to over 200 nationalities. Celebrate our differences, be tolerant, and learn from each other\'s cultures and perspectives.' },
+                { icon: '🎯', title: 'Strive for Excellence', desc: 'Give your best effort in everything you do. The UAE values ambition, hard work, and continuous self-improvement.' },
+                { icon: '⚖️', title: 'Follow School Rules', desc: 'Observe the school dress code, arrive on time, use devices appropriately, and follow all rules set by the school administration and ADEK.' },
+              ].map((rule, i) => (
+                <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                  <span className="text-lg shrink-0">{rule.icon}</span>
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-800">{rule.title}</h4>
+                    <p className="text-xs text-gray-600 leading-relaxed">{rule.desc}</p>
+                  </div>
+                </div>
+              ))}
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
+                <p className="text-xs text-amber-800 leading-relaxed">
+                  <strong>Remember:</strong> These rules are aligned with the UAE Ministry of Education Code of Conduct, ADEK Behaviour Management Policy, and the UAE Values of Respect, Responsibility, and Integrity.
+                </p>
+              </div>
+            </div>
+            <div className="p-4 border-t bg-gray-50">
+              <Button onClick={() => setShowClassroomRules(false)}
+                className="w-full bg-[#722F37] hover:bg-[#5A1A23] text-white font-bold py-3">
+                <CheckCircle2 className="w-4 h-4 mr-2" /> I Understand & Will Follow These Rules
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
