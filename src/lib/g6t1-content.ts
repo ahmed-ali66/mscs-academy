@@ -21,6 +21,12 @@ export interface LessonContent {
     correctAnswer: number;
     explanation: string;
   }[];
+  interactiveStrategies?: {
+    strategy: string;
+    description: string;
+    duration: number; // minutes
+    instructions: string;
+  }[];
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -91,6 +97,11 @@ This is the legacy of Sheikh Zayed and Sheikh Rashid. Sheikh Zayed's greatest le
       { id: 'u1l1q4', question: 'What does Article 2 of the Universal Declaration of Human Rights guarantee?', options: ['Free healthcare for all', 'The same rights and freedoms for all people regardless of race, gender, language, or religion', 'The right to vote in every country', 'Free education only for citizens'], correctAnswer: 1, explanation: 'Article 2 states that all people have the same rights and freedoms, regardless of race, gender, language, or religion.' },
       { id: 'u1l1q5', question: 'What is the key lesson from Sheikh Zayed\'s approach to people in his majlis?', options: ['Only Emiratis should be welcomed', 'Wealth determines who is respected', 'Everyone should be welcomed and treated equally regardless of their differences', 'Only people of the same religion should mix'], correctAnswer: 2, explanation: 'Sheikh Zayed welcomed everyone regardless of origin, tribe, sect, denomination, or religion — showing that true equality means including everyone.' },
     ],
+    interactiveStrategies: [
+      { strategy: 'Think-Pair-Share', description: 'Reflect on a personal experience with unfairness and share with a partner', duration: 5, instructions: 'Think about a time you felt something was unfair. Share with your partner: What happened? How did it feel? What would have made it fair?' },
+      { strategy: 'Role Playing', description: 'Act out the Monkey and the Scale story to negotiate a fair solution', duration: 7, instructions: 'In pairs, role-play the story of the Monkey and the Scale. One student plays Fulla, one plays Yasmina. Can you negotiate a fair solution without the monkey?' },
+      { strategy: 'Summarizing', description: 'Write a one-sentence summary of the main lesson on an index card', duration: 3, instructions: 'In one sentence, summarize the main lesson from the Monkey and the Scale story. Write it on your index card.' },
+    ],
   },
 
   // Lesson 2: How is Fair Distribution Accomplished
@@ -138,6 +149,10 @@ The UAE works to achieve fair distribution through:
       { id: 'u1l2q3', question: 'How does the UAE support fair distribution of resources?', options: ['By charging for all services', 'Through free education, healthcare, housing programmes, and equal opportunity laws', 'By giving everyone the same amount of money', 'By not getting involved in distribution'], correctAnswer: 1, explanation: 'The UAE supports fair distribution through free education, free healthcare, subsidised housing, social support, and equal opportunity laws.' },
       { id: 'u1l2q4', question: 'Why might a government use taxes as a tool for fair distribution?', options: ['To punish wealthy people', 'To collect money that can be used for public services like education and healthcare', 'Taxes have nothing to do with fair distribution', 'Only to build roads'], correctAnswer: 1, explanation: 'Taxes allow governments to collect revenue and redistribute it through public services, ensuring all people have access to essential resources regardless of their personal wealth.' },
       { id: 'u1l2q5', question: 'In a classroom, a teacher gives extra time on a test to a student with a learning disability. Is this fair?', options: ['No, because it is not equal treatment', 'Yes, because fair treatment means giving each person what they need to have an equal opportunity', 'Only if all students get extra time', 'It depends on the student\'s grade'], correctAnswer: 1, explanation: 'Fairness does not always mean sameness. Giving a student with a learning disability extra time levels the playing field so they have an equal opportunity to demonstrate their knowledge.' },
+    ],
+    interactiveStrategies: [
+      { strategy: 'Problem-Based Learning', description: 'Create a fair distribution plan for limited school tablets', duration: 8, instructions: 'Your school has 20 new tablets but 30 students. Work in groups of 4 to create a fair distribution plan. Present your plan to the class.' },
+      { strategy: 'Index Cards', description: 'Write an example of fair but not equal distribution', duration: 4, instructions: 'On your index card, write one example of fair (but not equal) distribution. We will share and discuss as a class.' },
     ],
   },
 
@@ -193,6 +208,11 @@ Most countries have social care systems that are funded with a unique mixture of
       { id: 'u1l3q4', question: 'Why is it difficult for countries to achieve distributive justice in healthcare?', options: ['Because healthcare is not important', 'Because resources are limited and demand is growing due to ageing populations, overpopulation, and rising disease rates', 'Because only wealthy people need healthcare', 'Because there is only one way to fund healthcare'], correctAnswer: 1, explanation: 'Ageing populations, overpopulation, and increasing rates of diseases like heart disease, obesity, and diabetes put pressure on healthcare finances, making fair distribution challenging.' },
       { id: 'u1l3q5', question: 'The parable of the Elephant and the Blind Men is most relevant to distributive justice because it teaches that:', options: ['Blind people cannot understand justice', 'Animals are not important to society', 'Partial perspectives can lead to unfair conclusions — we need to understand the full picture before distributing resources', 'Only leaders should make distribution decisions'], correctAnswer: 2, explanation: 'The parable shows that when we only see part of the picture, our judgments can be incomplete or biased. For distributive justice, we must consider all perspectives and the full situation before deciding how to distribute resources fairly.' },
     ],
+    interactiveStrategies: [
+      { strategy: 'Think-Pair-Share', description: 'Discuss how partial perspectives can lead to unfair decisions', duration: 5, instructions: 'Think about the Elephant and the Blind Men story. How might seeing only part of the picture lead to unfair decisions? Discuss with your partner.' },
+      { strategy: 'Simulations', description: 'Simulate a healthcare funding allocation decision', duration: 7, instructions: 'Simulate a healthcare funding decision: You are a government with limited budget. Allocate funds across 5 healthcare sources. Defend your choices.' },
+      { strategy: 'Content Recall', description: 'List the 5 sources of healthcare funding from memory', duration: 3, instructions: 'Without looking at your notes, list the 5 sources of healthcare funding on your index card.' },
+    ],
   },
 
   // Lesson 4: Standards of Distributive Justice
@@ -246,6 +266,10 @@ The UAE uses all three standards:
       { id: 'u1l4q4', question: 'The UAE provides free education to all citizens. Which standard of distributive justice does this represent?', options: ['Merit only', 'Need only', 'Equality', 'None of them'], correctAnswer: 2, explanation: 'Free education for all citizens equally, regardless of income or achievement, represents the equality standard of distributive justice.' },
       { id: 'u1l4q5', question: 'Can merit and equality ever conflict? Which example shows this?', options: ['No, they always agree', 'Yes — giving everyone the same grade regardless of effort (equality) conflicts with rewarding those who worked hardest (merit)', 'Merit and equality are the same thing', 'Only need conflicts with other standards'], correctAnswer: 1, explanation: 'Merit and equality can conflict when equal treatment (giving everyone the same) does not reward individual effort and achievement. This is why societies must balance multiple standards.' },
     ],
+    interactiveStrategies: [
+      { strategy: 'Flip Charts', description: 'Create a flip chart comparing Merit, Need, and Equality standards', duration: 8, instructions: 'In groups of 4, create a flip chart comparing Merit, Need, and Equality. Give one real-world example for each standard. Present to the class.' },
+      { strategy: 'Think-Pair-Share', description: 'Discuss which standard of justice is most important', duration: 4, instructions: 'Which standard do you think is most important? Discuss with your partner and be ready to explain why.' },
+    ],
   },
 
   // Lesson 5: Justice in Leadership
@@ -298,6 +322,10 @@ In the UAE, the Federal National Council gives citizens a voice in governance. T
       { id: 'u1l5q3', question: 'Why is consistency important in just leadership?', options: ['It means leaders never change their mind', 'Rules should be applied equally to everyone, without favouritism', 'Only some people should follow the rules', 'Consistency is not related to justice'], correctAnswer: 1, explanation: 'Consistency means applying rules equally to all people without favouritism or discrimination, which is essential for fair leadership.' },
       { id: 'u1l5q4', question: 'Sheikh Zayed is remembered as a just leader because:', options: ['He was wealthy', 'He welcomed everyone to his majlis regardless of status or background', 'He never made any decisions', 'He only met with important people'], correctAnswer: 1, explanation: 'Sheikh Zayed was known for his open majlis where anyone — regardless of status, tribe, or background — could come and be heard. This embodies justice in leadership.' },
       { id: 'u1l5q5', question: 'What is consultative governance (Shura)?', options: ['A leader making all decisions alone', 'A system where leaders consult with the people before making important decisions', 'A type of election', 'A court system'], correctAnswer: 1, explanation: 'Shura (consultative governance) means leaders consult with the people and consider their views before making decisions, ensuring inclusiveness and shared wisdom.' },
+    ],
+    interactiveStrategies: [
+      { strategy: 'Role Playing', description: 'Role-play a just vs. unjust leader making a decision', duration: 8, instructions: 'One student plays a just leader, another plays an unjust leader. Each must decide: Should we build a new school or a new mall? Show how each leader makes their decision.' },
+      { strategy: 'Student Presentations', description: 'Research and present about a just leader', duration: 7, instructions: 'Research a leader known for justice (past or present). Prepare a 2-minute presentation about what made them just.' },
     ],
   },
 ];
@@ -359,6 +387,10 @@ It is also believed that following a Mediterranean diet can benefit the health o
       { id: 'u2l1q4', question: 'How many hours of sleep should the average 6-13 year old get per day?', options: ['5-6 hours', '7-8 hours', '9-11 hours', '12-14 hours'], correctAnswer: 2, explanation: 'The recommended sleep duration for children aged 6-13 is 9-11 hours per day, essential for healthy growth and cognitive development.' },
       { id: 'u2l1q5', question: 'Which statement about healthy eating is TRUE?', options: ['Frying is the healthiest cooking method', 'Eating homemade food contributes to a healthy body', 'Using electronic devices helps us sleep well', 'Regular exercise can harm bones and muscles'], correctAnswer: 1, explanation: 'Homemade meals tend to be healthier because you control the ingredients and cooking methods. Frying adds unhealthy fats, screens disrupt sleep, and proper exercise strengthens bones and muscles.' },
     ],
+    interactiveStrategies: [
+      { strategy: 'Collaborative Work', description: 'Design a healthy meal plan using the 5 food groups', duration: 8, instructions: 'In groups of 4, design a healthy meal plan for one day using the 5 food groups. Include breakfast, lunch, dinner, and a snack. Present your plan.' },
+      { strategy: 'Content Recall', description: 'List the 5 food groups from memory', duration: 3, instructions: 'List the 5 food groups from memory on your index card. Which food group should take up the largest portion of your plate?' },
+    ],
   },
 
   // Lesson 2: Exercise and Healthy Habits
@@ -411,6 +443,10 @@ Basic rules of hygiene are necessary in order to stay healthy. If they are not f
       { id: 'u2l2q4', question: 'Which of the following is BOTH a physical and mental benefit of sports?', options: ['Only stronger muscles', 'Improved blood circulation AND reduced stress with better memory', 'Only weight loss', 'Only better coordination'], correctAnswer: 1, explanation: 'Sports benefit both body (improved circulation, stronger muscles, better immune system) and mind (reduced stress, improved memory, boosted communication).' },
       { id: 'u2l2q5', question: 'Why is hand washing considered one of the greatest life-saving measures in medical history?', options: ['It makes hands smell nice', 'Thorough hand washing before surgery prevents the spread of bacteria and infections, saving countless lives', 'It is only important for doctors', 'It replaces the need for medicine'], correctAnswer: 1, explanation: 'Imposing thorough hand washing before surgery was a breakthrough that dramatically reduced infection rates and saved millions of lives.' },
     ],
+    interactiveStrategies: [
+      { strategy: 'Simulations', description: 'Categorize exercises and demonstrate each type', duration: 7, instructions: 'Simulate an exercise routine: As a class, categorize these activities into Aerobic, Anaerobic, or Flexibility. Stand up and demonstrate one exercise from each category!' },
+      { strategy: 'Think-Pair-Share', description: 'Share your favourite physical activities and their types', duration: 5, instructions: 'Share with your partner: What physical activities do you enjoy? Which type of exercise are they? How could you add more variety?' },
+    ],
   },
 
   // Lesson 3: Challenges to Health and Getting Help
@@ -450,6 +486,10 @@ The government of the UAE is working closely with other organisations to address
       { id: 'u2l3q3', question: 'What minimum daily exercise does the article recommend as "a great start"?', options: ['10 minutes of stretching', 'Walking for 30 minutes a day with heart rate above 130 bpm', 'Running for an hour', 'Lifting weights for 45 minutes'], correctAnswer: 1, explanation: 'The article recommends walking for 30 minutes a day while keeping your heart rate above 130 beats per minute as a good starting point for fitness.' },
       { id: 'u2l3q4', question: 'Why have some UAE colleges banned soft drinks on campus?', options: ['To save money', 'Because soft drinks contribute to obesity, tooth decay, and bone health problems', 'Because students do not like them', 'To promote water companies'], correctAnswer: 1, explanation: 'Soft drinks are linked to obesity, tooth decay, and increased bone fracture risk. Banning them on campus promotes healthier choices among students.' },
       { id: 'u2l3q5', question: 'Hippocrates said: "If we could give every individual the right amount of nourishment and exercise, not too little and not too much, we would have found the safest way to health." What does this mean?', options: ['Only exercise matters for health', 'Balance in both diet and physical activity is the key to health — neither too much nor too little', 'Nourishment is more important than exercise', 'Health is impossible to achieve'], correctAnswer: 1, explanation: 'Hippocrates emphasised that health comes from the right balance — proper nourishment and appropriate exercise, without excess or deficiency in either.' },
+    ],
+    interactiveStrategies: [
+      { strategy: 'Problem-Based Learning', description: 'Identify health challenges and suggest improvements', duration: 8, instructions: 'Read the scenarios about Nadia, Fahad, Sophie, and Adnan. In pairs, identify each person\'s health challenge and suggest specific changes they could make to improve their health.' },
+      { strategy: 'Role Playing', description: 'Role-play a health advisor conversation', duration: 6, instructions: 'Role-play a conversation between a student with an unhealthy habit and a health advisor. The advisor should give specific, helpful advice using what you learned.' },
     ],
   },
 ];
@@ -513,6 +553,11 @@ The Hun dominance started to decline when their leader, Attila, died in 453 CE. 
       { id: 'u3l1q4', question: 'Which group established a kingdom where Hungary, Slovakia, and Romania are today?', options: ['The Goths', 'The Franks', 'The Huns, led by Attila', 'The Vandals'], correctAnswer: 2, explanation: 'The Huns, led by Attila, conquered the eastern territories of the Roman Empire and established a kingdom covering modern-day Hungary, Slovakia, and Romania.' },
       { id: 'u3l1q5', question: 'What caused the decline of Hun dominance?', options: ['A Roman counterattack', 'The death of Attila in 453 CE', 'A plague', 'The Huns converted to Christianity'], correctAnswer: 1, explanation: 'Hun dominance began to decline after their leader Attila died in 453 CE. Without his leadership, their power fragmented.' },
     ],
+    interactiveStrategies: [
+      { strategy: 'Index Cards', description: 'Match barbarian groups with their actions', duration: 4, instructions: 'On your index card, match each group (Goths, Huns, Franks, Vandals, Suevi) with their action. We will review as a class.' },
+      { strategy: 'Think-Pair-Share', description: 'Discuss why the Pax Romana failed', duration: 5, instructions: 'Why did the Pax Romana fail even though it brought 200 years of peace? Discuss with your partner and connect it to the concept of fairness we studied.' },
+      { strategy: 'Collaborative Work', description: 'Create a cause-and-effect chain for Rome\'s fall', duration: 6, instructions: 'In groups of 3, create a cause-and-effect chain showing how internal dissatisfaction AND external attacks both contributed to Rome\'s fall.' },
+    ],
   },
 
   // Lesson 2: The High Middle Ages of Europe
@@ -575,6 +620,10 @@ When Basil II became emperor in 976 CE, he focused on defeating his enemies. Aft
       { id: 'u3l2q4', question: 'What was the Golden Age of Byzantium?', options: ['A period of war and conquest', 'A 250-year period of cultural, philosophical, and artistic achievement starting in the 9th century CE', 'The reign of Justinian I', 'The fall of Constantinople'], correctAnswer: 1, explanation: 'The Golden Age of Byzantium was a 250-year period of cultural, philosophical, and artistic achievement brought by Macedonian emperors starting in the 9th century CE.' },
       { id: 'u3l2q5', question: 'Basil II defeated the Bulgarians at which battle?', options: ['Battle of Hadrianapolis', 'Battle of Manzikert', 'Battle of Kleidion in 1014 CE', 'Battle of Constantinople'], correctAnswer: 2, explanation: 'Basil II defeated the Bulgarians at the Battle of Kleidion in 1014 CE, then annexed Bulgaria into the Byzantine Empire.' },
     ],
+    interactiveStrategies: [
+      { strategy: 'Timeline Activity', description: 'Identify the most important Byzantine events', duration: 5, instructions: 'Using the timeline, identify the 3 most important events in Byzantine history. Justify your choices to your partner.' },
+      { strategy: 'Flip Charts', description: 'Compare the Plague of Justinian to a modern pandemic', duration: 8, instructions: 'Create a flip chart comparing the Plague of Justinian to a modern pandemic. How were they similar? How were they different?' },
+    ],
   },
 
   // Lesson 3: The Republic of Venice
@@ -622,6 +671,10 @@ The Venetians controlled several important ports, such as Constantinople. It was
       { id: 'u3l3q3', question: 'What did Emperor Alexios I Komnenos offer Venice in exchange for fighting the Normans?', options: ['Land in France', 'Free trade throughout the Byzantine Empire without tariffs', 'Control of Constantinople', 'Gold and silver'], correctAnswer: 1, explanation: 'In the 1082 treaty, Alexios offered Venice free trade throughout the Byzantine Empire without tariffs in exchange for their naval help against the Normans.' },
       { id: 'u3l3q4', question: 'What made Venice Egypt\'s exclusive European trading partner?', options: ['No other European country wanted to trade with Egypt', 'Venice\'s strong relationship and naval power allowed it to dominate the spice trade with Egypt', 'Egypt chose Venice randomly', 'The Pope decreed it'], correctAnswer: 1, explanation: 'Venice\'s combination of strong diplomatic relations and powerful navy allowed it to become Egypt\'s exclusive European trading partner for spices and other goods.' },
       { id: 'u3l3q5', question: 'Why is the treaty between Venice and Byzantium considered unfair by some?', options: ['Venice paid too much', 'Venice promised to help fight the Normans but did not fully keep their promise, yet still enjoyed the benefits of free trade', 'The treaty was too short', 'Byzantium did not benefit at all'], correctAnswer: 1, explanation: 'Venice agreed to help fight the Normans but did not keep their promise, yet they still received free trade without tariffs — getting the benefits without fulfilling their side of the deal.' },
+    ],
+    interactiveStrategies: [
+      { strategy: 'Simulations', description: 'Simulate the treaty of 1082 between Venice and Byzantium', duration: 8, instructions: 'Simulate the treaty of 1082: One group is Venice, another is Byzantium. Negotiate a deal. Was it fair? What would you change?' },
+      { strategy: 'Summarizing', description: 'Summarize why Venice became powerful', duration: 3, instructions: 'Summarize in one sentence why Venice became so powerful. Write it on your index card.' },
     ],
   },
 
@@ -682,6 +735,10 @@ The First Hundred Years' War lasted until 1259, exactly one hundred years after 
       { id: 'u3l4q4', question: 'What was the name of the English royal family during the First Hundred Years\' War?', options: ['The Capets', 'The Plantagenets', 'The Tudors', 'The Normans'], correctAnswer: 1, explanation: 'The Plantagenet family ruled England during this period, including kings Henry II, Richard I, and John.' },
       { id: 'u3l4q5', question: 'How did the First Hundred Years\' War end?', options: ['England conquered France', 'The Treaty of Paris was signed in 1259 CE, with Henry III giving up English lands in France', 'The war never officially ended', 'France surrendered to England'], correctAnswer: 1, explanation: 'The war ended with the Treaty of Paris on December 4, 1259, when Henry III agreed to give up many of England\'s lands in France.' },
     ],
+    interactiveStrategies: [
+      { strategy: 'Role Playing', description: 'Role-play the conflict between King Philip and King John', duration: 8, instructions: 'In groups, role-play the conflict between King Philip and King John. One side argues for France, the other for England. What were each side\'s claims?' },
+      { strategy: 'Content Recall', description: 'Write key events from the timeline without notes', duration: 4, instructions: 'Without notes, write the key events on the timeline: Who signed the Magna Carta? When? What was the Treaty of Paris?' },
+    ],
   },
 
   // Lesson 5: Crises of the Late Middle Ages
@@ -738,6 +795,10 @@ Despite the horrifying nature of the plague, some good came from it. Living stan
       { id: 'u3l5q3', question: 'Approximately how many people did the Black Death kill?', options: ['1 million', '50 million', 'Up to 200 million (a third to half of all Europeans)', '500,000'], correctAnswer: 2, explanation: 'Scientists estimate the Black Death killed up to 200 million people — roughly a third to half of Europe\'s entire population — in just four years (1347-1351).' },
       { id: 'u3l5q4', question: 'What percentage of Europe\'s population did the Great Famine kill?', options: ['5%', '10%', 'Up to 25%', '50%'], correctAnswer: 2, explanation: 'Historians estimate that the Great Famine of 1315-1317 CE killed up to 25% of the population of Europe.' },
       { id: 'u3l5q5', question: 'What was one unexpected positive outcome of the Black Death?', options: ['More land for churches', 'Living standards improved as wages increased and food prices fell', 'The plague stopped all wars', 'Everyone became healthier'], correctAnswer: 1, explanation: 'After the Black Death, the reduced population meant labour was scarce, so wages rose while food and goods became cheaper — overall living standards improved for survivors.' },
+    ],
+    interactiveStrategies: [
+      { strategy: 'Problem-Based Learning', description: 'Create a survival plan during the Black Death', duration: 8, instructions: 'Imagine you are a village leader during the Black Death. What measures would you take to protect your people? Work in groups to create a survival plan using only the knowledge available in the 14th century.' },
+      { strategy: 'Think-Pair-Share', description: 'Discuss if anything positive can come from disaster', duration: 5, instructions: 'Can anything positive come from a disaster? Think about the Black Death. Share with your partner one surprising way life improved after the plague.' },
     ],
   },
 ];

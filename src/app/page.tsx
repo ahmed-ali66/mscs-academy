@@ -741,6 +741,60 @@ function LessonMindMap({ data }: { data: { title: string; center: string; branch
   );
 }
 
+// Interactive Learning Strategy Card
+function InteractiveStrategyCard({ strategy, index }: { strategy: { strategy: string; description: string; duration: number; instructions: string }; index: number }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const strategyIcons: Record<string, React.ReactNode> = {
+    'Think-Pair-Share': <Users className="w-4 h-4" />,
+    'Role Playing': <Swords className="w-4 h-4" />,
+    'Problem-Based Learning': <Lightbulb className="w-4 h-4" />,
+    'Index Cards': <FileText className="w-4 h-4" />,
+    'Flip Charts': <BookOpen className="w-4 h-4" />,
+    'Summarizing': <Brain className="w-4 h-4" />,
+    'Student Presentations': <GraduationCap className="w-4 h-4" />,
+    'Content Recall': <Target className="w-4 h-4" />,
+    'Simulations': <Sparkles className="w-4 h-4" />,
+    'Collaborative Work': <Users className="w-4 h-4" />,
+    'Timeline Activity': <Calendar className="w-4 h-4" />,
+  };
+  const strategyColors = [
+    { bg: 'bg-amber-50', border: 'border-amber-300', header: 'bg-amber-100', text: 'text-amber-800', badge: 'bg-amber-200 text-amber-800' },
+    { bg: 'bg-emerald-50', border: 'border-emerald-300', header: 'bg-emerald-100', text: 'text-emerald-800', badge: 'bg-emerald-200 text-emerald-800' },
+    { bg: 'bg-purple-50', border: 'border-purple-300', header: 'bg-purple-100', text: 'text-purple-800', badge: 'bg-purple-200 text-purple-800' },
+    { bg: 'bg-blue-50', border: 'border-blue-300', header: 'bg-blue-100', text: 'text-blue-800', badge: 'bg-blue-200 text-blue-800' },
+  ];
+  const color = strategyColors[index % strategyColors.length];
+
+  return (
+    <Card className={`border-2 ${color.border} ${color.bg} overflow-hidden transition-all`}>
+      <button className={`w-full ${color.header} px-4 py-3 flex items-center gap-3 text-left`} onClick={() => setIsExpanded(!isExpanded)}>
+        <div className={`w-8 h-8 rounded-full ${color.badge} flex items-center justify-center shrink-0`}>
+          {strategyIcons[strategy.strategy] || <Sparkles className="w-4 h-4" />}
+        </div>
+        <div className="flex-1 min-w-0">
+          <h5 className={`font-bold text-sm ${color.text}`}>{strategy.strategy}</h5>
+          <p className="text-xs text-gray-600 mt-0.5 line-clamp-1">{strategy.description}</p>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <Badge className={`${color.badge} text-[10px]`}><Timer className="w-2.5 h-2.5 mr-1" />{strategy.duration} min</Badge>
+          <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+        </div>
+      </button>
+      {isExpanded && (
+        <CardContent className="p-4 pt-3">
+          <div className="bg-white rounded-lg p-3 border border-gray-100">
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span className="text-xs font-bold text-gray-700">Your Task:</span>
+            </div>
+            <p className="text-sm text-gray-700 leading-relaxed">{strategy.instructions}</p>
+          </div>
+        </CardContent>
+      )}
+    </Card>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════
 // MAIN APPLICATION
 // ═══════════════════════════════════════════════════════════════
@@ -1432,6 +1486,24 @@ export default function Home() {
                             <span className="font-bold text-blue-600 shrink-0">Q{i + 1}.</span>
                             <span>{q}</span>
                           </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Interactive Learning Strategies */}
+                {realContent.interactiveStrategies && realContent.interactiveStrategies.length > 0 && (
+                  <Card className="border-2 border-[#722F37] bg-[#722F37]/5">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Sparkles className="w-5 h-5 text-[#722F37]" />
+                        <h4 className="font-bold text-[#722F37] text-sm">Active Learning Strategies</h4>
+                        <Badge className="bg-[#722F37]/10 text-[#722F37] border-[#722F37]/20 text-[10px]">Student-Led</Badge>
+                      </div>
+                      <div className="space-y-3">
+                        {realContent.interactiveStrategies.map((s, i) => (
+                          <InteractiveStrategyCard key={i} strategy={s} index={i} />
                         ))}
                       </div>
                     </CardContent>
