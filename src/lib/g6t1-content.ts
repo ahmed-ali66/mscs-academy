@@ -394,59 +394,14 @@ Remember: asking for help is a sign of strength, not weakness. The earlier you a
 ];
 
 // ═══════════════════════════════════════════════════════════════
-// UNIT 3 (General): PERSPECTIVES OF PEOPLE THROUGH TIME (5 lessons)
+// UNIT 3: PERSPECTIVES OF PEOPLE THROUGH TIME (5 lessons)
+// Textbook: Unit 3 — Lessons 1-5
 // ═══════════════════════════════════════════════════════════════
 
 export const g6t1Unit3: LessonContent[] = [
-  // Lesson 1: Setting Classroom Rules & Diagnostic Assessment (Week 1)
+  // Lesson 1: After the Fall of the Roman Empire
   {
     lessonId: 'G6_T1_General_l1',
-    keyVocabulary: ['expectations', 'respect', 'participation', 'consent', 'assessment'],
-    reading1Title: 'Welcome to MSCS Academy!',
-    reading1Content: `Welcome to a new year of Moral, Social, and Cultural Studies! This year, you will explore important questions about fairness, health, history, and what it means to be a responsible citizen.
-
-In this course, you will:
-• Learn about equality, justice, and fairness
-• Discover how to stay healthy and make good choices
-• Explore the fascinating history of civilizations
-• Develop skills to think critically about the world around you
-
-Our classroom is a community where everyone's voice matters. To make this a great learning environment, we need to agree on some rules together. Good rules help everyone feel safe, respected, and ready to learn.
-
-Remember: This is YOUR learning journey. The more you put into it, the more you will get out of it!`,
-    reading1Time: 5,
-    kwlExplanation: KWL_EXPLANATION,
-    discussionQuestions: [
-      'What rule do you think is most important for our classroom? Why?',
-      'How can we make sure everyone feels respected during discussions?',
-      'What are you most looking forward to learning in MSCS this year?',
-    ],
-    keyFacts: [
-      'MSCS stands for Moral, Social, and Cultural Studies',
-      'This course covers 9 domain standards from history to ethics to digital literacy',
-      'Every lesson follows a structured 45-minute format with active learning strategies',
-      'You will use KWL charts, quizzes, discussions, and hands-on activities',
-      'Respect and participation are the foundations of our classroom community',
-      'Parental consent is required before you can take online assessments',
-    ],
-    visualType: 'none',
-    quizQuestions: [
-      { id: 'g1q1', question: 'What does MSCS stand for?', options: ['Math, Science, and Computer Studies', 'Moral, Social, and Cultural Studies', 'Music, Sports, and Creative Skills', 'Modern Social and Civic Studies'], correctAnswer: 1, explanation: 'MSCS stands for Moral, Social, and Cultural Studies — a subject that helps you understand values, society, and culture.' },
-      { id: 'g1q2', question: 'Why are classroom rules important?', options: ['They are not important', 'They help everyone feel safe, respected, and ready to learn', 'They only exist to punish students', 'They are set by the government'], correctAnswer: 1, explanation: 'Classroom rules create a safe and respectful environment where everyone can focus on learning.' },
-      { id: 'g1q3', question: 'How many domain standards does the MSCS curriculum cover?', options: ['3', '5', '9', '12'], correctAnswer: 2, explanation: 'The MSCS curriculum covers 9 domain standards (S1-S9), ranging from history and governance to ethics and digital literacy.' },
-      { id: 'g1q4', question: 'What is required before you can take online assessments?', options: ['Nothing', 'A permission slip from a friend', 'Parental consent from a parent or guardian aged 18+', 'A password from the teacher'], correctAnswer: 2, explanation: 'UAE law requires parental consent for students to participate in digital learning activities and assessments.' },
-      { id: 'g1q5', question: 'What does KWL stand for?', options: ['Kids Who Learn', 'Know, Want to know, Learned', 'Keep Working Longer', 'Knowledge, Wisdom, Learning'], correctAnswer: 1, explanation: 'KWL stands for Know, Want to know, Learned — a thinking tool that helps you track your learning before, during, and after a lesson.' },
-    ],
-    interactiveStrategies: [
-      { strategy: 'Collaborative Work', description: 'Co-create classroom rules as a class', duration: 10, instructions: 'Work in small groups to brainstorm 3-5 classroom rules. Write each rule on a sticky note. We will share and vote on the best rules as a class to create our classroom agreement.' },
-      { strategy: 'Think-Pair-Share', description: 'Share your expectations for the year', duration: 5, instructions: 'Think about what you hope to learn this year. Share with your partner: What topic are you most excited about? What do you want to get better at?' },
-      { strategy: 'Index Cards', description: 'Write your personal learning goal', duration: 3, instructions: 'On your index card, write one personal learning goal for this year. Keep this card — we will revisit it at the end of the term to see how you did!' },
-    ],
-  },
-
-  // Lesson 2: After the Fall of the Roman Empire
-  {
-    lessonId: 'G6_T1_General_l2',
     keyVocabulary: ['Common Era (CE)', 'to benefit', 'to conquer', 'destruction', 'domestic', 'barbarian', 'fierce', 'to storm', 'bow', 'present-day'],
     reading1Title: 'The Fall of the Roman Empire',
     reading1Content: `In the early centuries of the Common Era, the Roman Empire was the largest empire in the world. It stretched north to England where Hadrian's Wall was built and east to the River Euphrates in Iraq.
@@ -510,7 +465,7 @@ The Hun dominance started to decline when their leader, Attila, died in 453 CE. 
 
   // Lesson 3: The High Middle Ages of Europe
   {
-    lessonId: 'G6_T1_General_l3',
+    lessonId: 'G6_T1_General_l2',
     keyVocabulary: ['overnight', 'centre of power', 'province', 'capital', 'invader', 'figure', 'prominent', 'border', 'stability'],
     reading1Title: 'The High Middle Ages in Europe',
     reading1Content: `The fall of the Roman Empire did not happen overnight. When the western part of the empire faced serious challenges, the empire split. The Western Roman Empire, which covered Western Europe and North Africa, was led from Rome, while the Eastern Roman — or Byzantine Empire — was led from Constantinople.
@@ -579,7 +534,7 @@ When Basil II became emperor in 976 CE, he focused on defeating his enemies. Aft
 
   // Lesson 3: The Republic of Venice
   {
-    lessonId: 'G6_T1_General_l4',
+    lessonId: 'G6_T1_General_l3',
     keyVocabulary: ['influential', 'pirate', 'maritime', 'armed', 'fleet', 'deck', 'navy', 'exclusive', 'oarsman', 'medieval'],
     reading1Title: 'The Republic of Venice',
     reading1Content: `Venice is a small city in Italy made up of over one hundred small islands. Instead of streets and cars, the city uses small rivers and boats to move around. Nowadays, Venice is a popular tourist attraction. But in the High Middle Ages, Venice was a wealthy and influential maritime power.
@@ -634,7 +589,7 @@ The Venetians controlled several important ports, such as Constantinople. It was
 
   // Lesson 4: The Late Middle Ages: The First Hundred Years' War
   {
-    lessonId: 'G6_T1_General_l5',
+    lessonId: 'G6_T1_General_l4',
     keyVocabulary: ['reputation', 'to take place', 'account', 'to convince', 'to expand', 'strategy', 'victorious', 'treaty'],
     reading1Title: 'The First Hundred Years\' War',
     reading1Content: `The 12th century CE was another period of instability and conflict in Europe, particularly between England and France. This period occurred from 1159 CE to 1259 CE and was known as the First Hundred Years' War.
@@ -700,7 +655,7 @@ The First Hundred Years' War lasted until 1259, exactly one hundred years after 
 
   // Lesson 5: Crises of the Late Middle Ages
   {
-    lessonId: 'G6_T1_General_l6',
+    lessonId: 'G6_T1_General_l5',
     keyVocabulary: ['consequence', 'famine', 'climate', 'flood', 'wheat', 'to starve', 'to estimate', 'to appreciate', 'hygiene'],
     reading1Title: 'The Great Famine and the Black Death',
     reading1Content: `Wars and battles for territory were not the only problem that Europeans faced during the Late Middle Ages. Several other natural disasters also occurred during this time that had terrible consequences all over Europe.

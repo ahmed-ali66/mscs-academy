@@ -426,16 +426,16 @@ const gradeMeta: Record<number, { title: string; tagline: string; icon: string; 
 };
 
 const unitDescriptions: Record<string, string> = {
-  'Unit 1': 'Core concepts and foundational knowledge',
-  'Unit 2': 'Applied skills and real-world connections',
-  'Unit 3': 'Extended thinking and priority content',
+  'Unit 1': 'Equality and Justice as Fairness',
+  'Unit 2': 'Physical Health and Diet',
+  'Unit 3': 'Perspectives of People through Time',
   'Unit 4': 'Deepening understanding and new perspectives',
   'Unit 5': 'Integration and application',
   'Unit 6': 'Priority content and advanced analysis',
   'Unit 7': 'Synthesis and citizenship',
   'Unit 8': 'Review and assessment preparation',
   'Unit 9': 'Cumulative review and project work',
-  'General': 'Assessments, exams, and administrative lessons',
+  'General': 'Perspectives of People through Time',
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -510,10 +510,34 @@ export function getGradeInfo(): GradeInfo[] {
         if (td.units) {
           for (const [uk, uv] of Object.entries(td.units)) {
             // Filter to only instructional lessons for lessonCount
-            const instructionalLessons = (uv.lessons || []).filter(l => l.phase === 'Instruction');
+            // Also exclude non-textbook lessons (Setting Classroom Rules, etc.)
+            const instructionalLessons = (uv.lessons || []).filter(l =>
+              l.phase === 'Instruction' &&
+              !l.lesson_title?.includes('Setting Classroom Rules') &&
+              !l.lesson_title?.includes('Diagnostic Assessment')
+            );
             const isPriority = uv.lessons?.some(l => (l.lesson_title || '').includes('★')) ?? false;
-            const unitTitle = (uv.lessons?.find(l => l.lesson_title?.includes(':'))?.lesson_title || '')
-              .replace(/[★]/g, '').split(':')[0].trim() || uk;
+            // Extract unit title from lesson titles: "★ Unit 3: Perspectives of People through Time ★ PRIORITY UNIT ★: Lesson Name"
+            // → "Perspectives of People through Time"
+            let unitTitle = uk;
+            const titleLesson = uv.lessons?.find(l => l.lesson_title?.includes(':'));
+            if (titleLesson?.lesson_title) {
+              const cleaned = titleLesson.lesson_title.replace(/[★]/g, '').trim();
+              const colonParts = cleaned.split(':');
+              if (colonParts.length >= 2) {
+                // "Unit 3: Perspectives of People through Time PRIORITY UNIT : Lesson Name"
+                const unitPart = colonParts[0].replace(/^Unit\s*\d+\s*/i, '').trim();
+                const priorityCleaned = unitPart.replace(/PRIORITY UNIT/i, '').trim();
+                unitTitle = priorityCleaned || colonParts[0].trim();
+              }
+            }
+            // Known unit title overrides from textbook
+            const unitTitleOverrides: Record<string, string> = {
+              'General': 'Perspectives of People through Time',
+              'Unit 1': 'Equality and Justice as Fairness',
+              'Unit 2': 'Physical Health and Diet',
+            };
+            if (unitTitleOverrides[uk]) unitTitle = unitTitleOverrides[uk];
 
             units.push({
               key: uk,
@@ -558,7 +582,11 @@ export function getUnitData(gradeKey: string, termKey: string, unitKey: string):
   if (!unitData) return null;
 
   const lessons: LessonData[] = (unitData.lessons || [])
-    .filter((l: RawLesson) => l.phase === 'Instruction')
+    .filter((l: RawLesson) =>
+      l.phase === 'Instruction' &&
+      !l.lesson_title?.includes('Setting Classroom Rules') &&
+      !l.lesson_title?.includes('Diagnostic Assessment')
+    )
     .map((l: RawLesson) => {
       const ss = l.scope_sequence_detail || {};
       return {
@@ -973,12 +1001,16 @@ export function getPlatformStats(): { totalGrades: number; totalLessons: number;
 // CYBERSECURITY UTILITIES
 // ═══════════════════════════════════════════════════════════════
 
-export const MASTER_PASSWORD_HASH = btoa('AhmedAli@MSCS2026');
+export const MASTER_PASSWORD_HASH = 'QWhtZWRBbGlATVNDUzIwMjY='; // pre-computed btoa
 export const MASTER_LOGIN_CODE = 'MSCS-MASTER-2026-ADMIN';
 export const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
 
 export function verifyMasterPassword(input: string): boolean {
-  return btoa(input) === MASTER_PASSWORD_HASH;
+  try {
+    return (typeof btoa !== 'undefined' ? btoa(input) : Buffer.from(input).toString('base64')) === MASTER_PASSWORD_HASH;
+  } catch {
+    return false;
+  }
 }
 
 // Rate limiting for login attempts

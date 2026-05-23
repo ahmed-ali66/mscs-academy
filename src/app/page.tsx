@@ -2554,8 +2554,7 @@ export default function Home() {
                 </div>
               )}
               <div className="text-center">
-                <p className="text-xs text-gray-400">Student: Enter any valid format like MSCS-8A-2026-001</p>
-                <p className="text-xs text-gray-400 mt-1">Teacher: MSCS-MASTER-2026-ADMIN + Password</p>
+                <p className="text-xs text-gray-400">Student: Enter your access code (e.g., MSCS-8A-2026-001)</p>
               </div>
             </div>
           </CardContent>
