@@ -429,9 +429,9 @@ const unitDescriptions: Record<string, string> = {
   'Unit 1': 'Equality and Justice as Fairness',
   'Unit 2': 'Physical Health and Diet',
   'Unit 3': 'Perspectives of People through Time',
-  'Unit 4': 'Deepening understanding and new perspectives',
-  'Unit 5': 'Integration and application',
-  'Unit 6': 'Priority content and advanced analysis',
+  'Unit 4': 'Respect and Tolerance in a Diverse Community',
+  'Unit 5': 'How the UAE Grew into a Diverse, Inclusive Society',
+  'Unit 6': 'Impacts of Transitions in Europe',
   'Unit 7': 'Synthesis and citizenship',
   'Unit 8': 'Review and assessment preparation',
   'Unit 9': 'Cumulative review and project work',
@@ -536,6 +536,9 @@ export function getGradeInfo(): GradeInfo[] {
               'General': 'Perspectives of People through Time',
               'Unit 1': 'Equality and Justice as Fairness',
               'Unit 2': 'Physical Health and Diet',
+              'Unit 4': 'Respect and Tolerance in a Diverse Community',
+              'Unit 5': 'How the UAE Grew into a Diverse, Inclusive Society',
+              'Unit 6': 'Impacts of Transitions in Europe',
             };
             if (unitTitleOverrides[uk]) unitTitle = unitTitleOverrides[uk];
 

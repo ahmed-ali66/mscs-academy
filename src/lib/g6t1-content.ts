@@ -737,6 +737,9 @@ export function getAllG6T1Content(): Record<string, LessonContent> {
   return g6t1ContentMap;
 }
 
+// Import G6T2 content for unified lookup
+import { g6t2ContentMap } from './g6t2-content';
+
 export function getLessonContentByPath(gradeKey: string, termKey: string, unitKey: string, lessonIndex: number): LessonContent | null {
   const possibleIds = [
     `${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`,
@@ -744,6 +747,7 @@ export function getLessonContentByPath(gradeKey: string, termKey: string, unitKe
   ];
   for (const id of possibleIds) {
     if (g6t1ContentMap[id]) return g6t1ContentMap[id];
+    if (g6t2ContentMap[id]) return g6t2ContentMap[id];
   }
   return null;
 }
