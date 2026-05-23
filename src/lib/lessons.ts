@@ -401,6 +401,35 @@ const topicQuizBanks: Record<string, QuizQuestion[]> = {
     { id: 'gl4', question: 'What are the disadvantages of globalization?', type: 'multiple-choice', options: ['There are no disadvantages', 'Cultural homogenization, economic inequality, environmental challenges, and loss of local traditions', 'Only job losses', 'It only affects poor countries'], correctAnswer: 1, explanation: 'Globalization can erode local cultures, widen economic inequality, create environmental pressures, and make communities vulnerable to global disruptions.' },
     { id: 'gl5', question: 'How can individuals navigate a globalized world responsibly?', type: 'multiple-choice', options: ['By avoiding global connections', 'By being informed global citizens who respect cultures, think critically, and make ethical choices', 'By accepting everything without question', 'By focusing only on local issues'], correctAnswer: 1, explanation: 'Responsible global citizenship requires cultural awareness, critical thinking about global issues, and making ethical choices in an interconnected world.' },
   ],
+  // G7 T1 topic-specific quiz banks
+  'Duties and Responsibilities': [
+    { id: 'dr1', question: 'What is the difference between a duty and a responsibility?', type: 'multiple-choice', options: ['They mean the same thing', 'A duty is an obligation you must fulfill; a responsibility is something you are accountable for that may involve choice', 'Duties are only for adults', 'Responsibilities are always optional'], correctAnswer: 1, explanation: 'A duty is a binding obligation, while a responsibility is a broader accountability that may include duties but also involves personal choice and commitment.' },
+    { id: 'dr2', question: 'How does Wadeema\'s Law protect children in the UAE?', type: 'multiple-choice', options: ['It only applies to schools', 'It guarantees children\'s rights to safety, education, healthcare, and protection from all forms of abuse and neglect', 'It only protects Emirati children', 'It replaces parental authority'], correctAnswer: 1, explanation: 'Wadeema\'s Law (Federal Law No. 3 of 2016) comprehensively protects children\'s rights including safety, education, healthcare, and protection from abuse, neglect, and exploitation.' },
+    { id: 'dr3', question: 'What are the main duties parents have towards their children?', type: 'multiple-choice', options: ['Only providing food', 'Providing basic needs, education, protection, moral guidance, and emotional support', 'Only financial support', 'Parents have no defined duties'], correctAnswer: 1, explanation: 'Parents have comprehensive duties including providing food, shelter, clothing, education, protection from harm, moral and spiritual guidance, and emotional nurturing.' },
+    { id: 'dr4', question: 'What are the different types of families mentioned in the textbook?', type: 'multiple-choice', options: ['Only nuclear families', 'Nuclear, extended, and foster families', 'Only extended families', 'There is only one type of family'], correctAnswer: 1, explanation: 'The textbook identifies nuclear families (parents and children), extended families (including grandparents, aunts, uncles), and foster families (providing care for children who need it).' },
+    { id: 'dr5', question: 'How do rights and responsibilities work together?', type: 'multiple-choice', options: ['They are completely separate', 'Rights are protected when people fulfill their responsibilities; enjoying rights requires fulfilling duties to others', 'Rights are more important than responsibilities', 'Responsibilities cancel out rights'], correctAnswer: 1, explanation: 'Rights and responsibilities are interdependent: the rights we enjoy are protected when everyone fulfills their responsibilities, and fulfilling duties gives purpose and protection to those rights.' },
+  ],
+  'Moral Rules': [
+    { id: 'mr1', question: 'What is the difference between a moral rule and a legal rule?', type: 'multiple-choice', options: ['They are identical', 'Moral rules are based on values and conscience; legal rules are enforced by government with penalties', 'Moral rules are always written down', 'Legal rules are less important'], correctAnswer: 1, explanation: 'Moral rules come from shared values, ethics, and conscience, while legal rules are formally enacted by government and carry legal consequences for violation.' },
+    { id: 'mr2', question: 'How does heritage relate to moral values?', type: 'multiple-choice', options: ['Heritage has no connection to morals', 'Heritage transmits moral values across generations, preserving ethical traditions and community standards', 'Heritage only involves old buildings', 'Moral values are always modern inventions'], correctAnswer: 1, explanation: 'Heritage carries the moral wisdom and ethical traditions of past generations, providing communities with a foundation of shared values that guide behaviour.' },
+    { id: 'mr3', question: 'What is the Earth Charter?', type: 'multiple-choice', options: ['A space exploration agreement', 'A declaration of fundamental ethical principles for building a just, sustainable, and peaceful global society', 'A climate change treaty only', 'A document about ocean boundaries'], correctAnswer: 1, explanation: 'The Earth Charter is an international declaration of ethical principles promoting respect for life, ecological integrity, social justice, and peace.' },
+    { id: 'mr4', question: 'Why is voluntary work considered a moral responsibility?', type: 'multiple-choice', options: ['It is not a moral responsibility', 'It demonstrates commitment to community welfare beyond personal gain and reflects shared ethical values', 'Only paid work has moral value', 'Voluntary work is only for adults'], correctAnswer: 1, explanation: 'Voluntary work embodies moral responsibility by putting community needs above self-interest, reflecting the ethical principle that we have duties to help others.' },
+    { id: 'mr5', question: 'What makes a moral imperative different from a regular moral rule?', type: 'multiple-choice', options: ['There is no difference', 'A moral imperative is an absolute obligation that must be followed regardless of circumstances', 'Moral imperatives are optional', 'Regular moral rules are stricter'], correctAnswer: 1, explanation: 'A moral imperative is a non-negotiable ethical obligation — something you must do because it is fundamentally right, regardless of personal preference or convenience.' },
+  ],
+  'Making Good Decisions': [
+    { id: 'md1', question: 'What is the first step in making a good decision about personal safety?', type: 'multiple-choice', options: ['Act immediately', 'Assess the situation and identify potential risks before taking action', 'Ask a stranger for help', 'Ignore the situation'], correctAnswer: 1, explanation: 'The first step in any safety decision is to assess the situation carefully — identify risks, evaluate options, and then choose the safest course of action.' },
+    { id: 'md2', question: 'What should you do if you encounter a harmful situation?', type: 'multiple-choice', options: ['Handle it completely alone', 'Assess the danger, move to safety, seek help from a trusted adult, and call emergency services if needed', 'Ignore it and hope it goes away', 'Post about it on social media'], correctAnswer: 1, explanation: 'When facing a harmful situation: assess the danger, get to safety if possible, contact a trusted adult or emergency services, and never try to handle dangerous situations alone.' },
+    { id: 'md3', question: 'What does DR ABC stand for in first aid?', type: 'multiple-choice', options: ['Drive, Run, Avoid, Be Careful', 'Danger, Response, Airway, Breathing, Circulation', 'Determine, React, Assess, Begin, Call', 'Doctors, Rescue, Ambulance, Bandage, Care'], correctAnswer: 1, explanation: 'DR ABC is the standard first aid approach: check for Danger, check for Response, clear the Airway, check Breathing, and check Circulation.' },
+    { id: 'md4', question: 'Why is it important to think about the consequences of crime?', type: 'multiple-choice', options: ['Consequences do not matter', 'Understanding consequences helps prevent crime and encourages responsible decision-making', 'Only criminals need to think about consequences', 'Consequences only affect the criminal'], correctAnswer: 1, explanation: 'Thinking about consequences — for victims, families, communities, and oneself — is essential for making responsible choices and understanding why crime harms everyone.' },
+    { id: 'md5', question: 'How can young people protect themselves online?', type: 'multiple-choice', options: ['By never using the internet', 'By being cautious about personal information, using privacy settings, and reporting suspicious activity', 'By sharing everything with online friends', 'Online safety is only for adults'], correctAnswer: 1, explanation: 'Online safety requires being mindful about personal information, using privacy settings, thinking critically about what you share, and reporting anything suspicious to trusted adults.' },
+  ],
+  'Protection Against Crimes': [
+    { id: 'pc1', question: 'What is the most effective way to protect yourself from cybercrime?', type: 'multiple-choice', options: ['Never use technology', 'Being aware of online risks, protecting personal information, and using strong privacy settings', 'Only visiting websites in Arabic', 'Cybercrime cannot be prevented'], correctAnswer: 1, explanation: 'The best protection against cybercrime is awareness — understanding risks, safeguarding personal data, using strong passwords and privacy settings, and being cautious online.' },
+    { id: 'pc2', question: 'How does the UAE protect its community from crime?', type: 'multiple-choice', options: ['It does not have crime prevention measures', 'Through comprehensive laws, community policing, public awareness campaigns, and advanced security technology', 'Only through punishment', 'By closing borders'], correctAnswer: 1, explanation: 'The UAE employs a multi-layered approach including strict laws, community policing, public education campaigns, and cutting-edge security technology to prevent crime.' },
+    { id: 'pc3', question: 'What are the UAE crime rates compared to global averages?', type: 'multiple-choice', options: ['Higher than average', 'Among the lowest in the world due to effective laws, strong community values, and advanced security', 'About average', 'Crime rates are not tracked in the UAE'], correctAnswer: 1, explanation: 'The UAE consistently ranks among the safest countries globally, with very low crime rates resulting from effective legislation, strong social cohesion, and modern security infrastructure.' },
+    { id: 'pc4', question: 'What support is available for victims of crime in the UAE?', type: 'multiple-choice', options: ['No support is available', 'Hotlines, counseling services, legal protection, victim support programs, and child protection services', 'Only prison services', 'Victims must handle situations alone'], correctAnswer: 1, explanation: 'The UAE provides comprehensive victim support including emergency hotlines, counseling, legal aid, child protection services (Wadeema\'s Law), and specialized victim assistance programs.' },
+    { id: 'pc5', question: 'Why is community involvement important in crime prevention?', type: 'multiple-choice', options: ['Only police should be involved', 'Communities that report suspicious activity and support each other create environments where crime is less likely to occur', 'Community involvement increases crime', 'It is only important in large cities'], correctAnswer: 1, explanation: 'Active community involvement creates safer environments — when people look out for each other, report concerns, and build strong social bonds, crime becomes harder to commit and easier to prevent.' },
+  ],
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -433,7 +462,12 @@ function findTopicQuiz(title: string): QuizQuestion[] {
     'Renaissance': 'Europe', 'Printing Press': 'Europe', 'Discovery': 'Europe', 'Spice': 'Europe', 'East India': 'Europe',
     'Ottoman': 'Ottoman', 'Suleyman': 'Ottoman', 'Istanbul': 'Ottoman',
     'Community': 'Community', 'Communities': 'Community',
-    'Decision': 'Decisions', 'First Aid': 'Decisions', 'Safety': 'Decisions', 'Crime': 'Decisions',
+    // G7 T1 specific topic mappings (more specific first)
+    'Duties and Responsibilities': 'Duties and Responsibilities', 'Meant by Duties': 'Duties and Responsibilities', 'Wadeema': 'Duties and Responsibilities', 'Parents Towards': 'Duties and Responsibilities', 'Sons and Daughters': 'Duties and Responsibilities',
+    'Moral Rules': 'Moral Rules', 'Moral Imperative': 'Moral Rules', 'Earth Charter': 'Moral Rules', 'Voluntary Work': 'Moral Rules',
+    'Staying Safe': 'Making Good Decisions', 'Harmful Situations': 'Making Good Decisions', 'Responding to Harmful': 'Making Good Decisions', 'First Aid': 'Making Good Decisions',
+    'Protection Against Crimes': 'Protection Against Crimes', 'Ways of Protection': 'Protection Against Crimes', 'Thinking About Crime': 'Protection Against Crimes', 'Cybercrime': 'Protection Against Crimes', 'Online Safety': 'Protection Against Crimes',
+    'Decision': 'Decisions', 'Safety': 'Decisions', 'Crime': 'Decisions',
     'Human Needs': 'Needs', 'Life Necessities': 'Needs', 'Basic Needs': 'Needs',
     'Globalisation': 'Globalisation', 'Globalized': 'Globalisation', 'Trade': 'Globalisation',
   };
@@ -458,6 +492,7 @@ const gradeMeta: Record<number, { title: string; tagline: string; icon: string; 
 };
 
 const unitDescriptions: Record<string, string> = {
+  // G6 defaults (also fallback for other grades)
   'Unit 1': 'Equality and Justice as Fairness',
   'Unit 2': 'Physical Health and Diet',
   'Unit 3': 'Perspectives of People through Time',
@@ -468,6 +503,10 @@ const unitDescriptions: Record<string, string> = {
   'Unit 8': 'Review and assessment preparation',
   'Unit 9': 'Cumulative review and project work',
   'General': 'Perspectives of People through Time',
+  // G7 T1 specific descriptions
+  'G7_T1_Unit 1': 'Explore duties, responsibilities, moral rules, and moral imperatives that govern individual and community behaviour within the UAE and Islamic ethical framework',
+  'G7_T1_Unit 2': 'Develop critical decision-making skills for personal safety, first aid, and crime prevention in home, community, and online environments',
+  'G7_T1_Unit 3': 'Discover the geography, engineering, technology, art, and cultural achievements of East Asia — from ancient China to Korea\'s Renaissance',
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -563,23 +602,31 @@ export function getGradeInfo(): GradeInfo[] {
                 unitTitle = priorityCleaned || colonParts[0].trim();
               }
             }
-            // Known unit title overrides from textbook
+            // Known unit title overrides from textbook (grade+term aware)
             const unitTitleOverrides: Record<string, string> = {
+              // G6 overrides (default fallback)
               'General': 'Perspectives of People through Time',
               'Unit 1': 'Equality and Justice as Fairness',
               'Unit 2': 'Physical Health and Diet',
               'Unit 4': 'Respect and Tolerance in a Diverse Community',
               'Unit 5': 'How the UAE Grew into a Diverse, Inclusive Society',
               'Unit 6': 'Impacts of Transitions in Europe',
+              // G7 T1 specific overrides
+              'G7_T1_Unit 1': 'Individual Responsibilities and Duties and Moral Obligations',
+              'G7_T1_Unit 2': 'Making Good Decisions',
+              'G7_T1_Unit 3': 'East Asia',
             };
-            if (unitTitleOverrides[uk]) unitTitle = unitTitleOverrides[uk];
+            // Check grade+term specific override first, then fallback to general
+            const gradeTermKey = `${gk}_${tk}_${uk}`;
+            if (unitTitleOverrides[gradeTermKey]) unitTitle = unitTitleOverrides[gradeTermKey];
+            else if (unitTitleOverrides[uk]) unitTitle = unitTitleOverrides[uk];
 
             units.push({
               key: uk,
               title: unitTitle,
               lessonCount: instructionalLessons.length,
               isPriority,
-              description: unitDescriptions[uk] || `${unitTitle} lessons`,
+              description: unitDescriptions[`${gk}_${tk}_${uk}`] || unitDescriptions[uk] || `${unitTitle} lessons`,
             });
           }
         }

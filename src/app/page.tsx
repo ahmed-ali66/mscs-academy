@@ -936,6 +936,24 @@ export default function Home() {
         if (title.includes('laws are interpreted') || title.includes('how laws are interpreted')) return '/images/g6t3/laws-interpreted.png';
         if (title.includes('rights and responsibilities') || title.includes('human rights')) return '/images/g6t3/rights-responsibilities.png';
       }
+      // G7 T1 lesson hero images
+      if (selectedGrade?.number === 7 && selectedTerm?.number === 1) {
+        if (title.includes('duties and responsibilities') || title.includes('meant by duties')) return '/images/g7t1/duties-responsibilities.png';
+        if (title.includes('parents towards their children')) return '/images/g7t1/parents-children.png';
+        if (title.includes('sons and daughters')) return '/images/g7t1/sons-daughters.png';
+        if (title.includes('moral rules') || title.includes('moral imperative')) return '/images/g7t1/moral-rules.png';
+        if (title.includes('staying safe')) return '/images/g7t1/staying-safe.png';
+        if (title.includes('harmful situations') || title.includes('responding to harmful')) return '/images/g7t1/harmful-situations.png';
+        if (title.includes('first aid')) return '/images/g7t1/first-aid.png';
+        if (title.includes('protection against crimes') || title.includes('ways of protection')) return '/images/g7t1/protection-crimes.png';
+        if (title.includes('thinking about crime')) return '/images/g7t1/thinking-crime.png';
+        if (title.includes('geography of east asia')) return '/images/g7t1/geography-east-asia.png';
+        if (title.includes('engineering and civilization') || title.includes('ancient china')) return '/images/g7t1/engineering-china.png';
+        if (title.includes('chinese technology') || title.includes('science and medicine')) return '/images/g7t1/chinese-technology.png';
+        if (title.includes('spreading cultures')) return '/images/g7t1/spreading-cultures.png';
+        if (title.includes('culture through art') || title.includes('art in china')) return '/images/g7t1/culture-art.png';
+        if (title.includes("korea's renaissance") || title.includes('korea')) return '/images/g7t1/korea-renaissance.png';
+      }
       // Ottoman hero for G8T3
       if (title.includes('ottoman') || title.includes('suleyman') || title.includes('istanbul')) return '/ottoman-hero.png';
       return null;
