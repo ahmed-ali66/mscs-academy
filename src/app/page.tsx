@@ -21,7 +21,7 @@ import {
   getGradeInfo, getLesson, getCleanTitle, getUnitContextFromTitle,
   generateQuizQuestions, parseActivities, generateUAELinks, generateWarmUp,
   saveQuizResult, getAllQuizResults, getResultsByGrade, exportResultsAsCSV,
-  getPlatformStats,
+  getPlatformStats, getUnitData, getLessonId,
   type QuizQuestion, type ActivityItem, type UAELink, type WarmUpActivity,
   type QuizResult, type GradeInfo, type TermInfo, type UnitInfo, type LessonData,
 } from '@/lib/lessons';
@@ -483,17 +483,17 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
     <div className="space-y-4">
       <div className="grid grid-cols-3 gap-3">
         {[
-          { title: leftTitle, items: leftItems, color: 'amber' },
-          { title: centerTitle, items: centerItems, color: 'rose' },
-          { title: rightTitle, items: rightItems, color: 'emerald' },
+          { title: leftTitle, items: leftItems, bgColor: 'bg-amber-50/50', borderColor: 'border-amber-300', headerBg: 'bg-amber-200', itemBg: 'bg-amber-100', itemBorder: 'border-amber-200' },
+          { title: centerTitle, items: centerItems, bgColor: 'bg-rose-50/50', borderColor: 'border-rose-300', headerBg: 'bg-rose-200', itemBg: 'bg-rose-100', itemBorder: 'border-rose-200' },
+          { title: rightTitle, items: rightItems, bgColor: 'bg-emerald-50/50', borderColor: 'border-emerald-300', headerBg: 'bg-emerald-200', itemBg: 'bg-emerald-100', itemBorder: 'border-emerald-200' },
         ].map((col, i) => (
-          <div key={i} className={`rounded-xl border-2 border-${col.color}-300 bg-${col.color}-50 overflow-hidden`}>
-            <div className={`bg-${col.color}-200 px-3 py-2.5 text-center`}>
+          <div key={i} className={`rounded-xl border-2 ${col.borderColor} ${col.bgColor} overflow-hidden`}>
+            <div className={`${col.headerBg} px-3 py-2.5 text-center`}>
               <h4 className="text-sm font-bold text-gray-800">{col.title}</h4>
             </div>
             <div className="p-3 space-y-2">
               {col.items.map((item, j) => (
-                <div key={j} className={`bg-${col.color}-100 border border-${col.color}-200 rounded-lg px-3 py-1.5 text-xs text-gray-700 font-medium`}>
+                <div key={j} className={`${col.itemBg} border ${col.itemBorder} rounded-lg px-3 py-1.5 text-xs text-gray-700 font-medium`}>
                   {item}
                 </div>
               ))}
@@ -772,7 +772,7 @@ export default function Home() {
                 {term.units.map(unit => {
                   // Fetch actual lessons for this unit
                   const unitData = getUnitData(grade.key, term.key, unit.key);
-                  const lessonCount = unitData ? unitData.lessons.length : unit.lessonsCount;
+                  const lessonCount = unitData ? unitData.lessons.length : unit.lessonCount;
 
                   return (
                     <Card key={unit.key} className="border-2 hover:shadow-lg transition-all cursor-pointer group border-gray-200 bg-white hover:border-amber-300"
@@ -1043,8 +1043,8 @@ export default function Home() {
                 <blockquote className="text-lg sm:text-xl font-semibold text-[#D4AF37] italic leading-relaxed">
                   &ldquo;{warmUp.content}&rdquo;
                 </blockquote>
-                {warmUp.subtitle && (
-                  <div className="mt-4 text-amber-200/80 text-sm">{warmUp.subtitle}</div>
+                {warmUp.attribution && (
+                  <div className="mt-4 text-amber-200/80 text-sm">{warmUp.attribution}</div>
                 )}
                 <DecorativeBorder color="#D4AF37" />
               </div>
@@ -1057,7 +1057,7 @@ export default function Home() {
                   <h3 className="text-lg font-bold text-gray-800">Discussion</h3>
                 </div>
                 <p className="text-gray-700 text-sm max-w-lg mx-auto">
-                  {warmUp.discussionPrompt || 'Take 2 minutes to think and share your thoughts with a partner.'}
+                  {warmUp.discussionPrompt || `Take 2 minutes to think about "${warmUp.type}" and share your thoughts with a partner.`}
                 </p>
               </CardContent>
             </Card>
@@ -1137,19 +1137,23 @@ export default function Home() {
             </div>
 
             {uaeLinks.map((link, i) => {
-              const icons = { building: <Landmark className="w-5 h-5" />, star: <Star className="w-5 h-5" />, globe: <Globe className="w-5 h-5" />, mountain: <Mountain className="w-5 h-5" />, heart: <Heart className="w-5 h-5" /> };
-              const colors = ['emerald', 'amber', 'rose', 'teal', 'purple'];
-              const color = colors[i % colors.length];
+              const icons: Record<string, React.ReactNode> = { building: <Landmark className="w-5 h-5" />, star: <Star className="w-5 h-5" />, globe: <Globe className="w-5 h-5" />, mountain: <Mountain className="w-5 h-5" />, heart: <Heart className="w-5 h-5" /> };
+              const colorStyles = [
+                { card: 'border-emerald-200 bg-emerald-50/30', icon: 'bg-emerald-100 border-emerald-300 text-emerald-600', title: 'text-emerald-800' },
+                { card: 'border-amber-200 bg-amber-50/30', icon: 'bg-amber-100 border-amber-300 text-amber-600', title: 'text-amber-800' },
+                { card: 'border-rose-200 bg-rose-50/30', icon: 'bg-rose-100 border-rose-300 text-rose-600', title: 'text-rose-800' },
+              ];
+              const style = colorStyles[i % colorStyles.length];
               return (
-                <Card key={i} className={`border-2 border-${color}-200 bg-${color}-50/30`}>
+                <Card key={i} className={`border-2 ${style.card}`}>
                   <CardContent className="p-5">
                     <div className="flex items-start gap-3">
-                      <div className={`w-10 h-10 rounded-full bg-${color}-100 border border-${color}-300 flex items-center justify-center shrink-0 text-${color}-600`}>
-                        {icons[link.icon]}
+                      <div className={`w-10 h-10 rounded-full ${style.icon} flex items-center justify-center shrink-0`}>
+                        {icons[link.icon || 'globe']}
                       </div>
                       <div>
-                        <h4 className={`font-bold text-${color}-800 text-sm`}>{link.title}</h4>
-                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.description}</p>
+                        <h4 className={`font-bold ${style.title} text-sm`}>{link.title}</h4>
+                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.content}</p>
                       </div>
                     </div>
                   </CardContent>

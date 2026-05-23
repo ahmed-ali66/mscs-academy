@@ -25,12 +25,15 @@ export interface ActivityItem {
 export interface UAELink {
   title: string;
   content: string;
+  icon?: 'building' | 'star' | 'globe' | 'mountain' | 'heart';
 }
 
 export interface WarmUpActivity {
   type: string;
   content: string;
   attribution?: string;
+  subtitle?: string;
+  discussionPrompt?: string;
 }
 
 export interface QuizResult {
@@ -54,7 +57,9 @@ export interface GradeInfo {
   title: string;
   tagline: string;
   icon: string;
+  iconType: 'heart' | 'globe' | 'landmark' | 'crown';
   terms: TermInfo[];
+  totalLessons: number;
 }
 
 export interface TermInfo {
@@ -381,11 +386,11 @@ function findTopicQuiz(title: string): QuizQuestion[] {
 // GRADE METADATA
 // ═══════════════════════════════════════════════════════════════
 
-const gradeMeta: Record<number, { title: string; tagline: string; icon: string }> = {
-  6: { title: 'Grade 6', tagline: 'Building Foundations of Understanding', icon: 'heart' },
-  7: { title: 'Grade 7', tagline: 'Exploring Connections & Perspectives', icon: 'globe' },
-  8: { title: 'Grade 8', tagline: 'Deepening Analysis & Critical Thinking', icon: 'landmark' },
-  9: { title: 'Grade 9', tagline: 'Mastering Synthesis & Global Awareness', icon: 'crown' },
+const gradeMeta: Record<number, { title: string; tagline: string; icon: string; iconType: 'heart' | 'globe' | 'landmark' | 'crown' }> = {
+  6: { title: 'Grade 6', tagline: 'Building Foundations of Understanding', icon: 'heart', iconType: 'heart' },
+  7: { title: 'Grade 7', tagline: 'Exploring Connections & Perspectives', icon: 'globe', iconType: 'globe' },
+  8: { title: 'Grade 8', tagline: 'Deepening Analysis & Critical Thinking', icon: 'landmark', iconType: 'landmark' },
+  9: { title: 'Grade 9', tagline: 'Mastering Synthesis & Global Awareness', icon: 'crown', iconType: 'crown' },
 };
 
 const unitDescriptions: Record<string, string> = {
@@ -497,13 +502,17 @@ export function getGradeInfo(): GradeInfo[] {
       }
     }
 
+    const totalLessons = terms.reduce((acc, t) => acc + t.units.reduce((a, u) => a + u.lessonCount, 0), 0);
+
     return {
       key: gk,
       number: num,
       title: meta.title,
       tagline: meta.tagline,
       icon: meta.icon,
+      iconType: meta.iconType,
       terms,
+      totalLessons,
     };
   });
 }
@@ -712,81 +721,81 @@ export function generateUAELinks(lesson: LessonData): UAELink[] {
 
   if (/equality|justice|fairness|distributive/i.test(title)) {
     links.push(
-      { title: 'UAE Anti-Discrimination Law', content: 'The UAE has enacted comprehensive anti-discrimination legislation (Federal Law No. 2 of 2015) that prohibits all forms of discrimination based on religion, race, ethnicity, or national origin.' },
-      { title: 'Emirati Values of Justice', content: 'The UAE Constitution guarantees equality and justice for all. The concept of "Adl" (justice) is a core Islamic and Emirati value reflected in governance and daily life.' },
-      { title: 'UAE Gender Balance Council', content: 'Established in 2015, the UAE Gender Balance Council works to position the UAE as a global model for gender balance and equal opportunities.' },
+      { title: 'UAE Anti-Discrimination Law', content: 'The UAE has enacted comprehensive anti-discrimination legislation (Federal Law No. 2 of 2015) that prohibits all forms of discrimination based on religion, race, ethnicity, or national origin.', icon: 'building' },
+      { title: 'Emirati Values of Justice', content: 'The UAE Constitution guarantees equality and justice for all. The concept of "Adl" (justice) is a core Islamic and Emirati value reflected in governance and daily life.', icon: 'star' },
+      { title: 'UAE Gender Balance Council', content: 'Established in 2015, the UAE Gender Balance Council works to position the UAE as a global model for gender balance and equal opportunities.', icon: 'heart' },
     );
   } else if (/health|diet|disease|exercise|wellbeing|well-being/i.test(title)) {
     links.push(
-      { title: 'UAE Healthcare System', content: 'The UAE provides world-class healthcare through public and private hospitals. Mandatory health insurance ensures access for all residents.' },
-      { title: 'Dubai Fitness Challenge', content: 'The annual Dubai Fitness Challenge encourages 30 minutes of activity for 30 days, promoting healthy lifestyles across the UAE.' },
-      { title: 'UAE National Nutrition Strategy', content: 'The UAE promotes healthy eating through national nutrition guidelines, school canteen regulations, and public awareness campaigns.' },
+      { title: 'UAE Healthcare System', content: 'The UAE provides world-class healthcare through public and private hospitals. Mandatory health insurance ensures access for all residents.', icon: 'heart' },
+      { title: 'Dubai Fitness Challenge', content: 'The annual Dubai Fitness Challenge encourages 30 minutes of activity for 30 days, promoting healthy lifestyles across the UAE.', icon: 'star' },
+      { title: 'UAE National Nutrition Strategy', content: 'The UAE promotes healthy eating through national nutrition guidelines, school canteen regulations, and public awareness campaigns.', icon: 'globe' },
     );
   } else if (/tolerance|diversity|respect|coexistence/i.test(title)) {
     links.push(
-      { title: 'UAE Year of Tolerance', content: 'In 2019, the UAE celebrated the Year of Tolerance, highlighting the nation\'s commitment to peaceful coexistence and mutual respect among over 200 nationalities.' },
-      { title: 'Ministry of Tolerance', content: 'The UAE established a dedicated Ministry of Tolerance to promote the values of tolerance, coexistence, and peace nationally and internationally.' },
-      { title: 'Abrahamic Family House', content: 'This landmark interfaith complex in Abu Dhabi houses a mosque, church, and synagogue, symbolizing the UAE\'s commitment to interfaith dialogue.' },
+      { title: 'UAE Year of Tolerance', content: 'In 2019, the UAE celebrated the Year of Tolerance, highlighting the nation\'s commitment to peaceful coexistence and mutual respect among over 200 nationalities.', icon: 'heart' },
+      { title: 'Ministry of Tolerance', content: 'The UAE established a dedicated Ministry of Tolerance to promote the values of tolerance, coexistence, and peace nationally and internationally.', icon: 'building' },
+      { title: 'Abrahamic Family House', content: 'This landmark interfaith complex in Abu Dhabi houses a mosque, church, and synagogue, symbolizing the UAE\'s commitment to interfaith dialogue.', icon: 'star' },
     );
   } else if (/east asia|china|korea|japan/i.test(title)) {
     links.push(
-      { title: 'UAE-China Relations', content: 'The UAE is a major trading partner with China. The Belt and Road Initiative connects to UAE infrastructure and economic vision.' },
-      { title: 'UAE-Korea Cultural Exchange', content: 'The UAE and South Korea share strong cultural and economic ties, with Korean culture (K-culture) growing popular among UAE youth.' },
-      { title: 'Silk Road Legacy in the UAE', content: 'The UAE continues the Silk Road tradition as a global trade hub connecting East and West through its ports and airports.' },
+      { title: 'UAE-China Relations', content: 'The UAE is a major trading partner with China. The Belt and Road Initiative connects to UAE infrastructure and economic vision.', icon: 'globe' },
+      { title: 'UAE-Korea Cultural Exchange', content: 'The UAE and South Korea share strong cultural and economic ties, with Korean culture (K-culture) growing popular among UAE youth.', icon: 'star' },
+      { title: 'Silk Road Legacy in the UAE', content: 'The UAE continues the Silk Road tradition as a global trade hub connecting East and West through its ports and airports.', icon: 'mountain' },
     );
   } else if (/ottoman|suleyman|istanbul/i.test(title)) {
     links.push(
-      { title: 'Islamic Heritage in the UAE', content: 'The Ottoman Empire\'s legacy of protecting Islamic holy sites connects to the UAE\'s own commitment to preserving Islamic heritage and values.' },
-      { title: 'UAE-Turkey Relations', content: 'The UAE and Turkey maintain diplomatic and cultural relations, with shared Islamic heritage connecting both nations.' },
-      { title: 'Architectural Heritage', content: 'Ottoman architectural principles influence modern Islamic architecture in the UAE, including mosque design and geometric patterns.' },
+      { title: 'Islamic Heritage in the UAE', content: 'The Ottoman Empire\'s legacy of protecting Islamic holy sites connects to the UAE\'s own commitment to preserving Islamic heritage and values.', icon: 'building' },
+      { title: 'UAE-Turkey Relations', content: 'The UAE and Turkey maintain diplomatic and cultural relations, with shared Islamic heritage connecting both nations.', icon: 'globe' },
+      { title: 'Architectural Heritage', content: 'Ottoman architectural principles influence modern Islamic architecture in the UAE, including mosque design and geometric patterns.', icon: 'star' },
     );
   } else if (/africa|african/i.test(title)) {
     links.push(
-      { title: 'UAE-Africa Relations', content: 'The UAE is a major investor and development partner across Africa, providing humanitarian aid and building economic partnerships.' },
-      { title: 'Islamic Scholarship Legacy', content: 'Centers of learning like Timbuktu share a tradition of Islamic scholarship with the UAE, which supports education globally.' },
-      { title: 'UAE Humanitarian Aid to Africa', content: 'Through organizations like the Emirates Red Crescent, the UAE provides significant humanitarian assistance across the African continent.' },
+      { title: 'UAE-Africa Relations', content: 'The UAE is a major investor and development partner across Africa, providing humanitarian aid and building economic partnerships.', icon: 'globe' },
+      { title: 'Islamic Scholarship Legacy', content: 'Centers of learning like Timbuktu share a tradition of Islamic scholarship with the UAE, which supports education globally.', icon: 'building' },
+      { title: 'UAE Humanitarian Aid to Africa', content: 'Through organizations like the Emirates Red Crescent, the UAE provides significant humanitarian assistance across the African continent.', icon: 'heart' },
     );
   } else if (/south asia|india|mauryan|gupta/i.test(title)) {
     links.push(
-      { title: 'UAE-India Relations', content: 'India is one of the UAE\'s largest trading partners, with over 3.5 million Indian residents contributing to UAE society.' },
-      { title: 'Cultural Exchange', content: 'The UAE celebrates Indian cultural festivals and traditions, reflecting the deep cultural ties between both nations.' },
-      { title: 'UAE as a Global Trade Hub', content: 'The UAE continues the historical tradition of South Asian trade routes, serving as a modern hub connecting East and West.' },
+      { title: 'UAE-India Relations', content: 'India is one of the UAE\'s largest trading partners, with over 3.5 million Indian residents contributing to UAE society.', icon: 'globe' },
+      { title: 'Cultural Exchange', content: 'The UAE celebrates Indian cultural festivals and traditions, reflecting the deep cultural ties between both nations.', icon: 'star' },
+      { title: 'UAE as a Global Trade Hub', content: 'The UAE continues the historical tradition of South Asian trade routes, serving as a modern hub connecting East and West.', icon: 'mountain' },
     );
   } else if (/governance|government|constitution|federal|judiciary|law/i.test(title)) {
     links.push(
-      { title: 'UAE Federal Government', content: 'The UAE operates a unique federal system where each emirate maintains autonomy while the federal government handles national matters.' },
-      { title: 'The Majlis Tradition', content: 'The majlis is a traditional Emirati forum where citizens can directly voice concerns to their rulers, embodying consultative governance.' },
-      { title: 'UAE Constitution', content: 'Adopted in 1971, the UAE Constitution establishes the legal framework for the federation, protecting rights and defining governance structures.' },
+      { title: 'UAE Federal Government', content: 'The UAE operates a unique federal system where each emirate maintains autonomy while the federal government handles national matters.', icon: 'building' },
+      { title: 'The Majlis Tradition', content: 'The majlis is a traditional Emirati forum where citizens can directly voice concerns to their rulers, embodying consultative governance.', icon: 'star' },
+      { title: 'UAE Constitution', content: 'Adopted in 1971, the UAE Constitution establishes the legal framework for the federation, protecting rights and defining governance structures.', icon: 'heart' },
     );
   } else if (/heritage|preserv|museum|culture/i.test(title)) {
     links.push(
-      { title: 'Al Ain UNESCO World Heritage Site', content: 'The cultural sites of Al Ain, including Hili Tombs and the oases system, are the UAE\'s first UNESCO World Heritage Site.' },
-      { title: 'UAE Museums', content: 'The UAE invests in world-class museums like the Louvre Abu Dhabi and the Museum of the Future to preserve and celebrate heritage.' },
-      { title: 'Intangible Heritage', content: 'The UAE actively preserves intangible heritage including falconry, Al Sadu weaving, and coffee traditions through national programs.' },
+      { title: 'Al Ain UNESCO World Heritage Site', content: 'The cultural sites of Al Ain, including Hili Tombs and the oases system, are the UAE\'s first UNESCO World Heritage Site.', icon: 'mountain' },
+      { title: 'UAE Museums', content: 'The UAE invests in world-class museums like the Louvre Abu Dhabi and the Museum of the Future to preserve and celebrate heritage.', icon: 'building' },
+      { title: 'Intangible Heritage', content: 'The UAE actively preserves intangible heritage including falconry, Al Sadu weaving, and coffee traditions through national programs.', icon: 'star' },
     );
   } else if (/global|ethics|citizen|civic/i.test(title)) {
     links.push(
-      { title: 'UAE Global Initiatives', content: 'The UAE leads global initiatives in sustainability, peace, and humanitarian aid, reflecting its commitment to global citizenship.' },
-      { title: 'UAE Youth Programs', content: 'The UAE empowers youth through youth councils, leadership programs, and volunteer platforms to develop active citizens.' },
-      { title: 'UAE and the UN', content: 'The UAE is an active UN member, contributing to peacekeeping, climate action, and sustainable development globally.' },
+      { title: 'UAE Global Initiatives', content: 'The UAE leads global initiatives in sustainability, peace, and humanitarian aid, reflecting its commitment to global citizenship.', icon: 'globe' },
+      { title: 'UAE Youth Programs', content: 'The UAE empowers youth through youth councils, leadership programs, and volunteer platforms to develop active citizens.', icon: 'star' },
+      { title: 'UAE and the UN', content: 'The UAE is an active UN member, contributing to peacekeeping, climate action, and sustainable development globally.', icon: 'building' },
     );
   } else if (/financial|money|entrepreneur|wealth/i.test(title)) {
     links.push(
-      { title: 'UAE Economic Vision', content: 'The UAE\'s economic diversification strategy moves beyond oil to build a knowledge-based economy with opportunities for all.' },
-      { title: 'UAE Entrepreneurship Ecosystem', content: 'The UAE ranks among the best places to start a business, with free zones, startup incubators, and government support for entrepreneurs.' },
-      { title: 'Financial Literacy in UAE Schools', content: 'The UAE promotes financial literacy through educational programs and initiatives to prepare youth for economic participation.' },
+      { title: 'UAE Economic Vision', content: 'The UAE\'s economic diversification strategy moves beyond oil to build a knowledge-based economy with opportunities for all.', icon: 'star' },
+      { title: 'UAE Entrepreneurship Ecosystem', content: 'The UAE ranks among the best places to start a business, with free zones, startup incubators, and government support for entrepreneurs.', icon: 'building' },
+      { title: 'Financial Literacy in UAE Schools', content: 'The UAE promotes financial literacy through educational programs and initiatives to prepare youth for economic participation.', icon: 'heart' },
     );
   } else if (/central asia|silk road|kazakhstan/i.test(title)) {
     links.push(
-      { title: 'UAE-Central Asia Relations', content: 'The UAE is a growing economic partner with Central Asian nations, investing in energy, logistics, and infrastructure projects.' },
-      { title: 'Silk Road Legacy', content: 'The UAE continues the Silk Road tradition as a global logistics and trade hub connecting Asia, Europe, and Africa.' },
-      { title: 'Cultural Connections', content: 'The UAE and Central Asian nations share Islamic heritage, nomadic traditions, and cultural practices that bridge their histories.' },
+      { title: 'UAE-Central Asia Relations', content: 'The UAE is a growing economic partner with Central Asian nations, investing in energy, logistics, and infrastructure projects.', icon: 'globe' },
+      { title: 'Silk Road Legacy', content: 'The UAE continues the Silk Road tradition as a global logistics and trade hub connecting Asia, Europe, and Africa.', icon: 'mountain' },
+      { title: 'Cultural Connections', content: 'The UAE and Central Asian nations share Islamic heritage, nomadic traditions, and cultural practices that bridge their histories.', icon: 'star' },
     );
   } else {
     links.push(
-      { title: 'UAE Connection', content: 'This topic connects to the UAE\'s commitment to education, tolerance, and development as outlined in the national vision.' },
-      { title: 'Real-World Application', content: 'Understanding this topic helps students appreciate how global concepts apply to their daily lives in the UAE.' },
-      { title: 'UAE Values', content: 'The UAE\'s values of respect, tolerance, and innovation are reflected in the study of this topic and its applications.' },
+      { title: 'UAE Connection', content: 'This topic connects to the UAE\'s commitment to education, tolerance, and development as outlined in the national vision.', icon: 'globe' },
+      { title: 'Real-World Application', content: 'Understanding this topic helps students appreciate how global concepts apply to their daily lives in the UAE.', icon: 'star' },
+      { title: 'UAE Values', content: 'The UAE\'s values of respect, tolerance, and innovation are reflected in the study of this topic and its applications.', icon: 'heart' },
     );
   }
 
