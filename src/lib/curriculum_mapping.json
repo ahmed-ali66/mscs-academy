@@ -8533,7 +8533,7 @@
             },
             "General": {
               "unit_name": "General",
-              "lesson_count": 9,
+              "lesson_count": 11,
               "lessons": [
                 {
                   "week_number": 18,
@@ -8676,6 +8676,52 @@
                 {
                   "week_number": 24,
                   "date_range": "08 Mar – 12 Mar",
+                  "phase": "Instruction",
+                  "lesson_title": "★ Unit 6: North and South America ★ PRIORITY UNIT ★: Modern Canada",
+                  "domains": "S1, S3, S7",
+                  "slo_codes": "S1.5, S3.5, S7.5",
+                  "dok_level": "DOK 2–3",
+                  "learning_activity": "KWL Chart activation on 'Modern Canada'; Guided textbook reading p.165 with annotation strategy",
+                  "assessment": "Formative: Observation / Think-Pair-Share",
+                  "resources": "MoE Textbook G8 V-2 p.165; Teacher Guide V-2",
+                  "scope_sequence_detail": {
+                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Modern Canada' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S3, S7.",
+                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Modern Canada' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+                    "prior_learning_engagement": "Review previous lesson's key concepts through structured exit ticket review. Students share homework findings and connect to today's topic. Build on prior knowledge using an advance organizer linking to the broader unit theme.",
+                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'Modern Canada'; 2) Guided textbook reading p.165 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary matching with key terms; 5) Concept mapping on whiteboard; 6) Exit reflection\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.165; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
+                    "assessment_closure": "Formative: Think-Pair-Share assessed via observation checklist. Quick Write: Explain 'Modern Canada' in 4-5 sentences with one specific example. Peer feedback on group work using success criteria.",
+                    "resources_materials": "MoE Textbook G8 V-2 p.165; Teacher Guide G8 V-2; Google Earth; OldMapsOnline; National Geographic Kids; UAE Geographic Atlas; Primary source documents; Rubric for performance task; Differentiated reading scaffold; Research template",
+                    "homework_extension": "Creative Extension: Design a digital infographic on 'Modern Canada' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
+                    "moe_standard": "S1.5,S3.5,S7.5",
+                    "learning_domain": "S1, S3, S7"
+                  }
+                },
+                {
+                  "week_number": 25,
+                  "date_range": "15 Mar – 19 Mar",
+                  "phase": "Instruction",
+                  "lesson_title": "★ Unit 6: North and South America ★ PRIORITY UNIT ★: South America",
+                  "domains": "S1, S3, S7",
+                  "slo_codes": "S1.6, S3.6, S7.6",
+                  "dok_level": "DOK 2–3",
+                  "learning_activity": "KWL Chart activation on 'South America'; Guided textbook reading p.174 with annotation strategy",
+                  "assessment": "Summative: Unit Quiz / Performance Task",
+                  "resources": "MoE Textbook G8 V-2 p.174; Teacher Guide V-2",
+                  "scope_sequence_detail": {
+                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'South America' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S3, S7.",
+                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'South America' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+                    "prior_learning_engagement": "Review previous lesson's key concepts through structured exit ticket review. Students share homework findings and connect to today's topic. Build on prior knowledge using an advance organizer linking to the broader unit theme.",
+                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'South America'; 2) Guided textbook reading p.174 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary matching with key terms; 5) Concept mapping on whiteboard; 6) Exit reflection\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.174; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
+                    "assessment_closure": "Summative: Unit Quiz (10 questions — MCQ + short answer + extended response). Performance Task: Visual summary demonstrating understanding. Self-assessment using rubric.",
+                    "resources_materials": "MoE Textbook G8 V-2 p.174; Teacher Guide G8 V-2; Google Earth; OldMapsOnline; National Geographic Kids; UAE Geographic Atlas; Primary source documents; Rubric for performance task; Differentiated reading scaffold; Research template",
+                    "homework_extension": "Creative Extension: Design a digital infographic on 'South America' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
+                    "moe_standard": "S1.6,S3.6,S7.6",
+                    "learning_domain": "S1, S3, S7"
+                  }
+                },
+                {
+                  "week_number": 26,
+                  "date_range": "22 Mar – 26 Mar",
                   "phase": "Review",
                   "lesson_title": "Term 2 Review & Exam Preparation",
                   "domains": "All covered",

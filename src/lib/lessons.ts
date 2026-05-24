@@ -623,6 +623,10 @@ export function getGradeInfo(): GradeInfo[] {
               'G8_T1_Unit 1': 'Ethics in the Context of Communities',
               'G8_T1_Unit 2': 'Valuing Diversity',
               'G8_T1_Unit 3': 'African Civilizations',
+              // G8 T2 specific overrides
+              'G8_T2_Unit 4': 'The Growth of Consultative Governance in the UAE',
+              'G8_T2_Unit 5': 'Morality in the Context of States',
+              'G8_T2_General': 'North and South America',
             };
             // Check grade+term specific override first, then fallback to general
             const gradeTermKey = `${gk}_${tk}_${uk}`;
