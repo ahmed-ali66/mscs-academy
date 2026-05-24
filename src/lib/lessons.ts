@@ -583,11 +583,8 @@ export function getGradeInfo(): GradeInfo[] {
         if (td.units) {
           for (const [uk, uv] of Object.entries(td.units)) {
             // Filter to only instructional lessons for lessonCount
-            // Also exclude non-textbook lessons (Setting Classroom Rules, etc.)
             const instructionalLessons = (uv.lessons || []).filter(l =>
-              l.phase === 'Instruction' &&
-              !l.lesson_title?.includes('Setting Classroom Rules') &&
-              !l.lesson_title?.includes('Diagnostic Assessment')
+              l.phase === 'Instruction'
             );
             const isPriority = uv.lessons?.some(l => (l.lesson_title || '').includes('★')) ?? false;
             // Extract unit title from lesson titles: "★ Unit 3: Perspectives of People through Time ★ PRIORITY UNIT ★: Lesson Name"
@@ -613,6 +610,7 @@ export function getGradeInfo(): GradeInfo[] {
               'Unit 4': 'Respect and Tolerance in a Diverse Community',
               'Unit 5': 'How the UAE Grew into a Diverse, Inclusive Society',
               'Unit 6': 'Impacts of Transitions in Europe',
+              'G6_T3_Unit 7': 'Government Services',
               // G7 T1 specific overrides
               'G7_T1_Unit 1': 'Individual Responsibilities and Duties and Moral Obligations',
               'G7_T1_Unit 2': 'Making Good Decisions',
@@ -693,9 +691,7 @@ export function getUnitData(gradeKey: string, termKey: string, unitKey: string):
 
   const lessons: LessonData[] = (unitData.lessons || [])
     .filter((l: RawLesson) =>
-      l.phase === 'Instruction' &&
-      !l.lesson_title?.includes('Setting Classroom Rules') &&
-      !l.lesson_title?.includes('Diagnostic Assessment')
+      l.phase === 'Instruction'
     )
     .map((l: RawLesson) => {
       const ss = l.scope_sequence_detail || {};

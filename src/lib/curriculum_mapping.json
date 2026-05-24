@@ -5595,7 +5595,7 @@
                     "learning_domain": "S1, S3, S7"
                   },
                   "is_mapped": true,
-                  "lesson_number": 6
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 9,
@@ -5620,7 +5620,7 @@
                     "learning_domain": "S1, S3, S7"
                   },
                   "is_mapped": true,
-                  "lesson_number": 7
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 10,
@@ -5645,7 +5645,7 @@
                     "learning_domain": "S1, S3, S7"
                   },
                   "is_mapped": true,
-                  "lesson_number": 8
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 11,
@@ -5670,7 +5670,7 @@
                     "learning_domain": "S1, S3, S7"
                   },
                   "is_mapped": true,
-                  "lesson_number": 9
+                  "lesson_number": 5
                 },
                 {
                   "week_number": 12,
@@ -5695,7 +5695,7 @@
                     "learning_domain": "S1, S3, S7"
                   },
                   "is_mapped": true,
-                  "lesson_number": 10
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 13,
@@ -5776,7 +5776,7 @@
                     "learning_domain": "S2, S4, S8"
                   },
                   "is_mapped": true,
-                  "lesson_number": 2
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 3,
@@ -5801,7 +5801,7 @@
                     "learning_domain": "S2, S4, S8"
                   },
                   "is_mapped": true,
-                  "lesson_number": 3
+                  "lesson_number": 2
                 }
               ]
             },
@@ -5832,7 +5832,7 @@
                     "learning_domain": "S4, S8, S5"
                   },
                   "is_mapped": true,
-                  "lesson_number": 4
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 5,
@@ -5857,7 +5857,7 @@
                     "learning_domain": "S4, S8, S5"
                   },
                   "is_mapped": true,
-                  "lesson_number": 5
+                  "lesson_number": 2
                 }
               ]
             }
@@ -5868,7 +5868,7 @@
           "units": {
             "Unit 4": {
               "unit_name": "Unit 4",
-              "lesson_count": 5,
+              "lesson_count": 2,
               "lessons": [
                 {
                   "week_number": 9,
@@ -5896,31 +5896,6 @@
                   "lesson_number": 1
                 },
                 {
-                  "week_number": 10,
-                  "date_range": "02 Nov – 06 Nov",
-                  "phase": "Instruction",
-                  "lesson_title": "Respect and Tolerance in a Diverse Community: How Tolerance Appears in Society",
-                  "domains": "S4, S8, S9",
-                  "slo_codes": "S4.2, S8.1, S9.1",
-                  "dok_level": "DOK 1-2",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection; 2) Close reading of p.14 with guided quest...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G6 V-2 p.14; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of How Tolerance Appears in Society by engaging with textbook content, collaborative activities, and critical thinking exercises",
-                    "success_criteria": "You can: (1) Provide a detailed explanation of How Tolerance Appears in Society with supporting textual evidence; (2) Analyze connections between key concepts and real-world contexts; (3) Apply understanding to new scenarios with reasoned justification",
-                    "prior_learning_engagement": "KWL Chart activation on 'How Tolerance Appears in Society'",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'How Tolerance Appears in Society'; 2) Guided textbook reading p.14 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary mapping activity; 5) Independent practice: complete textbook activity p.14; 6) Quick write summary with DOK reflection",
-                    "assessment_closure": "Quick Check: 3-2-1 summary (3 things learned, 2 connections made, 1 question remaining)",
-                    "resources_materials": "Student Textbook Grade 6 Volume 2, pp.14–19; Interactive visual activities; KWL chart template",
-                    "homework_extension": "Review textbook section pp.14–19; Write a 5-sentence reflection connecting today's lesson to your own experience",
-                    "moe_standard": "S4.2, S8.1, S9.1",
-                    "learning_domain": "S4, S8, S9"
-                  },
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
                   "week_number": 11,
                   "date_range": "09 Nov – 13 Nov",
                   "phase": "Instruction",
@@ -5944,62 +5919,12 @@
                   },
                   "is_mapped": true,
                   "lesson_number": 2
-                },
-                {
-                  "week_number": 12,
-                  "date_range": "16 Nov – 20 Nov",
-                  "phase": "Instruction",
-                  "lesson_title": "Respect and Tolerance in a Diverse Community: Recognising Prejudice in Society",
-                  "domains": "S4, S8, S9",
-                  "slo_codes": "S4.4, S8.3, S9.2",
-                  "dok_level": "DOK 2-3",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection; 2) Close reading of p.27 with guided quest...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G6 V-2 p.27; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of Recognising Prejudice in Society by engaging with textbook content, collaborative activities, and critical thinking exercises",
-                    "success_criteria": "You can: (1) Provide a detailed explanation of Recognising Prejudice in Society with supporting textual evidence; (2) Analyze connections between key concepts and real-world contexts; (3) Apply understanding to new scenarios with reasoned justification",
-                    "prior_learning_engagement": "KWL Chart activation on 'Recognising Prejudice in Society'",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'Recognising Prejudice in Society'; 2) Guided textbook reading p.27 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary mapping activity; 5) Independent practice: complete textbook activity p.27; 6) Quick write summary with DOK reflection",
-                    "assessment_closure": "Quick Check: 3-2-1 summary (3 things learned, 2 connections made, 1 question remaining)",
-                    "resources_materials": "Student Textbook Grade 6 Volume 2, pp.27–32; Interactive visual activities; KWL chart template",
-                    "homework_extension": "Review textbook section pp.27–32; Write a 5-sentence reflection connecting today's lesson to your own experience",
-                    "moe_standard": "S4.4, S8.3, S9.2",
-                    "learning_domain": "S4, S8, S9"
-                  },
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "week_number": 13,
-                  "date_range": "23 Nov – 27 Nov",
-                  "phase": "Instruction",
-                  "lesson_title": "Respect and Tolerance in a Diverse Community: Whole School Approach to Cultural Diversity",
-                  "domains": "S4, S8, S9",
-                  "slo_codes": "S4.5, S8.4, S9.3",
-                  "dok_level": "DOK 2-3",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection; 2) Close reading of p.33 with guided quest...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G6 V-2 p.33; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of Whole School Approach to Cultural Diversity by engaging with textbook content, collaborative activities, and critical thinking exercises",
-                    "success_criteria": "You can: (1) Provide a detailed explanation of Whole School Approach to Cultural Diversity with supporting textual evidence; (2) Analyze connections between key concepts and real-world contexts; (3) Apply understanding to new scenarios with reasoned justification",
-                    "prior_learning_engagement": "KWL Chart activation on 'Whole School Approach to Cultural Diversity'",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'Whole School Approach to Cultural Diversity'; 2) Guided textbook reading p.33 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary mapping activity; 5) Independent practice: complete textbook activity p.33; 6) Quick write summary with DOK reflection",
-                    "assessment_closure": "Quick Check: 3-2-1 summary (3 things learned, 2 connections made, 1 question remaining)",
-                    "resources_materials": "Student Textbook Grade 6 Volume 2, pp.33–40; Interactive visual activities; KWL chart template",
-                    "homework_extension": "Review textbook section pp.33–40; Write a 5-sentence reflection connecting today's lesson to your own experience",
-                    "moe_standard": "S4.5, S8.4, S9.3",
-                    "learning_domain": "S4, S8, S9"
-                  },
-                  "is_mapped": false,
-                  "lesson_number": null
                 }
               ]
             },
             "Unit 5": {
               "unit_name": "Unit 5",
-              "lesson_count": 5,
+              "lesson_count": 1,
               "lessons": [
                 {
                   "week_number": 14,
@@ -6024,107 +5949,7 @@
                     "learning_domain": "S2, S3, S9"
                   },
                   "is_mapped": true,
-                  "lesson_number": 3
-                },
-                {
-                  "week_number": 15,
-                  "date_range": "11 Jan – 15 Jan",
-                  "phase": "Instruction",
-                  "lesson_title": "How the UAE Grew into a Diverse, Inclusive Society: Cultural Change",
-                  "domains": "S2, S3, S9",
-                  "slo_codes": "S2.2, S3.2, S9.2",
-                  "dok_level": "DOK 1-2",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection; 2) Close reading of p.50 with guided quest...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G6 V-2 p.50; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of Cultural Change by engaging with textbook content, collaborative activities, and critical thinking exercises",
-                    "success_criteria": "You can: (1) Provide a detailed explanation of Cultural Change with supporting textual evidence; (2) Analyze connections between key concepts and real-world contexts; (3) Apply understanding to new scenarios with reasoned justification",
-                    "prior_learning_engagement": "KWL Chart activation on 'Cultural Change'",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'Cultural Change'; 2) Guided textbook reading p.50 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary mapping activity; 5) Independent practice: complete textbook activity p.50; 6) Quick write summary with DOK reflection",
-                    "assessment_closure": "Quick Check: 3-2-1 summary (3 things learned, 2 connections made, 1 question remaining)",
-                    "resources_materials": "Student Textbook Grade 6 Volume 2, pp.50–57; Interactive visual activities; KWL chart template",
-                    "homework_extension": "Review textbook section pp.50–57; Write a 5-sentence reflection connecting today's lesson to your own experience",
-                    "moe_standard": "S2.2, S3.2, S9.2",
-                    "learning_domain": "S2, S3, S9"
-                  },
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "week_number": 16,
-                  "date_range": "18 Jan – 22 Jan",
-                  "phase": "Instruction",
-                  "lesson_title": "How the UAE Grew into a Diverse, Inclusive Society: Research on Museum Exhibits",
-                  "domains": "S2, S3, S9",
-                  "slo_codes": "S2.3, S3.3, S9.3",
-                  "dok_level": "DOK 2-3",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection; 2) Close reading of p.58 with guided quest...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G6 V-2 p.58; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of Research on Museum Exhibits by engaging with textbook content, collaborative activities, and critical thinking exercises",
-                    "success_criteria": "You can: (1) Provide a detailed explanation of Research on Museum Exhibits with supporting textual evidence; (2) Analyze connections between key concepts and real-world contexts; (3) Apply understanding to new scenarios with reasoned justification",
-                    "prior_learning_engagement": "KWL Chart activation on 'Research on Museum Exhibits'",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'Research on Museum Exhibits'; 2) Guided textbook reading p.58 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary mapping activity; 5) Independent practice: complete textbook activity p.58; 6) Quick write summary with DOK reflection",
-                    "assessment_closure": "Quick Check: 3-2-1 summary (3 things learned, 2 connections made, 1 question remaining)",
-                    "resources_materials": "Student Textbook Grade 6 Volume 2, pp.58–64; Interactive visual activities; KWL chart template",
-                    "homework_extension": "Review textbook section pp.58–64; Write a 5-sentence reflection connecting today's lesson to your own experience",
-                    "moe_standard": "S2.3, S3.3, S9.3",
-                    "learning_domain": "S2, S3, S9"
-                  },
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "week_number": 17,
-                  "date_range": "25 Jan – 29 Jan",
-                  "phase": "Instruction",
-                  "lesson_title": "How the UAE Grew into a Diverse, Inclusive Society: Preparing Exhibits",
-                  "domains": "S2, S3, S9",
-                  "slo_codes": "S2.4, S3.4, S9.4",
-                  "dok_level": "DOK 2-3",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection; 2) Close reading of p.65 with guided quest...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G6 V-2 p.65; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of Preparing Exhibits by engaging with textbook content, collaborative activities, and critical thinking exercises",
-                    "success_criteria": "You can: (1) Provide a detailed explanation of Preparing Exhibits with supporting textual evidence; (2) Analyze connections between key concepts and real-world contexts; (3) Apply understanding to new scenarios with reasoned justification",
-                    "prior_learning_engagement": "KWL Chart activation on 'Preparing Exhibits'",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'Preparing Exhibits'; 2) Guided textbook reading p.65 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary mapping activity; 5) Independent practice: complete textbook activity p.65; 6) Quick write summary with DOK reflection",
-                    "assessment_closure": "Quick Check: 3-2-1 summary (3 things learned, 2 connections made, 1 question remaining)",
-                    "resources_materials": "Student Textbook Grade 6 Volume 2, pp.65–71; Interactive visual activities; KWL chart template",
-                    "homework_extension": "Review textbook section pp.65–71; Write a 5-sentence reflection connecting today's lesson to your own experience",
-                    "moe_standard": "S2.4, S3.4, S9.4",
-                    "learning_domain": "S2, S3, S9"
-                  },
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "week_number": 18,
-                  "date_range": "01 Feb – 05 Feb",
-                  "phase": "Instruction",
-                  "lesson_title": "How the UAE Grew into a Diverse, Inclusive Society: Opening Day of the Museum",
-                  "domains": "S2, S3, S9",
-                  "slo_codes": "S2.5, S3.5, S9.5",
-                  "dok_level": "DOK 2-3",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection; 2) Close reading of p.72 with guided quest...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G6 V-2 p.72; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of Opening Day of the Museum by engaging with textbook content, collaborative activities, and critical thinking exercises",
-                    "success_criteria": "You can: (1) Provide a detailed explanation of Opening Day of the Museum with supporting textual evidence; (2) Analyze connections between key concepts and real-world contexts; (3) Apply understanding to new scenarios with reasoned justification",
-                    "prior_learning_engagement": "KWL Chart activation on 'Opening Day of the Museum'",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'Opening Day of the Museum'; 2) Guided textbook reading p.72 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary mapping activity; 5) Independent practice: complete textbook activity p.72; 6) Quick write summary with DOK reflection",
-                    "assessment_closure": "Quick Check: 3-2-1 summary (3 things learned, 2 connections made, 1 question remaining)",
-                    "resources_materials": "Student Textbook Grade 6 Volume 2, pp.72–79; Interactive visual activities; KWL chart template",
-                    "homework_extension": "Review textbook section pp.72–79; Write a 5-sentence reflection connecting today's lesson to your own experience",
-                    "moe_standard": "S2.5, S3.5, S9.5",
-                    "learning_domain": "S2, S3, S9"
-                  },
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "lesson_number": 1
                 }
               ]
             },
@@ -6155,7 +5980,7 @@
                     "learning_domain": "S1, S3, S5"
                   },
                   "is_mapped": true,
-                  "lesson_number": 4
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 20,
@@ -6180,7 +6005,7 @@
                     "learning_domain": "S1, S3, S5"
                   },
                   "is_mapped": true,
-                  "lesson_number": 5
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 21,
@@ -6205,7 +6030,7 @@
                     "learning_domain": "S1, S3, S5"
                   },
                   "is_mapped": true,
-                  "lesson_number": 6
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 22,
@@ -6230,7 +6055,7 @@
                     "learning_domain": "S1, S3, S5"
                   },
                   "is_mapped": true,
-                  "lesson_number": 7
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 23,
@@ -6254,8 +6079,8 @@
                     "moe_standard": "S1.5, S5.5",
                     "learning_domain": "S1, S5"
                   },
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "week_number": 24,
@@ -6279,8 +6104,8 @@
                     "moe_standard": "S1.6, S3.5, S5.6",
                     "learning_domain": "S1, S3, S5"
                   },
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 25,
@@ -6304,8 +6129,8 @@
                     "moe_standard": "S1.7, S5.7",
                     "learning_domain": "S1, S5"
                   },
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "is_mapped": true,
+                  "lesson_number": 7
                 }
               ]
             },
@@ -6447,33 +6272,8 @@
           "units": {
             "General": {
               "unit_name": "General",
-              "lesson_count": 8,
+              "lesson_count": 0,
               "lessons": [
-                {
-                  "week_number": 32,
-                  "date_range": "Apr 27 - May 1",
-                  "phase": "Instruction",
-                  "lesson_title": "Comprehensive Worksheet: Lessons 1–4",
-                  "domains": "Assessment &\nConsolidation",
-                  "slo_codes": "S2.2, S2.5",
-                  "dok_level": "DOK 1–3",
-                  "learning_activity": "Assessment Activity: Comprehensive worksheet covering all...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G6 V-3; Teacher Guide V-3",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT demonstrate mastery of Lessons 1-4 through a comprehensive written assessment covering government functions, political systems, law-making, and judicial systems.",
-                    "success_criteria": "I can answer assessment questions accurately for Lessons 1-4.\nI can identify my areas of strength and areas needing improvement.\nI can explain key concepts from each lesson in my own words.",
-                    "prior_learning_engagement": "Quick Review: Students create a mind map of the 4 main topics: Government Functions, Political Systems, Laws, and Judicial System. Share with a partner.",
-                    "teaching_learning_activities": "Activity 1: Mind Map Review — Create a mind map connecting the 4 main topics. Include key terms, concepts, and examples for each (4 min).\n\nActivity 2: Comprehensive Worksheet — Complete written assessment: multiple choice (8 questions), short answer (4 questions), matching (6 items), and 1 extended-response question covering all 4 lessons (15 min).\n\nActivity 3: Self-Assessment — After completing the worksheet, students identify: Which lesson was my strongest? Which lesson do I need to review? What is one concept I still don't fully understand? (3 min).\n\nActivity 4: Peer Review — Exchange worksheets with a partner. Discuss any different answers. Help each other understand mistakes (5 min).\n\nReflection: Knowledge is most valuable when it is tested and refined. Every challenge we face in understanding makes our grasp of the truth stronger and more complete.",
-                    "assessment_closure": "Collect worksheets. Students write one question they still have about the unit on a sticky note for the teacher.",
-                    "resources_materials": "Comprehensive worksheet handout\nMind map template\nSticky notes\nTimer",
-                    "homework_extension": "Review your weakest area from the worksheet. Create a study guide with 5 key terms and definitions for that topic.",
-                    "moe_standard": "C2-G6-S2.2, S2.5",
-                    "learning_domain": "Assessment & Consolidation"
-                  },
-                  "is_mapped": true,
-                  "lesson_number": 6
-                },
                 {
                   "week_number": 34,
                   "date_range": "May 11 - May 15",
@@ -6548,31 +6348,6 @@
                   },
                   "is_mapped": false,
                   "lesson_number": null
-                },
-                {
-                  "week_number": 37,
-                  "date_range": "Jun 1 - Jun 5",
-                  "phase": "Instruction",
-                  "lesson_title": "Civic Engagement Project & Real-World Application",
-                  "domains": "Civics & Governance\n(Application & Enrichment)",
-                  "slo_codes": "S8.4, S8.5",
-                  "dok_level": "DOK 3–4",
-                  "learning_activity": "Civic Action Project: Students identify a community issue...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G6 V-3; Teacher Guide V-3",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT apply their understanding of government, laws, and rights to a real-world civic engagement scenario, and reflect on their role as responsible community members.",
-                    "success_criteria": "I can identify a community issue and propose a solution.\nI can connect government functions and rights to real-world situations.\nI can reflect on my role as a responsible citizen.",
-                    "prior_learning_engagement": "Review: What are human rights? Why do we need government? Self-assessment on mid-term performance.",
-                    "teaching_learning_activities": "Civic Action Project: Students identify a community issue (e.g., environmental, safety, school-related) and create a simple action plan. Who in government could help? What rights and responsibilities are involved? Present plans to the class. Reflective writing: \"How can I be a responsible citizen in my community?\"",
-                    "assessment_closure": "Project Presentation: Students present their Civic Action Plan. Peer feedback using structured rubric.",
-                    "resources_materials": "Project template (teacher-prepared)\nCommunity issue scenario cards\nPresentation rubric\nWhiteboard / MS Teams",
-                    "homework_extension": "Share your Civic Action Plan with a family member. Get their feedback and revise if needed.",
-                    "moe_standard": "C2-G6-S8.4\nC2-G6-S8.5",
-                    "learning_domain": "Civics & Governance\n(Application & Enrichment)"
-                  },
-                  "is_mapped": true,
-                  "lesson_number": 8
                 },
                 {
                   "week_number": 38,
@@ -6653,7 +6428,7 @@
             },
             "Unit 7": {
               "unit_name": "Unit 7: Government Services",
-              "lesson_count": 6,
+              "lesson_count": 5,
               "lessons": [
                 {
                   "week_number": 27,
@@ -6681,31 +6456,6 @@
                   "lesson_number": 1
                 },
                 {
-                  "week_number": 28,
-                  "date_range": "Mar 30 - Apr 3",
-                  "phase": "Instruction",
-                  "lesson_title": "How the Government Functions (Continued)",
-                  "domains": "Civics & Governance\n(Government Systems)",
-                  "slo_codes": "S2.4",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Comparison activity: Create a T-chart comparing political...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G6 V-3 p.; Teacher Guide V-3",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT compare the roles of political leaders and civil servants, and explain how government decisions affect daily life.",
-                    "success_criteria": "I can compare the roles of political leaders and civil servants with examples.\nI can explain how government decisions affect my daily life.\nI can describe the accountability of public servants.\nI can explain what it means for officials to give unbiased advice.",
-                    "prior_learning_engagement": "Review: Name 3 roles of government leaders from last lesson. Quick-Write: How does a government decision affect YOUR life? Think about roads, schools, hospitals, laws.",
-                    "teaching_learning_activities": "Activity 1: T-Chart Comparison — Create a detailed T-chart comparing Political Leaders vs. Civil Servants: How they get their position, their main responsibilities, who they report to, and how long they serve (4 min).\n\nActivity 2: Case Study — 'How a Law is Proposed': Walk through the process from idea to policy. Identify who is involved at each step — leader or official? (4 min).\n\nActivity 3: Group Discussion — 'What would happen if there were no government?' Students discuss and present consequences for security, education, health, economy (4 min).\n\nActivity 4: UAE Connection — Research the UAE Cabinet and FNC. Who are the political leaders? Who are the officials? How do they work together? (5 min).\n\nActivity 5: Unbiased Advice Scenario — Read 3 scenarios where an official must give advice. Students decide: Is the advice biased or unbiased? Why does it matter? (4 min).\n\nReflection: The strength of any system of governance lies in the sincerity of those who serve. When every person fulfills their duty with integrity and concern for the common good, the entire community thrives.",
-                    "assessment_closure": "T-Chart Check: Students present their comparison charts. Quick-write: One way a government decision affects your family. One reason officials must remain neutral.",
-                    "resources_materials": "MSC Grade 6 Student Book pp. 9-15\nComparison graphic organizer\nCase study handout\nUAE government website for research",
-                    "homework_extension": "Interview a family member about a government service they use. Write a short paragraph explaining how it connects to the roles of political leaders or civil servants.",
-                    "moe_standard": "C2-G6-S2.4",
-                    "learning_domain": "Civics & Governance\n(Government Systems)"
-                  },
-                  "is_mapped": true,
-                  "lesson_number": 2
-                },
-                {
                   "week_number": 29,
                   "date_range": "Apr 6 - Apr 10",
                   "phase": "Instruction",
@@ -6728,7 +6478,7 @@
                     "learning_domain": "Civics & Governance\n(Political Systems)"
                   },
                   "is_mapped": true,
-                  "lesson_number": 3
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 30,
@@ -6753,7 +6503,7 @@
                     "learning_domain": "Civics & Governance\n(Legal Systems)"
                   },
                   "is_mapped": true,
-                  "lesson_number": 4
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 31,
@@ -6778,7 +6528,7 @@
                     "learning_domain": "Civics & Governance\n(Legal Systems & Democracy)"
                   },
                   "is_mapped": true,
-                  "lesson_number": 5
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 33,
@@ -6803,7 +6553,7 @@
                     "learning_domain": "Civics & Governance\n(Human Rights)"
                   },
                   "is_mapped": true,
-                  "lesson_number": 7
+                  "lesson_number": 5
                 }
               ]
             }

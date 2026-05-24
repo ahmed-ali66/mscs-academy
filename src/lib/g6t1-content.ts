@@ -394,14 +394,100 @@ Remember: asking for help is a sign of strength, not weakness. The earlier you a
 ];
 
 // ═══════════════════════════════════════════════════════════════
-// UNIT 3: PERSPECTIVES OF PEOPLE THROUGH TIME (5 lessons)
+// UNIT 3: PERSPECTIVES OF PEOPLE THROUGH TIME (6 lessons)
 // Textbook: Unit 3 — Lessons 1-5
 // ═══════════════════════════════════════════════════════════════
 
 export const g6t1Unit3: LessonContent[] = [
-  // Lesson 1: After the Fall of the Roman Empire
+  // Lesson 1: Setting Classroom Rules & Diagnostic Assessment
   {
     lessonId: 'G6_T1_General_l1',
+    keyVocabulary: ['classroom rules', 'routine', 'expectation', 'diagnostic', 'assessment', 'baseline'],
+    reading1Title: 'Welcome to MSCS Class!',
+    reading1Content: `Welcome to Moral, Social, and Cultural Studies! This year, you will explore important topics about equality, health, history, government, and what it means to be a responsible citizen.
+
+In our classroom, we follow rules to make sure everyone feels safe, respected, and ready to learn. Classroom rules help us create a positive learning environment where every student can succeed.
+
+Today, we will:
+1. Co-create our classroom rules together
+2. Complete a diagnostic assessment to see what you already know
+3. Set personal learning goals for the year
+
+Why Do We Have Classroom Rules?
+Classroom rules are like the laws of a country — they help everyone know what is expected and create a fair environment. Just as the UAE has laws to protect its citizens and residents, our classroom has rules to protect every student\'s right to learn.
+
+Good classroom rules should be:
+- Clear and easy to understand
+- Fair and applied equally to everyone
+- Focused on respect and safety
+- Created together so everyone feels ownership
+
+The UAE values of respect, tolerance, and responsibility guide everything we do in this class. When we treat each other with kindness and follow our agreed-upon rules, we create the best environment for learning.`,
+    reading2Title: 'What Do You Already Know?',
+    reading2Content: `A diagnostic assessment helps your teacher understand what you already know and what you need to learn. It is NOT a test that you can pass or fail — it simply shows your starting point.
+
+Think of it like a map: before you can plan a journey, you need to know where you are starting from. The diagnostic assessment is your starting point for this year\'s learning journey in MSCS.
+
+The assessment covers all 9 domains of the MSCS curriculum:
+- S1: Historical and Geographical Understanding
+- S2: Civics, Governance, and Society
+- S3: Geography and Mapping Skills
+- S4: Social Cohesion and Diversity
+- S5: Economics and Financial Literacy
+- S6: Digital and Information Literacy
+- S7: Research and Critical Thinking
+- S8: Ethics and Morality
+- S9: UAE Culture, Heritage, and Identity
+
+After the diagnostic assessment, you will set one personal learning goal for Term 1. This goal will help you focus on what you want to achieve this term.
+
+Remember: every expert was once a beginner. The most important thing is to be curious, ask questions, and be willing to learn!`,
+    reading1Time: 6,
+    reading2Time: 4,
+    kwlExplanation: KWL_EXPLANATION,
+    discussionQuestions: [
+      'Why do we need classroom rules? What would happen without them?',
+      'How are classroom rules similar to laws in a country?',
+      'What UAE values should guide our classroom behaviour?',
+      'Why is a diagnostic assessment helpful for both students and teachers?',
+      'What is one personal learning goal you want to achieve this term?',
+    ],
+    keyFacts: [
+      'Classroom rules create a safe, respectful, and productive learning environment',
+      'Good rules are clear, fair, and created together by the class',
+      'The UAE values of respect, tolerance, and responsibility guide our classroom',
+      'A diagnostic assessment shows your starting point — it is NOT a pass/fail test',
+      'The MSCS curriculum has 9 domains covering history, governance, geography, diversity, economics, digital literacy, research, ethics, and UAE culture',
+      'Setting personal learning goals helps you focus on what you want to achieve',
+      'Every expert was once a beginner — curiosity and willingness to learn are the most important qualities',
+    ],
+    visualType: 'mindmap',
+    visualData: {
+      center: 'MSCS Classroom',
+      branches: [
+        { label: 'Rules', children: ['Respect', 'Safety', 'Fairness'] },
+        { label: 'Values', children: ['Tolerance', 'Responsibility', 'Curiosity'] },
+        { label: '9 Domains', children: ['History & Geography', 'Civics & Governance', 'Ethics & Morality'] },
+        { label: 'Goals', children: ['Learn actively', 'Ask questions', 'Grow together'] },
+      ],
+    },
+    quizQuestions: [
+      { id: 'u3l1q1', question: 'Why do we have classroom rules?', options: ['To punish students', 'To create a safe, respectful, and productive learning environment', 'Because the teacher said so', 'Rules are not important'], correctAnswer: 1, explanation: 'Classroom rules exist to create an environment where everyone feels safe, respected, and ready to learn — just like laws in a country protect citizens.' },
+      { id: 'u3l1q2', question: 'What is a diagnostic assessment?', options: ['A test you must pass to stay in class', 'A tool that shows your starting point and what you already know', 'A punishment for not studying', 'A final exam grade'], correctAnswer: 1, explanation: 'A diagnostic assessment helps your teacher understand what you already know. It is NOT a pass/fail test — it simply shows your starting point for learning.' },
+      { id: 'u3l1q3', question: 'How many domains does the MSCS curriculum cover?', options: ['5', '7', '9', '12'], correctAnswer: 2, explanation: 'The MSCS curriculum covers 9 domains: S1-S9, including history, civics, geography, diversity, economics, digital literacy, research, ethics, and UAE culture.' },
+      { id: 'u3l1q4', question: 'Which UAE values should guide our classroom behaviour?', options: ['Wealth and power', 'Respect, tolerance, and responsibility', 'Competition and winning', 'Silence and obedience'], correctAnswer: 1, explanation: 'The UAE values of respect, tolerance, and responsibility guide everything we do, including how we behave in our MSCS classroom.' },
+      { id: 'u3l1q5', question: 'What is the most important quality for learning MSCS?', options: ['Being the smartest in the class', 'Having the best grades', 'Curiosity and willingness to learn', 'Memorizing all the facts'], correctAnswer: 2, explanation: 'Every expert was once a beginner. The most important qualities for learning are curiosity and a willingness to learn and grow.' },
+    ],
+    interactiveStrategies: [
+      { strategy: 'Collaborative Work', description: 'Co-create classroom rules as a class', duration: 7, instructions: 'As a class, brainstorm and agree on 5 classroom rules for our MSCS lessons. Each rule should start with "We will..." Write them on a poster and everyone signs it as our classroom contract.' },
+      { strategy: 'Think-Pair-Share', description: 'Set a personal learning goal for Term 1', duration: 5, instructions: 'Think about what you want to achieve in MSCS this term. Share with your partner: What is one topic you are curious about? What is one skill you want to improve? Write your personal learning goal on an index card.' },
+      { strategy: 'Summarizing', description: 'Write a one-sentence summary about why classroom rules matter', duration: 3, instructions: 'In one sentence, explain why having classroom rules is important. Use the word "because" in your sentence. Write it on your index card.' },
+    ],
+  },
+
+  // Lesson 1: After the Fall of the Roman Empire
+  {
+    lessonId: 'G6_T1_General_l2',
     keyVocabulary: ['Common Era (CE)', 'to benefit', 'to conquer', 'destruction', 'domestic', 'barbarian', 'fierce', 'to storm', 'bow', 'present-day'],
     reading1Title: 'The Fall of the Roman Empire',
     reading1Content: `In the early centuries of the Common Era, the Roman Empire was the largest empire in the world. It stretched north to England where Hadrian's Wall was built and east to the River Euphrates in Iraq.
@@ -450,11 +536,11 @@ The Hun dominance started to decline when their leader, Attila, died in 453 CE. 
       ],
     },
     quizQuestions: [
-      { id: 'u3l1q1', question: 'What was the Pax Romana?', options: ['A war between Rome and Greece', 'A 200-year period of peace under Roman control, though it mainly benefited wealthy citizens', 'The name of a Roman building', 'A Roman holiday'], correctAnswer: 1, explanation: 'The Pax Romana was a 200-year period of enforced peace under Roman rule. However, it mainly benefited wealthy male landowners while common people were heavily taxed with few privileges.' },
-      { id: 'u3l1q2', question: 'Why were common people dissatisfied during the Pax Romana?', options: ['They had too many rights', 'Only wealthy male landowners could participate in government, while common people were heavily taxed with few privileges', 'There were too many wars', 'They did not want peace'], correctAnswer: 1, explanation: 'Despite the peace, the Pax Romana was unfair: only male citizens who owned land could participate in government, while conquered people and the poor served the rich and paid heavy taxes.' },
-      { id: 'u3l1q3', question: 'Who killed the Roman Emperor Valens and in which battle?', options: ['Attila at the Battle of Rome', 'The Goths at the Battle of Hadrianapolis in 378 CE', 'The Vandals at the Battle of Carthage', 'The Franks at the Battle of Paris'], correctAnswer: 1, explanation: 'The Goths declared war on Rome and killed Emperor Valens at the Battle of Hadrianapolis (Adrianopolis) in 378 CE.' },
-      { id: 'u3l1q4', question: 'Which group established a kingdom where Hungary, Slovakia, and Romania are today?', options: ['The Goths', 'The Franks', 'The Huns, led by Attila', 'The Vandals'], correctAnswer: 2, explanation: 'The Huns, led by Attila, conquered the eastern territories of the Roman Empire and established a kingdom covering modern-day Hungary, Slovakia, and Romania.' },
-      { id: 'u3l1q5', question: 'What caused the decline of Hun dominance?', options: ['A Roman counterattack', 'The death of Attila in 453 CE', 'A plague', 'The Huns converted to Christianity'], correctAnswer: 1, explanation: 'Hun dominance began to decline after their leader Attila died in 453 CE. Without his leadership, their power fragmented.' },
+      { id: 'u3l2q1', question: 'What was the Pax Romana?', options: ['A war between Rome and Greece', 'A 200-year period of peace under Roman control, though it mainly benefited wealthy citizens', 'The name of a Roman building', 'A Roman holiday'], correctAnswer: 1, explanation: 'The Pax Romana was a 200-year period of enforced peace under Roman rule. However, it mainly benefited wealthy male landowners while common people were heavily taxed with few privileges.' },
+      { id: 'u3l2q2', question: 'Why were common people dissatisfied during the Pax Romana?', options: ['They had too many rights', 'Only wealthy male landowners could participate in government, while common people were heavily taxed with few privileges', 'There were too many wars', 'They did not want peace'], correctAnswer: 1, explanation: 'Despite the peace, the Pax Romana was unfair: only male citizens who owned land could participate in government, while conquered people and the poor served the rich and paid heavy taxes.' },
+      { id: 'u3l2q3', question: 'Who killed the Roman Emperor Valens and in which battle?', options: ['Attila at the Battle of Rome', 'The Goths at the Battle of Hadrianapolis in 378 CE', 'The Vandals at the Battle of Carthage', 'The Franks at the Battle of Paris'], correctAnswer: 1, explanation: 'The Goths declared war on Rome and killed Emperor Valens at the Battle of Hadrianapolis (Adrianopolis) in 378 CE.' },
+      { id: 'u3l2q4', question: 'Which group established a kingdom where Hungary, Slovakia, and Romania are today?', options: ['The Goths', 'The Franks', 'The Huns, led by Attila', 'The Vandals'], correctAnswer: 2, explanation: 'The Huns, led by Attila, conquered the eastern territories of the Roman Empire and established a kingdom covering modern-day Hungary, Slovakia, and Romania.' },
+      { id: 'u3l2q5', question: 'What caused the decline of Hun dominance?', options: ['A Roman counterattack', 'The death of Attila in 453 CE', 'A plague', 'The Huns converted to Christianity'], correctAnswer: 1, explanation: 'Hun dominance began to decline after their leader Attila died in 453 CE. Without his leadership, their power fragmented.' },
     ],
     interactiveStrategies: [
       { strategy: 'Index Cards', description: 'Match barbarian groups with their actions', duration: 4, instructions: 'On your index card, match each group (Goths, Huns, Franks, Vandals, Suevi) with their action. We will review as a class.' },
@@ -465,7 +551,7 @@ The Hun dominance started to decline when their leader, Attila, died in 453 CE. 
 
   // Lesson 3: The High Middle Ages of Europe
   {
-    lessonId: 'G6_T1_General_l2',
+    lessonId: 'G6_T1_General_l3',
     keyVocabulary: ['overnight', 'centre of power', 'province', 'capital', 'invader', 'figure', 'prominent', 'border', 'stability'],
     reading1Title: 'The High Middle Ages in Europe',
     reading1Content: `The fall of the Roman Empire did not happen overnight. When the western part of the empire faced serious challenges, the empire split. The Western Roman Empire, which covered Western Europe and North Africa, was led from Rome, while the Eastern Roman — or Byzantine Empire — was led from Constantinople.
@@ -519,11 +605,11 @@ When Basil II became emperor in 976 CE, he focused on defeating his enemies. Aft
       ],
     },
     quizQuestions: [
-      { id: 'u3l2q1', question: 'What is Constantinople called today?', options: ['Ankara', 'Athens', 'Istanbul', 'Sofia'], correctAnswer: 2, explanation: 'Constantinople, the capital of the Byzantine Empire, is present-day Istanbul in Turkey.' },
-      { id: 'u3l2q2', question: 'What was the Justinian Code?', options: ['A secret military strategy', 'A new legal system created by Justinian I to govern all citizens of the Byzantine Empire', 'A religious text', 'A trade agreement with Egypt'], correctAnswer: 1, explanation: 'The Justinian Code was a comprehensive legal system created by Emperor Justinian I to govern all citizens of the Byzantine Empire consistently.' },
-      { id: 'u3l2q3', question: 'What caused up to 5,000 deaths a day in the Byzantine Empire from 541-542 CE?', options: ['War with the Huns', 'The Plague of Justinian, carried by rats from Egypt', 'A famine', 'An earthquake'], correctAnswer: 1, explanation: 'The Plague of Justinian was a devastating pandemic carried by rats on ships from Egypt, causing up to 5,000 deaths per day from 541-542 CE.' },
-      { id: 'u3l2q4', question: 'What was the Golden Age of Byzantium?', options: ['A period of war and conquest', 'A 250-year period of cultural, philosophical, and artistic achievement starting in the 9th century CE', 'The reign of Justinian I', 'The fall of Constantinople'], correctAnswer: 1, explanation: 'The Golden Age of Byzantium was a 250-year period of cultural, philosophical, and artistic achievement brought by Macedonian emperors starting in the 9th century CE.' },
-      { id: 'u3l2q5', question: 'Basil II defeated the Bulgarians at which battle?', options: ['Battle of Hadrianapolis', 'Battle of Manzikert', 'Battle of Kleidion in 1014 CE', 'Battle of Constantinople'], correctAnswer: 2, explanation: 'Basil II defeated the Bulgarians at the Battle of Kleidion in 1014 CE, then annexed Bulgaria into the Byzantine Empire.' },
+      { id: 'u3l3q1', question: 'What is Constantinople called today?', options: ['Ankara', 'Athens', 'Istanbul', 'Sofia'], correctAnswer: 2, explanation: 'Constantinople, the capital of the Byzantine Empire, is present-day Istanbul in Turkey.' },
+      { id: 'u3l3q2', question: 'What was the Justinian Code?', options: ['A secret military strategy', 'A new legal system created by Justinian I to govern all citizens of the Byzantine Empire', 'A religious text', 'A trade agreement with Egypt'], correctAnswer: 1, explanation: 'The Justinian Code was a comprehensive legal system created by Emperor Justinian I to govern all citizens of the Byzantine Empire consistently.' },
+      { id: 'u3l3q3', question: 'What caused up to 5,000 deaths a day in the Byzantine Empire from 541-542 CE?', options: ['War with the Huns', 'The Plague of Justinian, carried by rats from Egypt', 'A famine', 'An earthquake'], correctAnswer: 1, explanation: 'The Plague of Justinian was a devastating pandemic carried by rats on ships from Egypt, causing up to 5,000 deaths per day from 541-542 CE.' },
+      { id: 'u3l3q4', question: 'What was the Golden Age of Byzantium?', options: ['A period of war and conquest', 'A 250-year period of cultural, philosophical, and artistic achievement starting in the 9th century CE', 'The reign of Justinian I', 'The fall of Constantinople'], correctAnswer: 1, explanation: 'The Golden Age of Byzantium was a 250-year period of cultural, philosophical, and artistic achievement brought by Macedonian emperors starting in the 9th century CE.' },
+      { id: 'u3l3q5', question: 'Basil II defeated the Bulgarians at which battle?', options: ['Battle of Hadrianapolis', 'Battle of Manzikert', 'Battle of Kleidion in 1014 CE', 'Battle of Constantinople'], correctAnswer: 2, explanation: 'Basil II defeated the Bulgarians at the Battle of Kleidion in 1014 CE, then annexed Bulgaria into the Byzantine Empire.' },
     ],
     interactiveStrategies: [
       { strategy: 'Timeline Activity', description: 'Identify the most important Byzantine events', duration: 5, instructions: 'Using the timeline, identify the 3 most important events in Byzantine history. Justify your choices to your partner.' },
@@ -534,7 +620,7 @@ When Basil II became emperor in 976 CE, he focused on defeating his enemies. Aft
 
   // Lesson 3: The Republic of Venice
   {
-    lessonId: 'G6_T1_General_l3',
+    lessonId: 'G6_T1_General_l4',
     keyVocabulary: ['influential', 'pirate', 'maritime', 'armed', 'fleet', 'deck', 'navy', 'exclusive', 'oarsman', 'medieval'],
     reading1Title: 'The Republic of Venice',
     reading1Content: `Venice is a small city in Italy made up of over one hundred small islands. Instead of streets and cars, the city uses small rivers and boats to move around. Nowadays, Venice is a popular tourist attraction. But in the High Middle Ages, Venice was a wealthy and influential maritime power.
@@ -574,11 +660,11 @@ The Venetians controlled several important ports, such as Constantinople. It was
       ],
     },
     quizQuestions: [
-      { id: 'u3l3q1', question: 'Why was Venice able to become wealthy and powerful during the Middle Ages?', options: ['It had a large army', 'It established trading relationships with Egypt and Middle Eastern countries, and controlled key maritime routes', 'It conquered the Byzantine Empire', 'It had gold mines'], correctAnswer: 1, explanation: 'Venice grew wealthy and powerful through its maritime trade with Egypt and the Middle East, controlling key sea routes and ports like Constantinople.' },
-      { id: 'u3l3q2', question: 'What was a Venetian galley?', options: ['A type of marketplace', 'A large ship with over 100 oarsmen and armed soldiers on deck, forming the Venetian navy', 'A type of building in Venice', 'A trade agreement'], correctAnswer: 1, explanation: 'Venetian galleys were large war/trade ships powered by over 100 oarsmen, with armed soldiers on deck to fight pirates and enemies.' },
-      { id: 'u3l3q3', question: 'What did Emperor Alexios I Komnenos offer Venice in exchange for fighting the Normans?', options: ['Land in France', 'Free trade throughout the Byzantine Empire without tariffs', 'Control of Constantinople', 'Gold and silver'], correctAnswer: 1, explanation: 'In the 1082 treaty, Alexios offered Venice free trade throughout the Byzantine Empire without tariffs in exchange for their naval help against the Normans.' },
-      { id: 'u3l3q4', question: 'What made Venice Egypt\'s exclusive European trading partner?', options: ['No other European country wanted to trade with Egypt', 'Venice\'s strong relationship and naval power allowed it to dominate the spice trade with Egypt', 'Egypt chose Venice randomly', 'The Pope decreed it'], correctAnswer: 1, explanation: 'Venice\'s combination of strong diplomatic relations and powerful navy allowed it to become Egypt\'s exclusive European trading partner for spices and other goods.' },
-      { id: 'u3l3q5', question: 'Why is the treaty between Venice and Byzantium considered unfair by some?', options: ['Venice paid too much', 'Venice promised to help fight the Normans but did not fully keep their promise, yet still enjoyed the benefits of free trade', 'The treaty was too short', 'Byzantium did not benefit at all'], correctAnswer: 1, explanation: 'Venice agreed to help fight the Normans but did not keep their promise, yet they still received free trade without tariffs — getting the benefits without fulfilling their side of the deal.' },
+      { id: 'u3l4q1', question: 'Why was Venice able to become wealthy and powerful during the Middle Ages?', options: ['It had a large army', 'It established trading relationships with Egypt and Middle Eastern countries, and controlled key maritime routes', 'It conquered the Byzantine Empire', 'It had gold mines'], correctAnswer: 1, explanation: 'Venice grew wealthy and powerful through its maritime trade with Egypt and the Middle East, controlling key sea routes and ports like Constantinople.' },
+      { id: 'u3l4q2', question: 'What was a Venetian galley?', options: ['A type of marketplace', 'A large ship with over 100 oarsmen and armed soldiers on deck, forming the Venetian navy', 'A type of building in Venice', 'A trade agreement'], correctAnswer: 1, explanation: 'Venetian galleys were large war/trade ships powered by over 100 oarsmen, with armed soldiers on deck to fight pirates and enemies.' },
+      { id: 'u3l4q3', question: 'What did Emperor Alexios I Komnenos offer Venice in exchange for fighting the Normans?', options: ['Land in France', 'Free trade throughout the Byzantine Empire without tariffs', 'Control of Constantinople', 'Gold and silver'], correctAnswer: 1, explanation: 'In the 1082 treaty, Alexios offered Venice free trade throughout the Byzantine Empire without tariffs in exchange for their naval help against the Normans.' },
+      { id: 'u3l4q4', question: 'What made Venice Egypt\'s exclusive European trading partner?', options: ['No other European country wanted to trade with Egypt', 'Venice\'s strong relationship and naval power allowed it to dominate the spice trade with Egypt', 'Egypt chose Venice randomly', 'The Pope decreed it'], correctAnswer: 1, explanation: 'Venice\'s combination of strong diplomatic relations and powerful navy allowed it to become Egypt\'s exclusive European trading partner for spices and other goods.' },
+      { id: 'u3l4q5', question: 'Why is the treaty between Venice and Byzantium considered unfair by some?', options: ['Venice paid too much', 'Venice promised to help fight the Normans but did not fully keep their promise, yet still enjoyed the benefits of free trade', 'The treaty was too short', 'Byzantium did not benefit at all'], correctAnswer: 1, explanation: 'Venice agreed to help fight the Normans but did not keep their promise, yet they still received free trade without tariffs — getting the benefits without fulfilling their side of the deal.' },
     ],
     interactiveStrategies: [
       { strategy: 'Simulations', description: 'Simulate the treaty of 1082 between Venice and Byzantium', duration: 8, instructions: 'Simulate the treaty of 1082: One group is Venice, another is Byzantium. Negotiate a deal. Was it fair? What would you change?' },
@@ -589,7 +675,7 @@ The Venetians controlled several important ports, such as Constantinople. It was
 
   // Lesson 4: The Late Middle Ages: The First Hundred Years' War
   {
-    lessonId: 'G6_T1_General_l4',
+    lessonId: 'G6_T1_General_l5',
     keyVocabulary: ['reputation', 'to take place', 'account', 'to convince', 'to expand', 'strategy', 'victorious', 'treaty'],
     reading1Title: 'The First Hundred Years\' War',
     reading1Content: `The 12th century CE was another period of instability and conflict in Europe, particularly between England and France. This period occurred from 1159 CE to 1259 CE and was known as the First Hundred Years' War.
@@ -640,11 +726,11 @@ The First Hundred Years' War lasted until 1259, exactly one hundred years after 
       ],
     },
     quizQuestions: [
-      { id: 'u3l4q1', question: 'When did the First Hundred Years\' War begin and end?', options: ['1066-1166 CE', '1159-1259 CE', '1337-1453 CE', '1200-1300 CE'], correctAnswer: 1, explanation: 'The First Hundred Years\' War lasted from 1159 CE to 1259 CE — exactly one hundred years — between England and France.' },
-      { id: 'u3l4q2', question: 'Which French king convinced Richard the Lionheart\'s brother to rebel against him?', options: ['King Louis VII', 'King Philip Augustus', 'King Louis IX', 'King Henry II'], correctAnswer: 1, explanation: 'King Philip Augustus of France persuaded Richard\'s brother John to rebel, a successful strategy that helped France regain lost territories.' },
-      { id: 'u3l4q3', question: 'What was the Magna Carta?', options: ['A peace treaty with France', 'A document signed in 1215 CE that protected the rights of wealthy landowners and limited the king\'s power', 'A map of England', 'A religious text'], correctAnswer: 1, explanation: 'The Magna Carta, signed in 1215 CE, protected the rights of wealthy landowners (barons) and was the first document to limit a king\'s power in England.' },
-      { id: 'u3l4q4', question: 'What was the name of the English royal family during the First Hundred Years\' War?', options: ['The Capets', 'The Plantagenets', 'The Tudors', 'The Normans'], correctAnswer: 1, explanation: 'The Plantagenet family ruled England during this period, including kings Henry II, Richard I, and John.' },
-      { id: 'u3l4q5', question: 'How did the First Hundred Years\' War end?', options: ['England conquered France', 'The Treaty of Paris was signed in 1259 CE, with Henry III giving up English lands in France', 'The war never officially ended', 'France surrendered to England'], correctAnswer: 1, explanation: 'The war ended with the Treaty of Paris on December 4, 1259, when Henry III agreed to give up many of England\'s lands in France.' },
+      { id: 'u3l5q1', question: 'When did the First Hundred Years\' War begin and end?', options: ['1066-1166 CE', '1159-1259 CE', '1337-1453 CE', '1200-1300 CE'], correctAnswer: 1, explanation: 'The First Hundred Years\' War lasted from 1159 CE to 1259 CE — exactly one hundred years — between England and France.' },
+      { id: 'u3l5q2', question: 'Which French king convinced Richard the Lionheart\'s brother to rebel against him?', options: ['King Louis VII', 'King Philip Augustus', 'King Louis IX', 'King Henry II'], correctAnswer: 1, explanation: 'King Philip Augustus of France persuaded Richard\'s brother John to rebel, a successful strategy that helped France regain lost territories.' },
+      { id: 'u3l5q3', question: 'What was the Magna Carta?', options: ['A peace treaty with France', 'A document signed in 1215 CE that protected the rights of wealthy landowners and limited the king\'s power', 'A map of England', 'A religious text'], correctAnswer: 1, explanation: 'The Magna Carta, signed in 1215 CE, protected the rights of wealthy landowners (barons) and was the first document to limit a king\'s power in England.' },
+      { id: 'u3l5q4', question: 'What was the name of the English royal family during the First Hundred Years\' War?', options: ['The Capets', 'The Plantagenets', 'The Tudors', 'The Normans'], correctAnswer: 1, explanation: 'The Plantagenet family ruled England during this period, including kings Henry II, Richard I, and John.' },
+      { id: 'u3l5q5', question: 'How did the First Hundred Years\' War end?', options: ['England conquered France', 'The Treaty of Paris was signed in 1259 CE, with Henry III giving up English lands in France', 'The war never officially ended', 'France surrendered to England'], correctAnswer: 1, explanation: 'The war ended with the Treaty of Paris on December 4, 1259, when Henry III agreed to give up many of England\'s lands in France.' },
     ],
     interactiveStrategies: [
       { strategy: 'Role Playing', description: 'Role-play the conflict between King Philip and King John', duration: 8, instructions: 'In groups, role-play the conflict between King Philip and King John. One side argues for France, the other for England. What were each side\'s claims?' },
@@ -655,7 +741,7 @@ The First Hundred Years' War lasted until 1259, exactly one hundred years after 
 
   // Lesson 5: Crises of the Late Middle Ages
   {
-    lessonId: 'G6_T1_General_l5',
+    lessonId: 'G6_T1_General_l6',
     keyVocabulary: ['consequence', 'famine', 'climate', 'flood', 'wheat', 'to starve', 'to estimate', 'to appreciate', 'hygiene'],
     reading1Title: 'The Great Famine and the Black Death',
     reading1Content: `Wars and battles for territory were not the only problem that Europeans faced during the Late Middle Ages. Several other natural disasters also occurred during this time that had terrible consequences all over Europe.
@@ -704,11 +790,11 @@ Despite the horrifying nature of the plague, some good came from it. Living stan
       ],
     },
     quizQuestions: [
-      { id: 'u3l5q1', question: 'What was the Little Ice Age?', options: ['A period when all of Europe was covered in ice', 'A period of cooling temperatures that shortened growing seasons and contributed to crop failures', 'A single very cold winter', 'An ice age that lasted thousands of years'], correctAnswer: 1, explanation: 'The Little Ice Age was a period of cooling temperatures starting in the late 1200s that shortened growing seasons and contributed to the Great Famine.' },
-      { id: 'u3l5q2', question: 'How did the Black Death spread through Europe?', options: ['Through contaminated water', 'By bacteria on fleas carried by rodents, spreading quickly in crowded cities with poor hygiene', 'Through the air only', 'By direct human contact only'], correctAnswer: 1, explanation: 'The Black Death was caused by bacteria carried on fleas that lived on rodents. In crowded European cities with poor hygiene, it spread rapidly.' },
-      { id: 'u3l5q3', question: 'Approximately how many people did the Black Death kill?', options: ['1 million', '50 million', 'Up to 200 million (a third to half of all Europeans)', '500,000'], correctAnswer: 2, explanation: 'Scientists estimate the Black Death killed up to 200 million people — roughly a third to half of Europe\'s entire population — in just four years (1347-1351).' },
-      { id: 'u3l5q4', question: 'What percentage of Europe\'s population did the Great Famine kill?', options: ['5%', '10%', 'Up to 25%', '50%'], correctAnswer: 2, explanation: 'Historians estimate that the Great Famine of 1315-1317 CE killed up to 25% of the population of Europe.' },
-      { id: 'u3l5q5', question: 'What was one unexpected positive outcome of the Black Death?', options: ['More land for churches', 'Living standards improved as wages increased and food prices fell', 'The plague stopped all wars', 'Everyone became healthier'], correctAnswer: 1, explanation: 'After the Black Death, the reduced population meant labour was scarce, so wages rose while food and goods became cheaper — overall living standards improved for survivors.' },
+      { id: 'u3l6q1', question: 'What was the Little Ice Age?', options: ['A period when all of Europe was covered in ice', 'A period of cooling temperatures that shortened growing seasons and contributed to crop failures', 'A single very cold winter', 'An ice age that lasted thousands of years'], correctAnswer: 1, explanation: 'The Little Ice Age was a period of cooling temperatures starting in the late 1200s that shortened growing seasons and contributed to the Great Famine.' },
+      { id: 'u3l6q2', question: 'How did the Black Death spread through Europe?', options: ['Through contaminated water', 'By bacteria on fleas carried by rodents, spreading quickly in crowded cities with poor hygiene', 'Through the air only', 'By direct human contact only'], correctAnswer: 1, explanation: 'The Black Death was caused by bacteria carried on fleas that lived on rodents. In crowded European cities with poor hygiene, it spread rapidly.' },
+      { id: 'u3l6q3', question: 'Approximately how many people did the Black Death kill?', options: ['1 million', '50 million', 'Up to 200 million (a third to half of all Europeans)', '500,000'], correctAnswer: 2, explanation: 'Scientists estimate the Black Death killed up to 200 million people — roughly a third to half of Europe\'s entire population — in just four years (1347-1351).' },
+      { id: 'u3l6q4', question: 'What percentage of Europe\'s population did the Great Famine kill?', options: ['5%', '10%', 'Up to 25%', '50%'], correctAnswer: 2, explanation: 'Historians estimate that the Great Famine of 1315-1317 CE killed up to 25% of the population of Europe.' },
+      { id: 'u3l6q5', question: 'What was one unexpected positive outcome of the Black Death?', options: ['More land for churches', 'Living standards improved as wages increased and food prices fell', 'The plague stopped all wars', 'Everyone became healthier'], correctAnswer: 1, explanation: 'After the Black Death, the reduced population meant labour was scarce, so wages rose while food and goods became cheaper — overall living standards improved for survivors.' },
     ],
     interactiveStrategies: [
       { strategy: 'Problem-Based Learning', description: 'Create a survival plan during the Black Death', duration: 8, instructions: 'Imagine you are a village leader during the Black Death. What measures would you take to protect your people? Work in groups to create a survival plan using only the knowledge available in the 14th century.' },
