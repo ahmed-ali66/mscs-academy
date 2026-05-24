@@ -20,10 +20,41 @@ import {
   getGradeInfo, getUnitData, getLesson, getLessonId, getCleanTitle, getUnitContextFromTitle,
   generateQuizQuestions, parseActivities, generateUAELinks, generateWarmUp,
   saveQuizResult, getAllQuizResults, getResultsByGrade, exportResultsAsCSV,
-  getPlatformStats,
+  getPlatformStats, verifyMasterPassword,
   type QuizQuestion, type ActivityItem, type UAELink, type WarmUpActivity,
   type QuizResult, type GradeInfo, type TermInfo, type UnitInfo, type LessonData,
 } from '@/lib/lessons';
+import { getLessonContentByPath, type LessonContent } from '@/lib/g6t1-content';
+import { getG6T2LessonContent } from '@/lib/g6t2-content';
+import { getG6T3LessonContent } from '@/lib/g6t3-content';
+
+// ═══════════════════════════════════════════════════════════════
+// CONTENT LOOKUP — Find rich textbook content for a lesson
+// ═══════════════════════════════════════════════════════════════
+
+function getRichLessonContent(gradeKey: string, termKey: string, unitKey: string, lessonIndex: number): LessonContent | null {
+  // Try the unified path-based lookup first (covers G6T1 and G6T2 via g6t1-content.ts)
+  const byPath = getLessonContentByPath(gradeKey, termKey, unitKey, lessonIndex);
+  if (byPath) return byPath;
+  // Try G6T2 lookup
+  const g6t2 = getG6T2LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g6t2) return g6t2;
+  // Try G6T3 lookup
+  const g6t3 = getG6T3LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g6t3) return g6t3;
+  return null;
+}
+
+// Helper to split long reading text into halves
+function splitReading(content: string): [string, string] {
+  if (content.length <= 1500) return [content, ''];
+  const mid = Math.floor(content.length / 2);
+  // Find nearest paragraph break after midpoint
+  let splitAt = content.indexOf('\n\n', mid);
+  if (splitAt === -1 || splitAt > mid + 300) splitAt = content.indexOf('. ', mid);
+  if (splitAt === -1 || splitAt > mid + 300) splitAt = mid;
+  return [content.substring(0, splitAt).trim(), content.substring(splitAt).trim()];
+}
 
 // ═══════════════════════════════════════════════════════════════
 // SOUND EFFECTS
@@ -331,14 +362,15 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
     return (
       <div className="text-center space-y-4 py-6">
         {showConfetti && <ConfettiCelebration />}
-        <div className={`inline-flex items-center justify-center w-28 h-28 rounded-full border-4 ${
-          percentage >= 75 ? 'border-emerald-400 bg-emerald-50' : percentage >= 50 ? 'border-amber-400 bg-amber-50' : 'border-rose-400 bg-rose-50'
-        }`}>
+        <div className="inline-flex items-center justify-center w-28 h-28 rounded-full border-4" style={{
+          borderColor: percentage >= 75 ? '#34d399' : percentage >= 50 ? '#fbbf24' : '#fb7185',
+          backgroundColor: percentage >= 75 ? '#ecfdf5' : percentage >= 50 ? '#fffbeb' : '#fff1f2',
+        }}>
           <div>
-            <div className={`text-3xl font-bold ${percentage >= 75 ? 'text-emerald-600' : percentage >= 50 ? 'text-amber-600' : 'text-rose-600'}`}>
+            <div className="text-3xl font-bold" style={{ color: percentage >= 75 ? '#059669' : percentage >= 50 ? '#d97706' : '#e11d48' }}>
               {score}/{questions.length}
             </div>
-            <div className={`text-sm font-medium ${percentage >= 75 ? 'text-emerald-500' : percentage >= 50 ? 'text-amber-500' : 'text-rose-500'}`}>
+            <div className="text-sm font-medium" style={{ color: percentage >= 75 ? '#10b981' : percentage >= 50 ? '#f59e0b' : '#f43f5e' }}>
               {percentage}%
             </div>
           </div>
@@ -352,9 +384,10 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
         {markSaved && <Badge className="bg-emerald-100 text-emerald-700 border-emerald-300"><CheckCircle2 className="w-3 h-3 mr-1" /> Mark Saved</Badge>}
         <div className="space-y-2">
           {questions.map((q) => (
-            <div key={q.id} className={`flex items-center gap-2 text-sm px-4 py-2 rounded-lg ${
-              answers[q.id] === q.correctAnswer ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'
-            }`}>
+            <div key={q.id} className="flex items-center gap-2 text-sm px-4 py-2 rounded-lg" style={{
+              backgroundColor: answers[q.id] === q.correctAnswer ? '#ecfdf5' : '#fff1f2',
+              color: answers[q.id] === q.correctAnswer ? '#047857' : '#be123c',
+            }}>
               {answers[q.id] === q.correctAnswer ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
               <span className="text-left">{q.question}</span>
             </div>
@@ -372,7 +405,7 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
         <span className="text-xs font-medium text-gray-500">Question {currentQ + 1} of {questions.length}</span>
         <div className="flex gap-1">
           {questions.map((_, i) => (
-            <div key={i} className={`w-2 h-2 rounded-full ${i < currentQ ? 'bg-[#D4AF37]' : i === currentQ ? 'bg-[#722F37]' : 'bg-gray-200'}`} />
+            <div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: i < currentQ ? '#D4AF37' : i === currentQ ? '#722F37' : '#e5e7eb' }} />
           ))}
         </div>
       </div>
@@ -382,15 +415,18 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
           {question.options?.map((option, idx) => {
             const isSelected = answers[question.id] === idx;
             const isCorrectOption = question.correctAnswer === idx;
-            let optionClass = 'border-gray-200 bg-white hover:border-[#D4AF37] hover:bg-amber-50 cursor-pointer';
+            let optionStyle: React.CSSProperties = { borderColor: '#e5e7eb', backgroundColor: '#ffffff', cursor: 'pointer' };
+            let optionHoverClass = 'hover:border-[#D4AF37] hover:bg-amber-50';
             if (isAnswered) {
-              if (isCorrectOption) optionClass = 'border-emerald-400 bg-emerald-50 ring-2 ring-emerald-200';
-              else if (isSelected && !isCorrectOption) optionClass = 'border-rose-400 bg-rose-50 ring-2 ring-rose-200';
-              else optionClass = 'border-gray-200 bg-gray-50 opacity-50';
+              optionHoverClass = '';
+              if (isCorrectOption) optionStyle = { borderColor: '#34d399', backgroundColor: '#ecfdf5', boxShadow: '0 0 0 2px #a7f3d0' };
+              else if (isSelected && !isCorrectOption) optionStyle = { borderColor: '#fb7185', backgroundColor: '#fff1f2', boxShadow: '0 0 0 2px #fecdd3' };
+              else optionStyle = { borderColor: '#e5e7eb', backgroundColor: '#f9fafb', opacity: 0.5 };
             }
             return (
               <button key={idx} onClick={() => handleAnswer(idx)} disabled={isAnswered}
-                className={`w-full text-left px-4 py-2.5 rounded-lg border-2 text-sm transition-all ${optionClass}`}>
+                className={`w-full text-left px-4 py-2.5 rounded-lg border-2 text-sm transition-all ${optionHoverClass}`}
+                style={optionStyle}>
                 <span className="font-medium mr-2 text-gray-500">{String.fromCharCode(65 + idx)})</span>
                 {option}
                 {isAnswered && isCorrectOption && <CheckCircle2 className="inline w-4 h-4 ml-2 text-emerald-600" />}
@@ -401,7 +437,11 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
         </div>
       </div>
       {showExplanation && question.explanation && (
-        <div className={`p-3 rounded-lg border text-xs ${isCorrect ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
+        <div className="p-3 rounded-lg border text-xs" style={{
+          backgroundColor: isCorrect ? '#ecfdf5' : '#fffbeb',
+          borderColor: isCorrect ? '#a7f3d0' : '#fde68a',
+          color: isCorrect ? '#065f46' : '#92400e',
+        }}>
           <div className="flex items-start gap-2">
             {isCorrect ? <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" /> : <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />}
             <div><span className="font-bold">{isCorrect ? 'Correct!' : 'Not quite!'}</span><p className="mt-0.5">{question.explanation}</p></div>
@@ -439,9 +479,10 @@ function ActivityTimer({ duration }: { duration: number }) {
 
   return (
     <div className="flex items-center gap-3">
-      <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-bold ${
-        isComplete ? 'bg-emerald-100 text-emerald-700' : timeLeft < 60 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'
-      }`}>
+      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-bold" style={{
+        backgroundColor: isComplete ? '#d1fae5' : timeLeft < 60 ? '#ffe4e6' : '#fef3c7',
+        color: isComplete ? '#047857' : timeLeft < 60 ? '#be123c' : '#b45309',
+      }}>
         <Timer className="w-3 h-3" />{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
       </div>
       <Progress value={progress} className="flex-1 h-2" />
@@ -465,6 +506,84 @@ function GradeIcon({ type, className = 'w-8 h-8' }: { type: 'heart' | 'globe' | 
     case 'landmark': return <Landmark className={className} />;
     case 'crown': return <Crown className={className} />;
   }
+}
+
+// Reading continuation component — shows "Continue Reading" button for long texts
+function ReadingContinuation({ content }: { content: string }) {
+  const [expanded, setExpanded] = useState(false);
+  if (expanded) {
+    return <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm mt-3">{content}</div>;
+  }
+  return (
+    <div className="mt-3 text-center">
+      <Button variant="outline" size="sm" onClick={() => setExpanded(true)} className="border-amber-300 text-amber-700 hover:bg-amber-50">
+        <BookOpen className="w-3 h-3 mr-1" /> Continue Reading
+      </Button>
+    </div>
+  );
+}
+
+// Visual renderer for rich content visuals
+function VisualRenderer({ type, data }: { type: string; data: Record<string, unknown> }) {
+  if (type === 'venn') {
+    const vd = data as { leftTitle?: string; rightTitle?: string; centerTitle?: string; leftItems?: string[]; rightItems?: string[]; centerItems?: string[] };
+    return (
+      <ComparisonChart
+        leftTitle={vd.leftTitle || 'Left'} rightTitle={vd.rightTitle || 'Right'} centerTitle={vd.centerTitle || 'Both'}
+        leftItems={vd.leftItems || []} rightItems={vd.rightItems || []} centerItems={vd.centerItems || []}
+      />
+    );
+  }
+  if (type === 'diagram' || type === 'chart' || type === 'mindmap' || type === 'piechart') {
+    const vd = data as { title?: string; items?: unknown[] };
+    return (
+      <Card className="border-2 border-amber-200 bg-amber-50/20">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
+            <BarChart3 className="w-4 h-4" /> {vd.title || 'Visual'}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap gap-2">
+            {(vd.items || []).map((item, i) => {
+              const label = typeof item === 'string' ? item : (item as Record<string, unknown>)?.label || `Item ${i + 1}`;
+              const desc = typeof item === 'string' ? '' : (item as Record<string, unknown>)?.description || '';
+              return (
+                <div key={i} className="bg-white border border-amber-200 rounded-lg px-3 py-2 text-xs">
+                  <span className="font-bold text-gray-800">{label}</span>
+                  {desc && <p className="text-gray-500 mt-0.5">{String(desc)}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+  if (type === 'timeline') {
+    const vd = data as { title?: string; events?: Array<{ year?: string; event?: string }> };
+    return (
+      <Card className="border-2 border-amber-200 bg-amber-50/20">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
+            <Calendar className="w-4 h-4" /> {vd.title || 'Timeline'}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            {(vd.events || []).map((evt, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-16 text-right font-bold text-amber-700 text-xs shrink-0">{evt.year}</div>
+                <div className="w-3 h-3 rounded-full bg-[#722F37] shrink-0" />
+                <div className="text-xs text-gray-700">{evt.event}</div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+  return null;
 }
 
 // Venn Diagram (generic)
@@ -595,6 +714,8 @@ export default function Home() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [loginCode, setLoginCode] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
+  const [showAdminPassword, setShowAdminPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [studentName, setStudentName] = useState('');
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
@@ -616,12 +737,12 @@ export default function Home() {
   const navigateTo = (newView: ViewType) => { setView(newView); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const navigateSlide = (direction: 'left' | 'right') => { setSlideDirection(direction); setIsAnimating(true); setTimeout(() => setIsAnimating(false), 400); };
 
-  // Color map for grades
-  const gradeColorMap: Record<number, { gradient: string; accent: string }> = {
-    6: { gradient: 'from-amber-600 to-amber-800', accent: '#D97706' },
-    7: { gradient: 'from-emerald-600 to-emerald-800', accent: '#047857' },
-    8: { gradient: 'from-rose-700 to-[#722F37]', accent: '#722F37' },
-    9: { gradient: 'from-teal-600 to-teal-800', accent: '#0D9488' },
+  // Color map for grades — uses inline CSS gradient strings (NOT Tailwind classes) to avoid production purging
+  const gradeColorMap: Record<number, { gradientBg: string; accent: string }> = {
+    6: { gradientBg: 'linear-gradient(to right, #d97706, #92400e)', accent: '#D97706' },
+    7: { gradientBg: 'linear-gradient(to right, #047857, #065f46)', accent: '#047857' },
+    8: { gradientBg: 'linear-gradient(to right, #be123c, #722F37)', accent: '#722F37' },
+    9: { gradientBg: 'linear-gradient(to right, #0d9488, #115e59)', accent: '#0D9488' },
   };
 
   // ════════════════════════════════════════════════════════════
@@ -727,16 +848,16 @@ export default function Home() {
           <DecorativeBorder color="#D4AF37" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {[
-              { icon: <Brain className="w-8 h-8" />, title: t('feature1'), desc: t('feature1d'), color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200' },
-              { icon: <Target className="w-8 h-8" />, title: t('feature2'), desc: t('feature2d'), color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-              { icon: <MapPin className="w-8 h-8" />, title: t('feature3'), desc: t('feature3d'), color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200' },
-              { icon: <Timer className="w-8 h-8" />, title: t('feature4'), desc: t('feature4d'), color: 'text-teal-600', bg: 'bg-teal-50', border: 'border-teal-200' },
-              { icon: <Award className="w-8 h-8" />, title: t('feature5'), desc: t('feature5d'), color: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-200' },
-              { icon: <Users className="w-8 h-8" />, title: t('feature6'), desc: t('feature6d'), color: 'text-purple-600', bg: 'bg-purple-50', border: 'border-purple-200' },
+              { icon: <Brain className="w-8 h-8" />, title: t('feature1'), desc: t('feature1d'), color: '#d97706', bg: '#fffbeb', border: '#fde68a' },
+              { icon: <Target className="w-8 h-8" />, title: t('feature2'), desc: t('feature2d'), color: '#059669', bg: '#ecfdf5', border: '#a7f3d0' },
+              { icon: <MapPin className="w-8 h-8" />, title: t('feature3'), desc: t('feature3d'), color: '#e11d48', bg: '#fff1f2', border: '#fecdd3' },
+              { icon: <Timer className="w-8 h-8" />, title: t('feature4'), desc: t('feature4d'), color: '#0d9488', bg: '#f0fdfa', border: '#99f6e4' },
+              { icon: <Award className="w-8 h-8" />, title: t('feature5'), desc: t('feature5d'), color: '#ea580c', bg: '#fff7ed', border: '#fed7aa' },
+              { icon: <Users className="w-8 h-8" />, title: t('feature6'), desc: t('feature6d'), color: '#9333ea', bg: '#faf5ff', border: '#e9d5ff' },
             ].map((feature, i) => (
-              <Card key={i} className={`${feature.border} ${feature.bg} border-2 hover:shadow-lg transition-shadow`}>
+              <Card key={i} className="border-2 hover:shadow-lg transition-shadow" style={{ borderColor: feature.border, backgroundColor: feature.bg }}>
                 <CardContent className="p-6 text-center">
-                  <div className={`${feature.color} flex justify-center mb-3`}>{feature.icon}</div>
+                  <div className="flex justify-center mb-3" style={{ color: feature.color }}>{feature.icon}</div>
                   <h3 className="font-bold text-gray-800 mb-2">{feature.title}</h3>
                   <p className="text-sm text-gray-600">{feature.desc}</p>
                 </CardContent>
@@ -798,7 +919,7 @@ export default function Home() {
 
     return (
       <div className="min-h-screen bg-[#FFF9F0] flex flex-col">
-        <div className={`relative bg-gradient-to-r ${colors.gradient} py-12 px-4`}>
+        <div className="relative py-12 px-4" style={{ background: colors.gradientBg }}>
           <ArabicPattern opacity={0.08} color="#D4AF37" />
           <div className="relative z-10 max-w-4xl mx-auto">
             <Button variant="ghost" onClick={() => navigateTo('landing')} className="text-white/80 hover:text-white hover:bg-white/10 mb-4">
@@ -882,7 +1003,7 @@ export default function Home() {
 
     return (
       <div className="min-h-screen bg-[#FFF9F0] flex flex-col">
-        <div className={`relative bg-gradient-to-r ${gradeColorMap[selectedGrade.number].gradient} py-8 px-4`}>
+        <div className="relative py-8 px-4" style={{ background: gradeColorMap[selectedGrade.number].gradientBg }}>
           <ArabicPattern opacity={0.06} color="#D4AF37" />
           <div className="relative z-10 max-w-4xl mx-auto">
             <Button variant="ghost" onClick={() => navigateTo('gradeSelect')} className="text-white/80 hover:text-white hover:bg-white/10 mb-3">
@@ -963,7 +1084,6 @@ export default function Home() {
     if (!selectedGrade || !selectedTerm || !selectedUnit || !selectedLesson) return null;
 
     const lesson = selectedLesson;
-    const totalSlides = 8;
     const cleanTitle = getCleanTitle(lesson.title);
     const unitContext = getUnitContextFromTitle(lesson.title);
     const lessonId = getLessonId(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
@@ -972,12 +1092,23 @@ export default function Home() {
     const uaeLinks = generateUAELinks(lesson);
     const warmUp = generateWarmUp(lesson);
 
+    // Rich content lookup
+    const richContent = getRichLessonContent(selectedGrade.key, selectedTerm.key, selectedUnit.key, selectedLessonIndex);
+
     // Standards from SLO codes
     const standards = lesson.slo_codes.split(',').map(s => s.trim()).filter(s => s.length > 0);
-    // Objectives from lesson objective
-    const objectives = lesson.objective.replace(/^SWBAT\s*/i, '').split(/[;.]/).map(s => s.trim()).filter(s => s.length > 10).slice(0, 4);
-    // Success criteria
-    const successCriteria = lesson.success_criteria.replace(/^Student can:\s*/i, '').split(/[;(]/).map(s => s.trim().replace(/^\(\d+\)\s*/, '')).filter(s => s.length > 5).slice(0, 5);
+    // Objectives from lesson objective — split on semicolons only, not periods (periods break sentences mid-way)
+    const objectives = lesson.objective.replace(/^SWBAT\s*/i, '').split(/[;]/).map(s => s.trim()).filter(s => s.length > 5).slice(0, 4);
+    // Success criteria — split on numbered items pattern like (1), (2), etc., then fallback to semicolons
+    const successCriteria = (() => {
+      const cleaned = lesson.success_criteria.replace(/^Student can:\s*/i, '');
+      const numberedMatch = cleaned.match(/\(\d+\)/);
+      if (numberedMatch) {
+        // Split on numbered items like (1), (2), etc.
+        return cleaned.split(/\(\d+\)/).map(s => s.trim()).filter(s => s.length > 5);
+      }
+      return cleaned.split(/[;]/).map(s => s.trim()).filter(s => s.length > 5).slice(0, 5);
+    })();
 
     // Map markers based on lesson topic
     const mapMarkers = generateMapMarkers(lesson);
@@ -1016,162 +1147,377 @@ export default function Home() {
     };
     const heroImage = getLessonHeroImage();
 
-    const slides = [
-      // SLIDE 1: Title & Introduction
-      {
-        id: 1, type: 'title' as const, title: cleanTitle,
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-br from-[#722F37] to-[#5A1A23] rounded-xl p-6 text-white relative overflow-hidden">
-              <ArabicPattern opacity={0.06} color="#D4AF37" />
-              {heroImage && (
-                <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-              )}
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-4">
-                  <Landmark className="w-8 h-8 text-[#D4AF37]" />
-                  <h2 className="text-2xl sm:text-3xl font-bold">{cleanTitle}</h2>
-                </div>
-                {unitContext && <p className="text-amber-100 text-sm">{unitContext}</p>}
-                <DecorativeBorder color="#D4AF37" />
-                <AhmedAliLink size="md" className="text-amber-300" />
+    // Build dynamic slides array — rich content when available, generic otherwise
+    const slides: Array<{ id: number; type: string; title: string; content: React.ReactNode }> = [];
+
+    // SLIDE 1: Title & Introduction (always present, enhanced with rich content)
+    slides.push({
+      id: 1, type: 'title', title: cleanTitle,
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-br from-[#722F37] to-[#5A1A23] rounded-xl p-6 text-white relative overflow-hidden">
+            <ArabicPattern opacity={0.06} color="#D4AF37" />
+            {heroImage && (
+              <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+            )}
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-4">
+                <Landmark className="w-8 h-8 text-[#D4AF37]" />
+                <h2 className="text-2xl sm:text-3xl font-bold">{cleanTitle}</h2>
               </div>
+              {unitContext && <p className="text-amber-100 text-sm">{unitContext}</p>}
+              {richContent && richContent.keyVocabulary.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {richContent.keyVocabulary.map(v => (
+                    <Badge key={v} className="bg-white/15 text-amber-200 border-amber-400/30 text-[10px]">{v}</Badge>
+                  ))}
+                </div>
+              )}
+              <DecorativeBorder color="#D4AF37" />
+              <AhmedAliLink size="md" className="text-amber-300" />
             </div>
+          </div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
-              <Card className="border-2 border-amber-200 bg-amber-50/50">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
-                    <FileText className="w-4 h-4" /> Standards
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-1.5">
-                    {standards.map(s => (
-                      <Badge key={s} variant="outline" className="text-[10px] border-amber-300 text-amber-700">{s}</Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-emerald-200 bg-emerald-50/50">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-bold text-emerald-800 flex items-center gap-2">
-                    <Target className="w-4 h-4" /> Objectives
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ol className="space-y-1.5 text-xs text-emerald-700">
-                    {objectives.map((obj, i) => (
-                      <li key={i}>{i + 1}. {obj.length > 80 ? obj.substring(0, 77) + '...' : obj}</li>
-                    ))}
-                  </ol>
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card className="border-2 border-rose-200 bg-rose-50/50">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Card className="border-2 border-amber-200 bg-amber-50/50">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-bold text-rose-800 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4" /> Success Criteria
+                <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
+                  <FileText className="w-4 h-4" /> Standards
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid sm:grid-cols-2 gap-2">
-                  {successCriteria.map((c, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-rose-700">
-                      <CheckCircle2 className="w-3 h-3 mt-0.5 shrink-0" />
-                      <span>{c.length > 80 ? c.substring(0, 77) + '...' : c}</span>
-                    </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {standards.map(s => (
+                    <Badge key={s} variant="outline" className="text-[10px] border-amber-300 text-amber-700">{s}</Badge>
                   ))}
                 </div>
               </CardContent>
             </Card>
 
+            <Card className="border-2 border-emerald-200 bg-emerald-50/50">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-bold text-emerald-800 flex items-center gap-2">
+                  <Target className="w-4 h-4" /> Objectives
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ol className="space-y-1.5 text-xs text-emerald-700">
+                  {objectives.map((obj, i) => (
+                    <li key={i}>{i + 1}. {obj}</li>
+                  ))}
+                </ol>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="border-2 border-rose-200 bg-rose-50/50">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-bold text-rose-800 flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4" /> Success Criteria
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid sm:grid-cols-2 gap-2">
+                {successCriteria.map((c, i) => (
+                  <div key={i} className="flex items-start gap-2 text-xs text-rose-700">
+                    <CheckCircle2 className="w-3 h-3 mt-0.5 shrink-0" />
+                    <span>{c}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // SLIDE 2: Prior Learning / KWL (always present)
+    slides.push({
+      id: 2, type: 'prior-learning', title: 'Prior Learning',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-xl p-5 text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Brain className="w-6 h-6 text-amber-300" />
+              <h3 className="text-xl font-bold">What Do You Already Know?</h3>
+            </div>
+            <p className="text-emerald-100 text-sm">Before we begin, let&apos;s activate our prior knowledge</p>
+            {richContent?.kwlExplanation && (
+              <div className="mt-3 bg-white/10 rounded-lg p-3 text-sm text-emerald-50">
+                <Lightbulb className="w-4 h-4 inline mr-1 text-amber-300" />
+                {richContent.kwlExplanation}
+              </div>
+            )}
+          </div>
+
+          <Card className="border-2 border-amber-200">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-bold text-gray-800">Prior Learning</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-gray-700 leading-relaxed">{lesson.prior_learning}</p>
+            </CardContent>
+          </Card>
+
+          <div>
+            <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+              <Lightbulb className="w-4 h-4 text-[#D4AF37]" /> KWL Chart
+            </h4>
+            <KWLChart />
+          </div>
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // SLIDE 3: Warm-Up / Hook (always present)
+    slides.push({
+      id: 3, type: 'warmup', title: 'Warm-Up Activity',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-br from-[#722F37] via-[#5A1A23] to-[#3D0F15] rounded-xl p-8 text-center relative overflow-hidden">
+            <ArabicPattern opacity={0.08} color="#D4AF37" />
+            <div className="relative z-10">
+              <div className="flex justify-center mb-4">
+                <div className="w-14 h-14 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
+                  <Sparkles className="w-7 h-7 text-[#D4AF37]" />
+                </div>
+              </div>
+              <blockquote className="text-lg sm:text-xl font-semibold text-[#D4AF37] italic leading-relaxed">
+                &ldquo;{warmUp.content}&rdquo;
+              </blockquote>
+              {warmUp.subtitle && (
+                <div className="mt-4 text-amber-200/80 text-sm">{warmUp.subtitle}</div>
+              )}
+              <DecorativeBorder color="#D4AF37" />
+            </div>
+          </div>
+
+          <Card className="border-2 border-[#D4AF37] bg-amber-50/30">
+            <CardContent className="p-6 text-center">
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <Users className="w-5 h-5 text-[#D4AF37]" />
+                <h3 className="text-lg font-bold text-gray-800">Discussion</h3>
+              </div>
+              <p className="text-gray-700 text-sm max-w-lg mx-auto">
+                {warmUp.discussionPrompt || 'Take 2 minutes to think and share your thoughts with a partner.'}
+              </p>
+            </CardContent>
+          </Card>
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // SLIDES 4-5: Reading 1 & Reading 2 (rich content only)
+    if (richContent) {
+      const [r1First, r1Second] = splitReading(richContent.reading1Content);
+      slides.push({
+        id: 4, type: 'reading1', title: richContent.reading1Title,
+        content: (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl p-5 text-white">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <BookOpen className="w-6 h-6 text-amber-200" />
+                  <h3 className="text-xl font-bold">📖 Reading: {richContent.reading1Title}</h3>
+                </div>
+                {richContent.reading1Time && (
+                  <div className="flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-sm">
+                    <Clock className="w-4 h-4" /> {richContent.reading1Time} min
+                  </div>
+                )}
+              </div>
+              <p className="text-amber-100 text-sm">Read carefully — you&apos;ll discuss this text afterward</p>
+            </div>
+
+            {heroImage && (
+              <div className="rounded-xl overflow-hidden border-2 border-amber-200 shadow-md">
+                <img src={heroImage} alt={cleanTitle} className="w-full h-40 sm:h-48 object-cover" />
+              </div>
+            )}
+
+            <Card className="border-2 border-amber-200">
+              <CardContent className="p-5">
+                <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm">
+                  {r1First}
+                </div>
+                {r1Second && (
+                  <ReadingContinuation content={r1Second} />
+                )}
+              </CardContent>
+            </Card>
+
+            <AhmedAliLink />
             <DisclaimerBanner />
           </div>
         ),
-      },
+      });
 
-      // SLIDE 2: Prior Learning / KWL
-      {
-        id: 2, type: 'prior-learning' as const, title: 'Prior Learning',
+      if (richContent.reading2Title && richContent.reading2Content) {
+        const [r2First, r2Second] = splitReading(richContent.reading2Content);
+        slides.push({
+          id: 5, type: 'reading2', title: richContent.reading2Title,
+          content: (
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-teal-600 to-emerald-700 rounded-xl p-5 text-white">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <BookOpen className="w-6 h-6 text-teal-200" />
+                    <h3 className="text-xl font-bold">📖 Reading: {richContent.reading2Title}</h3>
+                  </div>
+                  {richContent.reading2Time && (
+                    <div className="flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-sm">
+                      <Clock className="w-4 h-4" /> {richContent.reading2Time} min
+                    </div>
+                  )}
+                </div>
+                <p className="text-teal-100 text-sm">A second perspective on today&apos;s topic</p>
+              </div>
+
+              <Card className="border-2 border-teal-200">
+                <CardContent className="p-5">
+                  <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm">
+                    {r2First}
+                  </div>
+                  {r2Second && (
+                    <ReadingContinuation content={r2Second} />
+                  )}
+                </CardContent>
+              </Card>
+
+              <AhmedAliLink />
+              <DisclaimerBanner />
+            </div>
+          ),
+        });
+      }
+    }
+
+    // SLIDE: Discussion Questions (rich content) or Core Activities (generic)
+    if (richContent && richContent.discussionQuestions.length > 0) {
+      slides.push({
+        id: slides.length + 1, type: 'discussion', title: 'Discussion Questions',
+        content: (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-rose-600 to-[#722F37] rounded-xl p-5 text-white">
+              <div className="flex items-center gap-2 mb-2">
+                <Users className="w-6 h-6 text-rose-200" />
+                <h3 className="text-xl font-bold">Discussion Questions</h3>
+              </div>
+              <p className="text-rose-100 text-sm">Think deeply and share your ideas with the class</p>
+            </div>
+
+            <div className="space-y-3">
+              {richContent.discussionQuestions.map((q, i) => (
+                <Card key={i} className="border-2 border-rose-200 bg-rose-50/30">
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full bg-rose-100 border-2 border-rose-300 flex items-center justify-center shrink-0 text-rose-700 font-bold text-sm">
+                        {i + 1}
+                      </div>
+                      <p className="text-sm text-gray-700 leading-relaxed pt-1">{q}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <AhmedAliLink />
+            <DisclaimerBanner />
+          </div>
+        ),
+      });
+    }
+
+    // SLIDE: Key Facts (rich content)
+    if (richContent && richContent.keyFacts.length > 0) {
+      slides.push({
+        id: slides.length + 1, type: 'keyfacts', title: 'Key Facts to Remember',
+        content: (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-amber-600 to-amber-800 rounded-xl p-5 text-white">
+              <div className="flex items-center gap-2 mb-2">
+                <Star className="w-6 h-6 text-amber-200" />
+                <h3 className="text-xl font-bold">⭐ Key Facts to Remember</h3>
+              </div>
+              <p className="text-amber-100 text-sm">These are the essential takeaways from today&apos;s lesson</p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-3">
+              {richContent.keyFacts.map((fact, i) => (
+                <Card key={i} className="border-2 border-amber-200 bg-amber-50/30">
+                  <CardContent className="p-3">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                      <p className="text-xs text-gray-700 leading-relaxed">{fact}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {richContent.visualType !== 'none' && richContent.visualData && (
+              <VisualRenderer type={richContent.visualType} data={richContent.visualData} />
+            )}
+
+            <AhmedAliLink />
+            <DisclaimerBanner />
+          </div>
+        ),
+      });
+    }
+
+    // SLIDE: Interactive Strategies (rich content) or Core Activities (generic)
+    if (richContent && richContent.interactiveStrategies && richContent.interactiveStrategies.length > 0) {
+      slides.push({
+        id: slides.length + 1, type: 'strategies', title: 'Interactive Strategies',
         content: (
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-xl p-5 text-white">
               <div className="flex items-center gap-2 mb-2">
-                <Brain className="w-6 h-6 text-amber-300" />
-                <h3 className="text-xl font-bold">What Do You Already Know?</h3>
+                <Swords className="w-6 h-6 text-emerald-200" />
+                <h3 className="text-xl font-bold">Interactive Strategies</h3>
               </div>
-              <p className="text-emerald-100 text-sm">Before we begin, let&apos;s activate our prior knowledge</p>
+              <p className="text-emerald-100 text-sm">Engage with the material through these activities</p>
             </div>
 
-            <Card className="border-2 border-amber-200">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-bold text-gray-800">Prior Learning</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-700 leading-relaxed">{lesson.prior_learning}</p>
-              </CardContent>
-            </Card>
-
-            <div>
-              <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
-                <Lightbulb className="w-4 h-4 text-[#D4AF37]" /> KWL Chart
-              </h4>
-              <KWLChart />
-            </div>
-
-            <AhmedAliLink />
-            <DisclaimerBanner />
-          </div>
-        ),
-      },
-
-      // SLIDE 3: Warm-Up / Hook
-      {
-        id: 3, type: 'warmup' as const, title: 'Warm-Up Activity',
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-br from-[#722F37] via-[#5A1A23] to-[#3D0F15] rounded-xl p-8 text-center relative overflow-hidden">
-              <ArabicPattern opacity={0.08} color="#D4AF37" />
-              <div className="relative z-10">
-                <div className="flex justify-center mb-4">
-                  <div className="w-14 h-14 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
-                    <Sparkles className="w-7 h-7 text-[#D4AF37]" />
+            {richContent.interactiveStrategies.map((s, i) => (
+              <Card key={i} className="border-2 overflow-hidden" style={{ borderColor: i % 2 === 0 ? '#a7f3d0' : '#fde68a' }}>
+                <div className="px-4 py-3" style={{ backgroundColor: i % 2 === 0 ? '#ecfdf5' : '#fffbeb' }}>
+                  <div className="flex items-center justify-between flex-wrap gap-2">
+                    <div className="flex items-center gap-2">
+                      <Badge style={{
+                        backgroundColor: i % 2 === 0 ? '#a7f3d0' : '#fde68a',
+                        color: i % 2 === 0 ? '#065f46' : '#92400e',
+                      }}>
+                        {s.strategy}
+                      </Badge>
+                      <span className="font-bold text-sm text-gray-800">Strategy {i + 1}</span>
+                    </div>
+                    <ActivityTimer duration={s.duration} />
                   </div>
+                  <h4 className="font-bold text-gray-800 mt-2">{s.description}</h4>
+                  <p className="text-xs text-gray-600 mt-1">{s.instructions}</p>
                 </div>
-                <blockquote className="text-lg sm:text-xl font-semibold text-[#D4AF37] italic leading-relaxed">
-                  &ldquo;{warmUp.content}&rdquo;
-                </blockquote>
-                {warmUp.subtitle && (
-                  <div className="mt-4 text-amber-200/80 text-sm">{warmUp.subtitle}</div>
-                )}
-                <DecorativeBorder color="#D4AF37" />
-              </div>
-            </div>
-
-            <Card className="border-2 border-[#D4AF37] bg-amber-50/30">
-              <CardContent className="p-6 text-center">
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <Users className="w-5 h-5 text-[#D4AF37]" />
-                  <h3 className="text-lg font-bold text-gray-800">Discussion</h3>
-                </div>
-                <p className="text-gray-700 text-sm max-w-lg mx-auto">
-                  {warmUp.discussionPrompt || 'Take 2 minutes to think and share your thoughts with a partner.'}
-                </p>
-              </CardContent>
-            </Card>
+              </Card>
+            ))}
 
             <AhmedAliLink />
             <DisclaimerBanner />
           </div>
         ),
-      },
-
-      // SLIDE 4: Core Activities
-      {
-        id: 4, type: 'activities' as const, title: 'Core Activities',
+      });
+    } else if (!richContent) {
+      // Generic activities slide when no rich content
+      slides.push({
+        id: slides.length + 1, type: 'activities', title: 'Core Activities',
         content: (
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl p-5 text-white">
@@ -1189,17 +1535,24 @@ export default function Home() {
             )}
 
             {activities.map((activity, idx) => (
-              <Card key={activity.id} className={`border-2 overflow-hidden ${idx % 2 === 0 ? 'border-amber-200' : 'border-rose-200'}`}>
-                <div className={`px-4 py-3 ${idx % 2 === 0 ? 'bg-amber-50' : 'bg-rose-50'}`}>
+              <Card key={activity.id} className="border-2 overflow-hidden" style={{
+                borderColor: idx % 2 === 0 ? '#fde68a' : '#fecdd3',
+              }}>
+                <div className="px-4 py-3" style={{
+                  backgroundColor: idx % 2 === 0 ? '#fffbeb' : '#fff1f2',
+                }}>
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <div className="flex items-center gap-2">
-                      <Badge className={`${
-                        activity.type === 'interactive' ? 'bg-[#D4AF37] text-white' :
-                        activity.type === 'read' ? 'bg-amber-200 text-amber-800' :
-                        activity.type === 'discuss' ? 'bg-rose-200 text-rose-800' :
-                        activity.type === 'creative' ? 'bg-emerald-200 text-emerald-800' :
-                        'bg-teal-200 text-teal-800'
-                      }`}>
+                      <Badge style={{
+                        backgroundColor: activity.type === 'interactive' ? '#D4AF37' :
+                        activity.type === 'read' ? '#fde68a' :
+                        activity.type === 'discuss' ? '#fecdd3' :
+                        activity.type === 'creative' ? '#a7f3d0' : '#99f6e4',
+                        color: activity.type === 'interactive' ? '#ffffff' :
+                        activity.type === 'read' ? '#92400e' :
+                        activity.type === 'discuss' ? '#9f1239' :
+                        activity.type === 'creative' ? '#065f46' : '#115e59',
+                      }}>
                         {activity.type === 'interactive' ? <Sparkles className="w-3 h-3 mr-1" /> :
                          activity.type === 'read' ? <BookOpen className="w-3 h-3 mr-1" /> :
                          activity.type === 'discuss' ? <Users className="w-3 h-3 mr-1" /> :
@@ -1228,216 +1581,222 @@ export default function Home() {
             <DisclaimerBanner />
           </div>
         ),
-      },
+      });
+    }
 
-      // SLIDE 5: UAE & Real-Life Links
-      {
-        id: 5, type: 'links' as const, title: 'UAE & Real-Life Connections',
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-5 text-white">
-              <div className="flex items-center gap-2 mb-2">
-                <Globe className="w-6 h-6 text-emerald-200" />
-                <h3 className="text-xl font-bold">UAE & Real-Life Connections</h3>
-              </div>
-              <p className="text-emerald-100 text-sm">How does this lesson connect to our lives in the UAE?</p>
+    // SLIDE: UAE & Real-Life Links (always present)
+    slides.push({
+      id: slides.length + 1, type: 'links', title: 'UAE & Real-Life Connections',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-5 text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Globe className="w-6 h-6 text-emerald-200" />
+              <h3 className="text-xl font-bold">UAE & Real-Life Connections</h3>
             </div>
+            <p className="text-emerald-100 text-sm">How does this lesson connect to our lives in the UAE?</p>
+          </div>
 
-            {(() => {
-              const linkColorMap: Record<string, { bg: string; border: string; iconBg: string; iconBorder: string; iconText: string; titleText: string }> = {
-                emerald: { bg: '#ecfdf5', border: '#a7f3d0', iconBg: '#d1fae5', iconBorder: '#6ee7b7', iconText: '#059669', titleText: '#065f46' },
-                amber: { bg: '#fffbeb', border: '#fde68a', iconBg: '#fef3c7', iconBorder: '#fcd34d', iconText: '#d97706', titleText: '#92400e' },
-                rose: { bg: '#fff1f2', border: '#fecdd3', iconBg: '#ffe4e6', iconBorder: '#fda4af', iconText: '#e11d48', titleText: '#9f1239' },
-                teal: { bg: '#f0fdfa', border: '#99f6e4', iconBg: '#ccfbf1', iconBorder: '#5eead4', iconText: '#0d9488', titleText: '#115e59' },
-                purple: { bg: '#faf5ff', border: '#e9d5ff', iconBg: '#f3e8ff', iconBorder: '#c4b5fd', iconText: '#7c3aed', titleText: '#6b21a8' },
-              };
-              const colorKeys = ['emerald', 'amber', 'rose', 'teal', 'purple'];
-              return uaeLinks.map((link, i) => {
-                const icons = { building: <Landmark className="w-5 h-5" />, star: <Star className="w-5 h-5" />, globe: <Globe className="w-5 h-5" />, mountain: <Mountain className="w-5 h-5" />, heart: <Heart className="w-5 h-5" /> };
-                const colorKey = colorKeys[i % colorKeys.length];
-                const cs = linkColorMap[colorKey];
-                return (
-                  <Card key={i} className="border-2" style={{ borderColor: cs.border, backgroundColor: cs.bg }}>
-                    <CardContent className="p-5">
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: cs.iconBg, border: `1px solid ${cs.iconBorder}`, color: cs.iconText }}>
-                          {icons[link.icon]}
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-sm" style={{ color: cs.titleText }}>{link.title}</h4>
-                          <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.description}</p>
-                        </div>
+          {(() => {
+            const linkColorMap: Record<string, { bg: string; border: string; iconBg: string; iconBorder: string; iconText: string; titleText: string }> = {
+              emerald: { bg: '#ecfdf5', border: '#a7f3d0', iconBg: '#d1fae5', iconBorder: '#6ee7b7', iconText: '#059669', titleText: '#065f46' },
+              amber: { bg: '#fffbeb', border: '#fde68a', iconBg: '#fef3c7', iconBorder: '#fcd34d', iconText: '#d97706', titleText: '#92400e' },
+              rose: { bg: '#fff1f2', border: '#fecdd3', iconBg: '#ffe4e6', iconBorder: '#fda4af', iconText: '#e11d48', titleText: '#9f1239' },
+              teal: { bg: '#f0fdfa', border: '#99f6e4', iconBg: '#ccfbf1', iconBorder: '#5eead4', iconText: '#0d9488', titleText: '#115e59' },
+              purple: { bg: '#faf5ff', border: '#e9d5ff', iconBg: '#f3e8ff', iconBorder: '#c4b5fd', iconText: '#7c3aed', titleText: '#6b21a8' },
+            };
+            const colorKeys = ['emerald', 'amber', 'rose', 'teal', 'purple'];
+            return uaeLinks.map((link, i) => {
+              const icons = { building: <Landmark className="w-5 h-5" />, star: <Star className="w-5 h-5" />, globe: <Globe className="w-5 h-5" />, mountain: <Mountain className="w-5 h-5" />, heart: <Heart className="w-5 h-5" /> };
+              const colorKey = colorKeys[i % colorKeys.length];
+              const cs = linkColorMap[colorKey];
+              return (
+                <Card key={i} className="border-2" style={{ borderColor: cs.border, backgroundColor: cs.bg }}>
+                  <CardContent className="p-5">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: cs.iconBg, border: `1px solid ${cs.iconBorder}`, color: cs.iconText }}>
+                        {icons[link.icon]}
                       </div>
-                    </CardContent>
-                  </Card>
-                );
-              });
-            })()}
-
-            {mapMarkers.length > 0 && (
-              <div>
-                <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
-                  <Map className="w-4 h-4 text-emerald-600" /> Interactive Map
-                </h4>
-                <InteractiveMap markers={mapMarkers} />
-              </div>
-            )}
-
-            <ComparisonChart
-              leftTitle="Key Concepts" rightTitle="UAE Application" centerTitle="Shared"
-              leftItems={standards.slice(0, 3).map(s => `Standard: ${s}`)}
-              rightItems={['UAE national values', 'Local community context', 'Emirati cultural perspective']}
-              centerItems={['Critical thinking', 'Real-world relevance', 'Active citizenship']}
-            />
-
-            <AhmedAliLink />
-            <DisclaimerBanner />
-          </div>
-        ),
-      },
-
-      // SLIDE 6: Homework
-      {
-        id: 6, type: 'homework' as const, title: 'Homework & Extended Learning',
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-amber-600 to-amber-800 rounded-xl p-5 text-white">
-              <div className="flex items-center gap-2 mb-2">
-                <FileText className="w-6 h-6 text-amber-200" />
-                <h3 className="text-xl font-bold">Homework & Extended Learning</h3>
-              </div>
-              <p className="text-amber-100 text-sm">Continue your learning journey beyond the classroom</p>
-            </div>
-
-            <Card className="border-2 border-amber-200 bg-amber-50/30">
-              <CardContent className="p-5">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-amber-100 border-2 border-[#D4AF37] flex items-center justify-center shrink-0">
-                    <Calendar className="w-5 h-5 text-amber-700" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-amber-800">Homework Task</h4>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.homework}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-emerald-200 bg-emerald-50/30">
-              <CardContent className="p-5">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center shrink-0">
-                    <BookOpen className="w-5 h-5 text-emerald-700" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-emerald-800">Resources</h4>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.resources}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-rose-200 bg-rose-50/30">
-              <CardContent className="p-5">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-full bg-rose-100 border-2 border-rose-400 flex items-center justify-center shrink-0">
-                    <Target className="w-5 h-5 text-rose-700" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-rose-800">Assessment</h4>
-                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.assessment}</p>
-                    <Badge className="mt-2 bg-rose-100 text-rose-700 border-rose-200 text-[10px]">
-                      {lesson.assessment_type}
-                    </Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <AhmedAliLink />
-            <DisclaimerBanner />
-          </div>
-        ),
-      },
-
-      // SLIDE 7: Quiz
-      {
-        id: 7, type: 'quiz' as const, title: 'Formative Assessment',
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-rose-700 to-[#722F37] rounded-xl p-5 text-white">
-              <div className="flex items-center gap-2 mb-2">
-                <Trophy className="w-6 h-6 text-[#D4AF37]" />
-                <h3 className="text-xl font-bold">Formative Assessment</h3>
-              </div>
-              <p className="text-rose-100 text-sm">Test your understanding — you&apos;ve got this! 💪</p>
-              <div className="flex items-center gap-2 mt-2">
-                <Badge className="bg-white/20 text-white border-white/30 text-[10px]">{lesson.dok}</Badge>
-                <Badge className="bg-white/20 text-white border-white/30 text-[10px]">{quizQuestions.length} Questions</Badge>
-              </div>
-            </div>
-
-            <QuizEngine
-              questions={quizQuestions}
-              lessonId={lessonId}
-              studentCode={studentName || 'anonymous'}
-              gradeNum={selectedGrade.number}
-              termNum={selectedTerm.number}
-              unitKey={selectedUnit.key}
-              lessonTitle={cleanTitle}
-              dokLevel={lesson.dok}
-              domains={lesson.domains}
-            />
-
-            <AhmedAliLink />
-            <DisclaimerBanner />
-          </div>
-        ),
-      },
-
-      // SLIDE 8: Thank You
-      {
-        id: 8, type: 'thankyou' as const, title: 'Thank You!',
-        content: (
-          <div className="text-center space-y-8 py-8">
-            <div className="relative inline-block">
-              <div className="bg-gradient-to-br from-[#722F37] to-[#5A1A23] rounded-2xl p-10 relative overflow-hidden">
-                <ArabicPattern opacity={0.1} color="#D4AF37" />
-                <div className="relative z-10">
-                  <div className="flex justify-center mb-4">
-                    <div className="w-16 h-16 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
-                      <Award className="w-8 h-8 text-[#D4AF37]" />
+                      <div>
+                        <h4 className="font-bold text-sm" style={{ color: cs.titleText }}>{link.title}</h4>
+                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.description}</p>
+                      </div>
                     </div>
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-[#D4AF37] mb-3">MashaAllah!</h2>
-                  <p className="text-white text-lg">You completed the lesson!</p>
-                  <DecorativeBorder color="#D4AF37" />
+                  </CardContent>
+                </Card>
+              );
+            });
+          })()}
+
+          {mapMarkers.length > 0 && (
+            <div>
+              <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+                <Map className="w-4 h-4 text-emerald-600" /> Interactive Map
+              </h4>
+              <InteractiveMap markers={mapMarkers} />
+            </div>
+          )}
+
+          <ComparisonChart
+            leftTitle="Key Concepts" rightTitle="UAE Application" centerTitle="Shared"
+            leftItems={standards.slice(0, 3).map(s => `Standard: ${s}`)}
+            rightItems={['UAE national values', 'Local community context', 'Emirati cultural perspective']}
+            centerItems={['Critical thinking', 'Real-world relevance', 'Active citizenship']}
+          />
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // SLIDE: Homework (always present)
+    slides.push({
+      id: slides.length + 1, type: 'homework', title: 'Homework & Extended Learning',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-amber-600 to-amber-800 rounded-xl p-5 text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <FileText className="w-6 h-6 text-amber-200" />
+              <h3 className="text-xl font-bold">Homework & Extended Learning</h3>
+            </div>
+            <p className="text-amber-100 text-sm">Continue your learning journey beyond the classroom</p>
+          </div>
+
+          <Card className="border-2 border-amber-200 bg-amber-50/30">
+            <CardContent className="p-5">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-amber-100 border-2 border-[#D4AF37] flex items-center justify-center shrink-0">
+                  <Calendar className="w-5 h-5 text-amber-700" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-amber-800">Homework Task</h4>
+                  <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.homework}</p>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-emerald-200 bg-emerald-50/30">
+            <CardContent className="p-5">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-5 h-5 text-emerald-700" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-emerald-800">Resources</h4>
+                  <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.resources}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-rose-200 bg-rose-50/30">
+            <CardContent className="p-5">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-rose-100 border-2 border-rose-400 flex items-center justify-center shrink-0">
+                  <Target className="w-5 h-5 text-rose-700" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-rose-800">Assessment</h4>
+                  <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.assessment}</p>
+                  <Badge className="mt-2 bg-rose-100 text-rose-700 border-rose-200 text-[10px]">
+                    {lesson.assessment_type}
+                  </Badge>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // SLIDE: Quiz — use rich content quiz questions if available
+    const quizQs = (richContent && richContent.quizQuestions.length > 0)
+      ? richContent.quizQuestions.map(q => ({ ...q, options: q.options, correctAnswer: q.correctAnswer }))
+      : quizQuestions;
+    slides.push({
+      id: slides.length + 1, type: 'quiz', title: 'Formative Assessment',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-rose-700 to-[#722F37] rounded-xl p-5 text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Trophy className="w-6 h-6 text-[#D4AF37]" />
+              <h3 className="text-xl font-bold">Formative Assessment</h3>
             </div>
-
-            <div className="bg-amber-50 rounded-xl p-6 border-2 border-[#D4AF37] max-w-md mx-auto">
-              <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer"
-                className="text-xl font-bold text-[#D4AF37] hover:text-amber-600 transition-colors inline-flex items-center gap-2">
-                <GraduationCap className="w-6 h-6" /> Mr. Ahmed Ali <ExternalLink className="w-4 h-4" />
-              </a>
-              <p className="text-sm text-gray-600 mt-2">Your MSCS Educator</p>
-            </div>
-
-            <DisclaimerBanner />
-
-            <div className="flex justify-center gap-3">
-              <Button onClick={() => setCurrentSlide(0)} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
-                <Play className="w-4 h-4 mr-2" /> Restart Lesson
-              </Button>
-              <Button variant="outline" onClick={() => navigateTo('gradeSelect')} className="border-[#D4AF37] text-[#D4AF37]">
-                <HomeIcon className="w-4 h-4 mr-2" /> Back to {selectedGrade.title}
-              </Button>
+            <p className="text-rose-100 text-sm">Test your understanding — you&apos;ve got this! 💪</p>
+            <div className="flex items-center gap-2 mt-2">
+              <Badge className="bg-white/20 text-white border-white/30 text-[10px]">{lesson.dok}</Badge>
+              <Badge className="bg-white/20 text-white border-white/30 text-[10px]">{quizQs.length} Questions</Badge>
+              {richContent && <Badge className="bg-[#D4AF37]/30 text-[#D4AF37] border-[#D4AF37]/50 text-[10px]">Textbook-Based</Badge>}
             </div>
           </div>
-        ),
-      },
-    ];
+
+          <QuizEngine
+            questions={quizQs}
+            lessonId={lessonId}
+            studentCode={studentName || 'anonymous'}
+            gradeNum={selectedGrade.number}
+            termNum={selectedTerm.number}
+            unitKey={selectedUnit.key}
+            lessonTitle={cleanTitle}
+            dokLevel={lesson.dok}
+            domains={lesson.domains}
+          />
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // SLIDE: Thank You (always present)
+    slides.push({
+      id: slides.length + 1, type: 'thankyou', title: 'Thank You!',
+      content: (
+        <div className="text-center space-y-8 py-8">
+          <div className="relative inline-block">
+            <div className="bg-gradient-to-br from-[#722F37] to-[#5A1A23] rounded-2xl p-10 relative overflow-hidden">
+              <ArabicPattern opacity={0.1} color="#D4AF37" />
+              <div className="relative z-10">
+                <div className="flex justify-center mb-4">
+                  <div className="w-16 h-16 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
+                    <Award className="w-8 h-8 text-[#D4AF37]" />
+                  </div>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-bold text-[#D4AF37] mb-3">MashaAllah!</h2>
+                <p className="text-white text-lg">You completed the lesson!</p>
+                <DecorativeBorder color="#D4AF37" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-amber-50 rounded-xl p-6 border-2 border-[#D4AF37] max-w-md mx-auto">
+            <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer"
+              className="text-xl font-bold text-[#D4AF37] hover:text-amber-600 transition-colors inline-flex items-center gap-2">
+              <GraduationCap className="w-6 h-6" /> Mr. Ahmed Ali <ExternalLink className="w-4 h-4" />
+            </a>
+            <p className="text-sm text-gray-600 mt-2">Your MSCS Educator</p>
+          </div>
+
+          <DisclaimerBanner />
+
+          <div className="flex justify-center gap-3">
+            <Button onClick={() => setCurrentSlide(0)} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
+              <Play className="w-4 h-4 mr-2" /> Restart Lesson
+            </Button>
+            <Button variant="outline" onClick={() => navigateTo('gradeSelect')} className="border-[#D4AF37] text-[#D4AF37]">
+              <HomeIcon className="w-4 h-4 mr-2" /> Back to {selectedGrade.title}
+            </Button>
+          </div>
+        </div>
+      ),
+    });
+
+    const totalSlides = slides.length;
 
     const currentSlideData = slides[currentSlide];
 
@@ -1468,9 +1827,11 @@ export default function Home() {
             <div className="flex gap-1 mt-2 overflow-x-auto pb-1">
               {slides.map((slide, i) => (
                 <button key={slide.id} onClick={() => { setSlideDirection(i > currentSlide ? 'right' : 'left'); setCurrentSlide(i); }}
-                  className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-all whitespace-nowrap ${
-                    i === currentSlide ? 'bg-[#722F37] text-white' : i < currentSlide ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-400'
-                  }`}>
+                  className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-all whitespace-nowrap"
+                  style={{
+                    backgroundColor: i === currentSlide ? '#722F37' : i < currentSlide ? '#fef3c7' : '#f3f4f6',
+                    color: i === currentSlide ? '#ffffff' : i < currentSlide ? '#b45309' : '#9ca3af',
+                  }}>
                   {i < currentSlide && <CheckCircle2 className="w-2.5 h-2.5" />}
                   {slide.type === 'title' && <FileText className="w-2.5 h-2.5" />}
                   {slide.type === 'prior-learning' && <Brain className="w-2.5 h-2.5" />}
@@ -1509,9 +1870,12 @@ export default function Home() {
             </Button>
             <div className="flex gap-1">
               {slides.map((_, i) => (
-                <div key={i} className={`w-2 h-2 rounded-full transition-all cursor-pointer ${
-                  i === currentSlide ? 'bg-[#722F37] w-4' : i < currentSlide ? 'bg-[#D4AF37]' : 'bg-gray-300'
-                }`} onClick={() => { setSlideDirection(i > currentSlide ? 'right' : 'left'); setCurrentSlide(i); }} />
+                <div key={i} className="w-2 h-2 rounded-full transition-all cursor-pointer"
+                  style={{
+                    backgroundColor: i === currentSlide ? '#722F37' : i < currentSlide ? '#D4AF37' : '#d1d5db',
+                    width: i === currentSlide ? '16px' : '8px',
+                  }}
+                  onClick={() => { setSlideDirection(i > currentSlide ? 'right' : 'left'); setCurrentSlide(i); }} />
               ))}
             </div>
             <Button onClick={() => { if (currentSlide < totalSlides - 1) { setSlideDirection('right'); navigateSlide('right'); setCurrentSlide(currentSlide + 1); } }}
@@ -1714,15 +2078,15 @@ export default function Home() {
           {/* Stats Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'Total Students', value: totalStudents, icon: <Users className="w-5 h-5" />, color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200' },
-              { label: 'Quizzes Completed', value: totalQuizzes, icon: <Trophy className="w-5 h-5" />, color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-              { label: 'Average Score', value: `${avgScore}%`, icon: <Target className="w-5 h-5" />, color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-200' },
-              { label: 'Highest Score', value: `${highestScore}%`, icon: <Award className="w-5 h-5" />, color: 'text-[#D4AF37]', bg: 'bg-amber-50', border: 'border-[#D4AF37]' },
+              { label: 'Total Students', value: totalStudents, icon: <Users className="w-5 h-5" />, color: '#d97706', bg: '#fffbeb', border: '#fde68a' },
+              { label: 'Quizzes Completed', value: totalQuizzes, icon: <Trophy className="w-5 h-5" />, color: '#059669', bg: '#ecfdf5', border: '#a7f3d0' },
+              { label: 'Average Score', value: `${avgScore}%`, icon: <Target className="w-5 h-5" />, color: '#e11d48', bg: '#fff1f2', border: '#fecdd3' },
+              { label: 'Highest Score', value: `${highestScore}%`, icon: <Award className="w-5 h-5" />, color: '#D4AF37', bg: '#fffbeb', border: '#D4AF37' },
             ].map((stat, i) => (
-              <Card key={i} className={`border-2 ${stat.border} ${stat.bg}`}>
+              <Card key={i} className="border-2" style={{ borderColor: stat.border, backgroundColor: stat.bg }}>
                 <CardContent className="p-4 text-center">
-                  <div className={`${stat.color} flex justify-center mb-2`}>{stat.icon}</div>
-                  <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
+                  <div className="flex justify-center mb-2" style={{ color: stat.color }}>{stat.icon}</div>
+                  <div className="text-2xl font-bold" style={{ color: stat.color }}>{stat.value}</div>
                   <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
                 </CardContent>
               </Card>
@@ -1797,7 +2161,10 @@ export default function Home() {
                         </td>
                         <td className="px-4 py-3 text-center font-bold">{student.totalQuizzes}</td>
                         <td className="px-4 py-3 text-center">
-                          <Badge className={`${student.avgScore >= 75 ? 'bg-emerald-100 text-emerald-700' : student.avgScore >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'} border-0`}>
+                          <Badge className="border-0" style={{
+                            backgroundColor: student.avgScore >= 75 ? '#d1fae5' : student.avgScore >= 50 ? '#fef3c7' : '#ffe4e6',
+                            color: student.avgScore >= 75 ? '#047857' : student.avgScore >= 50 ? '#b45309' : '#be123c',
+                          }}>
                             {student.avgScore}%
                           </Badge>
                         </td>
@@ -1838,7 +2205,10 @@ export default function Home() {
                         <td className="px-3 py-2 text-gray-700 max-w-[200px] truncate">{result.lessonTitle}</td>
                         <td className="px-3 py-2 text-center font-bold">{result.score}/{result.total}</td>
                         <td className="px-3 py-2 text-center">
-                          <Badge className={`${result.percentage >= 75 ? 'bg-emerald-100 text-emerald-700' : result.percentage >= 50 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'} border-0 text-[10px]`}>
+                          <Badge className="border-0 text-[10px]" style={{
+                            backgroundColor: result.percentage >= 75 ? '#d1fae5' : result.percentage >= 50 ? '#fef3c7' : '#ffe4e6',
+                            color: result.percentage >= 75 ? '#047857' : result.percentage >= 50 ? '#b45309' : '#be123c',
+                          }}>
                             {result.percentage}%
                           </Badge>
                         </td>
@@ -1938,7 +2308,11 @@ export default function Home() {
   // LOGIN PAGE
   // ════════════════════════════════════════════════════════════
 
-  const renderLoginPage = () => (
+  const renderLoginPage = () => {
+    // Detect if the code looks like an admin code
+    const isPotentialAdminCode = loginCode.trim().toUpperCase().startsWith('MSCS-ADMIN') || loginCode.trim().toUpperCase().startsWith('MSCS-STAFF');
+
+    return (
     <div className="min-h-screen bg-[#FFF9F0] flex items-center justify-center p-4">
       <ArabicPattern opacity={0.03} color="#722F37" />
       <div className="relative z-10 w-full max-w-md">
@@ -1957,10 +2331,22 @@ export default function Home() {
             <div className="space-y-4">
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-1.5 block">Access Code</label>
-                <Input value={loginCode} onChange={e => { setLoginCode(e.target.value.toUpperCase()); setLoginError(''); }}
+                <Input value={loginCode} onChange={e => { setLoginCode(e.target.value.toUpperCase()); setLoginError(''); setShowAdminPassword(false); }}
                   placeholder="MSCS-7A-2026-014" className="text-center font-mono text-lg tracking-wider" />
                 <p className="text-xs text-gray-400 mt-1">Format: MSCS-Grade-Section-Year-Number</p>
               </div>
+
+              {isPotentialAdminCode && (
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                    <Shield className="w-4 h-4" /> Admin Password
+                  </label>
+                  <Input type="password" value={adminPassword} onChange={e => { setAdminPassword(e.target.value); setLoginError(''); }}
+                    placeholder="Enter admin password" className="text-center font-mono" />
+                  <p className="text-xs text-gray-400 mt-1">Staff access requires authorization</p>
+                </div>
+              )}
+
               {loginError && (
                 <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm text-rose-700 flex items-center gap-2">
                   <XCircle className="w-4 h-4 shrink-0" />{loginError}
@@ -1969,9 +2355,20 @@ export default function Home() {
               <Button onClick={() => {
                 const trimmedCode = loginCode.trim().toUpperCase();
                 setLoginCode(trimmedCode);
-                if (trimmedCode === 'MSCS-MASTER-2026-ADMIN' || trimmedCode === 'MSCS-TEACHER-2026-ADMIN') {
-                  setIsLoggedIn(true); setStudentName('TEACHER'); navigateTo('teacherDashboard'); return;
+                // Admin access — requires both code AND password verification
+                if (isPotentialAdminCode) {
+                  if (!adminPassword.trim()) {
+                    setLoginError('Admin password is required');
+                    return;
+                  }
+                  if (verifyMasterPassword(adminPassword.trim())) {
+                    setIsLoggedIn(true); setStudentName('TEACHER'); navigateTo('teacherDashboard');
+                  } else {
+                    setLoginError('Invalid admin credentials');
+                  }
+                  return;
                 }
+                // Student access
                 const pattern = /^MSCS-\d{1,2}[A-Z]-\d{4}-\d{1,3}$/;
                 if (pattern.test(trimmedCode)) {
                   setIsLoggedIn(true); setStudentName(trimmedCode); navigateTo('landing');
@@ -1987,8 +2384,7 @@ export default function Home() {
                 </div>
               )}
               <div className="text-center">
-                <p className="text-xs text-gray-400">Demo: Enter any valid format like MSCS-8A-2026-001</p>
-                <p className="text-xs text-gray-400 mt-1">Teacher: MSCS-MASTER-2026-ADMIN or MSCS-TEACHER-2026-ADMIN</p>
+                <p className="text-xs text-gray-400">Enter your school-issued access code</p>
               </div>
             </div>
           </CardContent>
@@ -1996,6 +2392,7 @@ export default function Home() {
       </div>
     </div>
   );
+  };
 
   // ════════════════════════════════════════════════════════════
   // PARENTAL CONSENT PAGE
