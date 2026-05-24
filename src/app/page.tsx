@@ -33,6 +33,7 @@ import { getG7T2LessonContent } from '@/lib/g7t2-content';
 import { getG7T3LessonContent } from '@/lib/g7t3-content';
 import { getG8T1LessonContent } from '@/lib/g8t1-content';
 import { getG8T2LessonContent } from '@/lib/g8t2-content';
+import { getG8T3LessonContent } from '@/lib/g8t3-content';
 
 // ═══════════════════════════════════════════════════════════════
 // CONTENT LOOKUP — Find rich textbook content for a lesson
@@ -63,6 +64,9 @@ function getRichLessonContent(gradeKey: string, termKey: string, unitKey: string
   // Try G8T2 lookup
   const g8t2 = getG8T2LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
   if (g8t2) return g8t2;
+  // Try G8T3 lookup
+  const g8t3 = getG8T3LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g8t3) return g8t3;
   return null;
 }
 

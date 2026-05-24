@@ -8797,7 +8797,7 @@
           "units": {
             "General": {
               "unit_name": "General",
-              "lesson_count": 14,
+              "lesson_count": 16,
               "lessons": [
                 {
                   "week_number": 27,
@@ -9054,6 +9054,29 @@
                 },
                 {
                   "week_number": 38,
+                  "date_range": "Jun 1 - Jun 5",
+                  "phase": "Instruction",
+                  "lesson_title": "The Later Ottoman Empire through World War I",
+                  "domains": "Geography & History\n(The Ottoman Empire)",
+                  "slo_codes": "S1.1, S1.5",
+                  "dok_level": "DOK 2–4",
+                  "learning_activity": "Tanzimat Reforms and modernisation; Nahda cultural renaissance; WWI and the end of the Ottoman Empire",
+                  "assessment": "Summative: Unit Quiz / Performance Task",
+                  "resources": "MoE Textbook G8 V-3 p.108; Teacher Guide V-3",
+                  "scope_sequence_detail": {
+                    "learning_objective": "SWBAT analyze the Tanzimat reforms and the Nahda renaissance, explain the impact of World War I on the Middle East, and evaluate how the Ottoman Empire's end reshaped the region.",
+                    "success_criteria": "I can describe the Tanzimat reforms and their impact on Ottoman society.\nI can explain the significance of the Nahda cultural renaissance.\nI can analyze how World War I led to the end of the Ottoman Empire.\nI can describe the French and British Mandates and the creation of the Turkish Republic.",
+                    "prior_learning_engagement": "Review: What was the Ottoman Empire at its peak? How did it govern? Ask: 'What forces might cause a great empire to decline?'",
+                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'The Later Ottoman Empire'; 2) Guided reading on Tanzimat Reforms and at-Tahtawi; 3) Discussion: Nahda and cultural renaissance; 4) Map activity: Post-WWI mandates and borders; 5) Quick write on the impact of WWI on the Middle East\n\nDISTANCE LEARNING (Plan B):\n1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.108; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
+                    "assessment_closure": "Summative: Unit Quiz (10 questions — MCQ + short answer + extended response). Performance Task: Timeline of Ottoman decline. Self-assessment using rubric.",
+                    "resources_materials": "MoE Textbook G8 V-3 p.108; Teacher Guide G8 V-3; Historical maps of post-WWI Middle East; Timeline template; Primary source documents (mandate agreements)",
+                    "homework_extension": "Creative Extension: Write a diary entry as a person living in the Ottoman Empire during WWI. Describe the challenges and changes you witness.",
+                    "moe_standard": "C2-G8-S1.1\nC2-G8-S1.5",
+                    "learning_domain": "Geography & History\n(The Ottoman Empire)"
+                  }
+                },
+                {
+                  "week_number": 39,
                   "date_range": "Jun 8 - Jun 12",
                   "phase": "Review",
                   "lesson_title": "Term 3 Review & Exam Preparation",
@@ -9798,7 +9821,7 @@
           "units": {
             "General": {
               "unit_name": "General",
-              "lesson_count": 14,
+              "lesson_count": 16,
               "lessons": [
                 {
                   "week_number": 27,
@@ -14200,6 +14223,20 @@
             "assessment_closure": "Architectural Analysis: Students choose one Ottoman building and write a detailed description and evaluation (5-7 sentences). Visual comparison: Hagia Sophia before and after Ottoman conversion.",
             "resources_materials": "MSC Grade 8 Student Book (Ottoman Istanbul section)\nArchitectural images (Suleymaniye, Hagia Sophia)\nComparison template\nPlickers / MS Forms\nVideo (Ottoman architecture)",
             "homework_extension": "Design a mosque inspired by Ottoman architecture. Label the key features (dome, minaret, courtyard). Explain your design choices."
+          },
+          {
+            "week": "Week 11b",
+            "date": "Jun 1 - Jun 5",
+            "learning_domain": "Geography & History\n(The Ottoman Empire)",
+            "lesson_title": "The Later Ottoman Empire through World War I",
+            "moe_standard": "C2-G8-S1.1\nC2-G8-S1.5",
+            "learning_objective": "SWBAT analyze the Tanzimat reforms and the Nahda renaissance, explain the impact of World War I on the Middle East, and evaluate how the Ottoman Empire's end reshaped the region.",
+            "success_criteria": "I can describe the Tanzimat reforms and their impact on Ottoman society.\nI can explain the significance of the Nahda cultural renaissance.\nI can analyze how World War I led to the end of the Ottoman Empire.\nI can describe the French and British Mandates and the creation of the Turkish Republic.",
+            "prior_learning_engagement": "Review: What was the Ottoman Empire at its peak? How did it govern? Ask: 'What forces might cause a great empire to decline?'",
+            "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'The Later Ottoman Empire'; 2) Guided reading on Tanzimat Reforms and at-Tahtawi; 3) Discussion: Nahda and cultural renaissance; 4) Map activity: Post-WWI mandates and borders; 5) Quick write on the impact of WWI on the Middle East\n\nDISTANCE LEARNING (Plan B):\n1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.108; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
+            "assessment_closure": "Summative: Unit Quiz (10 questions — MCQ + short answer + extended response). Performance Task: Timeline of Ottoman decline. Self-assessment using rubric.",
+            "resources_materials": "MoE Textbook G8 V-3 p.108; Teacher Guide G8 V-3; Historical maps of post-WWI Middle East; Timeline template; Primary source documents (mandate agreements)",
+            "homework_extension": "Creative Extension: Write a diary entry as a person living in the Ottoman Empire during WWI. Describe the challenges and changes you witness."
           },
           {
             "week": "Week 12",

@@ -627,6 +627,8 @@ export function getGradeInfo(): GradeInfo[] {
               'G8_T2_Unit 4': 'The Growth of Consultative Governance in the UAE',
               'G8_T2_Unit 5': 'Morality in the Context of States',
               'G8_T2_General': 'North and South America',
+              // G8 T3 specific overrides
+              'G8_T3_General': 'West Asia, North Africa & The Ottoman Empire',
             };
             // Check grade+term specific override first, then fallback to general
             const gradeTermKey = `${gk}_${tk}_${uk}`;
