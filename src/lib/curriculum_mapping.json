@@ -5518,7 +5518,9 @@
                     "homework_extension": "Decorate the classroom rules poster at home and add a drawing of yourself following one rule. Review the diagnostic topics with a family member and note 2 things you want to improve this year.",
                     "moe_standard": "C2-G6-S*.* — Baseline",
                     "learning_domain": "All Domains"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 6,
@@ -5541,7 +5543,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 1–2)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 7,
@@ -5564,7 +5568,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "—"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 8,
@@ -5587,7 +5593,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'After the Fall of the Roman Empire' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.1, S3.1, S7.1",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 9,
@@ -5610,7 +5618,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'The High Middle Ages of Europe' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.2, S3.2, S7.2",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 },
                 {
                   "week_number": 10,
@@ -5633,7 +5643,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'The Republic of Venice' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.3, S3.3, S7.3",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 8
                 },
                 {
                   "week_number": 11,
@@ -5656,7 +5668,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'The Late Middle Ages: The First Hundred Years' War' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.4, S3.4, S7.4",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 9
                 },
                 {
                   "week_number": 12,
@@ -5679,7 +5693,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Crises of the Late Middle Ages' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.5, S3.5, S7.5",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 10
                 },
                 {
                   "week_number": 13,
@@ -5702,7 +5718,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 1–3)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 14,
@@ -5725,7 +5743,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 1–3)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -5754,7 +5774,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Aspects of Equality Among People' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S2.1, S4.1, S8.1",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 3,
@@ -5777,7 +5799,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Distributive Justice' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S2.3, S4.3",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 }
               ]
             },
@@ -5806,7 +5830,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'How Healthy Is Your Lifestyle?' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S4.1, S8.1, S5.1",
                     "learning_domain": "S4, S8, S5"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 5,
@@ -5829,7 +5855,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Challenges to Health and Getting Help' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S4.3, S8.3, S5.2",
                     "learning_domain": "S4, S8, S5"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 5
                 }
               ]
             }
@@ -5863,7 +5891,9 @@
                     "homework_extension": "Review textbook section pp.8–13; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S4.1, S8.1, S9.1",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 10,
@@ -5886,7 +5916,9 @@
                     "homework_extension": "Review textbook section pp.14–19; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S4.2, S8.1, S9.1",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 11,
@@ -5909,7 +5941,9 @@
                     "homework_extension": "Review textbook section pp.20–26; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S4.3, S8.2, S9.2",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 12,
@@ -5932,7 +5966,9 @@
                     "homework_extension": "Review textbook section pp.27–32; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S4.4, S8.3, S9.2",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 13,
@@ -5955,7 +5991,9 @@
                     "homework_extension": "Review textbook section pp.33–40; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S4.5, S8.4, S9.3",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -5984,7 +6022,9 @@
                     "homework_extension": "Review textbook section pp.42–49; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S2.1, S3.1, S9.1",
                     "learning_domain": "S2, S3, S9"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 15,
@@ -6007,7 +6047,9 @@
                     "homework_extension": "Review textbook section pp.50–57; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S2.2, S3.2, S9.2",
                     "learning_domain": "S2, S3, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 16,
@@ -6030,7 +6072,9 @@
                     "homework_extension": "Review textbook section pp.58–64; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S2.3, S3.3, S9.3",
                     "learning_domain": "S2, S3, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 17,
@@ -6053,7 +6097,9 @@
                     "homework_extension": "Review textbook section pp.65–71; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S2.4, S3.4, S9.4",
                     "learning_domain": "S2, S3, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 18,
@@ -6076,7 +6122,9 @@
                     "homework_extension": "Review textbook section pp.72–79; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S2.5, S3.5, S9.5",
                     "learning_domain": "S2, S3, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -6105,7 +6153,9 @@
                     "homework_extension": "Review textbook section pp.82–89; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S1.1, S3.1, S5.1",
                     "learning_domain": "S1, S3, S5"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 20,
@@ -6128,7 +6178,9 @@
                     "homework_extension": "Review textbook section pp.90–97; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S1.2, S3.2, S5.2",
                     "learning_domain": "S1, S3, S5"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "week_number": 21,
@@ -6151,7 +6203,9 @@
                     "homework_extension": "Review textbook section pp.98–106; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S1.3, S3.3, S5.3",
                     "learning_domain": "S1, S3, S5"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 22,
@@ -6174,7 +6228,9 @@
                     "homework_extension": "Review textbook section pp.107–113; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S1.4, S3.4, S5.4",
                     "learning_domain": "S1, S3, S5"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 },
                 {
                   "week_number": 23,
@@ -6197,7 +6253,9 @@
                     "homework_extension": "Review textbook section pp.114–121; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S1.5, S5.5",
                     "learning_domain": "S1, S5"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 24,
@@ -6220,7 +6278,9 @@
                     "homework_extension": "Review textbook section pp.122–129; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S1.6, S3.5, S5.6",
                     "learning_domain": "S1, S3, S5"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 25,
@@ -6243,7 +6303,9 @@
                     "homework_extension": "Review textbook section pp.130–139; Write a 5-sentence reflection connecting today's lesson to your own experience",
                     "moe_standard": "S1.7, S5.7",
                     "learning_domain": "S1, S5"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -6272,7 +6334,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 4–5)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 21,
@@ -6295,7 +6359,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "—"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 24,
@@ -6318,7 +6384,9 @@
                     "homework_extension": "Complete study guide and review vocabulary. Teach one concept to a family member.",
                     "moe_standard": "Cumulative (Units 4–6)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 25,
@@ -6341,7 +6409,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 4–6)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 26,
@@ -6364,7 +6434,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 4–6)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             }
@@ -6398,7 +6470,9 @@
                     "homework_extension": "Review your weakest area from the worksheet. Create a study guide with 5 key terms and definitions for that topic.",
                     "moe_standard": "C2-G6-S2.2, S2.5",
                     "learning_domain": "Assessment & Consolidation"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 34,
@@ -6421,7 +6495,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Mid-Term Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 35,
@@ -6444,7 +6520,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Mid-Term Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 36,
@@ -6467,7 +6545,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Mid-Term Holiday"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 37,
@@ -6490,7 +6570,9 @@
                     "homework_extension": "Share your Civic Action Plan with a family member. Get their feedback and revise if needed.",
                     "moe_standard": "C2-G6-S8.4\nC2-G6-S8.5",
                     "learning_domain": "Civics & Governance\n(Application & Enrichment)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 8
                 },
                 {
                   "week_number": 38,
@@ -6513,7 +6595,9 @@
                     "homework_extension": "Review all key terms and concepts. Practice with a family member. Prepare for Final Exams.",
                     "moe_standard": "C2-G6-S(All Domains)",
                     "learning_domain": "Comprehensive Review"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 39,
@@ -6536,7 +6620,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Final Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 40,
@@ -6559,7 +6645,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Final Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -6588,7 +6676,9 @@
                     "homework_extension": "Ask a family member: What does the government do for us? Write 3 examples. Research: Find one example of a civil servant job in the UAE and describe what they do.",
                     "moe_standard": "C2-G6-S2.4",
                     "learning_domain": "Civics & Governance\n(Government Systems)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 28,
@@ -6611,7 +6701,9 @@
                     "homework_extension": "Interview a family member about a government service they use. Write a short paragraph explaining how it connects to the roles of political leaders or civil servants.",
                     "moe_standard": "C2-G6-S2.4",
                     "learning_domain": "Civics & Governance\n(Government Systems)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 29,
@@ -6634,7 +6726,9 @@
                     "homework_extension": "Research one European revolution in more detail. Write a short report: Who was involved? What changed? How did it affect ordinary people?",
                     "moe_standard": "C2-G6-S1.3, S2.2",
                     "learning_domain": "Civics & Governance\n(Political Systems)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 30,
@@ -6657,7 +6751,9 @@
                     "homework_extension": "Find a news article about a new law in the UAE. Write: What branch of government created it? Is it civil or criminal? How does it protect people?",
                     "moe_standard": "C2-G6-S2.5",
                     "learning_domain": "Civics & Governance\n(Legal Systems)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 31,
@@ -6680,7 +6776,9 @@
                     "homework_extension": "Research the UAE court system. What types of courts exist? How are judges appointed? Write 5 facts about the UAE judicial system.",
                     "moe_standard": "C2-G6-S2.2, S2.3",
                     "learning_domain": "Civics & Governance\n(Legal Systems & Democracy)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "week_number": 33,
@@ -6703,7 +6801,9 @@
                     "homework_extension": "Write a paragraph: Why is it important for people who live in a country to obey the laws? What can happen if people ignore laws? How do laws help people have a happy and successful life?",
                     "moe_standard": "C2-G6-S2.3, S8.3",
                     "learning_domain": "Civics & Governance\n(Human Rights)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 }
               ]
             }
@@ -6749,7 +6849,9 @@
                     "homework_extension": "Interview a family member about their daily duties and responsibilities. Write a 150-word reflection comparing their duties to yours. Include at least 2 examples of how rights and duties are connected in your family.",
                     "moe_standard": "S2.1, S4.1, S8.1",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 2,
@@ -6772,7 +6874,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on parental duties and responsibilities using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on parental duties and write a 150-word reflection.",
                     "moe_standard": "S2.2, S4.2, S8.2, S9.1",
                     "learning_domain": "S2, S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 3,
@@ -6795,7 +6899,9 @@
                     "homework_extension": "Creative Extension: Create a personal family duties action plan. List 5 duties you have at home, track your completion for one week, and write a 150-word reflection on how fulfilling these duties affected your family relationships.",
                     "moe_standard": "S2.3, S4.3, S8.3",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 4,
@@ -6818,7 +6924,9 @@
                     "homework_extension": "Research one UAE volunteer organization and write a 150-word reflection on how their work promotes moral values in the community. Include the organization's name, their mission, and how their work connects to moral responsibility.",
                     "moe_standard": "S4.4, S8.4, S9.2",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 5,
@@ -6841,7 +6949,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital poster on moral imperatives using Canva. Include a definition, 3 examples of moral imperatives in daily life, and 1 example of how a moral imperative guided a decision you made. Reflect: How do moral imperatives make our community stronger?",
                     "moe_standard": "S4.5, S8.5, S9.3",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -6870,7 +6980,9 @@
                     "homework_extension": "Conduct a home safety audit: walk through your home and list 5 potential hazards. Write a 150-word plan for addressing each hazard. Include at least one strategy from the textbook.",
                     "moe_standard": "S2.4, S4.6, S8.6",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 7,
@@ -6893,7 +7005,9 @@
                     "homework_extension": "Create a personal safety contact card with emergency numbers (999, 998, 997, child helpline) and names of at least 3 trusted adults. Write a 100-word reflection on why it is important to know who to contact in an emergency.",
                     "moe_standard": "S2.5, S4.7, S8.7",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 8,
@@ -6916,7 +7030,9 @@
                     "homework_extension": "Create a home first aid guide using Canva with procedures for 5 common injuries. Include emergency numbers and the DR ABC approach. Share with your family and discuss where your home first aid kit is located.",
                     "moe_standard": "S2.6, S8.8",
                     "learning_domain": "S2, S8"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "week_number": 9,
@@ -6939,7 +7055,9 @@
                     "homework_extension": "Create an online safety guide for a younger student. Include 5 rules for staying safe online, 2 warning signs of dangerous online situations, and who to contact if you feel unsafe online. Use Canva to make it visually appealing.",
                     "moe_standard": "S2.7, S4.8, S8.9",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 10,
@@ -6962,7 +7080,9 @@
                     "homework_extension": "Creative Extension: Design a community safety campaign poster using Canva. Include 3 key messages about crime prevention, 2 statistics or facts from the textbook, and a call to action for your community. Write a 150-word explanation of your campaign strategy.",
                     "moe_standard": "S2.8, S4.9, S8.10",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -6991,7 +7111,9 @@
                     "homework_extension": "Using Google Earth or an atlas, create a detailed labeled map of East Asia showing at least 8 geographic features. Write a 150-word analysis of how the Himalayas and major rivers influenced where civilizations developed.",
                     "moe_standard": "S1.1, S3.1, S7.1",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 12,
@@ -7014,7 +7136,9 @@
                     "homework_extension": "Research one ancient Chinese engineering project and compare it to a modern UAE engineering achievement. Write a 200-word comparison including purpose, scale, and impact on society. Create a visual comparison using Canva.",
                     "moe_standard": "S1.2, S3.2, S7.2",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 },
                 {
                   "week_number": 13,
@@ -7037,7 +7161,9 @@
                     "homework_extension": "Choose one Chinese invention and trace its journey from China to the rest of the world. Create a visual timeline showing when and how it spread, including its arrival in the Islamic world and eventually Europe. Write a 150-word summary.",
                     "moe_standard": "S1.3, S3.3, S7.3",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 8
                 },
                 {
                   "week_number": 14,
@@ -7060,7 +7186,9 @@
                     "homework_extension": "Create a cultural diffusion map showing how at least 3 aspects of Chinese culture (e.g., Buddhism, writing system, architecture) spread to Southeast Asia. Write a 150-word analysis of one example and how it changed the receiving culture.",
                     "moe_standard": "S1.4, S3.4, S7.4",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 9
                 },
                 {
                   "week_number": 15,
@@ -7083,7 +7211,9 @@
                     "homework_extension": "Choose a Chinese artwork from 1770 (from the textbook or online museum collection) and create a detailed art analysis using the describe-analyze-interpret-evaluate method. Include a sketch of the artwork and a 200-word written analysis.",
                     "moe_standard": "S1.5, S3.5, S7.5",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 10
                 },
                 {
                   "week_number": 16,
@@ -7106,7 +7236,9 @@
                     "homework_extension": "Creative Extension: Design a museum exhibit proposal for Korea's Renaissance. Include 5 artifacts/exhibits you would display, a description of each, and a 200-word curatorial statement explaining why Korea's Renaissance matters in world history. Compare it to one other cultural flowering you have studied.",
                     "moe_standard": "S1.6, S3.6, S7.6",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             }
@@ -7140,7 +7272,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Understanding Globalisation' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.2.02.024",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 16,
@@ -7163,7 +7297,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'What Factors Have Enabled Globalization?' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.3.01.014",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 17,
@@ -7186,7 +7322,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Globalisation and the UAE' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.2.01.021",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 18,
@@ -7209,7 +7347,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Advantages and Disadvantages of Globalisation' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.3.02.015",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 19,
@@ -7232,7 +7372,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'The Individual in a Globalised World' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.3.02.014",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -7261,7 +7403,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Life Necessities' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.3.01.013",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 22,
@@ -7284,7 +7428,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Basic Needs' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.3.01.014",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 23,
@@ -7307,7 +7453,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Is There a Link Between Unmet Needs and Conflict?' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.3.01.015",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 24,
@@ -7330,7 +7478,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Commitment to the Value of Human Life' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.3.02.014",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 25,
@@ -7353,7 +7503,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Take Action Now!' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.3.02.015",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -7382,7 +7534,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Geography of South Asia' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.1.1.02.033",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 27,
@@ -7405,7 +7559,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Ancient Civilizations of South Asia' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.1.02.017",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "week_number": 28,
@@ -7428,7 +7584,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Ancient India — Mauryan to Gupta Empires' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.1.02.019,MSC.2.1.02.018",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 29,
@@ -7451,7 +7609,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Arrival of Islamic Civilization' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.3.2.02.011",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 },
                 {
                   "week_number": 30,
@@ -7474,7 +7634,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Origins of Science in South Asia' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.4.02.020,MSC.2.4.01.021",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 31,
@@ -7497,7 +7659,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'The British in India' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.4.01.020,MSC.2.4.01.023",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 32,
@@ -7520,7 +7684,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Economy and Cities of South Asia' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.4.02.021,MSC.2.4.02.022",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -7549,7 +7715,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "—"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 33,
@@ -7572,7 +7740,9 @@
                     "homework_extension": "Complete study guide and review vocabulary. Teach one concept to a family member.",
                     "moe_standard": "Cumulative (Units 4–6)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 34,
@@ -7595,7 +7765,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 4–5)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 35,
@@ -7618,7 +7790,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 4–6)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 36,
@@ -7641,7 +7815,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 4–6)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             }
@@ -7675,7 +7851,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Digital Resources and Sites' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.2.02.024, MSC.2.3.01.014, MSC.2.2.01.021, MSC.2.3.02.015, MSC.2.3.02.014",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 34,
@@ -7698,7 +7876,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Privacy and Electronic Safety' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.2.02.024, MSC.2.3.01.014, MSC.2.2.01.021, MSC.2.3.02.015, MSC.2.3.02.014",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 35,
@@ -7721,7 +7901,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Online Abuse' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.2.02.024, MSC.2.3.01.014, MSC.2.2.01.021, MSC.2.3.02.015, MSC.2.3.02.014",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 36,
@@ -7744,7 +7926,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Smart Selection of Information' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.2.02.024, MSC.2.3.01.014, MSC.2.2.01.021, MSC.2.3.02.015, MSC.2.3.02.014",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 37,
@@ -7767,7 +7951,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Manipulation of Individuals and Behaviour' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.2.02.024, MSC.2.3.01.014, MSC.2.2.01.021, MSC.2.3.02.015, MSC.2.3.02.014",
                     "learning_domain": "S4, S6, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -7796,7 +7982,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Moral Education in Action — Project' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.2.3.01.013, MSC.2.3.01.015, MSC.2.3.02.014",
                     "learning_domain": "S2, S4, S8"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -7825,7 +8013,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'An Introduction to Central Asia' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.1.3.02.023, MSC.1.4.01.012, MSC.1.4.01.013, MSC.1.5.02.019, MSC.1.3.01.022, MSC.1.5.02.021, MSC.2.1.01.017, MSC.2.2.01.011",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 40,
@@ -7848,7 +8038,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'The Silk Road' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.1.3.02.023, MSC.1.4.01.012, MSC.1.4.01.013, MSC.1.5.02.019, MSC.1.3.01.022, MSC.1.5.02.021, MSC.2.1.01.017, MSC.2.2.01.011",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 43,
@@ -7871,7 +8063,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'The Culture of Central Asia' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.1.3.02.023, MSC.1.4.01.012, MSC.1.4.01.013, MSC.1.5.02.019, MSC.1.3.01.022, MSC.1.5.02.021, MSC.2.1.01.017, MSC.2.2.01.011",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 44,
@@ -7894,7 +8088,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Kazakhstan' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.1.3.02.023, MSC.1.4.01.012, MSC.1.4.01.013, MSC.1.5.02.019, MSC.1.3.01.022, MSC.1.5.02.021, MSC.2.1.01.017, MSC.2.2.01.011",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "week_number": 45,
@@ -7917,7 +8113,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Kyrgyzstan and Tajikistan' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.1.3.02.023, MSC.1.4.01.012, MSC.1.4.01.013, MSC.1.5.02.019, MSC.1.3.01.022, MSC.1.5.02.021, MSC.2.1.01.017, MSC.2.2.01.011",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 },
                 {
                   "week_number": 46,
@@ -7940,7 +8138,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Turkmenistan and Uzbekistan' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.1.3.02.023, MSC.1.4.01.012, MSC.1.4.01.013, MSC.1.5.02.019, MSC.1.3.01.022, MSC.1.5.02.021, MSC.2.1.01.017, MSC.2.2.01.011",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 8
                 },
                 {
                   "week_number": 47,
@@ -7963,7 +8163,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Russia, USSR, and the Cold War' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "MSC.1.3.02.023, MSC.1.4.01.012, MSC.1.4.01.013, MSC.1.5.02.019, MSC.1.3.01.022, MSC.1.5.02.021, MSC.2.1.01.017, MSC.2.2.01.011",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -7992,7 +8194,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Mid-Term Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 42,
@@ -8015,7 +8219,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Mid-Term Holiday"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 48,
@@ -8038,7 +8244,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Comprehensive Review"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 49,
@@ -8061,7 +8269,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Final Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 50,
@@ -8084,7 +8294,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Final Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             }
@@ -8130,7 +8342,9 @@
                     "homework_extension": "Decorate the classroom rules poster at home and add a drawing of yourself following one rule. Review the diagnostic topics with a family member and note 2 things you want to improve this year.",
                     "moe_standard": "C2-G8-S*.* — Baseline",
                     "learning_domain": "All Domains"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 6,
@@ -8153,7 +8367,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 1–2)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 7,
@@ -8176,7 +8392,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "—"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 8,
@@ -8199,7 +8417,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Land and Resources of Africa' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.1, S3.1, S7.1",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 9,
@@ -8222,7 +8442,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Ancient African Civilizations' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.2, S3.2, S7.2",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 },
                 {
                   "week_number": 10,
@@ -8245,7 +8467,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Traditional African Art' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.3, S3.3, S7.3",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 8
                 },
                 {
                   "week_number": 11,
@@ -8268,7 +8492,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'West African Islamic Civilizations' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.4, S3.4, S7.4, S9.1",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 9
                 },
                 {
                   "week_number": 12,
@@ -8291,7 +8517,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Africa from Colonialism to Independence' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S1.5, S3.5, S7.5, S2.1",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 10
                 },
                 {
                   "week_number": 13,
@@ -8314,7 +8542,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 1–3)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 14,
@@ -8337,7 +8567,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 1–3)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -8366,7 +8598,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Definition of Community' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S4.1, S8.1, S9.1",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 3,
@@ -8389,7 +8623,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'The Form of Our Communities' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S4.3, S8.3",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 }
               ]
             },
@@ -8418,7 +8654,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Understanding Diversity and Equality' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S4.1, S8.1, S9.1",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 5,
@@ -8441,7 +8679,9 @@
                     "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Can I See Beyond Appearances?' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
                     "moe_standard": "S8.3, S4.3",
                     "learning_domain": "S4, S8, S9"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 5
                 }
               ]
             }
@@ -8475,7 +8715,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Majlis: The Traditional Means of Consultation' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "S2.1,S9.1,S4.1",
                     "learning_domain": "S2, S9, S4"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 16,
@@ -8498,7 +8740,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'The Consultative Governance in the UAE' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "S2.3,S4.2",
                     "learning_domain": "S2, S9, S4"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 2
                 }
               ]
             },
@@ -8527,7 +8771,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Understanding State and Government' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "S8.1,S4.1,S2.1",
                     "learning_domain": "S8, S4, S2"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 }
               ]
             },
@@ -8556,7 +8802,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'The Land and Physical Geography of North America' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "S1.1,S3.1,S7.1",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 19,
@@ -8579,7 +8827,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Indigenous People of North America' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "S1.2,S3.2,S7.2",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "week_number": 20,
@@ -8602,7 +8852,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 4–5)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 21,
@@ -8625,7 +8877,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "—"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 22,
@@ -8648,7 +8902,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Colonial North America' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "S1.3,S3.3,S7.3",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 23,
@@ -8671,7 +8927,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'American Civil War and Reconstruction' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "S1.4,S3.4,S7.4",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 },
                 {
                   "week_number": 24,
@@ -8694,7 +8952,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'Modern Canada' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "S1.5,S3.5,S7.5",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 25,
@@ -8717,7 +8977,9 @@
                     "homework_extension": "Creative Extension: Design a digital infographic on 'South America' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
                     "moe_standard": "S1.6,S3.6,S7.6",
                     "learning_domain": "S1, S3, S7"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 26,
@@ -8740,7 +9002,9 @@
                     "homework_extension": "Complete study guide and review vocabulary. Teach one concept to a family member.",
                     "moe_standard": "Cumulative (Units 4–6)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 25,
@@ -8763,7 +9027,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 4–6)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 26,
@@ -8786,7 +9052,9 @@
                     "homework_extension": "No homework during exam week.",
                     "moe_standard": "Cumulative (Units 4–6)",
                     "learning_domain": "All Covered Domains"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             }
@@ -8820,7 +9088,9 @@
                     "homework_extension": "Find 3 news articles about West Asia. Write a 2-sentence summary of each.",
                     "moe_standard": "C2-G8-S3.1\nC2-G8-S3.2",
                     "learning_domain": "Geography & History\n(West Asia)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 28,
@@ -8843,7 +9113,9 @@
                     "homework_extension": "Compare the Strait of Hormuz to another global chokepoint. Write a paragraph explaining its importance.",
                     "moe_standard": "C2-G8-S3.1\nC2-G8-S3.2",
                     "learning_domain": "Geography & History\n(West Asia)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 2
                 },
                 {
                   "week_number": 29,
@@ -8866,7 +9138,9 @@
                     "homework_extension": "Compare the geography of North Africa to West Asia. Write 3 similarities and 3 differences.",
                     "moe_standard": "C2-G8-S3.1",
                     "learning_domain": "Geography & History\n(North Africa)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 30,
@@ -8889,7 +9163,9 @@
                     "homework_extension": "Research Osman I and write a short biography (5-7 sentences).",
                     "moe_standard": "C2-G8-S3.1\nC2-G8-S1.5",
                     "learning_domain": "Geography & History\n(The Ottoman Empire)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 31,
@@ -8912,7 +9188,9 @@
                     "homework_extension": "Write a diary entry as if you were a citizen of Constantinople in 1453. Describe what happened.",
                     "moe_standard": "C2-G8-S3.1\nC2-G8-S1.5",
                     "learning_domain": "Geography & History\n(The Ottoman Empire)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "week_number": 32,
@@ -8935,7 +9213,9 @@
                     "homework_extension": "Review any topics you found difficult on the worksheet. Prepare questions for the next class.",
                     "moe_standard": "C2-G8-S3.1\nC2-G8-S1.5",
                     "learning_domain": "Assessment &\nConsolidation"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "week_number": 33,
@@ -8958,7 +9238,9 @@
                     "homework_extension": "Research one of Suleyman's military campaigns in detail. Write a battle report (5-7 sentences).",
                     "moe_standard": "C2-G8-S1.1\nC2-G8-S1.5",
                     "learning_domain": "Geography & History\n(The Ottoman Empire)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 },
                 {
                   "week_number": 34,
@@ -8981,7 +9263,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Mid-Term Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 35,
@@ -9004,7 +9288,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Mid-Term Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 36,
@@ -9027,7 +9313,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Mid-Term Holiday"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 37,
@@ -9050,7 +9338,9 @@
                     "homework_extension": "Design a mosque inspired by Ottoman architecture. Label the key features (dome, minaret, courtyard). Explain your design choices.",
                     "moe_standard": "C2-G8-S1.1\nC2-G8-S1.5",
                     "learning_domain": "Geography & History\n(The Ottoman Empire)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 8
                 },
                 {
                   "week_number": 38,
@@ -9073,7 +9363,9 @@
                     "homework_extension": "Creative Extension: Write a diary entry as a person living in the Ottoman Empire during WWI. Describe the challenges and changes you witness.",
                     "moe_standard": "C2-G8-S1.1\nC2-G8-S1.5",
                     "learning_domain": "Geography & History\n(The Ottoman Empire)"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 39,
@@ -9096,7 +9388,9 @@
                     "homework_extension": "Review all key terms, maps, and concepts. Practice with a family member. Prepare for Final Exams.",
                     "moe_standard": "C2-G8-S(All Domains)",
                     "learning_domain": "Comprehensive Review"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 39,
@@ -9119,7 +9413,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Final Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 40,
@@ -9142,7 +9438,9 @@
                     "homework_extension": "—",
                     "moe_standard": "—",
                     "learning_domain": "Final Exams"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             }
@@ -9177,7 +9475,9 @@
                     "Understand the concept of global ethics and moral imperatives",
                     "Analyse the role of the UN in promoting global morality",
                     "Evaluate the UAE's approach to tolerance and coexistence"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 2
                 },
                 {
                   "title": "International Relations of the UAE",
@@ -9189,7 +9489,9 @@
                     "Examine the UAE's foreign policy principles",
                     "Compare UAE and international approaches to human rights",
                     "Evaluate international collaboration through UAE-Japan partnership"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "Global Ethical Challenges",
@@ -9201,7 +9503,9 @@
                     "Identify major global ethical challenges",
                     "Analyse the moral dimensions of poverty and inequality",
                     "Evaluate the UAE's response to climate change"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 3
                 },
                 {
                   "title": "World Moral Challenges",
@@ -9213,7 +9517,9 @@
                     "Examine the global refugee crisis as a moral challenge",
                     "Analyse human trafficking and child labour",
                     "Evaluate the UAE's humanitarian response"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "Dealing with Global Ethical Challenges",
@@ -9225,7 +9531,9 @@
                     "Evaluate approaches to addressing global challenges",
                     "Examine the UAE's model of humanitarian aid",
                     "Develop personal action plans for ethical engagement"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 4
                 }
               ]
             },
@@ -9243,7 +9551,9 @@
                     "Understand the history and function of money",
                     "Examine the UAE dirham and its significance",
                     "Develop budgeting skills and financial literacy"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "title": "The Dangers of Wealth and Greed",
@@ -9255,7 +9565,9 @@
                     "Analyse the psychological and social dangers of greed",
                     "Examine the impact of debt on individuals and societies",
                     "Evaluate Islamic teachings on financial responsibility"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "How Wealth Can Be a Force for Good?",
@@ -9267,7 +9579,9 @@
                     "Examine Islamic concepts of zakat and sadaqah",
                     "Analyse the role of waqf in Islamic civilization",
                     "Evaluate CSR and ethical investment"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "title": "The Development of Entrepreneurship Skills",
@@ -9279,7 +9593,9 @@
                     "Understand the entrepreneurial mindset",
                     "Examine the UAE's support for entrepreneurs",
                     "Develop core entrepreneurship skills"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "Becoming an Entrepreneur",
@@ -9291,7 +9607,9 @@
                     "Examine the steps of launching a business",
                     "Evaluate the UAE's entrepreneurial ecosystem",
                     "Understand ethical principles in entrepreneurship"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 7
                 }
               ]
             },
@@ -9309,7 +9627,9 @@
                     "Examine the geological and geographical landscape of the UAE",
                     "Analyse the archaeological significance of Jebel Faya",
                     "Evaluate the connection between UAE heritage and global human history"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 8
                 },
                 {
                   "title": "The Bronze Age and Umm an-Nar",
@@ -9321,7 +9641,9 @@
                     "Examine the Bronze Age in the UAE",
                     "Analyse the Umm an-Nar culture and trade networks",
                     "Evaluate the significance of Bronze Age discoveries"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "The Impact of the Falaj during the Iron Age",
@@ -9333,7 +9655,9 @@
                     "Understand the falaj irrigation system",
                     "Examine the social and economic impact of the falaj",
                     "Evaluate the falaj as a model of sustainable water management"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 9
                 },
                 {
                   "title": "Domestication of Camels and Muweilah",
@@ -9345,7 +9669,9 @@
                     "Examine the domestication of camels and its impact",
                     "Analyse the Muweilah archaeological site",
                     "Evaluate the role of camels in shaping Emirati heritage"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "Shipbuilding and Trade: Ed-Dur and the Arabian Gulf",
@@ -9357,7 +9683,9 @@
                     "Examine traditional shipbuilding in the UAE",
                     "Analyse the Ed-Dur archaeological site and maritime trade",
                     "Evaluate the legacy of maritime trade in Emirati culture"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 10
                 }
               ]
             }
@@ -9380,7 +9708,9 @@
                     "Distinguish between tangible and intangible heritage",
                     "Evaluate case studies of heritage preservation",
                     "Understand UNESCO conventions on cultural heritage"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "title": "Understanding Emirati Heritage",
@@ -9392,7 +9722,9 @@
                     "Examine falconry and its UNESCO recognition",
                     "Analyse traditional Emirati architecture",
                     "Evaluate UAE archaeological sites and their significance"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "Preserving the Cultural and Natural Heritage",
@@ -9404,7 +9736,9 @@
                     "Understand archaeological excavation processes",
                     "Examine heritage villages and institutional preservation",
                     "Evaluate virtual museums and digital preservation"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 2
                 },
                 {
                   "title": "Heritage Tourism",
@@ -9416,7 +9750,9 @@
                     "Analyse the economic impact of heritage tourism",
                     "Examine threats to heritage sites from tourism",
                     "Evaluate UAE heritage tourism initiatives"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "What Am I Supposed to Do to Keep my Heritage?",
@@ -9428,7 +9764,9 @@
                     "Examine UNESCO World Heritage Convention and youth involvement",
                     "Evaluate traditional Emirati arts and their preservation",
                     "Develop personal heritage preservation action plans"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -9446,7 +9784,9 @@
                     "Understand the UAE Constitution and key articles",
                     "Examine the UAE as a constitutional federation",
                     "Evaluate constitutional rights and duties"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 3
                 },
                 {
                   "title": "The Federal System",
@@ -9458,7 +9798,9 @@
                     "Identify the three branches of government",
                     "Examine the five federal authorities",
                     "Understand the structure and composition of federal bodies"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "Federal Authorities of the UAE",
@@ -9470,7 +9812,9 @@
                     "Analyse the roles of the Supreme Council and President",
                     "Examine federal ministries and government evolution",
                     "Understand how government changes reflect citizen needs"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "title": "Law and Order in the UAE",
@@ -9482,7 +9826,9 @@
                     "Examine the UAE judicial structure",
                     "Understand the role of Sharia in the court system",
                     "Evaluate smart transformation of judicial services"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "Local Governments Across the UAE",
@@ -9494,7 +9840,9 @@
                     "Understand federal vs local jurisdiction",
                     "Examine emirate autonomy and executive councils",
                     "Evaluate smart governance initiatives"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             },
@@ -9512,7 +9860,9 @@
                     "Trace the arrival of Islam in the UAE region",
                     "Examine early Islamic architecture",
                     "Evaluate the contributions of Ahmed bin Majid"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 5
                 },
                 {
                   "title": "Emergence of Bani Yas and Qawasim",
@@ -9524,7 +9874,9 @@
                     "Examine Portuguese colonial period in the Gulf",
                     "Analyse local resistance against Portuguese occupation",
                     "Understand the origins of Bani Yas and Qawasim tribes"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "The British Maritime System and National Identity",
@@ -9536,7 +9888,9 @@
                     "Examine British interference in the southern Gulf",
                     "Analyse the treaty system 1820-1892",
                     "Evaluate the impact of British treaties on local sovereignty"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 6
                 },
                 {
                   "title": "The Trucial States Leading up to Nationalisation",
@@ -9548,7 +9902,9 @@
                     "Examine key leaders of the Emirates",
                     "Understand the impact of WWII and the oil discovery",
                     "Evaluate the transition from Trucial States to UAE"
-                  ]
+                  ],
+                  "is_mapped": true,
+                  "lesson_number": 7
                 }
               ]
             },
@@ -9566,7 +9922,9 @@
                     "Examine Sheikh Zayed's life and leadership",
                     "Understand the founding of the UAE and its Constitution",
                     "Evaluate the GCC and regional challenges"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "Early Development of the Nation",
@@ -9578,7 +9936,9 @@
                     "Examine ADNOC and ADIA contributions",
                     "Analyse UAE population growth and societal transformation",
                     "Evaluate Sheikh Zayed's educational vision"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "The UAE from the 1990s to 2010",
@@ -9590,7 +9950,9 @@
                     "Examine UAE peacekeeping and international aid",
                     "Evaluate environmental initiatives and climate change response",
                     "Understand leadership transitions after Sheikh Zayed"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "title": "Heritage Project",
@@ -9602,7 +9964,9 @@
                     "Research a UAE town or city's heritage",
                     "Develop presentation skills for heritage projects",
                     "Connect local heritage to national identity"
-                  ]
+                  ],
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             }
@@ -9636,7 +10000,9 @@
                     "homework_extension": "Ask a family member about a time they helped the community. Write a short summary.",
                     "moe_standard": "C2-G9-S8.5",
                     "learning_domain": "Civics & Citizenship (Civic Engagement)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 1
                 },
                 {
                   "week_number": 28,
@@ -9659,7 +10025,9 @@
                     "homework_extension": "Research one UAE volunteering organisation and write a short report.",
                     "moe_standard": "C2-G9-S8.5",
                     "learning_domain": "Civics & Citizenship (Civic Engagement)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 3
                 },
                 {
                   "week_number": 29,
@@ -9682,7 +10050,9 @@
                     "homework_extension": "Interview a family member about what makes a good Emirati citizen.",
                     "moe_standard": "C2-G9-S8.5",
                     "learning_domain": "Civics & Citizenship (Civic Engagement)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 4
                 },
                 {
                   "week_number": 30,
@@ -9705,7 +10075,9 @@
                     "homework_extension": "Identify a community issue and write a plan for how you could help solve it.",
                     "moe_standard": "C2-G9-S8.5",
                     "learning_domain": "Civics & Citizenship (Civic Engagement)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 7
                 },
                 {
                   "week_number": 31,
@@ -9728,7 +10100,9 @@
                     "homework_extension": "Research one SDG and write about how young people in the UAE can contribute to it.",
                     "moe_standard": "C2-G9-S8.5",
                     "learning_domain": "Civics & Citizenship (Civic Engagement)"
-                  }
+                  },
+                  "is_mapped": true,
+                  "lesson_number": 8
                 }
               ]
             },
@@ -9757,7 +10131,9 @@
                     "homework_extension": "Research a knowledge economy career that interests you and the education required.",
                     "moe_standard": "C2-G9-S5.1",
                     "learning_domain": "Economics (Knowledge Economy)"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 33,
@@ -9780,7 +10156,9 @@
                     "homework_extension": "Choose one federal initiative and research it in more detail.",
                     "moe_standard": "C2-G9-S5.2",
                     "learning_domain": "Economics (Infrastructure)"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 34,
@@ -9803,7 +10181,9 @@
                     "homework_extension": "Research one innovative healthcare or education initiative in the UAE.",
                     "moe_standard": "C2-G9-S4.3",
                     "learning_domain": "Social & Cultural (Healthcare, Education, Social Services)"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 35,
@@ -9826,7 +10206,9 @@
                     "homework_extension": "Research the UAE 2050 Energy Strategy and its key targets.",
                     "moe_standard": "C2-G9-S3.2",
                     "learning_domain": "Social & Cultural (Sustainability)"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 36,
@@ -9849,7 +10231,9 @@
                     "homework_extension": "Review notes from lessons 1-4 and prepare questions for the next class.",
                     "moe_standard": "C2-G9-S5.1",
                     "learning_domain": "Review"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 37,
@@ -9872,7 +10256,9 @@
                     "homework_extension": "Research an international aid organisation and compare it with a UAE charity.",
                     "moe_standard": "C2-G9-S2.1",
                     "learning_domain": "Civics & Citizenship (Civic Responsibility)"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 38,
@@ -9895,7 +10281,9 @@
                     "homework_extension": "Predict 3 products that will be in great demand in 2050 and explain why.",
                     "moe_standard": "C2-G9-S5.1",
                     "learning_domain": "Economics (Trade)"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 39,
@@ -9918,7 +10306,9 @@
                     "homework_extension": "Research a UAE aerospace company and describe its products and initiatives.",
                     "moe_standard": "C2-G9-S9.1",
                     "learning_domain": "Social & Cultural (Space, Research, Innovation)"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 40,
@@ -9941,7 +10331,9 @@
                     "homework_extension": "Complete presentation preparation if not finished in class.",
                     "moe_standard": "C2-G9-S8.5",
                     "learning_domain": "Project-Based Learning"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 },
                 {
                   "week_number": 41,
@@ -9964,7 +10356,9 @@
                     "homework_extension": "Review all notes from Term 3 in preparation for the final exam.",
                     "moe_standard": "C2-G9-S8.5",
                     "learning_domain": "Review"
-                  }
+                  },
+                  "is_mapped": false,
+                  "lesson_number": null
                 }
               ]
             }

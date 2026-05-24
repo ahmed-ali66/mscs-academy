@@ -123,6 +123,8 @@ export interface LessonData {
   resources: string;
   homework: string;
   assessment_type: string;
+  is_mapped?: boolean;
+  lesson_number?: number | null;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -711,6 +713,8 @@ export function getUnitData(gradeKey: string, termKey: string, unitKey: string):
         resources: ss.resources_materials || l.resources || '',
         homework: ss.homework_extension || '',
         assessment_type: l.assessment || '',
+        is_mapped: (l as Record<string, unknown>).is_mapped as boolean | undefined,
+        lesson_number: (l as Record<string, unknown>).lesson_number as number | null | undefined,
       };
     });
 
@@ -728,6 +732,7 @@ export function getLesson(gradeKey: string, termKey: string, unitKey: string, le
       title: '', week: 0, domains: '', dok: '', slo_codes: '',
       objective: '', success_criteria: '', prior_learning: '',
       activities: '', assessment: '', resources: '', homework: '', assessment_type: '',
+      is_mapped: false, lesson_number: null,
     };
   }
   return unitData.lessons[lessonIndex];
