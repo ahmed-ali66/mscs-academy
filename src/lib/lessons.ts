@@ -638,6 +638,9 @@ export function getGradeInfo(): GradeInfo[] {
               'G9_T2_Unit 5': 'Governments, Authority, and the Judiciary System in the UAE',
               'G9_T2_Unit 6': 'Developments Leading up to the Founding of the UAE',
               'G9_T2_Unit 7': 'The UAE Emerges',
+              // G9 T3
+              'G9_T3_Unit 8': 'Being an Active Citizen',
+              'G9_T3_Unit 9': 'The UAE in the 21st Century',
             };
             // Check grade+term specific override first, then fallback to general
             const gradeTermKey = `${gk}_${tk}_${uk}`;
