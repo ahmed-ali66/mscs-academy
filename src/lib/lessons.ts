@@ -615,6 +615,14 @@ export function getGradeInfo(): GradeInfo[] {
               'G7_T1_Unit 1': 'Individual Responsibilities and Duties and Moral Obligations',
               'G7_T1_Unit 2': 'Making Good Decisions',
               'G7_T1_Unit 3': 'East Asia',
+              // G7 T3 specific overrides
+              'G7_T3_Unit 7': 'Digital Challenge',
+              'G7_T3_Unit 8': 'Moral Education in Action',
+              'G7_T3_Unit 9': 'Central Asia',
+              // G8 T1 specific overrides
+              'G8_T1_Unit 1': 'Ethics in the Context of Communities',
+              'G8_T1_Unit 2': 'Valuing Diversity',
+              'G8_T1_Unit 3': 'African Civilizations',
             };
             // Check grade+term specific override first, then fallback to general
             const gradeTermKey = `${gk}_${tk}_${uk}`;
