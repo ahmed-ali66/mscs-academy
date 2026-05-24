@@ -144,3 +144,313 @@ Fixed 5 critical issues in the MSCS Academy PWA (`src/app/page.tsx`).
 - `src/lib/lessons.ts`
 - `public/curriculum_mapping.json`
 - `public/lessons_index.json`
+
+---
+
+## Date: 2026-03-06
+
+## Summary of Changes
+
+Restructured the lesson viewer in `src/app/page.tsx` to implement a **UNIFIED 14-SLIDE lesson framework** for ALL lessons. Previously the lesson viewer had a variable number of slides (8-12). Now ALL lessons always have exactly 14 slides.
+
+---
+
+### CHANGE: Unified 14-Slide Lesson Framework ✅
+
+**Root Cause**: The lesson viewer used a dynamic `slides.push()` pattern that resulted in different numbers of slides depending on whether rich content was available. Generic lessons had as few as 8 slides, while rich content lessons had up to 12. This created inconsistent learning experiences.
+
+**New 14-Slide Structure** (always present, all lessons):
+
+| Slide | ID | Type | Title | Content |
+|-------|----|------|-------|---------|
+| 1 | 1 | `title` | Lesson title | Hero image or decorative gradient card, key vocabulary, unit context |
+| 2 | 2 | `standards` | Standards, Objectives & KWL | Compact 3-column grid (Standards/Objectives/Success Criteria) + Prior Learning + KWL Chart |
+| 3 | 3 | `hook` | Hook Question | Warm-up hook question + discussion prompt + Inquiry-Based Opening Prompt |
+| 4 | 4 | `reading1` | First Reading | Rich content reading1 or fallback from prior_learning/objective, with supporting visuals |
+| 5 | 5 | `summary1` | Key Takeaways — Reading One | Key facts (first half) or fallback from objectives/success criteria, plus reflection prompt |
+| 6 | 6 | `visual` | Visual Analysis | Rich visual renderer, hero image with analysis questions, or ComparisonChart fallback |
+| 7 | 7 | `reading2` | Second Reading | Rich content reading2 or fallback from resources/assessment context |
+| 8 | 8 | `summary2` | Key Takeaways — Reading Two | Key facts (second half) or fallback from discussion points/success criteria, plus compare & connect prompt |
+| 9 | 9 | `analytical` | Analysis & Discussion | Discussion questions or analytical task cards (identify patterns, evaluate evidence, apply to context) |
+| 10 | 10 | `strategies` | Strategies & Activities | Interactive strategies or parsed activities + Peer Evaluation section + Assessment Rubric |
+| 11 | 11 | `links` | UAE & Real-Life Connections | UAE links + Interactive Map + Cross-Curricular Connection (Arabic, Islamic Studies, Social Studies) + ComparisonChart |
+| 12 | 12 | `homework` | Homework & Lesson Closure | Homework task + Resources + Assessment + Lesson Closure (KWL review, reflect, next steps) |
+| 13 | 13 | `quiz` | Formative Assessment | Quiz engine + login requirement notice + Textbook-Based badge when rich content |
+| 14 | 14 | `thankyou` | Thank You! | MashaAllah celebration + Mr. Ahmed Ali link + Restart/Back buttons |
+
+**Changes Made**:
+
+1. **Replaced entire slide-building section** (lines 1181-1828 → lines 1181-2130): Changed from dynamic conditional `slides.push()` to always-14-slides structure
+
+2. **Added reading content preparation** (lines 1186-1204): Pre-compute `reading1Title`, `reading1Content`, `reading1Time`, `reading2Title`, `reading2Content`, `reading2Time` with rich content or fallback values. Fallback reading1 uses `lesson.prior_learning` + `lesson.objective` + `lesson.resources`. Fallback reading2 uses `lesson.resources` + deeper understanding prompt + `lesson.assessment`.
+
+3. **Slide 1 (Title + Image)**: Added hero image display with caption or decorative gradient fallback card. Key vocabulary limited to 8 with "+N more" overflow badge.
+
+4. **Slide 2 (Standards + Objectives + Success Criteria + KWL)**: Merged old Slides 1 & 2 into compact layout. 3-column grid for Standards/Objectives/Success Criteria. Prior Learning card. KWL Chart. All in one slide.
+
+5. **Slide 3 (Hook Question)**: Added "Inquiry-Based Opening Prompt" card below the discussion card with guiding question about the lesson topic.
+
+6. **Slide 4 (First Reading)**: Always present. Uses `reading1Content` (rich or fallback). Always shows reading timer. Supporting visuals from hero image and/or visual renderer.
+
+7. **Slide 5 (Summary of First Reading)**: Always present. Uses `keyFacts` (first half) or fallback from objectives/success criteria. Includes "Reflection Prompt" card.
+
+8. **Slide 6 (Visual Analysis)**: Always present. Three-tier fallback: 1) Rich visual renderer, 2) Hero image with analysis questions, 3) ComparisonChart. Includes map when markers exist.
+
+9. **Slide 7 (Second Reading)**: Always present. Uses `reading2Content` (rich or fallback). Shows reading timer.
+
+10. **Slide 8 (Summary of Second Reading)**: Always present. Uses `keyFacts` (second half) or discussion questions or fallback. Includes "Compare & Connect" reflection card.
+
+11. **Slide 9 (Analysis & Discussion)**: Always present. Uses `discussionQuestions` from rich content, or generates 3 analytical task cards (Identify Patterns, Evaluate Evidence, Apply to New Context). Includes visual renderer if available.
+
+12. **Slide 10 (Strategies & Activities + Peer Evaluation + Rubrics)**: Always present. Uses `interactiveStrategies` or parsed `activities`. Added new **Peer Evaluation** section with 3 prompts. Added new **Assessment Rubric** with 4 levels (Excellent/Proficient/Developing/Beginning).
+
+13. **Slide 11 (UAE Links + Cross-Curricular)**: Always present. Same UAE links + map. Added new **Cross-Curricular Connection** section with 3 subjects (Arabic Language, Islamic Studies, Social Studies). Kept ComparisonChart.
+
+14. **Slide 12 (Homework + Closure)**: Always present. Same homework/resources/assessment cards. Added new **Lesson Closure** card with KWL review, reflect, and next steps prompts.
+
+15. **Slide 13 (Quiz)**: Always present. Same quiz engine. Added login requirement notice card when not logged in.
+
+16. **Slide 14 (Thank You)**: Always present. Same MashaAllah celebration.
+
+17. **Updated navigation tab icons** (lines 2177-2190): Added icons for all 14 slide types:
+    - `title` → FileText, `standards` → Target, `hook` → Sparkles, `reading1` → BookOpen, `summary1` → Star, `visual` → Eye, `reading2` → BookOpen, `summary2` → Star, `analytical` → Brain, `strategies` → Swords, `links` → Globe, `homework` → FileText, `quiz` → Trophy, `thankyou` → Award
+
+**Fallback Content Strategy for Generic Lessons**:
+- Reading 1: `lesson.prior_learning` + `lesson.objective` + `lesson.resources`
+- Reading 2: `lesson.resources` + deeper understanding prompt + `lesson.assessment`
+- Summary 1: Objectives + success criteria + key concept
+- Summary 2: Discussion questions or success criteria + connection prompts
+- Visual: ComparisonChart with objectives vs real-world examples
+- Analysis: 3 analytical task cards (patterns, evidence, context)
+- Strategies: Parsed activities from lesson data
+
+**Build Verification**:
+- `bun run lint` passes with no errors
+- `npx next build` completes successfully
+- Dev server running, no runtime errors
+
+---
+
+## Files Modified
+
+- `src/app/page.tsx` — Complete restructure of `renderLessonViewer()` slide building (lines 1181-2130) and navigation tab icons (lines 2177-2190)
+
+## Files NOT Modified (as required)
+
+- `src/lib/g6t1-content.ts`
+- `src/lib/g6t2-content.ts`
+- `src/lib/g6t3-content.ts`
+- `src/lib/g7t1-content.ts`
+- `src/lib/lessons.ts`
+- `public/curriculum_mapping.json`
+- `public/lessons_index.json`
+
+---
+
+## Date: 2026-03-06 (Session 2)
+
+## Summary of Changes
+
+Applied 4 UI/UX improvements to the landing page of the MSCS Academy PWA (`src/app/page.tsx` and `src/app/globals.css`). Tasks 3, 5, 6, and 7.
+
+---
+
+### FIX 1 (Task 3): Make About, Student Login, Parental Consent More Visible ✅
+
+**Issue**: The three navigation buttons (About, Student Login, Parental Consent) were small inline buttons that didn't stand out on the landing page.
+
+**Changes Made**:
+
+1. **Replaced `Button` components with native `button` elements** for full control over styling
+2. **Increased button size**: Changed from `text-sm` with default padding to `text-sm sm:text-base` with `px-5 sm:px-6 py-2.5 sm:py-3`
+3. **Pill-button design**: Applied `rounded-full` for pill shape with `border-2` for thicker borders
+4. **Gold accent styling**: Student Login button has `rgba(212,175,55,0.2)` background (gold tinted), while About and Parental Consent have `rgba(255,255,255,0.1)` — all with gold `#D4AF37` icon colors
+5. **Hover effects**: Using `onMouseEnter`/`onMouseLeave` inline handlers to change background/border color on hover with smooth `transition-all duration-300`
+6. **Scale animation**: Added `hover:scale-105` for subtle growth on hover
+7. **Shadow**: Added `shadow-lg hover:shadow-xl` for depth
+8. **Larger icons**: Changed from `w-4 h-4` to `w-5 h-5` with gold color via inline style
+9. **Gap**: Changed from `gap-3` to `gap-3 sm:gap-4` for better spacing on larger screens
+
+---
+
+### FIX 2 (Task 5): Language Selector — Improved Globe Icon & Dropdown ✅
+
+**Issue**: The language selector was a small round button without any indication of the current language, and the dropdown was basic.
+
+**Changes Made**:
+
+1. **Added language label**: Added `<span>` showing `language.toUpperCase()` (e.g., "EN", "AR", "UR") next to the globe icon in gold `#D4AF37` color
+2. **Globe icon color**: Changed from white to gold `#D4AF37` via inline style for better visibility
+3. **Rotation animation on hover**: Added CSS class `globe-btn` with hover animation that rotates the SVG icon 180° on hover with `transition: transform 0.5s ease` (defined in `globals.css`)
+4. **Improved dropdown styling**:
+   - Changed from `shadow-xl` to `shadow-2xl` for more depth
+   - Changed border from `border-gray-200` to `border-[#D4AF37]/20` for themed look
+   - Increased min-width from `160px` to `180px`
+   - Added `overflow-hidden` for cleaner rounded corners
+   - Increased per-item padding to `py-2.5`
+5. **Dropdown items improved**:
+   - Changed from dynamic className to inline `style` for background/font/color (avoids Tailwind purging issues)
+   - Added larger flag emoji (`text-lg`)
+   - Added checkmark (✓) for current language
+   - Better spacing with `gap-3` between flag and label
+   - Current language highlighted with `#fffbeb` background and `#722F37` text
+
+---
+
+### FIX 3 (Task 6): Fix Grade-Level Boxes Hidden Behind Background & Decorative ✦ Cut Off ✅
+
+**Issue**: The hero section used `overflow-hidden` which clipped content that extended beyond the viewport (especially grade boxes on smaller screens), and `min-h-screen flex items-center justify-center` could push content off-screen.
+
+**Changes Made**:
+
+1. **Changed `overflow-hidden` to `overflow-x-hidden`** on the hero section: Now only clips horizontal overflow, allowing vertical content to be visible and scrollable
+2. **Added `pt-8`** (top padding): Ensures the decorative ✦ elements at the top of the hero are fully visible with breathing room
+3. **Added `pb-20`** (bottom padding): Provides ample space at the bottom so grade boxes are never cut off
+4. **Added `mt-4 mb-6`** to grade boxes grid: Gives the grade selection grid extra spacing to separate it from the stats section above and ensure it's fully visible
+
+---
+
+### FIX 4 (Task 7): Verify "© 2026 All Rights Reserved" Footer ✅
+
+**Issue**: Verify that the copyright text is correct and present in all languages.
+
+**Verification Results**: All 8 language translations already have the correct `copyright` key:
+
+| Language | Copyright Text | Status |
+|----------|---------------|--------|
+| English | © 2026 All Rights Reserved | ✅ |
+| Arabic | © 2026 جميع الحقوق محفوظة | ✅ |
+| Urdu | © 2026 جملہ حقوق محفوظ ہیں | ✅ |
+| Farsi | © 2026 تمامی حقوق محفوظ است | ✅ |
+| Spanish | © 2026 Todos los Derechos Reservados | ✅ |
+| Russian | © 2026 Все права защищены | ✅ |
+| Turkish | © 2026 Tüm Hakları Saklıdır | ✅ |
+| French | © 2026 Tous Droits Réservés | ✅ |
+
+The footer already renders `{t('copyright')}` correctly. No changes needed.
+
+---
+
+### Build Verification ✅
+
+- `bun run lint` passes with no errors
+- `npx next build` completes successfully
+- Dev server running on port 3000, no runtime errors
+
+---
+
+## Files Modified
+
+- `src/app/page.tsx` — Landing page: hero section overflow fix, button prominence, language selector improvements, grade grid spacing
+- `src/app/globals.css` — Added `.globe-btn` CSS for globe icon rotation animation on hover
+
+## Files NOT Modified (as required)
+
+- `src/lib/g6t1-content.ts`
+- `src/lib/g6t2-content.ts`
+- `src/lib/g6t3-content.ts`
+- `src/lib/g7t1-content.ts`
+- `src/lib/lessons.ts`
+- `public/curriculum_mapping.json`
+- `public/lessons_index.json`
+- `renderLessonViewer` section (not touched — another agent working on that)
+- Login page, about page, consent page, teacher dashboard (not touched)
+
+---
+
+## Date: 2026-03-07
+
+## Summary of Changes
+
+Implemented 3 features in the MSCS Academy PWA (`src/app/page.tsx`): Tasks 4, 8, and 9.
+
+---
+
+### FEATURE 1 (Task 8): Improved Logout with User Menu Popover ✅
+
+**Issue**: The logout button was a small fixed button in the top-right corner, only visible on gradeSelect, unitSelect, lessonView, and teacherDashboard views. It was not prominent and lacked user info or navigation options.
+
+**Changes Made**:
+
+1. **Replaced small logout button with prominent user profile button**: Shows user avatar (Shield for admin, User icon for student), user name, and role (Student/Admin) with inline-style dynamic colors
+2. **Added dropdown popover on click**: Shows:
+   - User info header with name and role (gold-themed for admin, rose-themed for student)
+   - Dashboard link (admin only) — navigates to teacher dashboard
+   - Home button — navigates to landing page
+   - Log Out button — clears all auth state (including `isAdmin`, `adminPassword`, `adminUsername`)
+3. **Visible on ALL views when logged in**: Removed the view-restriction check (`view === 'gradeSelect' || ...`). Now shows on landing, about, consent, and all other views too
+4. **Backdrop click to close**: Added an invisible full-screen backdrop that closes the menu when clicked outside
+5. **Inline styles for dynamic colors**: Admin gets gold (#D4AF37) theme, student gets rose (#722F37) theme
+6. **Added state variable**: `showUserMenu` to toggle the dropdown
+
+---
+
+### FEATURE 2 (Task 9): Dedicated Admin Login with Enhanced Dashboard ✅
+
+**Issue**: Admin access was through the student login page with a special code format (MSCS-ADMIN* or MSCS-STAFF*). No dedicated admin login, and the dashboard lacked admin controls.
+
+**Changes Made — Admin Login**:
+
+1. **Added tab toggle on login page**: "Student" | "Admin" tabs at the top of the login card with active indicator underline
+2. **Admin Login tab**: Shows username field (with User icon), password field (with KeyRound icon), and professional styling with shield icon header
+3. **Admin authentication**: Username = "AhmedAli" (case insensitive), password verified via `verifyMasterPassword()`. On success, sets `isAdmin=true` and `studentName='Mr. Ahmed Ali'`
+4. **Student Login tab**: Keeps existing code-based login with backward compatibility for MSCS-ADMIN/MSCS-STAFF code patterns
+5. **Added state variables**: `loginTab` (student/admin), `adminUsername`
+
+**Changes Made — Enhanced Admin Dashboard**:
+
+1. **Clear All Data button** (admin only): With confirmation dialog showing warning icon, cancel/confirm buttons. Clears localStorage quiz results
+2. **View by Term/Semester/Year toggle**: Three buttons in the toolbar to switch between view modes (currently affects display labels)
+3. **Student Search input**: Filter student list by code with real-time filtering and "Filtered" badge
+4. **Export with Date Range**: Two date inputs (from/to) for filtering CSV export, with clear button
+5. **Classroom Management section** (admin only): Shows active students count (7-day window) with progress bar, and recent activity timeline (last 10 quiz completions)
+6. **Visual progress bars for term comparison**: Colored progress bars (green/amber/red based on score) replace the generic Progress component
+7. **Dashboard title**: Shows "Admin Dashboard" for admin users (translated), "Teacher Dashboard" otherwise
+8. **Dashboard icon**: Shows LayoutDashboard icon for admin, Shield for teacher
+9. **Added state variables**: `studentSearch`, `dashboardViewMode`, `showClearConfirm`, `dataClearedMsg`, `exportDateFrom`, `exportDateTo`
+
+---
+
+### FEATURE 3 (Task 4): Translation Quality — Completeness for All 8 Languages ✅
+
+**Issue**: Many translations (especially Urdu, Persian, French, Turkish, Russian, Spanish) were significantly shorter than English/Arabic versions. Missing keys for admin features.
+
+**Changes Made**:
+
+1. **Added `adminTranslations` object** (lines 166-175): New translation keys for all admin features in all 8 languages:
+   - `adminLogin`, `adminUsername`, `adminPassword2`, `adminDashboard`, `clearAllData`, `confirmClear`, `searchStudents`, `classroomManagement`, `recentActivity`, `activeStudents`, `exportData`, `viewByTerm`, `viewByYear`, `studentLoginTab`, `adminLoginTab`, `welcomeBack`, `invalidCredentials`, `dataCleared`, `termComparison`, `noResultsFound`, `recentQuizCompletions`, `viewBySemester`, `exportWithDates`, `fromDate`, `toDate`, `signInAsAdmin`, `enterUsername`, `enterPassword`, `dashboardLink`, `studentInfo`, `adminInfo`
+
+2. **Added `translationImprovements` object** (lines 182-190): Improved shorter translations that override the base translations:
+   - **Urdu**: `aboutDesc` (expanded to match English detail), `aboutDisclaimer` (added ADEK note, server storage note), `consentCommitmentDesc` (expanded), `consentK1Desc` through `consentK5Desc` (expanded), `consentS1d` through `consentS4d` (expanded with format details), `instructorDesc` (expanded)
+   - **Persian**: `aboutDesc` (expanded), `aboutDisclaimer` (added ADEK note, server storage note), `consentK1Desc`, `consentK3Desc` through `consentK5Desc` (expanded), `consentS1d`, `consentS4d` (expanded)
+   - **Spanish**: `aboutDesc` (expanded), `aboutDisclaimer` (added ADEK note, server storage note), `consentK1Desc` through `consentK5Desc` (expanded), `consentS1d` through `consentS4d` (expanded), `consentCommitmentDesc` (expanded)
+   - **Russian**: `aboutDesc` (expanded), `aboutDisclaimer` (added ADEK note, server storage note), `instructorDesc` (expanded), `consentCommitmentDesc` (expanded), `consentK1Desc` through `consentK5Desc` (expanded), `consentS1d` through `consentS4d` (expanded)
+   - **Turkish**: `aboutDesc` (expanded), `aboutDisclaimer` (added ADEK note, server storage note), `consentCommitmentDesc` (expanded), `consentK1Desc` through `consentK5Desc` (expanded), `consentS1d` through `consentS4d` (expanded)
+   - **French**: `aboutDesc` (expanded), `aboutDisclaimer` (added ADEK note, server storage note), `consentK1Desc` through `consentK5Desc` (expanded), `consentS1d` through `consentS4d` (expanded), `consentCommitmentDesc` (expanded)
+
+3. **Modified `t()` function**: Now checks `adminTranslations` first (for new admin keys), then `translationImprovements` (for improved existing keys), then `translations` (base), then `adminTranslations.en` (fallback), then `translations.en` (final fallback)
+
+---
+
+### Build Verification ✅
+
+- `bun run lint` passes with no errors
+- `npx next build` completes successfully
+- Dev server running, no runtime errors
+
+---
+
+## Files Modified
+
+- `src/app/page.tsx` — All 3 features applied (3289 lines, up from 2917)
+
+## Files NOT Modified (as required)
+
+- `src/lib/g6t1-content.ts`
+- `src/lib/g6t2-content.ts`
+- `src/lib/g6t3-content.ts`
+- `src/lib/g7t1-content.ts`
+- `src/lib/lessons.ts`
+- `public/curriculum_mapping.json`
+- `public/lessons_index.json`
+- `renderLessonViewer` section (not touched — another agent working on that)

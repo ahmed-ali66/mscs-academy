@@ -14,7 +14,8 @@ import {
   Sparkles, Crown, Shield, Globe, Heart, Lightbulb,
   Timer, FileText, Map, Brain, Target, Award, ExternalLink,
   Mountain, Landmark, Scroll, Swords, Calendar, Eye, Download,
-  BarChart3, Filter, LogOut
+  BarChart3, Filter, LogOut, User, Search, Trash2, Settings,
+  AlertTriangle, KeyRound, Activity, LayoutDashboard, X
 } from 'lucide-react';
 import {
   getGradeInfo, getUnitData, getLesson, getLessonId, getCleanTitle, getUnitContextFromTitle,
@@ -156,6 +157,35 @@ const translations: Record<string, Record<string, string>> = {
   ru: { subtitle: 'Нравственные, социальные и культурные исследования', tagline: 'Делаем обучение активным, а не пассивным', interactivePlatform: '— Интерактивная обучающая платформа —', whyTitle: 'Почему MSCS Academy?', feature1: 'Интерактивное обучение', feature1d: 'Тесты, временные шкалы, карты и интерактивные задания, делающие обучение незабываемым', feature2: 'Соответствие стандартам', feature2d: 'Каждый урок следует стандартам ОАЭ с чёткими целями и критериями успешности', feature3: 'Связи ОАЭ и реального мира', feature3d: 'Каждый урок связан с культурой, ценностями и реальными приложениями ОАЭ', feature4: 'Встроенные таймеры', feature4d: 'Структурированные задания с таймерами обратного отсчёта для поддержания темпа', feature5: 'Мгновенная обратная связь', feature5d: 'Тесты с мгновенным оцениванием и объяснениями помогают учиться на ошибках', feature6: 'Ориентировано на студента', feature6d: 'Диаграммы KWL, диаграммы Венна и совместные задания ставят студента на первое место', meetInstructor: 'Познакомьтесь с преподавателем', instructorDesc: 'Преданный преподаватель, специализирующийся на нравственных, социальных и культурных исследованиях для студентов ОАЭ.', footerTagline: 'MSCS Academy: Активное обучение, а не пассивное', about: 'О нас', studentLogin: 'Вход для студентов', parentalConsent: 'Согласие родителей', selectGrade: 'Выберите свой класс', adminAccess: 'Доступ администратора', logout: 'Выход', copyright: '© 2026 Все права защищены', standards: 'Стандарты', objectives: 'Цели обучения', successCriteria: 'Критерии успешности', hookQuestion: 'Подумайте об этом', reading1: 'Чтение первое', reading2: 'Чтение второе', summary1: 'Ключевые выводы из первого чтения', summary2: 'Ключевые выводы из второго чтения', visualAnalysis: 'Визуальный анализ', strategiesAndActivities: 'Стратегии и деятельности обучения', uaeAndRealLife: 'Связи ОАЭ и реальной жизни', homeworkAndClosure: 'Домашнее задание и завершение урока', formativeAssessment: 'Формирующее оценивание', thankYou: 'Спасибо!', loginRequired: 'Пожалуйста, войдите для прохождения теста и отслеживания прогресса', loginToContinue: 'Войдите, чтобы продолжить', aboutTitle: 'Об академии MSCS', aboutDesc: 'Академия MSCS — интерактивная обучающая платформа для студентов ОАЭ 6-9 классов.', aboutCredentials: 'Квалификация', aboutC1: 'Одобренный ADEK специалист MSCS для образования ОАЭ', aboutC2: 'Опытный разработчик учебных программ по стандартам Министерства образования ОАЭ', aboutC3: 'Интерактивный дизайн уроков с технологической интеграцией', aboutC4: 'Приверженность студенчески-ориентированным подходам активного обучения', aboutDisclaimer: 'Эта платформа разработана независимо г-ном Ахмедом Али как образовательный ресурс. Весь контент соответствует стандартам учебной программы ОАЭ, но не имеет официального одобрения.', consentTitle: 'Информация о согласии родителей', consentSubtitle: 'Понимание того, как мы защищаем учебный опыт вашего ребёнка', consentCommitment: 'Наша приверженность безопасности студентов', consentCommitmentDesc: 'Академия MSCS обязуется обеспечивать безопасную учебную среду для всех студентов.', consentKnow: 'Что должны знать родители', consentK1Title: 'Без сбора личных данных', consentK1Desc: 'Платформа не собирает, не хранит и не передаёт личные данные студентов.', consentK2Title: 'Контент, соответствующий учебной программе', consentK2Desc: 'Все уроки следуют стандартам Министерства образования ОАЭ.', consentK3Title: 'Материал, соответствующий возрасту', consentK3Desc: 'Контент специально разработан для студентов 6-9 классов.', consentK4Title: 'Без внешней коммуникации', consentK4Desc: 'Платформа не имеет чатов или социальных элементов.', consentK5Title: 'Необязательный доступ', consentK5Desc: 'Вход студента необязателен и использует систему на основе кодов.', consentProcess: 'Процесс согласия', consentS1: 'Школа распределяет коды доступа', consentS1d: 'Каждый студент получает уникальный код', consentS2: 'Родители проверяют платформу', consentS2d: 'Родителям рекомендуется изучить платформу вместе с ребёнком', consentS3: 'Студент получает доступ к урокам', consentS3d: 'Используя свой код, студенты могут получать доступ к интерактивным урокам', consentS4: 'Постоянная прозрачность', consentS4d: 'Весь контент доступен для родительской проверки в любое время' },
   tr: { subtitle: 'Ahlaki, Sosyal ve Kültürel Çalışmalar', tagline: 'Öğrenmeyi Aktif Kılıyoruz, Pasif Değil', interactivePlatform: '— İnteraktif Öğrenme Platformu —', whyTitle: 'Neden MSCS Academy?', feature1: 'İnteraktif Öğrenme', feature1d: 'Öğrenmeyi unutulmaz kılan testler, zaman çizelgeleri, haritalar ve interaktif etkinlikler', feature2: 'Standartlara Uygun', feature2d: 'Her ders açık hedefler ve başarı kriterleriyle BAE müfredat standartlarını takip eder', feature3: 'BAE ve Gerçek Dünya Bağlantıları', feature3d: 'Her ders BAE kültürü, değerleri ve gerçek yaşam uygulamalarıyla bağlantılıdır', feature4: 'Dahili Zamanlayıcılar', feature4d: 'Geri sayım zamanlayıcılarıyla yapılandırılmış etkinlikler dersi tempoda tutar', feature5: 'Anında Geri Bildirim', feature5d: 'Anında puanlama ve açıklamalarla testler öğrencilerin hatalarından öğrenmesine yardımcı olur', feature6: 'Öğrenci Merkezli', feature6d: 'KWL çizelgeleri, Venn diyagramları ve işbirlikçi etkinlikler öğrenciyi ön plana koyar', meetInstructor: 'Eğitmeninizle Tanışın', instructorDesc: 'BAE öğrencileri için Ahlaki, Sosyal ve Kültürel Çalışmalarda uzmanlaşmış eğitmen. Tarihi ve kültürü hayata geçiren standartlara uyumlu etkileşimli dersler tasarlıyor.', footerTagline: 'MSCS Academy: Aktif Öğrenme, Pasif Değil', about: 'Hakkımızda', studentLogin: 'Öğrenci Girişi', parentalConsent: 'Ebeveyn Onayı', selectGrade: 'Başlamak için sınıfınızı seçin', adminAccess: 'Yönetici Erişimi', logout: 'Çıkış Yap', copyright: '© 2026 Tüm Hakları Saklıdır', standards: 'Standartlar', objectives: 'Öğrenme Hedefleri', successCriteria: 'Başarı Kriterleri', hookQuestion: 'Bunu Düşünün', reading1: 'Birinci Okuma', reading2: 'İkinci Okuma', summary1: 'Birinci Okumanın Ana Noktaları', summary2: 'İkinci Okumanın Ana Noktaları', visualAnalysis: 'Görsel Analiz', strategiesAndActivities: 'Öğrenme Stratejileri ve Etkinlikler', uaeAndRealLife: 'BAE ve Gerçek Yaşam Bağlantıları', homeworkAndClosure: 'Ödev ve Ders Kapanışı', formativeAssessment: 'Formatif Değerlendirme', thankYou: 'Teşekkürler!', loginRequired: 'Testi çözmek ve ilerlemenizi takip etmek için giriş yapın', loginToContinue: 'Devam etmek için giriş yapın', aboutTitle: 'MSCS Academy Hakkında', aboutDesc: 'MSCS Academy, BAE 6-9. sınıf öğrencileri için interaktif bir öğrenme platformudur.', aboutCredentials: 'Nitelikler', aboutC1: 'BAE eğitimi için ADEK onaylı MSCS uzmanı', aboutC2: 'BAE Milli Eğitim standartlarına uyumlu deneyimli müfredat geliştirici', aboutC3: 'Teknoloji entegrasyonu ile interaktif ders tasarımı', aboutC4: 'Öğrenci merkezli aktif öğrenme yaklaşımlarına bağlı', aboutDisclaimer: 'Bu platform bağımsız olarak Sn. Ahmed Ali tarafından eğitim kaynağı olarak geliştirilmiştir.', consentTitle: 'Ebeveyn Onay Bilgileri', consentSubtitle: 'Çocuğunuzun öğrenme deneyimini nasıl koruduğumuzu anlayın', consentCommitment: 'Öğrenci Güvenliğine Taahhüdümüz', consentCommitmentDesc: 'MSCS Academy tüm öğrenciler için güvenli bir öğrenme ortamı sağlamaya committedir.', consentKnow: 'Ebeveynlerin Bilmesi Gerekenler', consentK1Title: 'Kişisel Veri Toplama Yok', consentK1Desc: 'Platform öğrenci kişisel verisi toplamaz, depolamaz veya iletmez.', consentK2Title: 'Müfredata Uygun İçerik', consentK2Desc: 'Tüm dersler BAE Milli Eğitim standartlarını takip eder.', consentK3Title: 'Yaşa Uygun Materyal', consentK3Desc: 'İçerik özellikle 6-9. sınıf öğrencileri için tasarlanmıştır.', consentK4Title: 'Dış İletişim Yok', consentK4Desc: 'Platformda sohbet özellikleri veya sosyal öğeler yoktur.', consentK5Title: 'İsteğe Bağlı Erişim', consentK5Desc: 'Öğrenci girişi isteğe bağlıdır ve kod tabanlı bir sistem kullanır.', consentProcess: 'Onay Süreci', consentS1: 'Okul erişim kodlarını dağıtır', consentS1d: 'Her öğrenci benzersiz bir kod alır', consentS2: 'Ebeveynler platformu inceler', consentS2d: 'Ebeveynlere çocuklarıyla platformu keşfetmeleri teşvik edilir', consentS3: 'Öğrenci derslere erişir', consentS3d: 'Kodunu kullanarak öğrenciler sınıf düzeyine uygun derslere erişebilir', consentS4: 'Sürekli şeffaflık', consentS4d: 'Tüm içerik her zaman ebeveyn incelemesine açıktır' },
   fr: { subtitle: 'Études Morales, Sociales et Culturelles', tagline: "Rendre l'Apprentissage Actif, Non Passif", interactivePlatform: "— Plateforme d'Apprentissage Interactif —", whyTitle: 'Pourquoi MSCS Academy?', feature1: 'Apprentissage Interactif', feature1d: 'Quiz, chronologies, cartes et activités interactives qui rendent l\'apprentissage inoubliable', feature2: 'Aligné sur les Normes', feature2d: 'Chaque leçon suit les normes du programme des EAU avec des objectifs et critères de réussite clairs', feature3: 'Liens EAU et Monde Réel', feature3d: 'Chaque leçon se connecte à la culture, aux valeurs et aux applications réelles des EAU', feature4: 'Minuteries Intégrées', feature4d: 'Activités structurées avec minuteries à rebours qui maintiennent le rythme', feature5: 'Retour Instantané', feature5d: 'Quiz avec notation immédiate et explications qui aident à apprendre des erreurs', feature6: "Centré sur l'Étudiant", feature6d: "Tableaux KWL, diagrammes de Venn et activités collaboratives placent l'étudiant en premier", meetInstructor: 'Rencontrez Votre Instructeur', instructorDesc: 'Éducateur dévoué spécialisé dans les Études Morales, Sociales et Culturelles pour les étudiants des EAU. Créant des leçons interactives alignées sur les normes qui donnent vie à l\'histoire et à la culture.', footerTagline: "MSCS Academy: Apprentissage Actif, Non Passif", about: 'À Propos', studentLogin: 'Connexion Étudiant', parentalConsent: 'Consentement Parental', selectGrade: 'Sélectionnez votre niveau', adminAccess: 'Accès Administrateur', logout: 'Déconnexion', copyright: '© 2026 Tous Droits Réservés', standards: 'Normes', objectives: "Objectifs d'Apprentissage", successCriteria: 'Critères de Réussite', hookQuestion: 'Réfléchissez à Ceci', reading1: 'Première Lecture', reading2: 'Deuxième Lecture', summary1: 'Points Clés de la Première Lecture', summary2: 'Points Clés de la Deuxième Lecture', visualAnalysis: 'Analyse Visuelle', strategiesAndActivities: 'Stratégies et Activités d\'Apprentissage', uaeAndRealLife: 'Connexions EAU et Vie Réelle', homeworkAndClosure: 'Devoirs et Clôture de Leçon', formativeAssessment: 'Évaluation Formative', thankYou: 'Merci!', loginRequired: 'Veuillez vous connecter pour passer le quiz et suivre vos progrès', loginToContinue: 'Connectez-vous pour Continuer', aboutTitle: 'À Propos de MSCS Academy', aboutDesc: "MSCS Academy est une plateforme d'apprentissage interactive conçue pour les étudiants des EAU de 6e à 9e année.", aboutCredentials: 'Références', aboutC1: 'Spécialiste MSCS approuvé par ADEK pour l\'éducation aux EAU', aboutC2: 'Développeur de programme expérimenté aligné sur les normes du Ministère de l\'Éducation des EAU', aboutC3: 'Conception de leçons interactives avec intégration technologique', aboutC4: "Engagé envers les approches d'apprentissage actif centrées sur l'étudiant", aboutDisclaimer: 'Cette plateforme est développée indépendamment par M. Ahmed Ali comme ressource éducative. Tout le contenu est aligné sur les normes du programme des EAU mais n\'est pas officiellement approuvé.', consentTitle: 'Informations sur le Consentement Parental', consentSubtitle: "Comprendre comment nous protégeons l'expérience d'apprentissage de votre enfant", consentCommitment: 'Notre Engagement envers la Sécurité des Étudiants', consentCommitmentDesc: "MSCS Academy s'engage à fournir un environnement d'apprentissage sûr et approprié à l'âge pour tous les étudiants.", consentKnow: 'Ce que les Parents Doivent Savoir', consentK1Title: 'Aucune Collecte de Données Personnelles', consentK1Desc: "La plateforme ne collecte, ne stocke ni ne transmet aucune donnée personnelle d'étudiant.", consentK2Title: 'Contenu Aligné sur le Programme', consentK2Desc: "Toutes les leçons suivent les normes du Ministère de l'Éducation des EAU.", consentK3Title: 'Matériel Approprié à l\'Âge', consentK3Desc: 'Le contenu est spécialement conçu pour les étudiants de 6e à 9e année.', consentK4Title: 'Aucune Communication Externe', consentK4Desc: 'La plateforme n\'a pas de fonctionnalités de chat ou d\'éléments sociaux.', consentK5Title: 'Accès Facultatif', consentK5Desc: "La connexion étudiant est facultative et utilise un système basé sur des codes.", consentProcess: 'Processus de Consentement', consentS1: "L'école distribue les codes d'accès", consentS1d: 'Chaque étudiant reçoit un code unique', consentS2: 'Les parents examinent la plateforme', consentS2d: 'Les parents sont encouragés à explorer la plateforme avec leur enfant', consentS3: "L'étudiant accède aux leçons", consentS3d: 'En utilisant leur code, les étudiants peuvent accéder aux leçons interactives appropriées', consentS4: 'Transparence continue', consentS4d: 'Tout le contenu est accessible pour examen parental à tout moment' },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// ADMIN TRANSLATIONS — New keys for admin features (all 8 languages)
+// ═══════════════════════════════════════════════════════════════
+
+const adminTranslations: Record<string, Record<string, string>> = {
+  en: { adminLogin: 'Admin Login', adminUsername: 'Username', adminPassword2: 'Password', adminDashboard: 'Admin Dashboard', clearAllData: 'Clear All Data', confirmClear: 'Are you sure? This will delete all quiz results permanently.', searchStudents: 'Search Students', classroomManagement: 'Classroom Management', recentActivity: 'Recent Activity', activeStudents: 'Active Students', exportData: 'Export Data', viewByTerm: 'View by Term', viewByYear: 'View by Year', studentLoginTab: 'Student', adminLoginTab: 'Admin', welcomeBack: 'Welcome back', invalidCredentials: 'Invalid credentials', dataCleared: 'All data has been cleared successfully', termComparison: 'Term Comparison', noResultsFound: 'No results found', recentQuizCompletions: 'Recent Quiz Completions', viewBySemester: 'View by Semester', exportWithDates: 'Export with Date Range', fromDate: 'From', toDate: 'To', signInAsAdmin: 'Sign in as Administrator', enterUsername: 'Enter username', enterPassword: 'Enter password', dashboardLink: 'Dashboard', studentInfo: 'Student', adminInfo: 'Administrator' },
+  ar: { adminLogin: 'تسجيل دخول المسؤول', adminUsername: 'اسم المستخدم', adminPassword2: 'كلمة المرور', adminDashboard: 'لوحة تحكم المسؤول', clearAllData: 'مسح جميع البيانات', confirmClear: 'هل أنت متأكد؟ سيتم حذف جميع نتائج الاختبارات نهائياً.', searchStudents: 'بحث الطلاب', classroomManagement: 'إدارة الفصل', recentActivity: 'النشاط الأخير', activeStudents: 'الطلاب النشطون', exportData: 'تصدير البيانات', viewByTerm: 'عرض حسب الفصل', viewByYear: 'عرض حسب السنة', studentLoginTab: 'الطالب', adminLoginTab: 'المسؤول', welcomeBack: 'مرحباً بعودتك', invalidCredentials: 'بيانات الدخول غير صحيحة', dataCleared: 'تم مسح جميع البيانات بنجاح', termComparison: 'مقارنة الفصول', noResultsFound: 'لم يتم العثور على نتائج', recentQuizCompletions: 'الاختبارات المكتملة مؤخراً', viewBySemester: 'عرض حسب الفصل الدراسي', exportWithDates: 'تصدير مع نطاق التاريخ', fromDate: 'من', toDate: 'إلى', signInAsAdmin: 'تسجيل الدخول كمسؤول', enterUsername: 'أدخل اسم المستخدم', enterPassword: 'أدخل كلمة المرور', dashboardLink: 'لوحة التحكم', studentInfo: 'الطالب', adminInfo: 'المسؤول' },
+  ur: { adminLogin: 'ایڈمن لاگ ان', adminUsername: 'صارف نام', adminPassword2: 'پاسورڈ', adminDashboard: 'ایڈمن ڈیش بورڈ', clearAllData: 'تمام ڈیٹا صاف کریں', confirmClear: 'کیا آپ یقین رکھتے ہیں؟ یہ تمام کوئز نتائج مستقل طور پر حذف کر دے گا۔', searchStudents: 'طلباء تلاش کریں', classroomManagement: 'کلاس روم مینجمنٹ', recentActivity: 'حالیہ سرگرمی', activeStudents: 'فعال طلباء', exportData: 'ڈیٹا ایکسپورٹ کریں', viewByTerm: 'ٹرم کے مطابق دیکھیں', viewByYear: 'سال کے مطابق دیکھیں', studentLoginTab: 'طالب علم', adminLoginTab: 'ایڈمن', welcomeBack: 'خوش آمدید', invalidCredentials: 'غلط اسناد', dataCleared: 'تمام ڈیٹا کامیابی سے صاف ہو گیا', termComparison: 'ٹرم موازنہ', noResultsFound: 'کوئی نتائج نہیں ملے', recentQuizCompletions: 'حالیہ کوئز مکمل', viewBySemester: 'سمسٹر کے مطابق دیکھیں', exportWithDates: 'تاریخ کی حد کے ساتھ ایکسپورٹ', fromDate: 'سے', toDate: 'تک', signInAsAdmin: 'ایڈمن کے طور پر سائن ان کریں', enterUsername: 'صارف نام درج کریں', enterPassword: 'پاسورڈ درج کریں', dashboardLink: 'ڈیش بورڈ', studentInfo: 'طالب علم', adminInfo: 'ایڈمن' },
+  fa: { adminLogin: 'ورود مدیر', adminUsername: 'نام کاربری', adminPassword2: 'رمز عبور', adminDashboard: 'پنل مدیریت', clearAllData: 'پاک کردن همه داده‌ها', confirmClear: 'آیا مطمئن هستید؟ این کار تمام نتایج آزمون‌ها را برای همیشه حذف خواهد کرد.', searchStudents: 'جستجوی دانش‌آموزان', classroomManagement: 'مدیریت کلاس', recentActivity: 'فعالیت اخیر', activeStudents: 'دانش‌آموزان فعال', exportData: 'خروجی داده‌ها', viewByTerm: 'نمایش بر اساس ترم', viewByYear: 'نمایش بر اساس سال', studentLoginTab: 'دانش‌آموز', adminLoginTab: 'مدیر', welcomeBack: 'خوش آمدید', invalidCredentials: 'اطلاعات ورود نامعتبر', dataCleared: 'تمام داده‌ها با موفقیت پاک شدند', termComparison: 'مقایسه ترم‌ها', noResultsFound: 'نتیجه‌ای یافت نشد', recentQuizCompletions: 'آزمون‌های تکمیل شده اخیر', viewBySemester: 'نمایش بر اساس نیمسال', exportWithDates: 'خروجی با محدوده تاریخ', fromDate: 'از', toDate: 'تا', signInAsAdmin: 'ورود به عنوان مدیر', enterUsername: 'نام کاربری را وارد کنید', enterPassword: 'رمز عبور را وارد کنید', dashboardLink: 'پنل مدیریت', studentInfo: 'دانش‌آموز', adminInfo: 'مدیر' },
+  es: { adminLogin: 'Acceso Administrativo', adminUsername: 'Nombre de usuario', adminPassword2: 'Contraseña', adminDashboard: 'Panel de Administración', clearAllData: 'Borrar Todos los Datos', confirmClear: '¿Está seguro? Esto eliminará todos los resultados de cuestionarios permanentemente.', searchStudents: 'Buscar Estudiantes', classroomManagement: 'Gestión del Aula', recentActivity: 'Actividad Reciente', activeStudents: 'Estudiantes Activos', exportData: 'Exportar Datos', viewByTerm: 'Ver por Trimestre', viewByYear: 'Ver por Año', studentLoginTab: 'Estudiante', adminLoginTab: 'Admin', welcomeBack: 'Bienvenido de nuevo', invalidCredentials: 'Credenciales no válidas', dataCleared: 'Todos los datos se han borrado correctamente', termComparison: 'Comparación por Trimestre', noResultsFound: 'No se encontraron resultados', recentQuizCompletions: 'Cuestionarios completados recientemente', viewBySemester: 'Ver por Semestre', exportWithDates: 'Exportar con rango de fechas', fromDate: 'Desde', toDate: 'Hasta', signInAsAdmin: 'Iniciar sesión como administrador', enterUsername: 'Ingrese nombre de usuario', enterPassword: 'Ingrese contraseña', dashboardLink: 'Panel', studentInfo: 'Estudiante', adminInfo: 'Administrador' },
+  ru: { adminLogin: 'Вход администратора', adminUsername: 'Имя пользователя', adminPassword2: 'Пароль', adminDashboard: 'Панель администратора', clearAllData: 'Очистить все данные', confirmClear: 'Вы уверены? Это навсегда удалит все результаты тестов.', searchStudents: 'Поиск студентов', classroomManagement: 'Управление классом', recentActivity: 'Недавняя активность', activeStudents: 'Активные студенты', exportData: 'Экспорт данных', viewByTerm: 'По триместру', viewByYear: 'По году', studentLoginTab: 'Студент', adminLoginTab: 'Админ', welcomeBack: 'С возвращением', invalidCredentials: 'Неверные учётные данные', dataCleared: 'Все данные успешно очищены', termComparison: 'Сравнение триместров', noResultsFound: 'Результатов не найдено', recentQuizCompletions: 'Недавно завершённые тесты', viewBySemester: 'По семестру', exportWithDates: 'Экспорт с диапазоном дат', fromDate: 'С', toDate: 'По', signInAsAdmin: 'Войти как администратор', enterUsername: 'Введите имя пользователя', enterPassword: 'Введите пароль', dashboardLink: 'Панель', studentInfo: 'Студент', adminInfo: 'Администратор' },
+  tr: { adminLogin: 'Yönetici Girişi', adminUsername: 'Kullanıcı adı', adminPassword2: 'Şifre', adminDashboard: 'Yönetici Paneli', clearAllData: 'Tüm Verileri Sil', confirmClear: 'Emin misiniz? Bu, tüm test sonuçlarını kalıcı olarak silecektir.', searchStudents: 'Öğrenci Ara', classroomManagement: 'Sınıf Yönetimi', recentActivity: 'Son Aktivite', activeStudents: 'Aktif Öğrenciler', exportData: 'Verileri Dışa Aktar', viewByTerm: 'Döneme Göre Görüntüle', viewByYear: 'Yıla Göre Görüntüle', studentLoginTab: 'Öğrenci', adminLoginTab: 'Yönetici', welcomeBack: 'Tekrar hoş geldiniz', invalidCredentials: 'Geçersiz kimlik bilgileri', dataCleared: 'Tüm veriler başarıyla silindi', termComparison: 'Dönem Karşılaştırması', noResultsFound: 'Sonuç bulunamadı', recentQuizCompletions: 'Son Tamamlanan Testler', viewBySemester: 'Yarıyıla Göre Görüntüle', exportWithDates: 'Tarih aralığıyla dışa aktar', fromDate: 'Başlangıç', toDate: 'Bitiş', signInAsAdmin: 'Yönetici olarak giriş yapın', enterUsername: 'Kullanıcı adı girin', enterPassword: 'Şifre girin', dashboardLink: 'Panel', studentInfo: 'Öğrenci', adminInfo: 'Yönetici' },
+  fr: { adminLogin: 'Connexion Administrateur', adminUsername: "Nom d'utilisateur", adminPassword2: 'Mot de passe', adminDashboard: "Tableau de Bord Administrateur", clearAllData: 'Effacer Toutes les Données', confirmClear: 'Êtes-vous sûr? Cela supprimera définitivement tous les résultats de quiz.', searchStudents: 'Rechercher des Étudiants', classroomManagement: 'Gestion de la Classe', recentActivity: 'Activité Récente', activeStudents: 'Étudiants Actifs', exportData: 'Exporter les Données', viewByTerm: 'Par Trimestre', viewByYear: 'Par Année', studentLoginTab: 'Étudiant', adminLoginTab: 'Admin', welcomeBack: 'Bienvenue', invalidCredentials: 'Identifiants invalides', dataCleared: 'Toutes les données ont été effacées avec succès', termComparison: 'Comparaison par Trimestre', noResultsFound: 'Aucun résultat trouvé', recentQuizCompletions: 'Quiz récemment complétés', viewBySemester: 'Par Semestre', exportWithDates: 'Exporter avec plage de dates', fromDate: 'Du', toDate: 'Au', signInAsAdmin: "Connectez-vous en tant qu'administrateur", enterUsername: "Entrez le nom d'utilisateur", enterPassword: 'Entrez le mot de passe', dashboardLink: 'Tableau de bord', studentInfo: 'Étudiant', adminInfo: 'Administrateur' },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// TRANSLATION IMPROVEMENTS — Completeness fixes for shorter translations
+// These override the base translations where they were too brief
+// ═══════════════════════════════════════════════════════════════
+
+const translationImprovements: Record<string, Record<string, string>> = {
+  ur: { aboutDesc: 'MSCS اکیڈمی یو اے ای کے گریڈ 6-9 کے طلباء کے لیے ایک انٹرایکٹو لرننگ پلیٹ فارم ہے جو اخلاقی، سماجی اور ثقافتی علوم پڑھاتا ہے۔ ہر سبق یو اے ای وزارت تعلیم کے کریکولم معیارات کے ساتھ محافظ ہے اور ادک تعلیمی فریم ورک کی پیروی کرتا ہے۔ یہ پلیٹ فارم روایتی نصابی مواد کو دلچسپ انٹرایکٹو تجربات میں تبدیل کرتا ہے جو فعال سیکھنے، تنقیدی سوچ اور علم کے عملی اطلاق کو فروغ دیتے ہیں۔', aboutDisclaimer: 'یہ پلیٹ فارم آزادانہ طور پر مسٹر احمد علی کے ذریعہ تعلیمی وسیلہ کے طور پر تیار کیا گیا ہے۔ تمام مواد یو اے ای کریکولم معیارات کے مطابق ہے لیکن کسی تعلیمی اتھارٹی کی سرکاری توثیق نہیں ہے۔ استاد کا تیار کردہ مطالعہ مواد — ادک کا سرکاری ذریعہ نہیں۔ طلباء کا ڈیٹا سرورز پر اکٹھا یا ذخیرہ نہیں کیا جاتا۔ تمام انٹرایکٹو عناصر مقامی طور پر براؤزر میں کام کرتے ہیں۔', consentCommitmentDesc: 'MSCS اکیڈمی تمام طلباء کے لیے محفوظ، محفوظ اور عمر کے مناسب سیکھنے کے ماحول فراہم کرنے کی عزمند ہے۔ ہم سخت ڈیٹا تحفظ کی مشقوں کی پیروی کرتے ہیں اور یقینی بناتے ہیں کہ ہماری پلیٹ فارم پر کوئی ذاتی طالب علم معلومات اکٹھی یا ذخیرہ نہیں کی جاتیں۔', consentK1Desc: 'پلیٹ فارم کوئی ذاتی طالب علم ڈیٹا اکٹھا، ذخیرہ یا منتقل نہیں کرتا۔ تمام انٹرایکٹو عناصر مقامی طور پر براؤزر میں کام کرتے ہیں۔', consentK2Desc: 'تمام سبق یو اے ای وزارت تعلیم کے اخلاقی، سماجی اور ثقافتی علوم کے معیارات کی پیروی کرتے ہیں۔', consentK3Desc: 'مواد مخصوص طور پر گریڈ 6-9 (عمریں 11-15) کے طلباء کے لیے ڈیزائن کیا گیا ہے اور مناسبیت کے لیے جائزہ لیا جاتا ہے۔', consentK4Desc: 'پلیٹ فارم میں چیٹ فیچرز، سماجی عناصر یا دوسروں سے بات چیت کے طریقے نہیں ہیں۔', consentK5Desc: 'طالب علم لاگ ان اختیاری ہے اور کوڈ پر مبنی سسٹم استعمال کرتا ہے۔ کوئی ای میل ایڈریس یا ذاتی شناخت کی ضرورت نہیں۔', consentS1d: 'ہر طالب علم کو MSCS-گریڈ-سیکشن-سال-نمبر کے فارمیٹ میں منفرد کوڈ ملتا ہے', consentS2d: 'والدین کو اپنے بچے کے ساتھ پلیٹ فارم دریافت کرنے کی ترغیب دی جاتی ہے', consentS3d: 'اپنے کوڈ کا استعمال کرکے طلباء گریڈ کے مناسب انٹرایکٹو سبق تک رسائی حاصل کر سکتے ہیں', consentS4d: 'تمام مواد والدین کی جائزہ کے لیے کسی بھی وقت دستیاب ہے', instructorDesc: 'یو اے ای کے طلباء کے لیے اخلاقی، سماجی اور ثقافتی علوم میں متخصص معلم۔ معیارات پر مبنی دلچسپ سبق ڈیزائن کرتے ہیں جو تاریخ اور ثقافت کو زندہ کرتے ہیں۔' },
+  fa: { aboutDesc: 'آکادمی MSCS یک پلتفرم یادگیری تعاملی است که برای دانش‌آمویان امارات در پایه‌های ۶-۹ طراحی شده و مطالعات اخلاقی، اجتماعی و فرهنگی را ارائه می‌دهد. هر درس با دقت با استانداردهای برنامه درسی وزارت آموزش امارات همسو شده و چارچوب آموزشی ADEK را دنبال می‌کند. این پلتفرم محتوای سنتی کتاب درسی را به تجربیات تعاملی جذاب تبدیل می‌کند که یادگیری فعال، تفکر انتقادی و کاربرد عملی دانش را ترویج می‌دهد.', aboutDisclaimer: 'این پلتفرم به صورت مستقل توسط آقای احمد علی به عنوان منبع آموزشی توسعه یافته است. تمام محتوا همسو با استانداردهای برنامه درسی امارات است اما تأیید رسمی هیچ مرجع آموزشی ندارد. مطالعه‌ای تهیه‌شده توسط معلم — منبع رسمی ADEK نیست. داده‌های دانش‌آموزی روی سرورها جمع‌آوری یا ذخیره نمی‌شوند. تمام عناصر تعاملی به صورت محلی در مرورگر کار می‌کنند.', consentK1Desc: 'این پلتفرم هیچ داده شخصی دانش‌آموزی جمع‌آوری، ذخیره یا منتقل نمی‌کند. تمام عناصر تعاملی به صورت محلی در مرورگر کار می‌کنند.', consentK3Desc: 'محتوا مخصوص دانش‌آمویان پایه ۶-۹ (سنین ۱۱-۱۵) طراحی شده و از نظر تناسب بررسی می‌شود.', consentK4Desc: 'این پلتفرم ویژگی چت، عناصر اجتماعی یا راه‌هایی برای ارتباط با دیگران ندارد.', consentK5Desc: 'ورود دانش‌آموز اختیاری است و از سیستم مبتنی بر کد استفاده می‌کند. هیچ آدرس ایمیل یا شناسه شخصی لازم نیست.', consentS1d: 'هر دانش‌آموز یک کد منحصر به فرد با قالب MSCS-پایه-بخش-سال-شماره دریافت می‌کند', consentS4d: 'تمام محتوا برای بررسی والدین در هر زمان در دسترس است' },
+  es: { aboutDesc: 'MSCS Academy es una plataforma de aprendizaje interactiva diseñada para estudiantes de EAU de grados 6-9 que estudian Estudios Morales, Sociales y Culturales. Cada lección está cuidadosamente alineada con los estándares del plan de estudios del Ministerio de Educación de EAU y sigue el marco pedagógico de ADEK. La plataforma transforma el contenido tradicional del libro de texto en experiencias interactivas atractivas que promueven el aprendizaje activo, el pensamiento crítico y la aplicación práctica del conocimiento.', aboutDisclaimer: 'Esta plataforma es desarrollada independientemente por el Sr. Ahmed Ali como recurso educativo. Todo el contenido está alineado con los estándares del currículo de EAU pero no está respaldado oficialmente por ninguna autoridad educativa. Material de estudio creado por el profesor — No es un recurso oficial de ADEK. Los datos de los estudiantes no se recopilan ni almacenan en servidores. Todos los elementos interactivos funcionan localmente en el navegador.', consentK1Desc: 'La plataforma no recopila, almacena ni transmite datos personales de estudiantes. Todos los elementos interactivos funcionan localmente en el navegador.', consentK2Desc: 'Todas las lecciones siguen los estándares del Ministerio de Educación de EAU para Estudios Morales, Sociales y Culturales.', consentK3Desc: 'El contenido está diseñado específicamente para estudiantes de grados 6-9 (edades 11-15) y se revisa para su adecuación.', consentK4Desc: 'La plataforma no tiene funciones de chat, elementos sociales ni formas de comunicarse con otros.', consentK5Desc: 'El inicio de sesión del estudiante es opcional y utiliza un sistema basado en códigos. No se requieren direcciones de correo electrónico ni identificadores personales.', consentS1d: 'Cada estudiante recibe un código único en el formato MSCS-Grado-Sección-Año-Número', consentS2d: 'Se anima a los padres a explorar la plataforma con su hijo', consentS3d: 'Usando su código, los estudiantes pueden acceder a lecciones interactivas apropiadas para su grado', consentS4d: 'Todo el contenido está accesible para revisión parental en cualquier momento', consentCommitmentDesc: 'MSCS Academy está comprometida a proporcionar un entorno de aprendizaje seguro, protegido y apropiado para la edad de todos los estudiantes. Seguimos prácticas estrictas de protección de datos y aseguramos que ninguna información personal de los estudiantes se recopile o almacene en nuestra plataforma.' },
+  ru: { aboutDesc: 'Академия MSCS — интерактивная обучающая платформа для студентов ОАЭ 6-9 классов, изучающих нравственные, социальные и культурные исследования. Каждый урок тщательно согласован со стандартами учебной программы Министерства образования ОАЭ и следует педагогической структуре ADEK. Платформа превращает традиционное содержание учебников в увлекательные интерактивные опыты, способствующие активному обучению, критическому мышлению и практическому применению знаний.', aboutDisclaimer: 'Эта платформа разработана независимо г-ном Ахмедом Али как образовательный ресурс. Весь контент соответствует стандартам учебной программы ОАЭ, но не имеет официального одобрения каких-либо образовательных органов. Учебный материал, созданный преподавателем — Не официальный ресурс ADEK. Данные студентов не собираются и не хранятся на серверах. Все интерактивные элементы работают локально в браузере.', instructorDesc: 'Преданный преподаватель, специализирующийся на нравственных, социальных и культурных исследованиях для студентов ОАЭ. Создаёт интерактивные уроки, основанные на стандартах, которые оживляют историю и культуру.', consentCommitmentDesc: 'Академия MSCS обязуется обеспечивать безопасную, защищённую и соответствующую возрасту учебную среду для всех студентов. Мы соблюдаем строгие практики защиты данных и гарантируем, что никакая личная информация студентов не собирается и не хранится на нашей платформе.', consentK1Desc: 'Платформа не собирает, не хранит и не передаёт личные данные студентов. Все интерактивные элементы работают локально в браузере.', consentK2Desc: 'Все уроки следуют стандартам Министерства образования ОАЭ по нравственным, социальным и культурным исследованиям.', consentK3Desc: 'Контент специально разработан для студентов 6-9 классов (возраст 11-15) и проверяется на соответствие.', consentK4Desc: 'Платформа не имеет чатов, социальных элементов или способов общения с другими.', consentK5Desc: 'Вход студента необязателен и использует систему на основе кодов. Адреса электронной почты или личные идентификаторы не требуются.', consentS1d: 'Каждый студент получает уникальный код в формате MSCS-Класс-Секция-Год-Номер', consentS2d: 'Родителям рекомендуется изучить платформу вместе с ребёнком', consentS3d: 'Используя свой код, студенты могут получать доступ к интерактивным урокам, соответствующим их классу', consentS4d: 'Весь контент доступен для родительской проверки в любое время' },
+  tr: { aboutDesc: 'MSCS Academy, Ahlaki, Sosyal ve Kültürel Çalışmalar öğrenen BAE 6-9. sınıf öğrencileri için tasarlanmış interaktif bir öğrenme platformudur. Her ders, BAE Milli Eğitim Bakanlığı müfredat standartlarıyla dikkatle hizalanmıştır ve ADEK pedagojik çerçevesini takip eder. Platform, geleneksel ders kitabı içeriğini aktif öğrenmeyi, eleştirel düşünmeyi ve bilginin pratik uygulamasını teşvik eden etkileyici interaktif deneyimlere dönüştürür.', aboutDisclaimer: 'Bu platform bağımsız olarak Sn. Ahmed Ali tarafından eğitim kaynağı olarak geliştirilmiştir. Tüm içerik BAE müfredat standartlarına uygundur ancak hiçbir eğitim otoritesi tarafından resmi olarak onaylanmamıştır. Öğretmen Hazırlığı Çalışma Materyali — Resmi ADEK Kaynağı Değildir. Öğrenci verileri sunucularda toplanmaz veya saklanmaz. Tüm interaktif öğeler tarayıcıda yerel olarak çalışır.', consentCommitmentDesc: 'MSCS Academy tüm öğrenciler için güvenli, korunaklı ve yaşa uygun bir öğrenme ortamı sağlamaya kararlıdır. Katı veri koruma uygulamalarını takip ederiz ve platformumuzda hiçbir kişisel öğrenci bilgisinin toplanmadığından veya saklanmadığından emin oluruz.', consentK1Desc: 'Platform öğrenci kişisel verisi toplamaz, depolamaz veya iletmez. Tüm interaktif öğeler tarayıcıda yerel olarak çalışır.', consentK2Desc: 'Tüm dersler Ahlaki, Sosyal ve Kültürel Çalışmalar için BAE Milli Eğitim standartlarını takip eder.', consentK3Desc: 'İçerik özellikle 6-9. sınıf öğrencileri (11-15 yaş) için tasarlanmış ve uygunluk açısından incelenmiştir.', consentK4Desc: 'Platformda sohbet özellikleri, sosyal öğeler veya başkalarıyla iletişim kurma yolları yoktur.', consentK5Desc: 'Öğrenci girişi isteğe bağlıdır ve kod tabanlı bir sistem kullanır. E-posta adresleri veya kişisel tanımlayıcılar gerekli değildir.', consentS1d: 'Her öğrenci MSCS-Sınıf-Bölüm-Yıl-Numara formatında benzersiz bir kod alır', consentS2d: 'Ebeveynlere çocuklarıyla platformu keşfetmeleri teşvik edilir', consentS3d: 'Kodunu kullanarak öğrenciler sınıf düzeyine uygun interaktif derslere erişebilir', consentS4d: 'Tüm içerik her zaman ebeveyn incelemesine açıktır' },
+  fr: { aboutDesc: "MSCS Academy est une plateforme d'apprentissage interactive conçue pour les étudiants des EAU de 6e à 9e année étudiant les Études Morales, Sociales et Culturelles. Chaque leçon est soigneusement alignée sur les normes du programme du Ministère de l'Éducation des EAU et suit le cadre pédagogique ADEK. La plateforme transforme le contenu traditionnel des manuels en expériences interactives engageantes qui favorisent l'apprentissage actif, la pensée critique et l'application pratique des connaissances.", aboutDisclaimer: "Cette plateforme est développée indépendamment par M. Ahmed Ali comme ressource éducative. Tout le contenu est aligné sur les normes du programme des EAU mais n'est pas officiellement approuvé par aucune autorité éducative. Matériel d'étude créé par l'enseignant — Pas une ressource ADEK officielle. Les données des étudiants ne sont pas collectées ou stockées sur des serveurs. Tous les éléments interactifs fonctionnent localement dans le navigateur.", consentK1Desc: "La plateforme ne collecte, ne stocke ni ne transmet aucune donnée personnelle d'étudiant. Tous les éléments interactifs fonctionnent localement dans le navigateur.", consentK2Desc: "Toutes les leçons suivent les normes du Ministère de l'Éducation des EAU pour les Études Morales, Sociales et Culturelles.", consentK3Desc: "Le contenu est spécialement conçu pour les étudiants de 6e à 9e année (âgés de 11 à 15 ans) et est examiné pour son appropriété.", consentK4Desc: "La plateforme n'a pas de fonctionnalités de chat, d'éléments sociaux ou de moyens de communiquer avec d'autres.", consentK5Desc: "La connexion étudiant est facultative et utilise un système basé sur des codes. Aucune adresse e-mail ou identifiant personnel n'est requis.", consentS1d: "Chaque étudiant reçoit un code unique au format MSCS-Niveau-Section-Année-Numéro", consentS2d: "Les parents sont encouragés à explorer la plateforme avec leur enfant", consentS3d: "En utilisant leur code, les étudiants peuvent accéder aux leçons interactives appropriées à leur niveau", consentS4d: "Tout le contenu est accessible pour examen parental à tout moment", consentCommitmentDesc: "MSCS Academy s'engage à fournir un environnement d'apprentissage sûr, sécurisé et approprié à l'âge pour tous les étudiants. Nous suivons des pratiques strictes de protection des données et nous nous assurons qu'aucune information personnelle d'étudiant n'est collectée ou stockée sur notre plateforme." },
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -727,11 +757,21 @@ export default function Home() {
   const [dashboardGrade, setDashboardGrade] = useState<number>(0);
   const [showClassroomRules, setShowClassroomRules] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [loginTab, setLoginTab] = useState<'student' | 'admin'>('student');
+  const [adminUsername, setAdminUsername] = useState('');
+  const [studentSearch, setStudentSearch] = useState('');
+  const [dashboardViewMode, setDashboardViewMode] = useState<'term' | 'semester' | 'year'>('term');
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [dataClearedMsg, setDataClearedMsg] = useState(false);
+  const [exportDateFrom, setExportDateFrom] = useState('');
+  const [exportDateTo, setExportDateTo] = useState('');
 
   const gradeInfoList = useMemo(() => getGradeInfo(), []);
   const platformStats = useMemo(() => getPlatformStats(), []);
 
-  const t = useCallback((key: string) => translations[language]?.[key] || translations.en[key] || key, [language]);
+  const t = useCallback((key: string) => adminTranslations[language]?.[key] || translationImprovements[language]?.[key] || translations[language]?.[key] || adminTranslations.en[key] || translations.en[key] || key, [language]);
 
   useEffect(() => {
     const handleScroll = () => setShowScrollIndicator(window.scrollY < 100);
@@ -756,7 +796,7 @@ export default function Home() {
 
   const renderLanding = () => (
     <div className="min-h-screen flex flex-col">
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-x-hidden pt-8 pb-20">
         <div className="absolute inset-0 bg-gradient-to-br from-[#722F37] via-[#5A1A23] to-[#3D0F15]" />
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url(/hero-pattern.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
         <ArabicPattern opacity={0.08} color="#D4AF37" />
@@ -764,11 +804,12 @@ export default function Home() {
 
         <div className="absolute top-4 right-4 z-20">
           <div className="relative">
-            <button onClick={() => setLangOpen(!langOpen)} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-[#D4AF37]/30 flex items-center justify-center text-white hover:bg-white/20 transition-colors" title="Language">
-              <Globe className="w-5 h-5" />
+            <button onClick={() => setLangOpen(!langOpen)} className="globe-btn flex items-center gap-1.5 h-10 rounded-full bg-white/10 backdrop-blur-md border border-[#D4AF37]/30 pl-3 pr-3 text-white hover:bg-white/20 transition-all" title="Language">
+              <Globe className="w-5 h-5" style={{ color: '#D4AF37' }} />
+              <span className="text-xs font-bold tracking-wider" style={{ color: '#D4AF37' }}>{language.toUpperCase()}</span>
             </button>
             {langOpen && (
-              <div className="absolute right-0 mt-2 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-gray-200 py-2 min-w-[160px] z-50">
+              <div className="absolute right-0 mt-2 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-[#D4AF37]/20 py-1 min-w-[180px] z-50 overflow-hidden">
                 {[
                   { value: 'en', flag: '🇬🇧', label: 'English' },
                   { value: 'ar', flag: '🇸🇦', label: 'العربية' },
@@ -780,8 +821,15 @@ export default function Home() {
                   { value: 'fr', flag: '🇫🇷', label: 'Français' },
                 ].map(lang => (
                   <button key={lang.value} onClick={() => { setLanguage(lang.value); setLangOpen(false); }}
-                    className={`w-full text-left px-4 py-2 text-sm hover:bg-amber-50 transition-colors ${language === lang.value ? 'bg-amber-50 font-bold text-[#722F37]' : 'text-gray-700'}`}>
-                    {lang.flag} {lang.label}
+                    className="w-full text-left px-4 py-2.5 text-sm hover:bg-amber-50 transition-all flex items-center gap-3"
+                    style={{
+                      backgroundColor: language === lang.value ? '#fffbeb' : 'transparent',
+                      fontWeight: language === lang.value ? 700 : 400,
+                      color: language === lang.value ? '#722F37' : '#374151'
+                    }}>
+                    <span className="text-lg">{lang.flag}</span>
+                    <span>{lang.label}</span>
+                    {language === lang.value && <span className="ml-auto" style={{ color: '#D4AF37' }}>✓</span>}
                   </button>
                 ))}
               </div>
@@ -817,16 +865,16 @@ export default function Home() {
           <p className="text-lg sm:text-xl md:text-2xl text-amber-100/90 mb-4 font-light">{t('subtitle')}</p>
           <p className="text-sm sm:text-base text-amber-200/70 mb-3 italic">{t('interactivePlatform')}</p>
 
-          <div className="flex items-center justify-center gap-3 mb-6 flex-wrap">
-            <Button onClick={() => navigateTo('aboutPage')} className="bg-white/15 backdrop-blur-sm border border-[#D4AF37]/30 text-white hover:bg-white/25 text-sm">
-              <Info className="w-4 h-4 mr-2" /> {t('about')}
-            </Button>
-            <Button onClick={() => navigateTo('loginPage')} className="bg-white/15 backdrop-blur-sm border border-[#D4AF37]/30 text-white hover:bg-white/25 text-sm">
-              <LogIn className="w-4 h-4 mr-2" /> {t('studentLogin')}
-            </Button>
-            <Button onClick={() => navigateTo('consentPage')} className="bg-white/15 backdrop-blur-sm border border-[#D4AF37]/30 text-white hover:bg-white/25 text-sm">
-              <Shield className="w-4 h-4 mr-2" /> {t('parentalConsent')}
-            </Button>
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 flex-wrap">
+            <button onClick={() => navigateTo('aboutPage')} className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full backdrop-blur-sm border-2 transition-all duration-300 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl hover:scale-105" style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(212,175,55,0.4)', color: '#fff' }} onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.2)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.7)'; }} onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)'; }}>
+              <Info className="w-5 h-5" style={{ color: '#D4AF37' }} /> {t('about')}
+            </button>
+            <button onClick={() => navigateTo('loginPage')} className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full backdrop-blur-sm border-2 transition-all duration-300 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl hover:scale-105" style={{ backgroundColor: 'rgba(212,175,55,0.2)', borderColor: 'rgba(212,175,55,0.5)', color: '#fff' }} onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.35)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.8)'; }} onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.2)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.5)'; }}>
+              <LogIn className="w-5 h-5" style={{ color: '#D4AF37' }} /> {t('studentLogin')}
+            </button>
+            <button onClick={() => navigateTo('consentPage')} className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full backdrop-blur-sm border-2 transition-all duration-300 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl hover:scale-105" style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(212,175,55,0.4)', color: '#fff' }} onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.2)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.7)'; }} onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)'; }}>
+              <Shield className="w-5 h-5" style={{ color: '#D4AF37' }} /> {t('parentalConsent')}
+            </button>
           </div>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-[#D4AF37]/30 rounded-full px-6 py-3 mb-8">
@@ -846,7 +894,7 @@ export default function Home() {
             <span className="flex items-center gap-1.5"><Sparkles className="w-4 h-4 text-[#D4AF37]" /> {platformStats.totalActivities}+ Activities</span>
           </div>
 
-          <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto mt-4 mb-6">
             {gradeInfoList.map(grade => (
               <button key={grade.key} onClick={() => { setSelectedGrade(grade); navigateTo('gradeSelect'); }}
                 className="group relative overflow-hidden rounded-xl border-2 border-[#D4AF37]/30 bg-white/10 backdrop-blur-sm p-5 text-center transition-all duration-300 hover:border-[#D4AF37] hover:bg-white/20 hover:scale-105 hover:shadow-xl hover:shadow-[#D4AF37]/10">
@@ -1178,10 +1226,34 @@ export default function Home() {
     };
     const heroImage = getLessonHeroImage();
 
-    // Build dynamic slides array — rich content when available, generic otherwise
+    // ════════════════════════════════════════════════════════════════
+    // UNIFIED 14-SLIDE FRAMEWORK — All lessons use exactly 14 slides
+    // ════════════════════════════════════════════════════════════════
     const slides: Array<{ id: number; type: string; title: string; content: React.ReactNode }> = [];
 
-    // SLIDE 1: Title & Introduction (always present, enhanced with rich content)
+    // Prepare reading content (rich or fallback)
+    const reading1Title = richContent?.reading1Title || 'Background Reading';
+    const reading1Content = richContent?.reading1Content || [
+      lesson.prior_learning ? `### Prior Knowledge\n${lesson.prior_learning}\n` : '',
+      lesson.objective ? `### Learning Focus\n${lesson.objective}\n` : '',
+      lesson.resources ? `### Key Resources\n${lesson.resources}` : '',
+    ].filter(Boolean).join('\n\n') || `This lesson focuses on ${cleanTitle}. Consider the key ideas and how they relate to your prior knowledge.`;
+    const reading1Time = richContent?.reading1Time || 5;
+
+    const reading2Title = (richContent?.reading2Title && richContent?.reading2Content) ? richContent.reading2Title : 'Extended Reading & Context';
+    const reading2Content = (richContent?.reading2Title && richContent?.reading2Content) ? richContent.reading2Content : [
+      lesson.resources ? `### Further Resources\n${lesson.resources}\n` : '',
+      `### Deeper Understanding\nConsider how the concepts in "${cleanTitle}" apply to different contexts. Think about the connections between the ideas discussed and real-world examples from the UAE and beyond.`,
+      lesson.assessment ? `### Assessment Focus\n${lesson.assessment}` : '',
+    ].filter(Boolean).join('\n\n') || `Explore additional perspectives on ${cleanTitle}. How do these ideas connect to your daily life and the UAE community?`;
+    const reading2Time = richContent?.reading2Time || 5;
+
+    const [r1First, r1Second] = splitReading(reading1Content);
+    const [r2First, r2Second] = splitReading(reading2Content);
+
+    // ────────────────────────────────────────────
+    // SLIDE 1: Title + Image/Artwork
+    // ────────────────────────────────────────────
     slides.push({
       id: 1, type: 'title', title: cleanTitle,
       content: (
@@ -1189,7 +1261,7 @@ export default function Home() {
           <div className="bg-gradient-to-br from-[#722F37] to-[#5A1A23] rounded-xl p-6 text-white relative overflow-hidden">
             <ArabicPattern opacity={0.06} color="#D4AF37" />
             {heroImage && (
-              <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
             )}
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-4">
@@ -1199,9 +1271,12 @@ export default function Home() {
               {unitContext && <p className="text-amber-100 text-sm">{unitContext}</p>}
               {richContent && richContent.keyVocabulary.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-1.5">
-                  {richContent.keyVocabulary.map(v => (
+                  {richContent.keyVocabulary.slice(0, 8).map(v => (
                     <Badge key={v} className="bg-white/15 text-amber-200 border-amber-400/30 text-[10px]">{v}</Badge>
                   ))}
+                  {richContent.keyVocabulary.length > 8 && (
+                    <Badge className="bg-white/10 text-amber-300 border-amber-400/20 text-[10px]">+{richContent.keyVocabulary.length - 8} more</Badge>
+                  )}
                 </div>
               )}
               <DecorativeBorder color="#D4AF37" />
@@ -1209,92 +1284,108 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Card className="border-2 border-amber-200 bg-amber-50/50">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
-                  <FileText className="w-4 h-4" /> Standards
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-1.5">
-                  {standards.map(s => (
-                    <Badge key={s} variant="outline" className="text-[10px] border-amber-300 text-amber-700">{s}</Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-emerald-200 bg-emerald-50/50">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-bold text-emerald-800 flex items-center gap-2">
-                  <Target className="w-4 h-4" /> Objectives
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ol className="space-y-1.5 text-xs text-emerald-700">
-                  {objectives.map((obj, i) => (
-                    <li key={i}>{i + 1}. {obj}</li>
-                  ))}
-                </ol>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card className="border-2 border-rose-200 bg-rose-50/50">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-bold text-rose-800 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4" /> Success Criteria
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid sm:grid-cols-2 gap-2">
-                {successCriteria.map((c, i) => (
-                  <div key={i} className="flex items-start gap-2 text-xs text-rose-700">
-                    <CheckCircle2 className="w-3 h-3 mt-0.5 shrink-0" />
-                    <span>{c}</span>
-                  </div>
-                ))}
+          {heroImage ? (
+            <div className="rounded-xl overflow-hidden border-2 border-amber-200 shadow-md">
+              <img src={heroImage} alt={cleanTitle} className="w-full h-48 sm:h-56 object-cover" />
+              <div className="bg-amber-50 p-3 text-center">
+                <p className="text-xs text-amber-700 italic">{cleanTitle}</p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          ) : (
+            <div className="rounded-xl p-8 text-center border-2 border-[#D4AF37]/30" style={{ background: 'linear-gradient(135deg, #722F37 0%, #5A1A23 50%, #3D0F15 100%)' }}>
+              <Landmark className="w-16 h-16 text-[#D4AF37] mx-auto mb-3" />
+              <p className="text-[#D4AF37] font-bold text-lg">{cleanTitle}</p>
+              <DecorativeBorder color="#D4AF37" />
+            </div>
+          )}
 
           <DisclaimerBanner />
         </div>
       ),
     });
 
-    // SLIDE 2: Prior Learning / KWL (always present)
+    // ────────────────────────────────────────────
+    // SLIDE 2: Standards + Objectives + Success Criteria + KWL
+    // ────────────────────────────────────────────
     slides.push({
-      id: 2, type: 'prior-learning', title: 'Prior Learning',
+      id: 2, type: 'standards', title: 'Standards, Objectives & KWL',
       content: (
-        <div className="space-y-6">
-          <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-xl p-5 text-white">
-            <div className="flex items-center gap-2 mb-2">
-              <Brain className="w-6 h-6 text-amber-300" />
-              <h3 className="text-xl font-bold">What Do You Already Know?</h3>
+        <div className="space-y-4">
+          <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-xl p-4 text-white">
+            <div className="flex items-center gap-2 mb-1">
+              <Target className="w-5 h-5 text-amber-300" />
+              <h3 className="text-lg font-bold">Standards & Learning Goals</h3>
             </div>
-            <p className="text-emerald-100 text-sm">Before we begin, let&apos;s activate our prior knowledge</p>
             {richContent?.kwlExplanation && (
-              <div className="mt-3 bg-white/10 rounded-lg p-3 text-sm text-emerald-50">
-                <Lightbulb className="w-4 h-4 inline mr-1 text-amber-300" />
+              <p className="text-emerald-100 text-xs mt-1">
+                <Lightbulb className="w-3 h-3 inline mr-1 text-amber-300" />
                 {richContent.kwlExplanation}
-              </div>
+              </p>
             )}
           </div>
 
+          <div className="grid sm:grid-cols-3 gap-3">
+            <Card className="border-2 border-amber-200 bg-amber-50/50">
+              <CardHeader className="pb-1.5 px-3 pt-3">
+                <CardTitle className="text-xs font-bold text-amber-800 flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5" /> Standards
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="px-3 pb-3">
+                <div className="flex flex-wrap gap-1">
+                  {standards.map(s => (
+                    <Badge key={s} variant="outline" className="text-[9px] border-amber-300 text-amber-700">{s}</Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-emerald-200 bg-emerald-50/50">
+              <CardHeader className="pb-1.5 px-3 pt-3">
+                <CardTitle className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
+                  <Target className="w-3.5 h-3.5" /> Objectives
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="px-3 pb-3">
+                <ol className="space-y-1 text-[11px] text-emerald-700">
+                  {objectives.map((obj, i) => (
+                    <li key={i}>{i + 1}. {obj}</li>
+                  ))}
+                </ol>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-rose-200 bg-rose-50/50">
+              <CardHeader className="pb-1.5 px-3 pt-3">
+                <CardTitle className="text-xs font-bold text-rose-800 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Success Criteria
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="px-3 pb-3">
+                <div className="space-y-1">
+                  {successCriteria.slice(0, 4).map((c, i) => (
+                    <div key={i} className="flex items-start gap-1.5 text-[11px] text-rose-700">
+                      <CheckCircle2 className="w-2.5 h-2.5 mt-0.5 shrink-0" />
+                      <span>{c}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           <Card className="border-2 border-amber-200">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-bold text-gray-800">Prior Learning</CardTitle>
+            <CardHeader className="pb-2 px-3 pt-3">
+              <CardTitle className="text-xs font-bold text-gray-800">Prior Learning</CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-700 leading-relaxed">{lesson.prior_learning}</p>
+            <CardContent className="px-3 pb-3">
+              <p className="text-xs text-gray-700 leading-relaxed">{lesson.prior_learning}</p>
             </CardContent>
           </Card>
 
           <div>
-            <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
-              <Lightbulb className="w-4 h-4 text-[#D4AF37]" /> KWL Chart
+            <h4 className="text-xs font-bold text-gray-700 mb-2 flex items-center gap-2">
+              <Lightbulb className="w-3.5 h-3.5 text-[#D4AF37]" /> KWL Chart
             </h4>
             <KWLChart />
           </div>
@@ -1305,9 +1396,11 @@ export default function Home() {
       ),
     });
 
-    // SLIDE 3: Warm-Up / Hook (always present)
+    // ────────────────────────────────────────────
+    // SLIDE 3: Hook Question + Inquiry-Based Opening
+    // ────────────────────────────────────────────
     slides.push({
-      id: 3, type: 'warmup', title: 'Warm-Up Activity',
+      id: 3, type: 'hook', title: 'Hook Question',
       content: (
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-[#722F37] via-[#5A1A23] to-[#3D0F15] rounded-xl p-8 text-center relative overflow-hidden">
@@ -1340,111 +1433,304 @@ export default function Home() {
             </CardContent>
           </Card>
 
+          <Card className="border-2 border-teal-200 bg-teal-50/30">
+            <CardContent className="p-5">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-full bg-teal-100 border-2 border-teal-400 flex items-center justify-center shrink-0">
+                  <Lightbulb className="w-5 h-5 text-teal-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-teal-800 text-sm">Inquiry-Based Opening Prompt</h4>
+                  <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+                    As you explore this lesson on <strong>{cleanTitle}</strong>, keep this guiding question in mind: <em>&ldquo;How does this topic shape our understanding of the world and our role within it?&rdquo;</em> Write your initial thoughts and revisit them at the end.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <AhmedAliLink />
           <DisclaimerBanner />
         </div>
       ),
     });
 
-    // SLIDES 4-5: Reading 1 & Reading 2 (rich content only)
-    if (richContent) {
-      const [r1First, r1Second] = splitReading(richContent.reading1Content);
-      slides.push({
-        id: 4, type: 'reading1', title: richContent.reading1Title,
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl p-5 text-white">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <BookOpen className="w-6 h-6 text-amber-200" />
-                  <h3 className="text-xl font-bold">📖 Reading: {richContent.reading1Title}</h3>
-                </div>
-                {richContent.reading1Time && (
-                  <div className="flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-sm">
-                    <Clock className="w-4 h-4" /> {richContent.reading1Time} min
-                  </div>
-                )}
+    // ────────────────────────────────────────────
+    // SLIDE 4: First Reading + Supporting Visuals
+    // ────────────────────────────────────────────
+    slides.push({
+      id: 4, type: 'reading1', title: reading1Title,
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl p-5 text-white">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-6 h-6 text-amber-200" />
+                <h3 className="text-xl font-bold">📖 {reading1Title}</h3>
               </div>
-              <p className="text-amber-100 text-sm">Read carefully — you&apos;ll discuss this text afterward</p>
+              <div className="flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-sm">
+                <Clock className="w-4 h-4" /> {reading1Time} min
+              </div>
             </div>
-
-            {heroImage && (
-              <div className="rounded-xl overflow-hidden border-2 border-amber-200 shadow-md">
-                <img src={heroImage} alt={cleanTitle} className="w-full h-40 sm:h-48 object-cover" />
-              </div>
-            )}
-
-            <Card className="border-2 border-amber-200">
-              <CardContent className="p-5">
-                <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm">
-                  {r1First}
-                </div>
-                {r1Second && (
-                  <ReadingContinuation content={r1Second} />
-                )}
-              </CardContent>
-            </Card>
-
-            <AhmedAliLink />
-            <DisclaimerBanner />
+            <p className="text-amber-100 text-sm">Read carefully — you&apos;ll discuss this text afterward</p>
           </div>
-        ),
-      });
 
-      if (richContent.reading2Title && richContent.reading2Content) {
-        const [r2First, r2Second] = splitReading(richContent.reading2Content);
-        slides.push({
-          id: 5, type: 'reading2', title: richContent.reading2Title,
-          content: (
-            <div className="space-y-6">
-              <div className="bg-gradient-to-r from-teal-600 to-emerald-700 rounded-xl p-5 text-white">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <BookOpen className="w-6 h-6 text-teal-200" />
-                    <h3 className="text-xl font-bold">📖 Reading: {richContent.reading2Title}</h3>
-                  </div>
-                  {richContent.reading2Time && (
-                    <div className="flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-sm">
-                      <Clock className="w-4 h-4" /> {richContent.reading2Time} min
-                    </div>
-                  )}
+          {(heroImage || (richContent && richContent.visualType !== 'none' && richContent.visualData)) && (
+            <div className="grid sm:grid-cols-2 gap-4">
+              {heroImage && (
+                <div className="rounded-xl overflow-hidden border-2 border-amber-200 shadow-md">
+                  <img src={heroImage} alt={cleanTitle} className="w-full h-40 object-cover" />
                 </div>
-                <p className="text-teal-100 text-sm">A second perspective on today&apos;s topic</p>
-              </div>
+              )}
+              {richContent && richContent.visualType !== 'none' && richContent.visualData && (
+                <div className={heroImage ? '' : 'sm:col-span-2'}>
+                  <VisualRenderer type={richContent.visualType} data={richContent.visualData} />
+                </div>
+              )}
+            </div>
+          )}
 
-              <Card className="border-2 border-teal-200">
-                <CardContent className="p-5">
-                  <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm">
-                    {r2First}
+          <Card className="border-2 border-amber-200">
+            <CardContent className="p-5">
+              <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm">
+                {r1First}
+              </div>
+              {r1Second && (
+                <ReadingContinuation content={r1Second} />
+              )}
+            </CardContent>
+          </Card>
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // ────────────────────────────────────────────
+    // SLIDE 5: Summary of First Reading
+    // ────────────────────────────────────────────
+    slides.push({
+      id: 5, type: 'summary1', title: 'Key Takeaways — Reading One',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-amber-600 to-amber-800 rounded-xl p-5 text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Star className="w-6 h-6 text-amber-200" />
+              <h3 className="text-xl font-bold">⭐ Key Takeaways from Reading One</h3>
+            </div>
+            <p className="text-amber-100 text-sm">Review these essential points before moving on</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            {(richContent && richContent.keyFacts.length > 0
+              ? richContent.keyFacts.slice(0, Math.ceil(richContent.keyFacts.length / 2))
+              : [
+                  ...objectives.slice(0, 2).map(o => `Learning Objective: ${o}`),
+                  ...successCriteria.slice(0, 2).map(c => `Success Criterion: ${c}`),
+                  `Key concept: Understanding ${cleanTitle}`,
+                ]
+            ).map((fact, i) => (
+              <Card key={i} className="border-2 border-amber-200 bg-amber-50/30">
+                <CardContent className="p-3">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                    <p className="text-xs text-gray-700 leading-relaxed">{fact}</p>
                   </div>
-                  {r2Second && (
-                    <ReadingContinuation content={r2Second} />
-                  )}
                 </CardContent>
               </Card>
+            ))}
+          </div>
 
-              <AhmedAliLink />
-              <DisclaimerBanner />
-            </div>
-          ),
-        });
-      }
-    }
-
-    // SLIDE: Discussion Questions (rich content) or Core Activities (generic)
-    if (richContent && richContent.discussionQuestions.length > 0) {
-      slides.push({
-        id: slides.length + 1, type: 'discussion', title: 'Discussion Questions',
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-rose-600 to-[#722F37] rounded-xl p-5 text-white">
+          <Card className="border-2 border-teal-200 bg-teal-50/20">
+            <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Users className="w-6 h-6 text-rose-200" />
-                <h3 className="text-xl font-bold">Discussion Questions</h3>
+                <Brain className="w-4 h-4 text-teal-600" />
+                <h4 className="font-bold text-sm text-teal-800">Reflection Prompt</h4>
               </div>
-              <p className="text-rose-100 text-sm">Think deeply and share your ideas with the class</p>
-            </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                In your own words, summarize the most important idea from this reading. How does it connect to what you already knew?
+              </p>
+            </CardContent>
+          </Card>
 
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // ────────────────────────────────────────────
+    // SLIDE 6: Visual Analysis / Supporting Visuals
+    // ────────────────────────────────────────────
+    slides.push({
+      id: 6, type: 'visual', title: 'Visual Analysis',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-rose-600 to-[#722F37] rounded-xl p-5 text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Eye className="w-6 h-6 text-rose-200" />
+              <h3 className="text-xl font-bold">Visual Analysis</h3>
+            </div>
+            <p className="text-rose-100 text-sm">Analyze and interpret the visual information</p>
+          </div>
+
+          {richContent && richContent.visualType !== 'none' && richContent.visualData ? (
+            <VisualRenderer type={richContent.visualType} data={richContent.visualData} />
+          ) : heroImage ? (
+            <div className="space-y-4">
+              <div className="rounded-xl overflow-hidden border-2 border-rose-200 shadow-md">
+                <img src={heroImage} alt={cleanTitle} className="w-full h-48 sm:h-56 object-cover" />
+              </div>
+              <Card className="border-2 border-rose-200 bg-rose-50/20">
+                <CardContent className="p-4">
+                  <h4 className="font-bold text-sm text-rose-800 mb-2 flex items-center gap-2">
+                    <Eye className="w-4 h-4" /> Visual Analysis Questions
+                  </h4>
+                  <div className="space-y-2">
+                    {['What do you notice first in this image?', 'What details stand out to you?', 'How does this visual relate to the lesson topic?'].map((q, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                        <div className="w-5 h-5 rounded-full bg-rose-100 border border-rose-300 flex items-center justify-center shrink-0 text-rose-700 font-bold text-[10px]">{i + 1}</div>
+                        <span className="pt-0.5">{q}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ) : (
+            <ComparisonChart
+              leftTitle="Key Concepts" rightTitle="Real-World Examples" centerTitle="Connections"
+              leftItems={objectives.slice(0, 3).map(o => o.length > 60 ? o.substring(0, 57) + '...' : o)}
+              rightItems={['UAE cultural context', 'Community values', 'Everyday life application']}
+              centerItems={['Critical thinking', 'Active citizenship', 'Cross-cultural understanding']}
+            />
+          )}
+
+          {mapMarkers.length > 0 && (
+            <div>
+              <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+                <Map className="w-4 h-4 text-rose-600" /> Geographic Context
+              </h4>
+              <InteractiveMap markers={mapMarkers} />
+            </div>
+          )}
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // ────────────────────────────────────────────
+    // SLIDE 7: Second Reading
+    // ────────────────────────────────────────────
+    slides.push({
+      id: 7, type: 'reading2', title: reading2Title,
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-teal-600 to-emerald-700 rounded-xl p-5 text-white">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-6 h-6 text-teal-200" />
+                <h3 className="text-xl font-bold">📖 {reading2Title}</h3>
+              </div>
+              <div className="flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-sm">
+                <Clock className="w-4 h-4" /> {reading2Time} min
+              </div>
+            </div>
+            <p className="text-teal-100 text-sm">A deeper perspective on today&apos;s topic</p>
+          </div>
+
+          <Card className="border-2 border-teal-200">
+            <CardContent className="p-5">
+              <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm">
+                {r2First}
+              </div>
+              {r2Second && (
+                <ReadingContinuation content={r2Second} />
+              )}
+            </CardContent>
+          </Card>
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // ────────────────────────────────────────────
+    // SLIDE 8: Summary of Second Reading
+    // ────────────────────────────────────────────
+    slides.push({
+      id: 8, type: 'summary2', title: 'Key Takeaways — Reading Two',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-teal-600 to-emerald-700 rounded-xl p-5 text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Star className="w-6 h-6 text-teal-200" />
+              <h3 className="text-xl font-bold">⭐ Key Takeaways from Reading Two</h3>
+            </div>
+            <p className="text-teal-100 text-sm">Consolidate your understanding of the second reading</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            {(richContent && richContent.keyFacts.length > 1
+              ? richContent.keyFacts.slice(Math.ceil(richContent.keyFacts.length / 2))
+              : (richContent && richContent.discussionQuestions.length > 0
+                ? richContent.discussionQuestions.slice(0, 3).map(q => `Discussion Point: ${q}`)
+                : [
+                    `Understanding the broader context of ${cleanTitle}`,
+                    ...successCriteria.slice(2, 4).map(c => `Key criterion: ${c}`),
+                    'Connecting concepts to real-world applications',
+                  ]
+              )
+            ).map((fact, i) => (
+              <Card key={i} className="border-2 border-teal-200 bg-teal-50/30">
+                <CardContent className="p-3">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-teal-600 mt-0.5 shrink-0" />
+                    <p className="text-xs text-gray-700 leading-relaxed">{fact}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <Card className="border-2 border-amber-200 bg-amber-50/20">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Lightbulb className="w-4 h-4 text-amber-600" />
+                <h4 className="font-bold text-sm text-amber-800">Compare & Connect</h4>
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                How does this second reading extend or challenge the ideas from the first reading? Write down one connection and one new question.
+              </p>
+            </CardContent>
+          </Card>
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // ────────────────────────────────────────────
+    // SLIDE 9: Additional Visuals / Analytical Tasks
+    // ────────────────────────────────────────────
+    slides.push({
+      id: 9, type: 'analytical', title: 'Analysis & Discussion',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-rose-600 to-[#722F37] rounded-xl p-5 text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Brain className="w-6 h-6 text-rose-200" />
+              <h3 className="text-xl font-bold">Analysis & Discussion</h3>
+            </div>
+            <p className="text-rose-100 text-sm">Think critically and share your analytical insights</p>
+          </div>
+
+          {richContent && richContent.discussionQuestions.length > 0 ? (
             <div className="space-y-3">
               {richContent.discussionQuestions.map((q, i) => (
                 <Card key={i} className="border-2 border-rose-200 bg-rose-50/30">
@@ -1459,165 +1745,180 @@ export default function Home() {
                 </Card>
               ))}
             </div>
-
-            <AhmedAliLink />
-            <DisclaimerBanner />
-          </div>
-        ),
-      });
-    }
-
-    // SLIDE: Key Facts (rich content)
-    if (richContent && richContent.keyFacts.length > 0) {
-      slides.push({
-        id: slides.length + 1, type: 'keyfacts', title: 'Key Facts to Remember',
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-amber-600 to-amber-800 rounded-xl p-5 text-white">
-              <div className="flex items-center gap-2 mb-2">
-                <Star className="w-6 h-6 text-amber-200" />
-                <h3 className="text-xl font-bold">⭐ Key Facts to Remember</h3>
-              </div>
-              <p className="text-amber-100 text-sm">These are the essential takeaways from today&apos;s lesson</p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-3">
-              {richContent.keyFacts.map((fact, i) => (
-                <Card key={i} className="border-2 border-amber-200 bg-amber-50/30">
-                  <CardContent className="p-3">
-                    <div className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-                      <p className="text-xs text-gray-700 leading-relaxed">{fact}</p>
+          ) : (
+            <div className="space-y-3">
+              {[
+                { title: 'Identify Key Patterns', desc: `What patterns or recurring themes can you identify in "${cleanTitle}"? How do they connect to broader social or cultural concepts?` },
+                { title: 'Evaluate Evidence', desc: 'What evidence from the readings supports the main claims? Are there any counterarguments or alternative perspectives to consider?' },
+                { title: 'Apply to New Context', desc: 'How would the concepts from this lesson apply in a different cultural or historical context? Give a specific example.' },
+              ].map((task, i) => (
+                <Card key={i} className="border-2 overflow-hidden" style={{ borderColor: i % 2 === 0 ? '#fecdd3' : '#fde68a' }}>
+                  <div className="px-4 py-3" style={{ backgroundColor: i % 2 === 0 ? '#fff1f2' : '#fffbeb' }}>
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold text-sm" style={{
+                        backgroundColor: i % 2 === 0 ? '#ffe4e6' : '#fef3c7',
+                        color: i % 2 === 0 ? '#be123c' : '#b45309',
+                        border: `2px solid ${i % 2 === 0 ? '#fda4af' : '#fcd34d'}`,
+                      }}>
+                        {i + 1}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-sm text-gray-800">{task.title}</h4>
+                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{task.desc}</p>
+                      </div>
                     </div>
-                  </CardContent>
+                  </div>
                 </Card>
               ))}
             </div>
+          )}
 
-            {richContent.visualType !== 'none' && richContent.visualData && (
-              <VisualRenderer type={richContent.visualType} data={richContent.visualData} />
-            )}
+          {richContent && richContent.visualType !== 'none' && richContent.visualData && (
+            <VisualRenderer type={richContent.visualType} data={richContent.visualData} />
+          )}
 
-            <AhmedAliLink />
-            <DisclaimerBanner />
-          </div>
-        ),
-      });
-    }
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
 
-    // SLIDE: Interactive Strategies (rich content) or Core Activities (generic)
-    if (richContent && richContent.interactiveStrategies && richContent.interactiveStrategies.length > 0) {
-      slides.push({
-        id: slides.length + 1, type: 'strategies', title: 'Interactive Strategies',
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-xl p-5 text-white">
-              <div className="flex items-center gap-2 mb-2">
-                <Swords className="w-6 h-6 text-emerald-200" />
-                <h3 className="text-xl font-bold">Interactive Strategies</h3>
-              </div>
-              <p className="text-emerald-100 text-sm">Engage with the material through these activities</p>
-            </div>
-
-            {richContent.interactiveStrategies.map((s, i) => (
-              <Card key={i} className="border-2 overflow-hidden" style={{ borderColor: i % 2 === 0 ? '#a7f3d0' : '#fde68a' }}>
-                <div className="px-4 py-3" style={{ backgroundColor: i % 2 === 0 ? '#ecfdf5' : '#fffbeb' }}>
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <div className="flex items-center gap-2">
-                      <Badge style={{
-                        backgroundColor: i % 2 === 0 ? '#a7f3d0' : '#fde68a',
-                        color: i % 2 === 0 ? '#065f46' : '#92400e',
-                      }}>
-                        {s.strategy}
-                      </Badge>
-                      <span className="font-bold text-sm text-gray-800">Strategy {i + 1}</span>
-                    </div>
-                    <ActivityTimer duration={s.duration} />
-                  </div>
-                  <h4 className="font-bold text-gray-800 mt-2">{s.description}</h4>
-                  <p className="text-xs text-gray-600 mt-1">{s.instructions}</p>
-                </div>
-              </Card>
-            ))}
-
-            <AhmedAliLink />
-            <DisclaimerBanner />
-          </div>
-        ),
-      });
-    } else if (!richContent) {
-      // Generic activities slide when no rich content
-      slides.push({
-        id: slides.length + 1, type: 'activities', title: 'Core Activities',
-        content: (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl p-5 text-white">
-              <div className="flex items-center gap-2 mb-2">
-                <Swords className="w-6 h-6 text-amber-200" />
-                <h3 className="text-xl font-bold">Core Activities</h3>
-              </div>
-              <p className="text-amber-100 text-sm">Work through each activity — use the timers to stay on track!</p>
-            </div>
-
-            {heroImage && (
-              <div className="rounded-xl overflow-hidden border-2 border-amber-200 shadow-md">
-                <img src={heroImage} alt={cleanTitle} className="w-full h-40 sm:h-48 object-cover" />
-              </div>
-            )}
-
-            {activities.map((activity, idx) => (
-              <Card key={activity.id} className="border-2 overflow-hidden" style={{
-                borderColor: idx % 2 === 0 ? '#fde68a' : '#fecdd3',
-              }}>
-                <div className="px-4 py-3" style={{
-                  backgroundColor: idx % 2 === 0 ? '#fffbeb' : '#fff1f2',
-                }}>
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <div className="flex items-center gap-2">
-                      <Badge style={{
-                        backgroundColor: activity.type === 'interactive' ? '#D4AF37' :
-                        activity.type === 'read' ? '#fde68a' :
-                        activity.type === 'discuss' ? '#fecdd3' :
-                        activity.type === 'creative' ? '#a7f3d0' : '#99f6e4',
-                        color: activity.type === 'interactive' ? '#ffffff' :
-                        activity.type === 'read' ? '#92400e' :
-                        activity.type === 'discuss' ? '#9f1239' :
-                        activity.type === 'creative' ? '#065f46' : '#115e59',
-                      }}>
-                        {activity.type === 'interactive' ? <Sparkles className="w-3 h-3 mr-1" /> :
-                         activity.type === 'read' ? <BookOpen className="w-3 h-3 mr-1" /> :
-                         activity.type === 'discuss' ? <Users className="w-3 h-3 mr-1" /> :
-                         activity.type === 'creative' ? <Lightbulb className="w-3 h-3 mr-1" /> :
-                         <Brain className="w-3 h-3 mr-1" />}
-                        {activity.type.charAt(0).toUpperCase() + activity.type.slice(1)}
-                      </Badge>
-                      <span className="font-bold text-sm text-gray-800">Activity {idx + 1}</span>
-                    </div>
-                    <ActivityTimer duration={activity.duration} />
-                  </div>
-                  <h4 className="font-bold text-gray-800 mt-2">{activity.title}</h4>
-                  <p className="text-xs text-gray-600 mt-1">{activity.description}</p>
-                </div>
-                {activity.content && (
-                  <CardContent className="pt-3 pb-4">
-                    <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-700 leading-relaxed border border-gray-100">
-                      {activity.content}
-                    </div>
-                  </CardContent>
-                )}
-              </Card>
-            ))}
-
-            <AhmedAliLink />
-            <DisclaimerBanner />
-          </div>
-        ),
-      });
-    }
-
-    // SLIDE: UAE & Real-Life Links (always present)
+    // ────────────────────────────────────────────
+    // SLIDE 10: Learning Strategies + Activities + Peer Evaluation + Rubrics
+    // ────────────────────────────────────────────
     slides.push({
-      id: slides.length + 1, type: 'links', title: 'UAE & Real-Life Connections',
+      id: 10, type: 'strategies', title: 'Strategies & Activities',
+      content: (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-xl p-5 text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Swords className="w-6 h-6 text-emerald-200" />
+              <h3 className="text-xl font-bold">Learning Strategies & Activities</h3>
+            </div>
+            <p className="text-emerald-100 text-sm">Engage with the material through these structured activities</p>
+          </div>
+
+          {(richContent && richContent.interactiveStrategies && richContent.interactiveStrategies.length > 0)
+            ? richContent.interactiveStrategies.map((s, i) => (
+                <Card key={i} className="border-2 overflow-hidden" style={{ borderColor: i % 2 === 0 ? '#a7f3d0' : '#fde68a' }}>
+                  <div className="px-4 py-3" style={{ backgroundColor: i % 2 === 0 ? '#ecfdf5' : '#fffbeb' }}>
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-2">
+                        <Badge style={{
+                          backgroundColor: i % 2 === 0 ? '#a7f3d0' : '#fde68a',
+                          color: i % 2 === 0 ? '#065f46' : '#92400e',
+                        }}>
+                          {s.strategy}
+                        </Badge>
+                        <span className="font-bold text-sm text-gray-800">Strategy {i + 1}</span>
+                      </div>
+                      <ActivityTimer duration={s.duration} />
+                    </div>
+                    <h4 className="font-bold text-gray-800 mt-2">{s.description}</h4>
+                    <p className="text-xs text-gray-600 mt-1">{s.instructions}</p>
+                  </div>
+                </Card>
+              ))
+            : activities.map((activity, idx) => (
+                <Card key={activity.id} className="border-2 overflow-hidden" style={{
+                  borderColor: idx % 2 === 0 ? '#fde68a' : '#fecdd3',
+                }}>
+                  <div className="px-4 py-3" style={{
+                    backgroundColor: idx % 2 === 0 ? '#fffbeb' : '#fff1f2',
+                  }}>
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-2">
+                        <Badge style={{
+                          backgroundColor: activity.type === 'interactive' ? '#D4AF37' :
+                          activity.type === 'read' ? '#fde68a' :
+                          activity.type === 'discuss' ? '#fecdd3' :
+                          activity.type === 'creative' ? '#a7f3d0' : '#99f6e4',
+                          color: activity.type === 'interactive' ? '#ffffff' :
+                          activity.type === 'read' ? '#92400e' :
+                          activity.type === 'discuss' ? '#9f1239' :
+                          activity.type === 'creative' ? '#065f46' : '#115e59',
+                        }}>
+                          {activity.type === 'interactive' ? <Sparkles className="w-3 h-3 mr-1" /> :
+                           activity.type === 'read' ? <BookOpen className="w-3 h-3 mr-1" /> :
+                           activity.type === 'discuss' ? <Users className="w-3 h-3 mr-1" /> :
+                           activity.type === 'creative' ? <Lightbulb className="w-3 h-3 mr-1" /> :
+                           <Brain className="w-3 h-3 mr-1" />}
+                          {activity.type.charAt(0).toUpperCase() + activity.type.slice(1)}
+                        </Badge>
+                        <span className="font-bold text-sm text-gray-800">Activity {idx + 1}</span>
+                      </div>
+                      <ActivityTimer duration={activity.duration} />
+                    </div>
+                    <h4 className="font-bold text-gray-800 mt-2">{activity.title}</h4>
+                    <p className="text-xs text-gray-600 mt-1">{activity.description}</p>
+                  </div>
+                  {activity.content && (
+                    <CardContent className="pt-3 pb-4">
+                      <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-700 leading-relaxed border border-gray-100">
+                        {activity.content}
+                      </div>
+                    </CardContent>
+                  )}
+                </Card>
+              ))
+          }
+
+          {/* Peer Evaluation Section */}
+          <Card className="border-2 border-purple-200 bg-purple-50/20">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <Users className="w-4 h-4 text-purple-600" />
+                <h4 className="font-bold text-sm text-purple-800">Peer Evaluation</h4>
+              </div>
+              <div className="space-y-2">
+                {[
+                  'Can your partner explain the main idea in their own words?',
+                  'Did your partner use evidence from the reading to support their answers?',
+                  'What is one thing your partner did well? One thing they could improve?',
+                ].map((prompt, i) => (
+                  <div key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                    <div className="w-5 h-5 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center shrink-0 text-purple-700 font-bold text-[10px]">{i + 1}</div>
+                    <span className="pt-0.5">{prompt}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Assessment Rubric */}
+          <Card className="border-2 border-amber-200 bg-amber-50/20">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <Award className="w-4 h-4 text-amber-600" />
+                <h4 className="font-bold text-sm text-amber-800">Assessment Rubric</h4>
+              </div>
+              <div className="grid grid-cols-4 gap-2 text-center">
+                {[
+                  { level: 'Excellent', desc: 'Deep understanding, detailed evidence', color: '#047857', bg: '#ecfdf5' },
+                  { level: 'Proficient', desc: 'Clear understanding, some evidence', color: '#b45309', bg: '#fffbeb' },
+                  { level: 'Developing', desc: 'Basic understanding, limited evidence', color: '#c2410c', bg: '#fff7ed' },
+                  { level: 'Beginning', desc: 'Needs support, minimal evidence', color: '#be123c', bg: '#fff1f2' },
+                ].map((r, i) => (
+                  <div key={i} className="rounded-lg p-2 border" style={{ backgroundColor: r.bg, borderColor: r.color + '40' }}>
+                    <div className="font-bold text-[10px]" style={{ color: r.color }}>{r.level}</div>
+                    <div className="text-[9px] text-gray-600 mt-1">{r.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <AhmedAliLink />
+          <DisclaimerBanner />
+        </div>
+      ),
+    });
+
+    // ────────────────────────────────────────────
+    // SLIDE 11: UAE Link + Real-Life + Cross-Curricular
+    // ────────────────────────────────────────────
+    slides.push({
+      id: 11, type: 'links', title: 'UAE & Real-Life Connections',
       content: (
         <div className="space-y-6">
           <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl p-5 text-white">
@@ -1668,6 +1969,28 @@ export default function Home() {
             </div>
           )}
 
+          {/* Cross-Curricular Connection */}
+          <Card className="border-2 border-purple-200 bg-purple-50/20">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <ExternalLink className="w-4 h-4 text-purple-600" />
+                <h4 className="font-bold text-sm text-purple-800">Cross-Curricular Connection</h4>
+              </div>
+              <div className="grid sm:grid-cols-3 gap-3">
+                {[
+                  { subject: 'Arabic Language', desc: 'Discuss key terms and concepts in Arabic, strengthening bilingual vocabulary' },
+                  { subject: 'Islamic Studies', desc: 'Connect ethical principles and moral values from the lesson to Islamic teachings' },
+                  { subject: 'Social Studies', desc: 'Relate historical and cultural concepts to UAE society and governance' },
+                ].map((conn, i) => (
+                  <div key={i} className="bg-white rounded-lg p-3 border border-purple-100">
+                    <div className="font-bold text-[11px] text-purple-700">{conn.subject}</div>
+                    <p className="text-[10px] text-gray-600 mt-1 leading-relaxed">{conn.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
           <ComparisonChart
             leftTitle="Key Concepts" rightTitle="UAE Application" centerTitle="Shared"
             leftItems={standards.slice(0, 3).map(s => `Standard: ${s}`)}
@@ -1681,15 +2004,17 @@ export default function Home() {
       ),
     });
 
-    // SLIDE: Homework (always present)
+    // ────────────────────────────────────────────
+    // SLIDE 12: Homework + Lesson Closure
+    // ────────────────────────────────────────────
     slides.push({
-      id: slides.length + 1, type: 'homework', title: 'Homework & Extended Learning',
+      id: 12, type: 'homework', title: 'Homework & Lesson Closure',
       content: (
         <div className="space-y-6">
           <div className="bg-gradient-to-r from-amber-600 to-amber-800 rounded-xl p-5 text-white">
             <div className="flex items-center gap-2 mb-2">
               <FileText className="w-6 h-6 text-amber-200" />
-              <h3 className="text-xl font-bold">Homework & Extended Learning</h3>
+              <h3 className="text-xl font-bold">Homework & Lesson Closure</h3>
             </div>
             <p className="text-amber-100 text-sm">Continue your learning journey beyond the classroom</p>
           </div>
@@ -1739,18 +2064,35 @@ export default function Home() {
             </CardContent>
           </Card>
 
+          {/* Lesson Closure */}
+          <Card className="border-2 border-teal-200 bg-teal-50/20">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <CheckCircle2 className="w-4 h-4 text-teal-600" />
+                <h4 className="font-bold text-sm text-teal-800">Lesson Closure</h4>
+              </div>
+              <div className="space-y-2 text-xs text-gray-700">
+                <p>📋 <strong>Review:</strong> Go back to your KWL chart and fill in the &ldquo;Learned&rdquo; column.</p>
+                <p>🔄 <strong>Reflect:</strong> How has your understanding of {cleanTitle} changed?</p>
+                <p>🎯 <strong>Next Steps:</strong> What questions do you still have? Write them down for next lesson.</p>
+              </div>
+            </CardContent>
+          </Card>
+
           <AhmedAliLink />
           <DisclaimerBanner />
         </div>
       ),
     });
 
-    // SLIDE: Quiz — use rich content quiz questions if available
+    // ────────────────────────────────────────────
+    // SLIDE 13: Formative Assessment Quiz
+    // ────────────────────────────────────────────
     const quizQs = (richContent && richContent.quizQuestions.length > 0)
       ? richContent.quizQuestions.map(q => ({ ...q, options: q.options, correctAnswer: q.correctAnswer }))
       : quizQuestions;
     slides.push({
-      id: slides.length + 1, type: 'quiz', title: 'Formative Assessment',
+      id: 13, type: 'quiz', title: 'Formative Assessment',
       content: (
         <div className="space-y-6">
           <div className="bg-gradient-to-r from-rose-700 to-[#722F37] rounded-xl p-5 text-white">
@@ -1759,12 +2101,26 @@ export default function Home() {
               <h3 className="text-xl font-bold">Formative Assessment</h3>
             </div>
             <p className="text-rose-100 text-sm">Test your understanding — you&apos;ve got this! 💪</p>
-            <div className="flex items-center gap-2 mt-2">
+            <div className="flex items-center gap-2 mt-2 flex-wrap">
               <Badge className="bg-white/20 text-white border-white/30 text-[10px]">{lesson.dok}</Badge>
               <Badge className="bg-white/20 text-white border-white/30 text-[10px]">{quizQs.length} Questions</Badge>
               {richContent && <Badge className="bg-[#D4AF37]/30 text-[#D4AF37] border-[#D4AF37]/50 text-[10px]">Textbook-Based</Badge>}
             </div>
           </div>
+
+          {!isLoggedIn && (
+            <Card className="border-2 border-amber-200 bg-amber-50/30">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 text-amber-700">
+                  <LogIn className="w-4 h-4" />
+                  <p className="text-xs font-medium">{t('loginRequired')}</p>
+                </div>
+                <Button size="sm" variant="outline" onClick={() => navigateTo('loginPage')} className="mt-2 border-[#D4AF37] text-[#D4AF37] text-xs">
+                  <LogIn className="w-3 h-3 mr-1" /> {t('loginToContinue')}
+                </Button>
+              </CardContent>
+            </Card>
+          )}
 
           <QuizEngine
             questions={quizQs}
@@ -1784,9 +2140,11 @@ export default function Home() {
       ),
     });
 
-    // SLIDE: Thank You (always present)
+    // ────────────────────────────────────────────
+    // SLIDE 14: Thank You / Closing
+    // ────────────────────────────────────────────
     slides.push({
-      id: slides.length + 1, type: 'thankyou', title: 'Thank You!',
+      id: 14, type: 'thankyou', title: 'Thank You!',
       content: (
         <div className="text-center space-y-8 py-8">
           <div className="relative inline-block">
@@ -1865,9 +2223,15 @@ export default function Home() {
                   }}>
                   {i < currentSlide && <CheckCircle2 className="w-2.5 h-2.5" />}
                   {slide.type === 'title' && <FileText className="w-2.5 h-2.5" />}
-                  {slide.type === 'prior-learning' && <Brain className="w-2.5 h-2.5" />}
-                  {slide.type === 'warmup' && <Sparkles className="w-2.5 h-2.5" />}
-                  {slide.type === 'activities' && <Swords className="w-2.5 h-2.5" />}
+                  {slide.type === 'standards' && <Target className="w-2.5 h-2.5" />}
+                  {slide.type === 'hook' && <Sparkles className="w-2.5 h-2.5" />}
+                  {slide.type === 'reading1' && <BookOpen className="w-2.5 h-2.5" />}
+                  {slide.type === 'summary1' && <Star className="w-2.5 h-2.5" />}
+                  {slide.type === 'visual' && <Eye className="w-2.5 h-2.5" />}
+                  {slide.type === 'reading2' && <BookOpen className="w-2.5 h-2.5" />}
+                  {slide.type === 'summary2' && <Star className="w-2.5 h-2.5" />}
+                  {slide.type === 'analytical' && <Brain className="w-2.5 h-2.5" />}
+                  {slide.type === 'strategies' && <Swords className="w-2.5 h-2.5" />}
                   {slide.type === 'links' && <Globe className="w-2.5 h-2.5" />}
                   {slide.type === 'homework' && <FileText className="w-2.5 h-2.5" />}
                   {slide.type === 'quiz' && <Trophy className="w-2.5 h-2.5" />}
@@ -2013,7 +2377,12 @@ export default function Home() {
 
   const renderTeacherDashboard = () => {
     const allResults = getAllQuizResults();
-    const filteredResults = dashboardGrade > 0 ? allResults.filter(r => r.grade === dashboardGrade) : allResults;
+    const filteredByGrade = dashboardGrade > 0 ? allResults.filter(r => r.grade === dashboardGrade) : allResults;
+    // Apply student search filter
+    const searchLower = studentSearch.trim().toLowerCase();
+    const filteredResults = searchLower
+      ? filteredByGrade.filter(r => r.studentCode.toLowerCase().includes(searchLower))
+      : filteredByGrade;
 
     // Calculate stats
     const totalStudents = new Set(filteredResults.map(r => r.studentCode)).size;
@@ -2050,15 +2419,53 @@ export default function Home() {
     const yearTotal = filteredResults.reduce((acc, r) => acc + r.score, 0);
     const yearPossible = filteredResults.reduce((acc, r) => acc + r.total, 0);
 
+    // Recent activity (last 10 completions)
+    const recentActivity = [...allResults]
+      .sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime())
+      .slice(0, 10);
+
+    // Active students in last 7 days
+    const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    const activeStudentsCount = new Set(
+      allResults.filter(r => new Date(r.completedAt).getTime() > sevenDaysAgo).map(r => r.studentCode)
+    ).size;
+
     const handleExport = () => {
-      const csv = exportResultsAsCSV();
+      let csv = exportResultsAsCSV();
       if (!csv) return;
+      // Apply date range filter if specified
+      if (exportDateFrom || exportDateTo) {
+        const lines = csv.split('\n');
+        const header = lines[0];
+        const dataLines = lines.slice(1).filter(line => line.trim());
+        const filtered = dataLines.filter(line => {
+          const parts = line.split(',');
+          const dateStr = parts[parts.length - 1]?.replace(/"/g, '').trim();
+          if (!dateStr) return false;
+          const d = new Date(dateStr).getTime();
+          if (exportDateFrom && d < new Date(exportDateFrom).getTime()) return false;
+          if (exportDateTo && d > new Date(exportDateTo + 'T23:59:59').getTime()) return false;
+          return true;
+        });
+        csv = header + '\n' + filtered.join('\n');
+      }
       const blob = new Blob([csv], { type: 'text/csv' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url; a.download = 'mscs_grades_export.csv'; a.click();
+      a.href = url; a.download = `mscs_grades_export${exportDateFrom || exportDateTo ? '_filtered' : ''}.csv`; a.click();
       URL.revokeObjectURL(url);
     };
+
+    const handleClearAllData = () => {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('mscs_quiz_results');
+        setDataClearedMsg(true);
+        setShowClearConfirm(false);
+        setTimeout(() => setDataClearedMsg(false), 3000);
+      }
+    };
+
+    const dashTitle = isAdmin ? t('adminDashboard') : 'Teacher Dashboard';
 
     return (
       <div className="min-h-screen bg-[#FFF9F0]">
@@ -2070,10 +2477,10 @@ export default function Home() {
             </Button>
             <div className="flex items-center gap-4 flex-wrap">
               <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
-                <Shield className="w-7 h-7 text-[#D4AF37]" />
+                {isAdmin ? <LayoutDashboard className="w-7 h-7 text-[#D4AF37]" /> : <Shield className="w-7 h-7 text-[#D4AF37]" />}
               </div>
               <div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-white">Teacher Dashboard</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-white">{dashTitle}</h1>
                 <p className="text-amber-200/80 text-sm">MSCS Academy — Student Performance Overview</p>
               </div>
               <div className="ml-auto">
@@ -2084,16 +2491,16 @@ export default function Home() {
         </div>
 
         <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
-          {/* Grade filter */}
+          {/* Toolbar: Grade filter, Student Search, View Mode, Export */}
           <div className="flex items-center gap-3 flex-wrap">
             <Filter className="w-4 h-4 text-gray-500" />
-            <span className="text-sm font-medium text-gray-600">Filter by Grade:</span>
+            <span className="text-sm font-medium text-gray-600">Grade:</span>
             {[
-              { value: 0, label: 'All Grades' },
-              { value: 6, label: 'Grade 6' },
-              { value: 7, label: 'Grade 7' },
-              { value: 8, label: 'Grade 8' },
-              { value: 9, label: 'Grade 9' },
+              { value: 0, label: 'All' },
+              { value: 6, label: 'G6' },
+              { value: 7, label: 'G7' },
+              { value: 8, label: 'G8' },
+              { value: 9, label: 'G9' },
             ].map(opt => (
               <Button key={opt.value} size="sm" variant={dashboardGrade === opt.value ? 'default' : 'outline'}
                 onClick={() => setDashboardGrade(opt.value)}
@@ -2101,15 +2508,81 @@ export default function Home() {
                 {opt.label}
               </Button>
             ))}
-            <Button size="sm" variant="outline" onClick={handleExport} className="ml-auto border-emerald-300 text-emerald-700 hover:bg-emerald-50">
-              <Download className="w-3 h-3 mr-1" /> Export CSV
-            </Button>
+            <div className="flex items-center gap-2 ml-2">
+              <Search className="w-4 h-4 text-gray-400" />
+              <Input value={studentSearch} onChange={e => setStudentSearch(e.target.value)}
+                placeholder={t('searchStudents')} className="h-8 text-xs w-40" />
+            </div>
+            <div className="flex items-center gap-1 ml-2">
+              {(['term', 'semester', 'year'] as const).map(mode => (
+                <Button key={mode} size="sm" variant={dashboardViewMode === mode ? 'default' : 'outline'}
+                  onClick={() => setDashboardViewMode(mode)}
+                  className={dashboardViewMode === mode ? 'bg-amber-600 text-white text-xs' : 'text-xs border-amber-300 text-amber-700'}>
+                  {t(`viewBy${mode.charAt(0).toUpperCase() + mode.slice(1)}`)}
+                </Button>
+              ))}
+            </div>
+            <div className="flex items-center gap-2 ml-auto">
+              <Button size="sm" variant="outline" onClick={handleExport} className="border-emerald-300 text-emerald-700 hover:bg-emerald-50">
+                <Download className="w-3 h-3 mr-1" /> {t('exportData')}
+              </Button>
+              {isAdmin && (
+                <Button size="sm" variant="outline" onClick={() => setShowClearConfirm(true)}
+                  className="border-rose-300 text-rose-700 hover:bg-rose-50">
+                  <Trash2 className="w-3 h-3 mr-1" /> {t('clearAllData')}
+                </Button>
+              )}
+            </div>
           </div>
+
+          {/* Export Date Range */}
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="text-xs font-medium text-gray-500">{t('exportWithDates')}:</span>
+            <Input type="date" value={exportDateFrom} onChange={e => setExportDateFrom(e.target.value)}
+              className="h-8 text-xs w-36" placeholder={t('fromDate')} />
+            <span className="text-xs text-gray-400">→</span>
+            <Input type="date" value={exportDateTo} onChange={e => setExportDateTo(e.target.value)}
+              className="h-8 text-xs w-36" placeholder={t('toDate')} />
+            {(exportDateFrom || exportDateTo) && (
+              <Button size="sm" variant="ghost" className="text-xs text-gray-500 h-7"
+                onClick={() => { setExportDateFrom(''); setExportDateTo(''); }}>
+                <X className="w-3 h-3 mr-1" /> Clear
+              </Button>
+            )}
+          </div>
+
+          {/* Clear All Data Confirmation Dialog */}
+          {showClearConfirm && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={() => setShowClearConfirm(false)}>
+              <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden" onClick={e => e.stopPropagation()}>
+                <div className="p-6 text-center">
+                  <div className="w-16 h-16 rounded-full bg-rose-100 flex items-center justify-center mx-auto mb-4">
+                    <AlertTriangle className="w-8 h-8 text-rose-600" />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-800 mb-2">{t('clearAllData')}?</h3>
+                  <p className="text-sm text-gray-600">{t('confirmClear')}</p>
+                </div>
+                <div className="flex gap-3 p-4 border-t">
+                  <Button variant="outline" className="flex-1" onClick={() => setShowClearConfirm(false)}>Cancel</Button>
+                  <Button className="flex-1 bg-rose-600 hover:bg-rose-700 text-white" onClick={handleClearAllData}>
+                    <Trash2 className="w-4 h-4 mr-1" /> {t('clearAllData')}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Data Cleared Message */}
+          {dataClearedMsg && (
+            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm text-emerald-700 flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0" /> {t('dataCleared')}
+            </div>
+          )}
 
           {/* Stats Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'Total Students', value: totalStudents, icon: <Users className="w-5 h-5" />, color: '#d97706', bg: '#fffbeb', border: '#fde68a' },
+              { label: t('activeStudents'), value: activeStudentsCount, icon: <Users className="w-5 h-5" />, color: '#d97706', bg: '#fffbeb', border: '#fde68a' },
               { label: 'Quizzes Completed', value: totalQuizzes, icon: <Trophy className="w-5 h-5" />, color: '#059669', bg: '#ecfdf5', border: '#a7f3d0' },
               { label: 'Average Score', value: `${avgScore}%`, icon: <Target className="w-5 h-5" />, color: '#e11d48', bg: '#fff1f2', border: '#fecdd3' },
               { label: 'Highest Score', value: `${highestScore}%`, icon: <Award className="w-5 h-5" />, color: '#D4AF37', bg: '#fffbeb', border: '#D4AF37' },
@@ -2124,11 +2597,70 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Semester Accumulation */}
+          {/* Admin Only: Classroom Management */}
+          {isAdmin && (
+            <Card className="border-2 border-teal-200 overflow-hidden">
+              <div className="bg-gradient-to-r from-teal-50 to-emerald-50 p-4 border-b border-teal-200">
+                <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                  <Settings className="w-5 h-5 text-teal-600" /> {t('classroomManagement')}
+                </h3>
+              </div>
+              <CardContent className="p-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Active Students Card */}
+                  <div className="p-4 rounded-lg border-2 border-teal-200" style={{ backgroundColor: '#f0fdfa' }}>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#ccfbf1' }}>
+                        <Users className="w-5 h-5" style={{ color: '#0d9488' }} />
+                      </div>
+                      <div>
+                        <div className="text-2xl font-bold" style={{ color: '#0d9488' }}>{activeStudentsCount}</div>
+                        <div className="text-xs text-gray-500">{t('activeStudents')} (7 days)</div>
+                      </div>
+                    </div>
+                    <div className="mt-2">
+                      <div className="text-xs text-gray-500 mb-1">Total: {totalStudents} students</div>
+                      <div className="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
+                        <div className="h-full rounded-full" style={{
+                          width: `${totalStudents > 0 ? (activeStudentsCount / totalStudents) * 100 : 0}%`,
+                          backgroundColor: '#0d9488',
+                        }} />
+                      </div>
+                    </div>
+                  </div>
+                  {/* Recent Activity */}
+                  <div className="p-4 rounded-lg border-2 border-amber-200" style={{ backgroundColor: '#fffbeb' }}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Activity className="w-4 h-4" style={{ color: '#d97706' }} />
+                      <span className="text-sm font-bold text-gray-700">{t('recentActivity')}</span>
+                    </div>
+                    <div className="space-y-2 max-h-40 overflow-y-auto">
+                      {recentActivity.length === 0 ? (
+                        <p className="text-xs text-gray-400">{t('noResultsFound')}</p>
+                      ) : recentActivity.map((r, i) => (
+                        <div key={i} className="flex items-center gap-2 text-xs">
+                          <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{
+                            backgroundColor: r.percentage >= 75 ? '#059669' : r.percentage >= 50 ? '#d97706' : '#e11d48',
+                          }} />
+                          <span className="font-mono text-[10px] bg-amber-100 text-amber-800 px-1 rounded">{r.studentCode}</span>
+                          <span className="text-gray-600 truncate flex-1">{r.lessonTitle}</span>
+                          <span className="font-bold" style={{
+                            color: r.percentage >= 75 ? '#059669' : r.percentage >= 50 ? '#d97706' : '#e11d48',
+                          }}>{r.percentage}%</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Semester/Year Accumulation with visual bars */}
           <Card className="border-2 border-amber-200 overflow-hidden">
             <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-amber-200">
               <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-[#D4AF37]" /> Semester Score Accumulation
+                <BarChart3 className="w-5 h-5 text-[#D4AF37]" /> {t('termComparison')}
               </h3>
             </div>
             <CardContent className="p-4">
@@ -2143,7 +2675,12 @@ export default function Home() {
                       {ts.totalQuizzes} quizzes • Avg {ts.avgPercentage}%
                     </div>
                     {ts.totalPossible > 0 && (
-                      <Progress value={ts.avgPercentage} className="mt-2 h-2" />
+                      <div className="mt-2 w-full h-3 rounded-full bg-gray-200 overflow-hidden">
+                        <div className="h-full rounded-full transition-all" style={{
+                          width: `${ts.avgPercentage}%`,
+                          backgroundColor: ts.avgPercentage >= 75 ? '#059669' : ts.avgPercentage >= 50 ? '#d97706' : '#e11d48',
+                        }} />
+                      </div>
                     )}
                   </div>
                 ))}
@@ -2165,14 +2702,15 @@ export default function Home() {
             <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-amber-200">
               <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
                 <Users className="w-5 h-5 text-[#D4AF37]" /> Student Performance
+                {studentSearch && <Badge className="ml-2 bg-amber-100 text-amber-800 border-0 text-xs">Filtered: &quot;{studentSearch}&quot;</Badge>}
               </h3>
             </div>
             <div className="overflow-x-auto max-h-96">
               {studentList.length === 0 ? (
                 <div className="p-8 text-center">
                   <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <h4 className="font-bold text-gray-400">No Quiz Results Yet</h4>
-                  <p className="text-sm text-gray-400 mt-1">Results will appear here automatically when students complete quizzes.</p>
+                  <h4 className="font-bold text-gray-400">{t('noResultsFound')}</h4>
+                  <p className="text-sm text-gray-400 mt-1">Results will appear here when students complete quizzes.</p>
                 </div>
               ) : (
                 <table className="w-full text-sm">
@@ -2340,7 +2878,7 @@ export default function Home() {
   // ════════════════════════════════════════════════════════════
 
   const renderLoginPage = () => {
-    // Detect if the code looks like an admin code
+    // Detect if the code looks like an admin code (for backward compatibility with direct code entry)
     const isPotentialAdminCode = loginCode.trim().toUpperCase().startsWith('MSCS-ADMIN') || loginCode.trim().toUpperCase().startsWith('MSCS-STAFF');
 
     return (
@@ -2351,31 +2889,88 @@ export default function Home() {
           <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home
         </Button>
         <Card className="border-2 border-[#D4AF37] overflow-hidden">
-          <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-6 text-center">
-            <div className="w-14 h-14 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-3">
-              <LogIn className="w-7 h-7 text-[#D4AF37]" />
-            </div>
-            <h2 className="text-xl font-bold text-white">Student Login</h2>
-            <p className="text-rose-200 text-sm mt-1">Enter your access code to continue</p>
+          {/* Tab Toggle: Student | Admin */}
+          <div className="flex border-b border-[#D4AF37]/30">
+            <button
+              onClick={() => { setLoginTab('student'); setLoginError(''); }}
+              className="flex-1 py-3.5 text-center text-sm font-bold transition-all relative"
+              style={{
+                backgroundColor: loginTab === 'student' ? 'transparent' : '#722F37',
+                color: loginTab === 'student' ? '#722F37' : '#fca5a5',
+              }}
+            >
+              <LogIn className="w-4 h-4 inline mr-1.5" />
+              {t('studentLoginTab')}
+              {loginTab === 'student' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: '#722F37' }} />
+              )}
+            </button>
+            <button
+              onClick={() => { setLoginTab('admin'); setLoginError(''); }}
+              className="flex-1 py-3.5 text-center text-sm font-bold transition-all relative"
+              style={{
+                backgroundColor: loginTab === 'admin' ? 'transparent' : '#722F37',
+                color: loginTab === 'admin' ? '#722F37' : '#fca5a5',
+              }}
+            >
+              <Shield className="w-4 h-4 inline mr-1.5" />
+              {t('adminLoginTab')}
+              {loginTab === 'admin' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: '#722F37' }} />
+              )}
+            </button>
           </div>
+
+          {/* Header */}
+          <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-5 text-center">
+            <div className="w-12 h-12 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-2">
+              {loginTab === 'student' ? <LogIn className="w-6 h-6 text-[#D4AF37]" /> : <Shield className="w-6 h-6 text-[#D4AF37]" />}
+            </div>
+            <h2 className="text-lg font-bold text-white">{loginTab === 'student' ? t('studentLogin') : t('adminLogin')}</h2>
+            <p className="text-rose-200 text-xs mt-1">{loginTab === 'student' ? 'Enter your access code to continue' : t('signInAsAdmin')}</p>
+          </div>
+
           <CardContent className="p-6">
             <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1.5 block">Access Code</label>
-                <Input value={loginCode} onChange={e => { setLoginCode(e.target.value.toUpperCase()); setLoginError(''); setShowAdminPassword(false); }}
-                  placeholder="MSCS-7A-2026-014" className="text-center font-mono text-lg tracking-wider" />
-                <p className="text-xs text-gray-400 mt-1">Format: MSCS-Grade-Section-Year-Number</p>
-              </div>
+              {loginTab === 'student' ? (
+                /* Student Login Form */
+                <>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 mb-1.5 block">Access Code</label>
+                    <Input value={loginCode} onChange={e => { setLoginCode(e.target.value.toUpperCase()); setLoginError(''); }}
+                      placeholder="MSCS-7A-2026-014" className="text-center font-mono text-lg tracking-wider" />
+                    <p className="text-xs text-gray-400 mt-1">Format: MSCS-Grade-Section-Year-Number</p>
+                  </div>
 
-              {isPotentialAdminCode && (
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
-                    <Shield className="w-4 h-4" /> Admin Password
-                  </label>
-                  <Input type="password" value={adminPassword} onChange={e => { setAdminPassword(e.target.value); setLoginError(''); }}
-                    placeholder="Enter admin password" className="text-center font-mono" />
-                  <p className="text-xs text-gray-400 mt-1">Staff access requires authorization</p>
-                </div>
+                  {isPotentialAdminCode && (
+                    <div>
+                      <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                        <Shield className="w-4 h-4" /> Admin Password
+                      </label>
+                      <Input type="password" value={adminPassword} onChange={e => { setAdminPassword(e.target.value); setLoginError(''); }}
+                        placeholder="Enter admin password" className="text-center font-mono" />
+                      <p className="text-xs text-gray-400 mt-1">Staff access requires authorization</p>
+                    </div>
+                  )}
+                </>
+              ) : (
+                /* Admin Login Form */
+                <>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                      <User className="w-4 h-4" /> {t('adminUsername')}
+                    </label>
+                    <Input value={adminUsername} onChange={e => { setAdminUsername(e.target.value); setLoginError(''); }}
+                      placeholder={t('enterUsername')} className="font-mono" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                      <KeyRound className="w-4 h-4" /> {t('adminPassword2')}
+                    </label>
+                    <Input type="password" value={adminPassword} onChange={e => { setAdminPassword(e.target.value); setLoginError(''); }}
+                      placeholder={t('enterPassword')} className="font-mono" />
+                  </div>
+                </>
               )}
 
               {loginError && (
@@ -2384,16 +2979,33 @@ export default function Home() {
                 </div>
               )}
               <Button onClick={() => {
+                if (loginTab === 'admin') {
+                  // Admin login: username = "AhmedAli" (case insensitive), password via verifyMasterPassword
+                  if (!adminUsername.trim() || !adminPassword.trim()) {
+                    setLoginError(t('invalidCredentials'));
+                    return;
+                  }
+                  if (adminUsername.trim().toLowerCase() === 'ahmedali' && verifyMasterPassword(adminPassword.trim())) {
+                    setIsLoggedIn(true);
+                    setIsAdmin(true);
+                    setStudentName('Mr. Ahmed Ali');
+                    navigateTo('teacherDashboard');
+                  } else {
+                    setLoginError(t('invalidCredentials'));
+                  }
+                  return;
+                }
+                // Student login
                 const trimmedCode = loginCode.trim().toUpperCase();
                 setLoginCode(trimmedCode);
-                // Admin access — requires both code AND password verification
+                // Admin access via code — requires both code AND password verification
                 if (isPotentialAdminCode) {
                   if (!adminPassword.trim()) {
                     setLoginError('Admin password is required');
                     return;
                   }
                   if (verifyMasterPassword(adminPassword.trim())) {
-                    setIsLoggedIn(true); setStudentName('TEACHER'); navigateTo('teacherDashboard');
+                    setIsLoggedIn(true); setIsAdmin(true); setStudentName('TEACHER'); navigateTo('teacherDashboard');
                   } else {
                     setLoginError('Invalid admin credentials');
                   }
@@ -2402,7 +3014,7 @@ export default function Home() {
                 // Student access
                 const pattern = /^MSCS-\d{1,2}[A-Z]-\d{4}-\d{1,3}$/;
                 if (pattern.test(trimmedCode)) {
-                  setIsLoggedIn(true); setStudentName(trimmedCode); navigateTo('landing');
+                  setIsLoggedIn(true); setIsAdmin(false); setStudentName(trimmedCode); navigateTo('landing');
                 } else {
                   setLoginError('Invalid code format. Use: MSCS-7A-2026-014');
                 }
@@ -2411,11 +3023,11 @@ export default function Home() {
               </Button>
               {isLoggedIn && (
                 <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm text-emerald-700 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 shrink-0" /> Logged in as {studentName}
+                  <CheckCircle2 className="w-4 h-4 shrink-0" /> {t('welcomeBack')}, {studentName}
                 </div>
               )}
               <div className="text-center">
-                <p className="text-xs text-gray-400">Enter your school-issued access code</p>
+                <p className="text-xs text-gray-400">{loginTab === 'student' ? 'Enter your school-issued access code' : 'Authorized personnel only'}</p>
               </div>
             </div>
           </CardContent>
@@ -2523,23 +3135,99 @@ export default function Home() {
       {view === 'consentPage' && renderConsentPage()}
       {view === 'teacherDashboard' && renderTeacherDashboard()}
 
-      {/* Logout Button - visible when logged in on student/teacher views */}
-      {isLoggedIn && (view === 'gradeSelect' || view === 'unitSelect' || view === 'lessonView' || view === 'teacherDashboard') && (
+      {/* User Menu - visible when logged in on ALL views */}
+      {isLoggedIn && (
         <div className="fixed top-3 right-3 z-50">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              setIsLoggedIn(false);
-              setStudentName('');
-              setLoginCode('');
-              navigateTo('landing');
+          <button
+            onClick={() => setShowUserMenu(!showUserMenu)}
+            className="flex items-center gap-2 px-3 py-2 rounded-xl shadow-lg backdrop-blur-md border transition-all hover:shadow-xl"
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.95)',
+              borderColor: isAdmin ? '#D4AF37' : 'rgba(114,47,55,0.3)',
             }}
-            className="bg-white/95 backdrop-blur-sm border-[#722F37]/30 shadow-lg hover:bg-rose-50 hover:border-[#722F37] text-[#722F37] gap-2 text-xs"
           >
-            <LogOut className="w-3.5 h-3.5" />
-            <span className="max-w-[120px] truncate">{studentName}</span>
-          </Button>
+            <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{
+              backgroundColor: isAdmin ? '#fef3c7' : '#fff1f2',
+            }}>
+              {isAdmin ? <Shield className="w-3.5 h-3.5" style={{ color: '#D4AF37' }} /> : <User className="w-3.5 h-3.5" style={{ color: '#722F37' }} />}
+            </div>
+            <div className="text-left">
+              <div className="text-xs font-bold leading-tight" style={{ color: isAdmin ? '#92400e' : '#722F37' }}>
+                {isAdmin ? (studentName || 'Admin') : (studentName || 'Student')}
+              </div>
+              <div className="text-[10px] leading-tight" style={{ color: isAdmin ? '#b45309' : '#9f1239' }}>
+                {isAdmin ? t('adminInfo') : t('studentInfo')}
+              </div>
+            </div>
+            <ChevronDown className="w-3 h-3 text-gray-400" />
+          </button>
+
+          {/* Dropdown Menu */}
+          {showUserMenu && (
+            <>
+              {/* Backdrop to close menu */}
+              <div className="fixed inset-0 z-40" onClick={() => setShowUserMenu(false)} />
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
+                {/* User Info Header */}
+                <div className="p-3 border-b" style={{
+                  background: isAdmin ? 'linear-gradient(to right, #fef3c7, #fffbeb)' : 'linear-gradient(to right, #fff1f2, #fff5f5)',
+                }}>
+                  <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{
+                      backgroundColor: isAdmin ? '#fde68a' : '#fecdd3',
+                    }}>
+                      {isAdmin ? <Shield className="w-4 h-4" style={{ color: '#92400e' }} /> : <User className="w-4 h-4" style={{ color: '#722F37' }} />}
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold" style={{ color: isAdmin ? '#92400e' : '#722F37' }}>
+                        {isAdmin ? (studentName || 'Admin') : (studentName || 'Student')}
+                      </div>
+                      <div className="text-[10px]" style={{ color: isAdmin ? '#b45309' : '#9f1239' }}>
+                        {isAdmin ? t('adminInfo') : t('studentInfo')}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Menu Items */}
+                <div className="p-1.5">
+                  {isAdmin && (
+                    <button
+                      onClick={() => { navigateTo('teacherDashboard'); setShowUserMenu(false); }}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-amber-50 rounded-lg transition-colors"
+                    >
+                      <LayoutDashboard className="w-4 h-4 text-amber-600" />
+                      {t('dashboardLink')}
+                    </button>
+                  )}
+                  <button
+                    onClick={() => { navigateTo('landing'); setShowUserMenu(false); }}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                  >
+                    <HomeIcon className="w-4 h-4 text-gray-500" />
+                    Home
+                  </button>
+                  <div className="my-1 border-t border-gray-100" />
+                  <button
+                    onClick={() => {
+                      setIsLoggedIn(false);
+                      setIsAdmin(false);
+                      setStudentName('');
+                      setLoginCode('');
+                      setAdminPassword('');
+                      setAdminUsername('');
+                      setShowUserMenu(false);
+                      navigateTo('landing');
+                    }}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-rose-700 hover:bg-rose-50 rounded-lg transition-colors"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    {t('logout')}
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       )}
 
