@@ -495,3 +495,26 @@ Stage Summary:
 - All lessons include: keyVocabulary, reading1+reading2, discussionQuestions, keyFacts, visualData, quizQuestions (5 each), interactiveStrategies (2 each)
 - lessonIds: G8_T2_Unit 4_l1-l2, G8_T2_Unit 5_l1, G8_T2_General_l1-l6
 - Auto-deployment to Vercel triggered via GitHub push
+---
+Task ID: G8T3-Implementation
+Agent: Main Agent
+Task: Implement G8T3 (Grade 8, Term 3) textbook content for MSCS curriculum PWA
+
+Work Log:
+- Examined G8T3 curriculum mapping structure (14 entries in General unit, 8 instructional)
+- Created g8t3-unit9a-content.ts with Lessons 1-4 (West Asia Geography, Trade/Settlement, North Africa, Ottoman Rise 1299-1517)
+- Created g8t3-unit9b-content.ts with Lessons 5-9 (Managing Empire, Review, Suleyman I, Ottoman Architecture, Later Ottoman Empire & WWI)
+- Created g8t3-content.ts aggregator with getG8T3LessonContent()
+- Added "Later Ottoman Empire through World War I" lesson to curriculum_mapping.json (both copies)
+- Updated G8T3 General unit lesson_count 14→16
+- Wired G8T3 into page.tsx (import + lookup in getRichLessonContent)
+- Added G8T3 unit title override to lessons.ts (General → "West Asia, North Africa & The Ottoman Empire")
+- Build succeeded with zero errors
+- Committed and pushed to GitHub (0184dc4)
+
+Stage Summary:
+- 9 lessons total across Unit 9
+- lessonIds: G8_T3_General_l1 through G8_T3_General_l9
+- Key content: Ash'ari Islamic framework for Ottoman history, distinction between Seljuk/Ottoman victories, Allah as true Lawgiver (Qanuni title), Piri Reis cartography, Sinan architecture vs European, Tanzimat/Nahda/WWI/Mandates
+- Auto-deployment to Vercel triggered via GitHub push
+- Grade 8 is now COMPLETE (T1, T2, T3 all implemented)
