@@ -473,3 +473,25 @@ Stage Summary:
 - Vercel: Auto-deploy via GitHub integration (mscs-academy.vercel.app)
 - All 10 tasks completed
 
+---
+Task ID: G8T2-Implementation
+Agent: Main Agent
+Task: Implement G8T2 (Grade 8, Term 2) textbook content for MSCS curriculum PWA
+
+Work Log:
+- Examined existing G8T1 code structure and patterns (unit files, aggregator, page.tsx wiring, lessons.ts overrides)
+- Created g8t2-unit4-content.ts with 2 lessons: "Majlis: The Traditional Means of Consultation" and "The Consultative Governance in the UAE"
+- Created g8t2-unit5-content.ts with 1 lesson: "Understanding State and Government"
+- Created g8t2-unit6-content.ts with 6 lessons: Geography of North America, Indigenous People, Colonial North America, American Civil War and Reconstruction, Modern Canada, South America
+- Created g8t2-content.ts aggregator with getG8T2LessonContent() lookup function
+- Added Modern Canada and South America lessons to curriculum_mapping.json (G8T2 General unit, lesson_count 9→11)
+- Wired G8T2 into page.tsx (import + lookup in getRichLessonContent)
+- Added G8T2 unit title overrides to lessons.ts (Unit 4, Unit 5, General → North and South America)
+- Build succeeded with zero errors
+- Committed and pushed to GitHub (78bee0f)
+
+Stage Summary:
+- 9 lessons total across 3 units (Unit 4: 2, Unit 5: 1, General/Unit 6: 6)
+- All lessons include: keyVocabulary, reading1+reading2, discussionQuestions, keyFacts, visualData, quizQuestions (5 each), interactiveStrategies (2 each)
+- lessonIds: G8_T2_Unit 4_l1-l2, G8_T2_Unit 5_l1, G8_T2_General_l1-l6
+- Auto-deployment to Vercel triggered via GitHub push
