@@ -9367,302 +9367,242 @@
           "term_name": "Term 2",
           "units": {
             "Unit 4": {
-              "unit_name": "Unit 4",
-              "lesson_count": 2,
+              "unit_name": "What Should Be Preserved and How?",
+              "lesson_count": 5,
               "lessons": [
                 {
-                  "week_number": 15,
-                  "date_range": "04 Jan – 08 Jan",
-                  "phase": "Instruction",
-                  "lesson_title": "What Should Be Preserved and How?: The Importance of Heritage",
-                  "domains": "S3, S8, S9",
-                  "slo_codes": "S3.1, S8.1, S9.1",
-                  "dok_level": "DOK 1–2",
-                  "learning_activity": "KWL Chart activation on 'The Importance of Heritage'; 2) ...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G9 V-2 p.8; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'The Importance of Heritage' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S9, S8, S3.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'The Importance of Heritage' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Activate prior knowledge from Term 1 through a review quiz and concept map. Students share what they remember and connect to Term 2 themes. Preview the new textbook volume and key vocabulary.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'The Importance of Heritage'; 2) Guided textbook reading p.8 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary matching with key terms; 5) Concept mapping on whiteboard; 6) Exit reflection\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.8; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Exit Ticket: 3-2-1 Strategy — 3 things learned about 'The Importance of Heritage', 2 interesting points, 1 question. Quick vocabulary check.",
-                    "resources_materials": "MoE Textbook G9 V-2 p.8; Teacher Guide G9 V-2; Google Arts & Culture — UAE museums; UNESCO World Heritage List; Al Ain Oasis virtual tour; Qasr Al Hosn virtual tour",
-                    "homework_extension": "Creative Extension: Design a digital infographic on 'The Importance of Heritage' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
-                    "moe_standard": "S9.1,S8.1,S3.1",
-                    "learning_domain": "S9, S8, S3"
-                  }
+                  "title": "The Importance of Heritage",
+                  "slo_codes": [
+                    "S1.2.1",
+                    "S8.2.1"
+                  ],
+                  "objectives": [
+                    "Distinguish between tangible and intangible heritage",
+                    "Evaluate case studies of heritage preservation",
+                    "Understand UNESCO conventions on cultural heritage"
+                  ]
                 },
                 {
-                  "week_number": 16,
-                  "date_range": "11 Jan – 15 Jan",
-                  "phase": "Instruction",
-                  "lesson_title": "What Should Be Preserved and How?: Preserving the Cultural and Natural Heritage",
-                  "domains": "S3, S8, S9",
-                  "slo_codes": "S3.2, S8.3, S9.3",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Vocabulary warm-up; 2) Guided reading with stop-and-think...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G9 V-2 p.26; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Preserving the Cultural and Natural Heritage' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S9, S8, S3.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Preserving the Cultural and Natural Heritage' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Vocabulary warm-up; 2) Guided reading with stop-and-think markers; 3) Class discussion with Think-Pair-Share; 4) Individual practice: complete textbook activity p.26; 5) Quick write summary\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.26; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Summative: Unit Quiz (10 questions — MCQ + short answer + extended response). Performance Task: Visual summary demonstrating understanding. Self-assessment using rubric.",
-                    "resources_materials": "MoE Textbook G9 V-2 p.26; Teacher Guide G9 V-2; Google Arts & Culture — UAE museums; UNESCO World Heritage List; Al Ain Oasis virtual tour; Qasr Al Hosn virtual tour",
-                    "homework_extension": "Creative Extension: Design a digital infographic on 'Preserving the Cultural and Natural Heritage' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
-                    "moe_standard": "S9.3,S3.2,S8.3",
-                    "learning_domain": "S9, S8, S3"
-                  }
+                  "title": "Understanding Emirati Heritage",
+                  "slo_codes": [
+                    "S1.2.2",
+                    "S9.2.1"
+                  ],
+                  "objectives": [
+                    "Examine falconry and its UNESCO recognition",
+                    "Analyse traditional Emirati architecture",
+                    "Evaluate UAE archaeological sites and their significance"
+                  ]
+                },
+                {
+                  "title": "Preserving the Cultural and Natural Heritage",
+                  "slo_codes": [
+                    "S1.2.3",
+                    "S8.2.2"
+                  ],
+                  "objectives": [
+                    "Understand archaeological excavation processes",
+                    "Examine heritage villages and institutional preservation",
+                    "Evaluate virtual museums and digital preservation"
+                  ]
+                },
+                {
+                  "title": "Heritage Tourism",
+                  "slo_codes": [
+                    "S1.2.4",
+                    "S5.2.1"
+                  ],
+                  "objectives": [
+                    "Analyse the economic impact of heritage tourism",
+                    "Examine threats to heritage sites from tourism",
+                    "Evaluate UAE heritage tourism initiatives"
+                  ]
+                },
+                {
+                  "title": "What Am I Supposed to Do to Keep my Heritage?",
+                  "slo_codes": [
+                    "S1.2.5",
+                    "S8.2.3"
+                  ],
+                  "objectives": [
+                    "Examine UNESCO World Heritage Convention and youth involvement",
+                    "Evaluate traditional Emirati arts and their preservation",
+                    "Develop personal heritage preservation action plans"
+                  ]
                 }
               ]
             },
             "Unit 5": {
-              "unit_name": "Unit 5",
-              "lesson_count": 2,
+              "unit_name": "Governments, Authority, and the Judiciary System in the UAE",
+              "lesson_count": 5,
               "lessons": [
                 {
-                  "week_number": 17,
-                  "date_range": "18 Jan – 22 Jan",
-                  "phase": "Instruction",
-                  "lesson_title": "Governments, Authority, and the Judiciary System in the UAE: Exploring the UAE Constitution and Government System",
-                  "domains": "S1, S2, S9",
-                  "slo_codes": "S1.1, S2.1, S9.1",
-                  "dok_level": "DOK 1–2",
-                  "learning_activity": "KWL Chart activation on 'Exploring the UAE Constitution a...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G9 V-2 p.56; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Exploring the UAE Constitution and Government System' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S2, S1, S9.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Exploring the UAE Constitution and Government System' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Recall key concepts from the previous unit through a quick review quiz. Share connections using a transition graphic organizer. Preview new key terms and vocabulary.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'Exploring the UAE Constitution and Government System'; 2) Guided textbook reading p.56 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary matching with key terms; 5) Concept mapping on whiteboard; 6) Exit reflection\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.56; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Exit Ticket: 3-2-1 Strategy — 3 things learned about 'Exploring the UAE Constitution and Government System', 2 interesting points, 1 question. Quick vocabulary check.",
-                    "resources_materials": "MoE Textbook G9 V-2 p.56; Teacher Guide G9 V-2; UAE Government Portal (u.ae); iCivics interactive games; UNICEF resources; Federal National Council educational materials",
-                    "homework_extension": "Creative Extension: Design a digital infographic on 'Exploring the UAE Constitution and Government System' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
-                    "moe_standard": "S2.1,S1.1,S9.1",
-                    "learning_domain": "S2, S1, S9"
-                  }
+                  "title": "Exploring the UAE Constitution",
+                  "slo_codes": [
+                    "S2.2.1",
+                    "S4.2.1"
+                  ],
+                  "objectives": [
+                    "Understand the UAE Constitution and key articles",
+                    "Examine the UAE as a constitutional federation",
+                    "Evaluate constitutional rights and duties"
+                  ]
                 },
                 {
-                  "week_number": 18,
-                  "date_range": "25 Jan – 29 Jan",
-                  "phase": "Instruction",
-                  "lesson_title": "Governments, Authority, and the Judiciary System in the UAE: Federal Authorities of the UAE",
-                  "domains": "S1, S2, S9",
-                  "slo_codes": "S1.2, S2.3, S9.3",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Vocabulary warm-up; 2) Guided reading with stop-and-think...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G9 V-2 p.70; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Federal Authorities of the UAE' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S2, S1, S9.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Federal Authorities of the UAE' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Vocabulary warm-up; 2) Guided reading with stop-and-think markers; 3) Class discussion with Think-Pair-Share; 4) Individual practice: complete textbook activity p.70; 5) Quick write summary\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.70; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Summative: Unit Quiz (10 questions — MCQ + short answer + extended response). Performance Task: Visual summary demonstrating understanding. Self-assessment using rubric.",
-                    "resources_materials": "MoE Textbook G9 V-2 p.70; Teacher Guide G9 V-2; UAE Government Portal (u.ae); iCivics interactive games; UNICEF resources; Federal National Council educational materials",
-                    "homework_extension": "Creative Extension: Design a digital infographic on 'Federal Authorities of the UAE' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
-                    "moe_standard": "S2.3,S1.2,S9.3",
-                    "learning_domain": "S2, S1, S9"
-                  }
+                  "title": "The Federal System",
+                  "slo_codes": [
+                    "S2.2.2",
+                    "S4.2.2"
+                  ],
+                  "objectives": [
+                    "Identify the three branches of government",
+                    "Examine the five federal authorities",
+                    "Understand the structure and composition of federal bodies"
+                  ]
+                },
+                {
+                  "title": "Federal Authorities of the UAE",
+                  "slo_codes": [
+                    "S2.2.3",
+                    "S4.2.3"
+                  ],
+                  "objectives": [
+                    "Analyse the roles of the Supreme Council and President",
+                    "Examine federal ministries and government evolution",
+                    "Understand how government changes reflect citizen needs"
+                  ]
+                },
+                {
+                  "title": "Law and Order in the UAE",
+                  "slo_codes": [
+                    "S2.2.4",
+                    "S4.2.4"
+                  ],
+                  "objectives": [
+                    "Examine the UAE judicial structure",
+                    "Understand the role of Sharia in the court system",
+                    "Evaluate smart transformation of judicial services"
+                  ]
+                },
+                {
+                  "title": "Local Governments Across the UAE",
+                  "slo_codes": [
+                    "S2.2.5",
+                    "S4.2.5"
+                  ],
+                  "objectives": [
+                    "Understand federal vs local jurisdiction",
+                    "Examine emirate autonomy and executive councils",
+                    "Evaluate smart governance initiatives"
+                  ]
                 }
               ]
             },
             "Unit 6": {
-              "unit_name": "Unit 6",
-              "lesson_count": 3,
+              "unit_name": "Developments Leading up to the Founding of the UAE",
+              "lesson_count": 4,
               "lessons": [
                 {
-                  "week_number": 19,
-                  "date_range": "01 Feb – 05 Feb",
-                  "phase": "Instruction",
-                  "lesson_title": "Developments Leading up to the Founding of the UAE: The Rise of Islamic Civilisations in the Land of the UAE",
-                  "domains": "S1, S2, S9",
-                  "slo_codes": "S1.1, S2.1, S9.1",
-                  "dok_level": "DOK 1–2",
-                  "learning_activity": "KWL Chart activation on 'The Rise of Islamic Civilisation...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G9 V-2 p.90; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'The Rise of Islamic Civilisations in the Land of the UAE' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S2, S9.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'The Rise of Islamic Civilisations in the Land of the UAE' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Recall key concepts from the previous unit through a quick review quiz. Share connections using a transition graphic organizer. Preview new key terms and vocabulary.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation on 'The Rise of Islamic Civilisations in the Land of the UAE'; 2) Guided textbook reading p.90 with annotation strategy; 3) Whole-class discussion — Think-Pair-Share with sentence frames; 4) Vocabulary matching with key terms; 5) Concept mapping on whiteboard; 6) Exit reflection\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.90; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Exit Ticket: 3-2-1 Strategy — 3 things learned about 'The Rise of Islamic Civilisations in the Land of the UAE', 2 interesting points, 1 question. Quick vocabulary check.",
-                    "resources_materials": "MoE Textbook G9 V-2 p.90; Teacher Guide G9 V-2; Google Arts & Culture; Smithsonian History Explorer; UAE Heritage Museum virtual tour; Time.Graphics; National Archives UAE",
-                    "homework_extension": "Creative Extension: Design a digital infographic on 'The Rise of Islamic Civilisations in the Land of the UAE' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
-                    "moe_standard": "S1.1,S2.1,S9.1",
-                    "learning_domain": "S1, S2, S9"
-                  }
+                  "title": "The Rise of Islamic Civilisations in the land of the UAE",
+                  "slo_codes": [
+                    "S1.2.6",
+                    "S3.2.1"
+                  ],
+                  "objectives": [
+                    "Trace the arrival of Islam in the UAE region",
+                    "Examine early Islamic architecture",
+                    "Evaluate the contributions of Ahmed bin Majid"
+                  ]
                 },
                 {
-                  "week_number": 22,
-                  "date_range": "22 Feb – 26 Feb",
-                  "phase": "Instruction",
-                  "lesson_title": "Developments Leading up to the Founding of the UAE: The British Maritime System and National Identity",
-                  "domains": "S1, S2, S9",
-                  "slo_codes": "S1.3, S2.3, S9.3",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Vocabulary warm-up; 2) Guided reading with stop-and-think...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G9 V-2 p.111; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'The British Maritime System and National Identity' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S2, S9.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'The British Maritime System and National Identity' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Vocabulary warm-up; 2) Guided reading with stop-and-think markers; 3) Class discussion with Think-Pair-Share; 4) Individual practice: complete textbook activity p.111; 5) Quick write summary\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.111; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Formative: Think-Pair-Share. Quick Write: Summarize 'The British Maritime System and National Identity' in 3-4 sentences. Observation checklist.",
-                    "resources_materials": "MoE Textbook G9 V-2 p.111; Teacher Guide G9 V-2; Google Arts & Culture; Smithsonian History Explorer; UAE Heritage Museum virtual tour; Time.Graphics; National Archives UAE",
-                    "homework_extension": "Creative Extension: Design a digital infographic on 'The British Maritime System and National Identity' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
-                    "moe_standard": "S1.3,S2.3,S9.3",
-                    "learning_domain": "S1, S2, S9"
-                  }
+                  "title": "Emergence of Bani Yas and Qawasim",
+                  "slo_codes": [
+                    "S1.2.7",
+                    "S3.2.2"
+                  ],
+                  "objectives": [
+                    "Examine Portuguese colonial period in the Gulf",
+                    "Analyse local resistance against Portuguese occupation",
+                    "Understand the origins of Bani Yas and Qawasim tribes"
+                  ]
                 },
                 {
-                  "week_number": 23,
-                  "date_range": "01 Mar – 05 Mar",
-                  "phase": "Instruction",
-                  "lesson_title": "Developments Leading up to the Founding of the UAE: The Trucial States Leading up to Nationalisation",
-                  "domains": "S1, S2, S9",
-                  "slo_codes": "S1.4, S2.4, S9.4",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Vocabulary warm-up; 2) Guided reading with stop-and-think...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G9 V-2 p.123; Teacher Guide V-2",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'The Trucial States Leading up to Nationalisation' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S2, S9.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'The Trucial States Leading up to Nationalisation' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Vocabulary warm-up; 2) Guided reading with stop-and-think markers; 3) Class discussion with Think-Pair-Share; 4) Individual practice: complete textbook activity p.123; 5) Quick write summary\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL board; 2) Screen-recorded textbook walkthrough p.123; 3) Flipgrid video response; 4) Quizlet vocabulary set; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Summative: Unit Quiz (10 questions — MCQ + short answer + extended response). Performance Task: Visual summary demonstrating understanding. Self-assessment using rubric.",
-                    "resources_materials": "MoE Textbook G9 V-2 p.123; Teacher Guide G9 V-2; Google Arts & Culture; Smithsonian History Explorer; UAE Heritage Museum virtual tour; Time.Graphics; National Archives UAE",
-                    "homework_extension": "Creative Extension: Design a digital infographic on 'The Trucial States Leading up to Nationalisation' using Canva with 3+ key facts and 1 UAE example. Interview a family member and write a 150-word reflection.",
-                    "moe_standard": "S1.4,S2.4,S9.4",
-                    "learning_domain": "S1, S2, S9"
-                  }
+                  "title": "The British Maritime System and National Identity",
+                  "slo_codes": [
+                    "S1.2.8",
+                    "S3.2.3"
+                  ],
+                  "objectives": [
+                    "Examine British interference in the southern Gulf",
+                    "Analyse the treaty system 1820-1892",
+                    "Evaluate the impact of British treaties on local sovereignty"
+                  ]
+                },
+                {
+                  "title": "The Trucial States Leading up to Nationalisation",
+                  "slo_codes": [
+                    "S1.2.9",
+                    "S3.2.4"
+                  ],
+                  "objectives": [
+                    "Examine key leaders of the Emirates",
+                    "Understand the impact of WWII and the oil discovery",
+                    "Evaluate the transition from Trucial States to UAE"
+                  ]
                 }
               ]
             },
-            "General": {
-              "unit_name": "General",
-              "lesson_count": 5,
+            "Unit 7": {
+              "unit_name": "The UAE Emerges",
+              "lesson_count": 4,
               "lessons": [
                 {
-                  "week_number": 20,
-                  "date_range": "08 Feb – 12 Feb",
-                  "phase": "Mid-Term Exam",
-                  "lesson_title": "Term 2 Mid-Term Examination",
-                  "domains": "All covered",
-                  "slo_codes": "Cumulative",
-                  "dok_level": "DOK 1–3",
-                  "learning_activity": "Mid-Term Examination (Written)",
-                  "assessment": "Summative: Mid-Term Exam",
-                  "resources": "Exam paper; School assessment policy",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT demonstrate understanding of Units 4 and 5 through a comprehensive examination at DOK 1–3.",
-                    "success_criteria": "Student can: (1) Answer knowledge/comprehension questions (DOK 1–2); (2) Apply concepts to scenarios (DOK 2–3); (3) Complete exam within 45 minutes.",
-                    "prior_learning_engagement": "Brief review of key concepts. Examination under standard conditions. Non-instructional week.",
-                    "teaching_learning_activities": "Non-instructional week — Mid-Term Examination only.",
-                    "assessment_closure": "Mid-Term Exam paper (MCQ + short answer + extended response); School assessment policy",
-                    "resources_materials": "Exam paper; Answer booklets",
-                    "homework_extension": "No homework during exam week.",
-                    "moe_standard": "Cumulative (Units 4–5)",
-                    "learning_domain": "All Covered Domains"
-                  }
+                  "title": "Sheikh Zayed and the UAE",
+                  "slo_codes": [
+                    "S1.2.10",
+                    "S2.2.6"
+                  ],
+                  "objectives": [
+                    "Examine Sheikh Zayed's life and leadership",
+                    "Understand the founding of the UAE and its Constitution",
+                    "Evaluate the GCC and regional challenges"
+                  ]
                 },
                 {
-                  "week_number": 21,
-                  "date_range": "15 Feb – 19 Feb",
-                  "phase": "Mid-Term Break",
-                  "lesson_title": "Mid-Term Break — No Classes",
-                  "domains": "—",
-                  "slo_codes": "—",
-                  "dok_level": "—",
-                  "learning_activity": "—",
-                  "assessment": "—",
-                  "resources": "—",
-                  "scope_sequence_detail": {
-                    "learning_objective": "—",
-                    "success_criteria": "—",
-                    "prior_learning_engagement": "—",
-                    "teaching_learning_activities": "—",
-                    "assessment_closure": "—",
-                    "resources_materials": "—",
-                    "homework_extension": "—",
-                    "moe_standard": "—",
-                    "learning_domain": "—"
-                  }
+                  "title": "Early Development of the Nation",
+                  "slo_codes": [
+                    "S1.2.11",
+                    "S5.2.2"
+                  ],
+                  "objectives": [
+                    "Examine ADNOC and ADIA contributions",
+                    "Analyse UAE population growth and societal transformation",
+                    "Evaluate Sheikh Zayed's educational vision"
+                  ]
                 },
                 {
-                  "week_number": 24,
-                  "date_range": "08 Mar – 12 Mar",
-                  "phase": "Review",
-                  "lesson_title": "Term 2 Review & Exam Preparation",
-                  "domains": "All covered",
-                  "slo_codes": "Cumulative",
-                  "dok_level": "DOK 1–3",
-                  "learning_activity": "Revision exercises, practice questions, concept mapping",
-                  "assessment": "Practice test / Quiz",
-                  "resources": "MoE Textbook G9 V-2; Revision Pack",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT consolidate and review all Term 2 concepts through structured revision activities, practice questions, and concept mapping.",
-                    "success_criteria": "Student can: (1) Recall key facts and vocabulary from all units; (2) Create a concept map connecting themes; (3) Answer practice exam questions at DOK 1–3.",
-                    "prior_learning_engagement": "Students review notes and textbooks. Self-assessment checklist to identify areas for improvement.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Revision relay — teams answer quick-fire questions; 2) Concept mapping across all units; 3) Practice exam questions with peer marking; 4) Teacher-led clarification of misconceptions; 5) Study guide completion.\n\nDISTANCE LEARNING (Plan B):\n1) Kahoot! quiz; 2) Digital concept map; 3) Microsoft Forms practice test; 4) Recorded review video; 5) Digital study guide.",
-                    "assessment_closure": "Practice test / Quiz; Concept map check; Study guide completion",
-                    "resources_materials": "MoE Textbook G9 V-2; Revision Pack; Practice questions; Kahoot!",
-                    "homework_extension": "Complete study guide and review vocabulary. Teach one concept to a family member.",
-                    "moe_standard": "Cumulative (Units 4–6)",
-                    "learning_domain": "All Covered Domains"
-                  }
+                  "title": "The UAE from the 1990s to 2010",
+                  "slo_codes": [
+                    "S1.2.12",
+                    "S8.2.4"
+                  ],
+                  "objectives": [
+                    "Examine UAE peacekeeping and international aid",
+                    "Evaluate environmental initiatives and climate change response",
+                    "Understand leadership transitions after Sheikh Zayed"
+                  ]
                 },
                 {
-                  "week_number": 25,
-                  "date_range": "15 Mar – 19 Mar",
-                  "phase": "Final Exam",
-                  "lesson_title": "Term 2 Final Examination",
-                  "domains": "All covered",
-                  "slo_codes": "Cumulative",
-                  "dok_level": "DOK 1–4",
-                  "learning_activity": "Final Examination (Written + Applied)",
-                  "assessment": "Summative: Final Exam",
-                  "resources": "Exam paper; School assessment policy",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT demonstrate comprehensive understanding of all Term 2 content through a summative examination at DOK 1–4.",
-                    "success_criteria": "Student can: (1) Answer recall/comprehension questions (DOK 1–2); (2) Apply concepts to new scenarios (DOK 2–3); (3) Synthesize learning in extended response (DOK 3–4); (4) Complete exam within 45 minutes.",
-                    "prior_learning_engagement": "Quick review. Examination under standard conditions. Non-instructional week.",
-                    "teaching_learning_activities": "Non-instructional week — Final Examination only.",
-                    "assessment_closure": "Final Exam paper (MCQ + short answer + extended response); School assessment policy",
-                    "resources_materials": "Exam paper; Answer booklets; Rubric",
-                    "homework_extension": "No homework during exam week.",
-                    "moe_standard": "Cumulative (Units 4–6)",
-                    "learning_domain": "All Covered Domains"
-                  }
-                },
-                {
-                  "week_number": 26,
-                  "date_range": "22 Mar – 26 Mar",
-                  "phase": "Final Exam",
-                  "lesson_title": "Term 2 Final Examination",
-                  "domains": "All covered",
-                  "slo_codes": "Cumulative",
-                  "dok_level": "DOK 1–4",
-                  "learning_activity": "Final Examination (Written + Applied)",
-                  "assessment": "Summative: Final Exam",
-                  "resources": "Exam paper; School assessment policy",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT demonstrate comprehensive understanding of all Term 2 content through a summative examination at DOK 1–4.",
-                    "success_criteria": "Student can: (1) Answer recall/comprehension questions (DOK 1–2); (2) Apply concepts to new scenarios (DOK 2–3); (3) Synthesize learning in extended response (DOK 3–4); (4) Complete exam within 45 minutes.",
-                    "prior_learning_engagement": "Quick review. Examination under standard conditions. Non-instructional week.",
-                    "teaching_learning_activities": "Non-instructional week — Final Examination only.",
-                    "assessment_closure": "Final Exam paper (MCQ + short answer + extended response); School assessment policy",
-                    "resources_materials": "Exam paper; Answer booklets; Rubric",
-                    "homework_extension": "No homework during exam week.",
-                    "moe_standard": "Cumulative (Units 4–6)",
-                    "learning_domain": "All Covered Domains"
-                  }
+                  "title": "Heritage Project",
+                  "slo_codes": [
+                    "S1.2.13",
+                    "S7.2.1"
+                  ],
+                  "objectives": [
+                    "Research a UAE town or city's heritage",
+                    "Develop presentation skills for heritage projects",
+                    "Connect local heritage to national identity"
+                  ]
                 }
               ]
             }
