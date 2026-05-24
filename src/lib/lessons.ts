@@ -629,6 +629,10 @@ export function getGradeInfo(): GradeInfo[] {
               'G8_T2_General': 'North and South America',
               // G8 T3 specific overrides
               'G8_T3_General': 'West Asia, North Africa & The Ottoman Empire',
+              // G9 T1
+              'G9_T1_Unit 1': 'Introduction to Global Ethics',
+              'G9_T1_Unit 2': 'Financial Awareness',
+              'G9_T1_Unit 3': 'UAE History and Heritage',
             };
             // Check grade+term specific override first, then fallback to general
             const gradeTermKey = `${gk}_${tk}_${uk}`;

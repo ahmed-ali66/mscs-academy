@@ -9163,349 +9163,201 @@
         "T1": {
           "term_name": "Term 1",
           "units": {
-            "General": {
-              "unit_name": "General",
+            "Unit 1": {
+              "unit_name": "Introduction to Global Ethics",
               "lesson_count": 5,
               "lessons": [
                 {
-                  "week_number": 1,
-                  "date_range": "31 Aug – 04 Sep",
-                  "phase": "Instruction",
-                  "lesson_title": "Setting Classroom Rules & Diagnostic Assessment",
-                  "domains": "All covered",
-                  "slo_codes": "C2-G9-S*.*",
-                  "dok_level": "DOK 1",
-                  "learning_activity": "Icebreaker: Two Truths and a Lie about the UAE; 2) Co-cre...",
-                  "assessment": "Formative: Diagnostic / Pre-assessment",
-                  "resources": "MoE Textbook G9 V-1; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT understand and commit to MSCS classroom rules, routines, and behavioral expectations for the academic year; complete a diagnostic assessment to determine baseline knowledge across all 9 MoE domains for Grade 9.",
-                    "success_criteria": "Student can: (1) State at least 4 classroom rules and explain why each matters; (2) Complete the diagnostic assessment demonstrating current knowledge level; (3) Set one personal learning goal for Term 1.",
-                    "prior_learning_engagement": "Welcome back icebreaker — students share one thing about their summer. Teacher introduces MSCS classroom rules using a co-created rules poster. Students contribute ideas for classroom expectations. Diagnostic assessment administered covering key concepts from prior grade. Goal-setting activity: students write one personal learning goal.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Icebreaker: Two Truths and a Lie about the UAE; 2) Co-create classroom rules poster on chart paper; 3) Review MSCS class routines, expectations, and assessment policy; 4) Administer Diagnostic Assessment (30 min); 5) Goal-setting card: 'My MSCS Goal for Term 1'\n\nDISTANCE LEARNING (Plan B):\n1) Virtual icebreaker via Padlet; 2) Digital rules agreement on Google Forms; 3) Diagnostic assessment via Microsoft Forms with auto-grading; 4) Goal-setting on Flipgrid",
-                    "assessment_closure": "Diagnostic Assessment (pre-designed per grade); Classroom rules poster template; Goal-setting card template; Timer; Diagnostic answer key + rubric",
-                    "resources_materials": "MoE Textbook G9 V-1; Diagnostic Assessment document G9; Chart paper & markers; Canva (digital poster); Google Forms; Padlet; Flipgrid; Timer",
-                    "homework_extension": "Decorate the classroom rules poster at home and add a drawing of yourself following one rule. Review the diagnostic topics with a family member and note 2 things you want to improve this year.",
-                    "moe_standard": "C2-G9-S*.* — Baseline",
-                    "learning_domain": "All Domains"
-                  }
+                  "title": "Global Ethics in the Context of Global Issues",
+                  "slo_codes": [
+                    "S4.1.1",
+                    "S8.1.1"
+                  ],
+                  "objectives": [
+                    "Understand the concept of global ethics and moral imperatives",
+                    "Analyse the role of the UN in promoting global morality",
+                    "Evaluate the UAE's approach to tolerance and coexistence"
+                  ]
                 },
                 {
-                  "week_number": 6,
-                  "date_range": "05 Oct – 09 Oct",
-                  "phase": "Mid-Term Exam",
-                  "lesson_title": "Term 1 Mid-Term Examination",
-                  "domains": "All covered",
-                  "slo_codes": "Cumulative",
-                  "dok_level": "DOK 1–3",
-                  "learning_activity": "Mid-Term Examination (Written)",
-                  "assessment": "Summative: Mid-Term Exam",
-                  "resources": "Exam paper; School assessment policy",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT demonstrate understanding of all concepts covered in Units 1 and 2 through a comprehensive written examination aligned to MoE standards at DOK levels 1–3.",
-                    "success_criteria": "Student can: (1) Answer knowledge and comprehension questions accurately (DOK 1–2); (2) Apply concepts to short-answer scenarios (DOK 2–3); (3) Complete the exam within the 45-minute class period.",
-                    "prior_learning_engagement": "Brief review of key concepts from Units 1-2 using quick-fire Q&A. Examination administered under standard assessment conditions. Non-instructional week.",
-                    "teaching_learning_activities": "Non-instructional week — Mid-Term Examination only. No regular teaching activities.",
-                    "assessment_closure": "Mid-Term Exam paper (MCQ + short answer + 1 extended response); School assessment policy; Exam stationery",
-                    "resources_materials": "Exam paper; Answer booklets; School assessment guidelines",
-                    "homework_extension": "No homework during exam week.",
-                    "moe_standard": "Cumulative (Units 1–2)",
-                    "learning_domain": "All Covered Domains"
-                  }
+                  "title": "International Relations of the UAE",
+                  "slo_codes": [
+                    "S4.1.2",
+                    "S2.1.1"
+                  ],
+                  "objectives": [
+                    "Examine the UAE's foreign policy principles",
+                    "Compare UAE and international approaches to human rights",
+                    "Evaluate international collaboration through UAE-Japan partnership"
+                  ]
                 },
                 {
-                  "week_number": 7,
-                  "date_range": "12 Oct – 16 Oct",
-                  "phase": "Mid-Term Break",
-                  "lesson_title": "Mid-Term Break — No Classes",
-                  "domains": "—",
-                  "slo_codes": "—",
-                  "dok_level": "—",
-                  "learning_activity": "—",
-                  "assessment": "—",
-                  "resources": "—",
-                  "scope_sequence_detail": {
-                    "learning_objective": "—",
-                    "success_criteria": "—",
-                    "prior_learning_engagement": "—",
-                    "teaching_learning_activities": "—",
-                    "assessment_closure": "—",
-                    "resources_materials": "—",
-                    "homework_extension": "—",
-                    "moe_standard": "—",
-                    "learning_domain": "—"
-                  }
+                  "title": "Global Ethical Challenges",
+                  "slo_codes": [
+                    "S4.1.3",
+                    "S8.1.2"
+                  ],
+                  "objectives": [
+                    "Identify major global ethical challenges",
+                    "Analyse the moral dimensions of poverty and inequality",
+                    "Evaluate the UAE's response to climate change"
+                  ]
                 },
                 {
-                  "week_number": 13,
-                  "date_range": "23 Nov – 27 Nov",
-                  "phase": "Final Exam",
-                  "lesson_title": "Term 1 Final Examination",
-                  "domains": "All covered",
-                  "slo_codes": "Cumulative",
-                  "dok_level": "DOK 1–4",
-                  "learning_activity": "Final Examination (Written + Applied)",
-                  "assessment": "Summative: Final Exam",
-                  "resources": "Exam paper; School assessment policy",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT demonstrate comprehensive understanding of all Term 1 content (Units 1–3) through a summative examination covering all MoE domains at DOK levels 1–4.",
-                    "success_criteria": "Student can: (1) Answer recall and comprehension questions (DOK 1–2); (2) Apply concepts to new scenarios (DOK 2–3); (3) Synthesize learning across units in extended response (DOK 3–4); (4) Complete exam within 45 minutes.",
-                    "prior_learning_engagement": "Quick review of key vocabulary. Examination under standard conditions. Non-instructional week.",
-                    "teaching_learning_activities": "Non-instructional week — Final Examination only.",
-                    "assessment_closure": "Final Exam paper (MCQ + short answer + extended response); School assessment policy",
-                    "resources_materials": "Exam paper; Answer booklets; Rubric for extended response",
-                    "homework_extension": "No homework during exam week.",
-                    "moe_standard": "Cumulative (Units 1–3)",
-                    "learning_domain": "All Covered Domains"
-                  }
+                  "title": "World Moral Challenges",
+                  "slo_codes": [
+                    "S4.1.4",
+                    "S8.1.3"
+                  ],
+                  "objectives": [
+                    "Examine the global refugee crisis as a moral challenge",
+                    "Analyse human trafficking and child labour",
+                    "Evaluate the UAE's humanitarian response"
+                  ]
                 },
                 {
-                  "week_number": 14,
-                  "date_range": "30 Nov – 04 Dec",
-                  "phase": "Final Exam",
-                  "lesson_title": "Term 1 Final Examination",
-                  "domains": "All covered",
-                  "slo_codes": "Cumulative",
-                  "dok_level": "DOK 1–4",
-                  "learning_activity": "Final Examination (Written + Applied)",
-                  "assessment": "Summative: Final Exam",
-                  "resources": "Exam paper; School assessment policy",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT demonstrate comprehensive understanding of all Term 1 content (Units 1–3) through a summative examination covering all MoE domains at DOK levels 1–4.",
-                    "success_criteria": "Student can: (1) Answer recall and comprehension questions (DOK 1–2); (2) Apply concepts to new scenarios (DOK 2–3); (3) Synthesize learning across units in extended response (DOK 3–4); (4) Complete exam within 45 minutes.",
-                    "prior_learning_engagement": "Quick review of key vocabulary. Examination under standard conditions. Non-instructional week.",
-                    "teaching_learning_activities": "Non-instructional week — Final Examination only.",
-                    "assessment_closure": "Final Exam paper (MCQ + short answer + extended response); School assessment policy",
-                    "resources_materials": "Exam paper; Answer booklets; Rubric for extended response",
-                    "homework_extension": "No homework during exam week.",
-                    "moe_standard": "Cumulative (Units 1–3)",
-                    "learning_domain": "All Covered Domains"
-                  }
-                }
-              ]
-            },
-            "Unit 1": {
-              "unit_name": "Unit 1",
-              "lesson_count": 3,
-              "lessons": [
-                {
-                  "week_number": 2,
-                  "date_range": "07 Sep – 11 Sep",
-                  "phase": "Instruction",
-                  "lesson_title": "Introduction to Global Ethics: Global Ethics in the Context of Global Issues",
-                  "domains": "S2, S4, S8",
-                  "slo_codes": "S2.1, S4.1, S8.1",
-                  "dok_level": "DOK 1–2",
-                  "learning_activity": "KWL Chart activation — students list what they Know / Wan...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G9 V-1 p.4; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Global Ethics in the Context of Global Issues' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S8, S4, S2.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Global Ethics in the Context of Global Issues' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Activate prior knowledge from the previous grade through a KWL chart. Students share what they already know and what they want to learn this year. Preview the textbook, key vocabulary, and learning routines. Set personal learning goals for Term 1.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation — students list what they Know / Want to know about 'Global Ethics in the Context of Global Issues'; 2) Guided textbook reading p.4 with annotation strategy (highlight key terms, underline main ideas); 3) Whole-class discussion: 'Global Ethics in the Context of Global Issues' — Think-Pair-Share with structured sentence frames; 4) Vocabulary matching activity with key terms from p.4; 5) Concept mapping on whiteboard with student contributions; 6) Exit reflection: 'One thing I learned, one question I have'\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL digital board; 2) Screen-recorded textbook walkthrough of p.4; 3) Flipgrid video response to discussion question; 4) Quizlet vocabulary set for independent practice; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Exit Ticket: 3-2-1 Strategy — Write 3 things you learned about 'Global Ethics in the Context of Global Issues', 2 things you found interesting, 1 question you still have. Quick vocabulary check — match 5 key terms to definitions.",
-                    "resources_materials": "MoE Textbook G9 V-1 p.4; Teacher Guide G9 V-1; TED-Ed ethics videos; UNESCO tolerance resources; Character education scenario cards; Values poster template",
-                    "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Global Ethics in the Context of Global Issues' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
-                    "moe_standard": "S8.1, S4.1, S2.1",
-                    "learning_domain": "S8, S4, S2"
-                  }
-                },
-                {
-                  "week_number": 3,
-                  "date_range": "14 Sep – 18 Sep",
-                  "phase": "Instruction",
-                  "lesson_title": "Introduction to Global Ethics: Global Ethical Challenges",
-                  "domains": "S2, S4, S8",
-                  "slo_codes": "S2.3, S4.3, S8.3",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Vocabulary warm-up: Match key terms to definitions from p...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G9 V-1 p.26; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Global Ethical Challenges' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S8, S4, S2.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Global Ethical Challenges' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Vocabulary warm-up: Match key terms to definitions from p.26; 2) Guided reading with stop-and-think markers; 3) Class discussion with Think-Pair-Share; 4) Individual practice: complete textbook activity on p.26; 5) Quick write: Summarize today's lesson in 3-4 sentences\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL digital board; 2) Screen-recorded textbook walkthrough of p.26; 3) Flipgrid video response to discussion question; 4) Quizlet vocabulary set for independent practice; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Formative: Think-Pair-Share oral responses. Quick Write: Summarize 'Global Ethical Challenges' in 3-4 sentences with one example. Observation checklist for participation.",
-                    "resources_materials": "MoE Textbook G9 V-1 p.26; Teacher Guide G9 V-1; Canva (creative design); Kahoot! (formative quiz); Padlet (collaborative board); Twinkl supplementary worksheets",
-                    "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Global Ethical Challenges' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
-                    "moe_standard": "S8.3, S4.3, S2.3",
-                    "learning_domain": "S8, S4, S2"
-                  }
-                },
-                {
-                  "week_number": 4,
-                  "date_range": "21 Sep – 25 Sep",
-                  "phase": "Instruction",
-                  "lesson_title": "Introduction to Global Ethics: Dealing with Global Ethical Challenges",
-                  "domains": "S2, S4, S8",
-                  "slo_codes": "S2.4, S4.5, S8.5",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection from previous lesson...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G9 V-1 p.44; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Dealing with Global Ethical Challenges' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S8, S4, S2.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Dealing with Global Ethical Challenges' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Review bell-ringer: 3-2-1 reflection from previous lesson; 2) Close reading of p.44 with guided comprehension questions; 3) Collaborative group task: create a visual summary/infographic on 'Dealing with Global Ethical Challenges'; 4) Peer teaching jigsaw — each group teaches one aspect to the class; 5) Source analysis activity using textbook images/documents; 6) Teacher-led extension discussion connecting to UAE context\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL digital board; 2) Screen-recorded textbook walkthrough of p.44; 3) Flipgrid video response to discussion question; 4) Quizlet vocabulary set for independent practice; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Summative: Unit Quiz (10 questions — MCQ + short answer + 1 extended response) covering key concepts. Performance Task: Create a visual summary (poster/infographic/mind map) demonstrating understanding. Self-assessment using rubric.",
-                    "resources_materials": "MoE Textbook G9 V-1 p.44; Teacher Guide G9 V-1; Canva (creative design); Kahoot! (formative quiz); Padlet (collaborative board); Twinkl supplementary worksheets",
-                    "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Dealing with Global Ethical Challenges' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
-                    "moe_standard": "S8.5, S4.5, S2.4",
-                    "learning_domain": "S8, S4, S2"
-                  }
+                  "title": "Dealing with Global Ethical Challenges",
+                  "slo_codes": [
+                    "S4.1.5",
+                    "S8.1.4"
+                  ],
+                  "objectives": [
+                    "Evaluate approaches to addressing global challenges",
+                    "Examine the UAE's model of humanitarian aid",
+                    "Develop personal action plans for ethical engagement"
+                  ]
                 }
               ]
             },
             "Unit 2": {
-              "unit_name": "Unit 2",
-              "lesson_count": 3,
+              "unit_name": "Financial Awareness",
+              "lesson_count": 5,
               "lessons": [
                 {
-                  "week_number": 5,
-                  "date_range": "28 Sep – 02 Oct",
-                  "phase": "Instruction",
-                  "lesson_title": "Financial Awareness: Realising the Value of Money",
-                  "domains": "S5, S6, S7",
-                  "slo_codes": "S5.1, S6.1, S7.1",
-                  "dok_level": "DOK 1–2",
-                  "learning_activity": "KWL Chart activation — students list what they Know / Wan...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G9 V-1 p.54; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Realising the Value of Money' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S5, S6, S7.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Realising the Value of Money' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Recall key concepts from the previous unit through a quick review quiz or concept map. Share connections between units using a transition graphic organizer. Preview new key terms and vocabulary for this unit.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation — students list what they Know / Want to know about 'Realising the Value of Money'; 2) Guided textbook reading p.54 with annotation strategy (highlight key terms, underline main ideas); 3) Whole-class discussion: 'Realising the Value of Money' — Think-Pair-Share with structured sentence frames; 4) Vocabulary matching activity with key terms from p.54; 5) Concept mapping on whiteboard with student contributions; 6) Exit reflection: 'One thing I learned, one question I have'\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL digital board; 2) Screen-recorded textbook walkthrough of p.54; 3) Flipgrid video response to discussion question; 4) Quizlet vocabulary set for independent practice; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Exit Ticket: 3-2-1 Strategy — Write 3 things you learned about 'Realising the Value of Money', 2 things you found interesting, 1 question you still have. Quick vocabulary check — match 5 key terms to definitions.",
-                    "resources_materials": "MoE Textbook G9 V-1 p.54; Teacher Guide G9 V-1; Practical Money Skills (practicalmoneyskills.com); Khan Academy — economics; UAE Central Bank educational resources; WHO health resources",
-                    "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Realising the Value of Money' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
-                    "moe_standard": "S5.1, S6.1, S7.1",
-                    "learning_domain": "S5, S6, S7"
-                  }
+                  "title": "Realising The Value of Money",
+                  "slo_codes": [
+                    "S5.1.1",
+                    "S8.1.5"
+                  ],
+                  "objectives": [
+                    "Understand the history and function of money",
+                    "Examine the UAE dirham and its significance",
+                    "Develop budgeting skills and financial literacy"
+                  ]
                 },
                 {
-                  "week_number": 8,
-                  "date_range": "19 Oct – 23 Oct",
-                  "phase": "Instruction",
-                  "lesson_title": "Financial Awareness: How Wealth Can Be a Force for Good?",
-                  "domains": "S5, S6, S7",
-                  "slo_codes": "S5.3, S6.3, S7.3",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Vocabulary warm-up: Match key terms to definitions from p...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G9 V-1 p.78; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'How Wealth Can Be a Force for Good?' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S5, S6, S7.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'How Wealth Can Be a Force for Good?' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Vocabulary warm-up: Match key terms to definitions from p.78; 2) Guided reading with stop-and-think markers; 3) Class discussion with Think-Pair-Share; 4) Individual practice: complete textbook activity on p.78; 5) Quick write: Summarize today's lesson in 3-4 sentences\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL digital board; 2) Screen-recorded textbook walkthrough of p.78; 3) Flipgrid video response to discussion question; 4) Quizlet vocabulary set for independent practice; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Formative: Think-Pair-Share oral responses. Quick Write: Summarize 'How Wealth Can Be a Force for Good?' in 3-4 sentences with one example. Observation checklist for participation.",
-                    "resources_materials": "MoE Textbook G9 V-1 p.78; Teacher Guide G9 V-1; Practical Money Skills (practicalmoneyskills.com); Khan Academy — economics; UAE Central Bank educational resources; WHO health resources",
-                    "homework_extension": "Creative Extension: Design a one-page digital infographic on 'How Wealth Can Be a Force for Good?' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
-                    "moe_standard": "S5.3, S6.3, S7.3",
-                    "learning_domain": "S5, S6, S7"
-                  }
+                  "title": "The Dangers of Wealth and Greed",
+                  "slo_codes": [
+                    "S5.1.2",
+                    "S8.1.6"
+                  ],
+                  "objectives": [
+                    "Analyse the psychological and social dangers of greed",
+                    "Examine the impact of debt on individuals and societies",
+                    "Evaluate Islamic teachings on financial responsibility"
+                  ]
                 },
                 {
-                  "week_number": 9,
-                  "date_range": "26 Oct – 30 Oct",
-                  "phase": "Instruction",
-                  "lesson_title": "Financial Awareness: Becoming an Entrepreneur",
-                  "domains": "S5, S6, S7",
-                  "slo_codes": "S5.5, S6.5, S7.5",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection from previous lesson...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G9 V-1 p.98; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Becoming an Entrepreneur' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S5, S6, S7.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Becoming an Entrepreneur' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Review bell-ringer: 3-2-1 reflection from previous lesson; 2) Close reading of p.98 with guided comprehension questions; 3) Collaborative group task: create a visual summary/infographic on 'Becoming an Entrepreneur'; 4) Peer teaching jigsaw — each group teaches one aspect to the class; 5) Source analysis activity using textbook images/documents; 6) Teacher-led extension discussion connecting to UAE context\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL digital board; 2) Screen-recorded textbook walkthrough of p.98; 3) Flipgrid video response to discussion question; 4) Quizlet vocabulary set for independent practice; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Summative: Unit Quiz (10 questions — MCQ + short answer + 1 extended response) covering key concepts. Performance Task: Create a visual summary (poster/infographic/mind map) demonstrating understanding. Self-assessment using rubric.",
-                    "resources_materials": "MoE Textbook G9 V-1 p.98; Teacher Guide G9 V-1; Practical Money Skills (practicalmoneyskills.com); Khan Academy — economics; UAE Central Bank educational resources; WHO health resources",
-                    "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Becoming an Entrepreneur' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
-                    "moe_standard": "S5.5, S6.5, S7.5",
-                    "learning_domain": "S5, S6, S7"
-                  }
+                  "title": "How Wealth Can Be a Force for Good?",
+                  "slo_codes": [
+                    "S5.1.3",
+                    "S8.1.7"
+                  ],
+                  "objectives": [
+                    "Examine Islamic concepts of zakat and sadaqah",
+                    "Analyse the role of waqf in Islamic civilization",
+                    "Evaluate CSR and ethical investment"
+                  ]
+                },
+                {
+                  "title": "The Development of Entrepreneurship Skills",
+                  "slo_codes": [
+                    "S5.1.4",
+                    "S8.1.8"
+                  ],
+                  "objectives": [
+                    "Understand the entrepreneurial mindset",
+                    "Examine the UAE's support for entrepreneurs",
+                    "Develop core entrepreneurship skills"
+                  ]
+                },
+                {
+                  "title": "Becoming an Entrepreneur",
+                  "slo_codes": [
+                    "S5.1.5",
+                    "S8.1.9"
+                  ],
+                  "objectives": [
+                    "Examine the steps of launching a business",
+                    "Evaluate the UAE's entrepreneurial ecosystem",
+                    "Understand ethical principles in entrepreneurship"
+                  ]
                 }
               ]
             },
             "Unit 3": {
-              "unit_name": "Unit 3",
-              "lesson_count": 3,
+              "unit_name": "UAE History and Heritage",
+              "lesson_count": 5,
               "lessons": [
                 {
-                  "week_number": 10,
-                  "date_range": "02 Nov – 06 Nov",
-                  "phase": "Instruction",
-                  "lesson_title": "UAE History and Heritage: The UAE Landscape and Jebel Faya",
-                  "domains": "S1, S3, S9",
-                  "slo_codes": "S1.1, S3.1, S9.1",
-                  "dok_level": "DOK 1–2",
-                  "learning_activity": "KWL Chart activation — students list what they Know / Wan...",
-                  "assessment": "Formative: Exit Ticket / Quick Write",
-                  "resources": "MoE Textbook G9 V-1 p.106; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'The UAE Landscape and Jebel Faya' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S3, S9.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'The UAE Landscape and Jebel Faya' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Recall key concepts from the previous unit through a quick review quiz or concept map. Share connections between units using a transition graphic organizer. Preview new key terms and vocabulary for this unit.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) KWL Chart activation — students list what they Know / Want to know about 'The UAE Landscape and Jebel Faya'; 2) Guided textbook reading p.106 with annotation strategy (highlight key terms, underline main ideas); 3) Whole-class discussion: 'The UAE Landscape and Jebel Faya' — Think-Pair-Share with structured sentence frames; 4) Vocabulary matching activity with key terms from p.106; 5) Concept mapping on whiteboard with student contributions; 6) Exit reflection: 'One thing I learned, one question I have'\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL digital board; 2) Screen-recorded textbook walkthrough of p.106; 3) Flipgrid video response to discussion question; 4) Quizlet vocabulary set for independent practice; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Exit Ticket: 3-2-1 Strategy — Write 3 things you learned about 'The UAE Landscape and Jebel Faya', 2 things you found interesting, 1 question you still have. Quick vocabulary check — match 5 key terms to definitions.",
-                    "resources_materials": "MoE Textbook G9 V-1 p.106; Teacher Guide G9 V-1; Google Arts & Culture — History collections; Smithsonian History Explorer; UAE Heritage Museum virtual tour; Historical timeline tools (Time.Graphics); National Archives UAE",
-                    "homework_extension": "Creative Extension: Design a one-page digital infographic on 'The UAE Landscape and Jebel Faya' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
-                    "moe_standard": "S1.1, S3.1, S9.1",
-                    "learning_domain": "S1, S3, S9"
-                  }
+                  "title": "The UAE Landscape and Jebel Faya",
+                  "slo_codes": [
+                    "S1.1.1",
+                    "S3.1.1"
+                  ],
+                  "objectives": [
+                    "Examine the geological and geographical landscape of the UAE",
+                    "Analyse the archaeological significance of Jebel Faya",
+                    "Evaluate the connection between UAE heritage and global human history"
+                  ]
                 },
                 {
-                  "week_number": 11,
-                  "date_range": "09 Nov – 13 Nov",
-                  "phase": "Instruction",
-                  "lesson_title": "UAE History and Heritage: The Impact of the Falaj during the Iron Age",
-                  "domains": "S1, S3, S9",
-                  "slo_codes": "S1.3, S3.3, S9.3",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Vocabulary warm-up: Match key terms to definitions from p...",
-                  "assessment": "Formative: Observation / Think-Pair-Share",
-                  "resources": "MoE Textbook G9 V-1 p.134; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'The Impact of the Falaj during the Iron Age' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S3, S9.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'The Impact of the Falaj during the Iron Age' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Vocabulary warm-up: Match key terms to definitions from p.134; 2) Guided reading with stop-and-think markers; 3) Class discussion with Think-Pair-Share; 4) Individual practice: complete textbook activity on p.134; 5) Quick write: Summarize today's lesson in 3-4 sentences\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL digital board; 2) Screen-recorded textbook walkthrough of p.134; 3) Flipgrid video response to discussion question; 4) Quizlet vocabulary set for independent practice; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Formative: Think-Pair-Share oral responses. Quick Write: Summarize 'The Impact of the Falaj during the Iron Age' in 3-4 sentences with one example. Observation checklist for participation.",
-                    "resources_materials": "MoE Textbook G9 V-1 p.134; Teacher Guide G9 V-1; Google Arts & Culture — History collections; Smithsonian History Explorer; UAE Heritage Museum virtual tour; Historical timeline tools (Time.Graphics); National Archives UAE",
-                    "homework_extension": "Creative Extension: Design a one-page digital infographic on 'The Impact of the Falaj during the Iron Age' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
-                    "moe_standard": "S1.3, S3.3, S9.3",
-                    "learning_domain": "S1, S3, S9"
-                  }
+                  "title": "The Bronze Age and Umm an-Nar",
+                  "slo_codes": [
+                    "S1.1.2",
+                    "S3.1.2"
+                  ],
+                  "objectives": [
+                    "Examine the Bronze Age in the UAE",
+                    "Analyse the Umm an-Nar culture and trade networks",
+                    "Evaluate the significance of Bronze Age discoveries"
+                  ]
                 },
                 {
-                  "week_number": 12,
-                  "date_range": "16 Nov – 20 Nov",
-                  "phase": "Instruction",
-                  "lesson_title": "UAE History and Heritage: Shipbuilding and Trade: Ed-Dur and the Arabian Gulf",
-                  "domains": "S1, S3, S9",
-                  "slo_codes": "S1.5, S3.5, S5.1, S9.4",
-                  "dok_level": "DOK 2–3",
-                  "learning_activity": "Review bell-ringer: 3-2-1 reflection from previous lesson...",
-                  "assessment": "Summative: Unit Quiz / Performance Task",
-                  "resources": "MoE Textbook G9 V-1 p.158; Teacher Guide V-1",
-                  "scope_sequence_detail": {
-                    "learning_objective": "SWBAT analyze, evaluate, and synthesize the key concepts of 'Shipbuilding and Trade: Ed-Dur and the Arabian Gulf' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S3, S9.",
-                    "success_criteria": "Student can: (1) Provide a detailed explanation of 'Shipbuilding and Trade: Ed-Dur and the Arabian Gulf' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
-                    "prior_learning_engagement": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity.",
-                    "teaching_learning_activities": "IN-CLASS:\n1) Review bell-ringer: 3-2-1 reflection from previous lesson; 2) Close reading of p.158 with guided comprehension questions; 3) Collaborative group task: create a visual summary/infographic on 'Shipbuilding and Trade: Ed-Dur and the Arabian Gulf'; 4) Peer teaching jigsaw — each group teaches one aspect to the class; 5) Source analysis activity using textbook images/documents; 6) Teacher-led extension discussion connecting to UAE context\n\nDISTANCE LEARNING (Plan B):\nPlan B (Distance): 1) Padlet KWL digital board; 2) Screen-recorded textbook walkthrough of p.158; 3) Flipgrid video response to discussion question; 4) Quizlet vocabulary set for independent practice; 5) Digital worksheet via Nearpod",
-                    "assessment_closure": "Summative: Unit Quiz (10 questions — MCQ + short answer + 1 extended response) covering key concepts. Performance Task: Create a visual summary (poster/infographic/mind map) demonstrating understanding. Self-assessment using rubric.",
-                    "resources_materials": "MoE Textbook G9 V-1 p.158; Teacher Guide G9 V-1; Google Arts & Culture — History collections; Smithsonian History Explorer; UAE Heritage Museum virtual tour; Historical timeline tools (Time.Graphics); National Archives UAE",
-                    "homework_extension": "Creative Extension: Design a one-page digital infographic on 'Shipbuilding and Trade: Ed-Dur and the Arabian Gulf' using Canva, including at least 3 key facts and 1 real-world UAE example. Interview a family member about their perspective on this topic and write a 150-word reflection comparing views.",
-                    "moe_standard": "S1.5, S3.5, S9.4, S5.1",
-                    "learning_domain": "S1, S3, S9"
-                  }
+                  "title": "The Impact of the Falaj during the Iron Age",
+                  "slo_codes": [
+                    "S1.1.3",
+                    "S3.1.3"
+                  ],
+                  "objectives": [
+                    "Understand the falaj irrigation system",
+                    "Examine the social and economic impact of the falaj",
+                    "Evaluate the falaj as a model of sustainable water management"
+                  ]
+                },
+                {
+                  "title": "Domestication of Camels and Muweilah",
+                  "slo_codes": [
+                    "S1.1.4",
+                    "S3.1.4"
+                  ],
+                  "objectives": [
+                    "Examine the domestication of camels and its impact",
+                    "Analyse the Muweilah archaeological site",
+                    "Evaluate the role of camels in shaping Emirati heritage"
+                  ]
+                },
+                {
+                  "title": "Shipbuilding and Trade: Ed-Dur and the Arabian Gulf",
+                  "slo_codes": [
+                    "S1.1.5",
+                    "S3.1.5"
+                  ],
+                  "objectives": [
+                    "Examine traditional shipbuilding in the UAE",
+                    "Analyse the Ed-Dur archaeological site and maritime trade",
+                    "Evaluate the legacy of maritime trade in Emirati culture"
+                  ]
                 }
               ]
             }
