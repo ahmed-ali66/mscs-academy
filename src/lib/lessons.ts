@@ -1083,16 +1083,49 @@ export function getPlatformStats(): { totalGrades: number; totalLessons: number;
 // CYBERSECURITY UTILITIES
 // ═══════════════════════════════════════════════════════════════
 
-export const MASTER_PASSWORD_HASH = 'QWhtZWRBbGlATVNDUzIwMjY='; // pre-computed btoa
+// SHA-256 hash of "AhmedAli@MSCS2026" — NOT reversible like base64
 export const MASTER_LOGIN_CODE = 'MSCS-MASTER-2026-ADMIN';
 export const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
 
-export function verifyMasterPassword(input: string): boolean {
+async function sha256(message: string): Promise<string> {
+  if (typeof crypto !== 'undefined' && crypto.subtle) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+  // Fallback for environments without crypto.subtle
+  let hash = 0;
+  for (let i = 0; i < message.length; i++) {
+    const char = message.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(16).padStart(64, '0');
+}
+
+// Pre-computed SHA-256 of "AhmedAli@MSCS2026"
+const EXPECTED_SHA256 = '02ff08a97a97039b985a8f086bd283a71ccb531ada1760c50d161b9b09317ece';
+
+export async function verifyMasterPassword(input: string): Promise<boolean> {
   try {
-    return (typeof btoa !== 'undefined' ? btoa(input) : Buffer.from(input).toString('base64')) === MASTER_PASSWORD_HASH;
+    const hash = await sha256(input);
+    return hash === EXPECTED_SHA256;
   } catch {
     return false;
   }
+}
+
+// Synchronous fallback — uses salted djb2 hash (better than base64)
+export function verifyMasterPasswordSync(input: string): boolean {
+  let hash = 5381;
+  const str = input + 'mscs_salt_2026';
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) + hash) + str.charCodeAt(i);
+    hash = hash & 0x7fffffff;
+  }
+  // Pre-computed djb2 hash of "AhmedAli@MSCS2026" + "mscs_salt_2026"
+  return hash === 1992355820;
 }
 
 // Rate limiting for login attempts
