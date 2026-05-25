@@ -10,13 +10,18 @@ export async function GET() {
       exists: adminCount > 0,
       count: adminCount,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[Admin Seed GET] Error:', error);
+    const message = error instanceof Error ? error.message : 'Unknown error';
     // If database is not yet set up, return exists: false so setup page shows
     return NextResponse.json({
       exists: false,
       count: 0,
-      error: 'Database not accessible — please check DATABASE_URL configuration',
+      hint: message.includes('does not exist') || message.includes('relation')
+        ? 'Database tables not created yet. Run: npx prisma db push'
+        : message.includes('URL must start with')
+        ? 'DATABASE_URL is not configured. Set up PostgreSQL (Neon) and add DATABASE_URL env var.'
+        : 'Database not accessible — check DATABASE_URL',
     });
   }
 }
@@ -159,8 +164,25 @@ export async function POST(request: Request) {
       },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[Admin Seed POST] Error:', error);
-    return NextResponse.json({ error: 'Failed to seed database' }, { status: 500 });
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    // Provide actionable error messages
+    if (message.includes('does not exist') || message.includes('relation')) {
+      return NextResponse.json(
+        { error: 'Database tables not created yet. Please set DATABASE_URL and redeploy, or run: npx prisma db push' },
+        { status: 500 }
+      );
+    }
+    if (message.includes('URL must start with') || message.includes('P1001')) {
+      return NextResponse.json(
+        { error: 'Database not configured. Please add a PostgreSQL DATABASE_URL in your Vercel project settings.' },
+        { status: 500 }
+      );
+    }
+    return NextResponse.json(
+      { error: `Setup failed: ${message}` },
+      { status: 500 }
+    );
   }
 }

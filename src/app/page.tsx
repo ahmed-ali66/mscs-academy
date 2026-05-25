@@ -827,6 +827,7 @@ export default function Home() {
   const [adminNameInput, setAdminNameInput] = useState('');
   const [adminEmailInput, setAdminEmailInput] = useState('');
   const [needsSetup, setNeedsSetup] = useState(false);
+  const [dbHint, setDbHint] = useState('');
   const [contentPreview, setContentPreview] = useState(false);
   const [adminDashboardTab, setAdminDashboardTab] = useState<'overview' | 'users' | 'subscriptions' | 'analytics' | 'notifications'>('overview');
   const [adminData, setAdminData] = useState<Record<string, unknown> | null>(null);
@@ -866,6 +867,7 @@ export default function Home() {
       if (data.exists === false) {
         setNeedsSetup(true);
         setView('setupPage');
+        if (data.hint) setDbHint(data.hint);
       }
     }).catch(() => {});
   }, []);
@@ -3344,6 +3346,15 @@ export default function Home() {
             <p className="text-rose-200 text-sm mt-1">Create the administrator account to get started</p>
           </div>
           <CardContent className="p-6 space-y-4">
+            {dbHint && (
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-700 flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold mb-1">Database Notice</p>
+                  <p>{dbHint}</p>
+                </div>
+              </div>
+            )}
             <div>
               <label className="text-sm font-medium text-gray-700 mb-1 block">Admin Name</label>
               <Input value={adminNameInput} onChange={e => { setAdminNameInput(e.target.value); setLoginError(''); }} placeholder="Full name" />
@@ -3361,8 +3372,9 @@ export default function Home() {
               <Input type="password" value={adminPasswordInput} onChange={e => { setAdminPasswordInput(e.target.value); setLoginError(''); }} placeholder="Min. 8 characters" className="font-mono" />
             </div>
             {loginError && (
-              <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm text-rose-700 flex items-center gap-2">
-                <XCircle className="w-4 h-4 shrink-0" />{loginError}
+              <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm text-rose-700 flex items-start gap-2">
+                <XCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                <div>{loginError}</div>
               </div>
             )}
             <Button onClick={handleSetup} disabled={loginLoading} className="w-full bg-[#722F37] hover:bg-[#5A1A23] text-white">
