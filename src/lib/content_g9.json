@@ -13,7 +13,7 @@
           "lessons": [
             {
               "lessonId": "g9u1l1",
-              "lessonTitle": "Global Ethics in the Context of Global Issues",
+              "lessonTitle": "Global Ethics in the Context of Global Issues (Mapped)",
               "objectives": [
                 "analyze, evaluate, and synthesize the key concepts of 'Global Ethics in the Context of Global Issues' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S8, S4, S2."
               ],
@@ -46,7 +46,21 @@
             },
             {
               "lessonId": "g9u1l2",
-              "lessonTitle": "Global Ethical Challenges",
+              "lessonTitle": "International Relations of the UAE",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'International Relations of the UAE' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'International Relations of the UAE' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9u1l3",
+              "lessonTitle": "Global Ethical Challenges (Mapped)",
               "objectives": [
                 "analyze, evaluate, and synthesize the key concepts of 'Global Ethical Challenges' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S8, S4, S2."
               ],
@@ -78,8 +92,22 @@
               "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
             },
             {
-              "lessonId": "g9u1l3",
-              "lessonTitle": "Dealing with Global Ethical Challenges",
+              "lessonId": "g9u1l4",
+              "lessonTitle": "World Moral Challenges",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'World Moral Challenges' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'World Moral Challenges' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9u1l5",
+              "lessonTitle": "Dealing with Global Ethical Challenges (Mapped)",
               "objectives": [
                 "analyze, evaluate, and synthesize the key concepts of 'Dealing with Global Ethical Challenges' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S8, S4, S2."
               ],
@@ -119,7 +147,7 @@
           "lessons": [
             {
               "lessonId": "g9u2l1",
-              "lessonTitle": "Realising the Value of Money",
+              "lessonTitle": "Realising the Value of Money (Mapped)",
               "objectives": [
                 "analyze, evaluate, and synthesize the key concepts of 'Realising the Value of Money' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S5, S6, S7."
               ],
@@ -150,7 +178,21 @@
             },
             {
               "lessonId": "g9u2l2",
-              "lessonTitle": "How Wealth Can Be a Force for Good?",
+              "lessonTitle": "The Dangers of Wealth and Greed",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'The Dangers of Wealth and Greed' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'The Dangers of Wealth and Greed' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9u2l3",
+              "lessonTitle": "How Wealth Can Be a Force for Good? (Mapped)",
               "objectives": [
                 "analyze, evaluate, and synthesize the key concepts of 'How Wealth Can Be a Force for Good?' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S5, S6, S7."
               ],
@@ -180,8 +222,22 @@
               "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
             },
             {
-              "lessonId": "g9u2l3",
-              "lessonTitle": "Becoming an Entrepreneur",
+              "lessonId": "g9u2l4",
+              "lessonTitle": "The Development of Entrepreneurship Skills",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'The Development of Entrepreneurship Skills' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'The Development of Entrepreneurship Skills' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9u2l5",
+              "lessonTitle": "Becoming an Entrepreneur (Mapped)",
               "objectives": [
                 "analyze, evaluate, and synthesize the key concepts of 'Becoming an Entrepreneur' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S5, S6, S7."
               ],
@@ -219,7 +275,7 @@
           "lessons": [
             {
               "lessonId": "g9u3l1",
-              "lessonTitle": "The UAE Landscape and Jebel Faya",
+              "lessonTitle": "The UAE Landscape and Jebel Faya (Mapped)",
               "objectives": [
                 "analyze, evaluate, and synthesize the key concepts of 'The UAE Landscape and Jebel Faya' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S3, S9."
               ],
@@ -252,7 +308,21 @@
             },
             {
               "lessonId": "g9u3l2",
-              "lessonTitle": "The Impact of the Falaj during the Iron Age",
+              "lessonTitle": "The Bronze Age and Umm an-Nar",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'The Bronze Age and Umm an-Nar' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'The Bronze Age and Umm an-Nar' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9u3l3",
+              "lessonTitle": "The Impact of the Falaj during the Iron Age (Mapped)",
               "objectives": [
                 "analyze, evaluate, and synthesize the key concepts of 'The Impact of the Falaj during the Iron Age' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S3, S9."
               ],
@@ -284,8 +354,22 @@
               "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
             },
             {
-              "lessonId": "g9u3l3",
-              "lessonTitle": "Shipbuilding and Trade: Ed-Dur and the Arabian Gulf",
+              "lessonId": "g9u3l4",
+              "lessonTitle": "Domestication of Camels and Muweilah",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Domestication of Camels and Muweilah' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Domestication of Camels and Muweilah' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9u3l5",
+              "lessonTitle": "Shipbuilding and Trade: Ed-Dur and the Arabian Gulf (Mapped)",
               "objectives": [
                 "analyze, evaluate, and synthesize the key concepts of 'Shipbuilding and Trade: Ed-Dur and the Arabian Gulf' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards S1, S3, S9."
               ],
@@ -331,7 +415,7 @@
           "lessons": [
             {
               "lessonId": "g9u4l1",
-              "lessonTitle": "The Importance of Heritage",
+              "lessonTitle": "The Importance of Heritage (Mapped)",
               "objectives": [
                 "This lesson aims to help students understand the",
                 "concepts of heritage, culture and conservation.",
@@ -380,7 +464,7 @@
             },
             {
               "lessonId": "g9u4l2",
-              "lessonTitle": "Understanding the Emirati Heritage",
+              "lessonTitle": "Understanding Emirati Heritage",
               "objectives": [],
               "content": "",
               "activities": [],
@@ -409,7 +493,7 @@
             },
             {
               "lessonId": "g9u4l3",
-              "lessonTitle": "Preserving the Cultural and Natural Heritage",
+              "lessonTitle": "Preserving the Cultural and Natural Heritage (Mapped)",
               "objectives": [
                 "This lesson aims to help students understand and",
                 "describe the links between historical and natural",
@@ -522,7 +606,7 @@
           "lessons": [
             {
               "lessonId": "g9u5l1",
-              "lessonTitle": "Exploring the UAE Constitution and Understanding the Federal System",
+              "lessonTitle": "Exploring the UAE Constitution and Understanding the Government System in the UAE (Mapped)",
               "objectives": [
                 "This lesson aims to help students understand the",
                 "concepts of heritage, culture and conservation.",
@@ -571,7 +655,7 @@
             },
             {
               "lessonId": "g9u5l2",
-              "lessonTitle": "The Federal System",
+              "lessonTitle": "The Federal System (Mapped)",
               "objectives": [],
               "content": "",
               "activities": [],
@@ -600,7 +684,7 @@
             },
             {
               "lessonId": "g9u5l3",
-              "lessonTitle": "Federal Authorities of the UAE",
+              "lessonTitle": "Federal Authorities of the UAE (Mapped)",
               "objectives": [
                 "This lesson aims to help students understand and",
                 "describe the links between historical and natural",
@@ -722,7 +806,7 @@
           "lessons": [
             {
               "lessonId": "g9u6l1",
-              "lessonTitle": "The Rise of Islamic Civilization in the Land of the UAE",
+              "lessonTitle": "The Rise of Islamic Civilisations in the land of the UAE (Mapped)",
               "objectives": [
                 "This lesson aims to help students understand the",
                 "concepts of heritage, culture and conservation.",
@@ -771,7 +855,7 @@
             },
             {
               "lessonId": "g9u6l2",
-              "lessonTitle": "Emergence of Bani Yas and Qawasim",
+              "lessonTitle": "Emergence of Bani Yas and Qawasim and the Beginnings of Colonial Period",
               "objectives": [],
               "content": "",
               "activities": [],
@@ -800,7 +884,7 @@
             },
             {
               "lessonId": "g9u6l3",
-              "lessonTitle": "The British Maritime System and National Identity",
+              "lessonTitle": "The British Maritime System and National Identity (Mapped)",
               "objectives": [
                 "This lesson aims to help students understand and",
                 "describe the links between historical and natural",
@@ -848,7 +932,7 @@
             },
             {
               "lessonId": "g9u6l4",
-              "lessonTitle": "The Trucial States Leading up to Nationalization",
+              "lessonTitle": "The Trucial States Leading up to Nationalisation (Mapped)",
               "objectives": [
                 "The aim of this lesson is to understand and explain",
                 "the ways in which heritage can be preserved and",
@@ -891,22 +975,9 @@
               "standards": "S1.4,S2.4,S9.4",
               "successCriteria": "Student can: (1) Provide a detailed explanation of 'The Trucial States Leading up to Nationalisation' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
               "priorKnowledge": "Review previous lesson's key concepts through exit ticket review. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "volume": 3,
-      "term": 3,
-      "units": [
-        {
-          "unitId": "g9u7",
-          "unitTitle": "The UAE Emerges",
-          "domain": "Culture",
-          "lessons": [
+            },
             {
-              "lessonId": "g9u7l1",
+              "lessonId": "g9u6l5",
               "lessonTitle": "Sheikh Zayed and the UAE",
               "objectives": [],
               "content": "",
@@ -935,8 +1006,8 @@
               "priorKnowledge": ""
             },
             {
-              "lessonId": "g9u7l2",
-              "lessonTitle": "Early Development of a Nation",
+              "lessonId": "g9u6l6",
+              "lessonTitle": "Early Development of the Nation",
               "objectives": [],
               "content": "",
               "activities": [],
@@ -964,7 +1035,7 @@
               "priorKnowledge": ""
             },
             {
-              "lessonId": "g9u7l3",
+              "lessonId": "g9u6l7",
               "lessonTitle": "The UAE from the 1990s to 2010",
               "objectives": [],
               "content": "",
@@ -993,7 +1064,7 @@
               "priorKnowledge": ""
             },
             {
-              "lessonId": "g9u7l4",
+              "lessonId": "g9u6l8",
               "lessonTitle": "Heritage Project",
               "objectives": [],
               "content": "",
@@ -1022,15 +1093,21 @@
               "priorKnowledge": ""
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "volume": 3,
+      "term": 3,
+      "units": [
         {
-          "unitId": "g9u8",
-          "unitTitle": "Civic Engagement",
+          "unitId": "g9t3u1",
+          "unitTitle": "Being an Active Citizen",
           "domain": "Moral",
           "lessons": [
             {
-              "lessonId": "g9u8l1",
-              "lessonTitle": "Civic Engagement",
+              "lessonId": "g9t3u1l1",
+              "lessonTitle": "Civic Engagement (Mapped)",
               "objectives": [
                 "define civic engagement and active citizenship, and provide examples of how people contribute to their communities."
               ],
@@ -1065,8 +1142,8 @@
               "resources": "MoE Textbook G9 V-3 p.; Teacher Guide V-3"
             },
             {
-              "lessonId": "g9u8l2",
-              "lessonTitle": "The Good Citizen",
+              "lessonId": "g9t3u1l2",
+              "lessonTitle": "The Good Citizen (Mapped)",
               "objectives": [
                 "define what it means to be a good citizen, identify qualities such as respect, responsibility, and resourcefulness, and describe the civic virtues that strengthen communities."
               ],
@@ -1101,8 +1178,8 @@
               "resources": "MoE Textbook G9 V-3 p.; Teacher Guide V-3"
             },
             {
-              "lessonId": "g9u8l3",
-              "lessonTitle": "The Good Citizens in My Country",
+              "lessonId": "g9t3u1l3",
+              "lessonTitle": "The Good Citizens in my Country (Mapped)",
               "objectives": [
                 "apply their understanding of UAE citizenship by analyzing real-world examples of good citizenship and reflecting on their own civic identity and responsibilities."
               ],
@@ -1132,8 +1209,8 @@
               "priorKnowledge": "Real-world examples: UAE community leaders and their contributions. Profile analysis: What makes someone a model citizen? Self-reflection: My civic identity — who am I as a citizen? Group discussion: How can our class practice good citizenship? Action planning: Set a personal civic goal for the term. Read textbook pp. 16-21 (continued)."
             },
             {
-              "lessonId": "g9u8l4",
-              "lessonTitle": "Developing Competencies for Civic Engagement",
+              "lessonId": "g9t3u1l4",
+              "lessonTitle": "Developing my Competencies in Civic Engagement (1) (Mapped)",
               "objectives": [
                 "describe the competencies needed for effective civic engagement (cooperation, teamwork, leadership, advocacy), and analyze real-world examples of community action."
               ],
@@ -1168,8 +1245,8 @@
               "resources": "MoE Textbook G9 V-3 p.; Teacher Guide V-3"
             },
             {
-              "lessonId": "g9u8l5",
-              "lessonTitle": "Youth Civic Engagement & the United Nations",
+              "lessonId": "g9t3u1l5",
+              "lessonTitle": "Developing my Competencies in Civic Engagement (2) (Mapped)",
               "objectives": [
                 "explain how young people can address global challenges, analyze the UN's position on youth engagement, and evaluate youth-led initiatives for climate action and humanitarian response."
               ],
@@ -1197,6 +1274,153 @@
               "standards": "C2-G9-S8.5\nC2-G9-S8.7",
               "successCriteria": "Review: What are civic competencies? Ask: \"Can young people really make a difference in the world? How?\"",
               "priorKnowledge": "UN and youth engagement: UN Sustainable Development Goals (SDGs), youth programs. Youth climate action: Greta Thunberg, UAE youth climate initiatives. Humanitarian response: How young people help in disasters. Action planning: Students design a youth civic engagement initiative for their school. Read textbook pp. 28-35. Key terms: United Nations, SDGs, youth engagement, climate action, humanitarian, advocacy, global citizenship, initiative."
+            }
+          ]
+        },
+        {
+          "unitId": "g9t3u2",
+          "unitTitle": "The UAE in the 21st Century",
+          "domain": "Culture",
+          "lessons": [
+            {
+              "lessonId": "g9t3u2l1",
+              "lessonTitle": "Transition to the Knowledge Economy",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Transition to the Knowledge Economy' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Transition to the Knowledge Economy' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9t3u2l2",
+              "lessonTitle": "21st Century Infrastructure and Smart Initiatives",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of '21st Century Infrastructure and Smart Initiatives' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of '21st Century Infrastructure and Smart Initiatives' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9t3u2l3",
+              "lessonTitle": "Innovation in Healthcare, Education, and Social Services",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Innovation in Healthcare, Education, and Social Services' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Innovation in Healthcare, Education, and Social Services' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9t3u2l4",
+              "lessonTitle": "Sustainability in the Modern UAE",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Sustainability in the Modern UAE' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Sustainability in the Modern UAE' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9t3u2l5",
+              "lessonTitle": "Midterm Review",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Midterm Review' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Midterm Review' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9t3u2l6",
+              "lessonTitle": "Civic Responsibilities of Citizens and Residents",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Civic Responsibilities of Citizens and Residents' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Civic Responsibilities of Citizens and Residents' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9t3u2l7",
+              "lessonTitle": "Trends in Local and International Trade",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Trends in Local and International Trade' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Trends in Local and International Trade' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9t3u2l8",
+              "lessonTitle": "Taking the UAE into the Future",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Taking the UAE into the Future' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Taking the UAE into the Future' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9t3u2l9",
+              "lessonTitle": "Project",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Project' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Project' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
+            },
+            {
+              "lessonId": "g9t3u2l10",
+              "lessonTitle": "Final Review",
+              "objectives": [
+                "analyze, evaluate, and synthesize the key concepts of 'Final Review' by engaging with textbook content, collaborative inquiry, and reflective exercises aligned to MoE standards."
+              ],
+              "content": "",
+              "activities": [],
+              "keyTerms": [],
+              "assessmentItems": [],
+              "standards": "",
+              "successCriteria": "Student can: (1) Provide a detailed explanation of 'Final Review' with supporting textual evidence; (2) Analyze connections between concepts with at least 2 specific examples; (3) Apply understanding to a new scenario or real-world UAE context with justification.",
+              "priorKnowledge": "Review previous lesson's key concepts through exit ticket review or quick write. Students share connections to today's topic. Build on vocabulary from the previous lesson using a word wall activity."
             }
           ]
         }

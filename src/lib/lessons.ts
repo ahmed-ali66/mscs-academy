@@ -507,6 +507,15 @@ const unitDescriptions: Record<string, string> = {
   'G7_T1_Unit 1': 'Explore duties, responsibilities, moral rules, and moral imperatives that govern individual and community behaviour within the UAE and Islamic ethical framework',
   'G7_T1_Unit 2': 'Develop critical decision-making skills for personal safety, first aid, and crime prevention in home, community, and online environments',
   'G7_T1_Unit 3': 'Discover the geography, engineering, technology, art, and cultural achievements of East Asia — from ancient China to Korea\'s Renaissance',
+  // G9 specific descriptions
+  'G9_T1_Unit 1': 'Analyze global ethics in the context of international relations, ethical challenges, and strategies for addressing global moral issues',
+  'G9_T1_Unit 2': 'Develop financial awareness including the value of money, dangers of greed, wealth as a force for good, and entrepreneurship skills',
+  'G9_T1_Unit 3': 'Explore UAE history from the ancient landscape of Jebel Faya through the Bronze Age, Iron Age falaj systems, to shipbuilding and trade',
+  'G9_T2_Unit 4': 'Understand the importance of heritage, Emirati heritage preservation, cultural and natural heritage conservation, and heritage tourism',
+  'G9_T2_Unit 5': 'Examine the UAE constitution, federal system, federal authorities, law and order, and local governments across the emirates',
+  'G9_T2_Unit 6': 'Trace developments from the rise of Islamic civilisations through the founding of the UAE to early national development and heritage projects',
+  'G9_T3_Unit 1': 'Develop competencies in civic engagement, understand the qualities of a good citizen, and explore civic duties in the UAE context',
+  'G9_T3_Unit 2': 'Explore the UAE\'s transformation in the 21st century including knowledge economy, infrastructure, sustainability, and future development',
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -615,6 +624,15 @@ export function getGradeInfo(): GradeInfo[] {
               'G7_T1_Unit 1': 'Individual Responsibilities and Duties and Moral Obligations',
               'G7_T1_Unit 2': 'Making Good Decisions',
               'G7_T1_Unit 3': 'East Asia',
+              // G9 specific overrides
+              'G9_T1_Unit 1': 'Introduction to Global Ethics',
+              'G9_T1_Unit 2': 'Financial Awareness',
+              'G9_T1_Unit 3': 'UAE History and Heritage',
+              'G9_T2_Unit 4': 'What Should Be Preserved and How?',
+              'G9_T2_Unit 5': 'Governments, Authority, and the Judiciary System in the UAE',
+              'G9_T2_Unit 6': 'Developments Leading up to the Founding of the UAE',
+              'G9_T3_Unit 1': 'Being an Active Citizen',
+              'G9_T3_Unit 2': 'The UAE in the 21st Century',
             };
             // Check grade+term specific override first, then fallback to general
             const gradeTermKey = `${gk}_${tk}_${uk}`;
