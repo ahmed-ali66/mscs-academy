@@ -131,10 +131,10 @@ export async function GET(request: Request) {
       },
     });
 
-    // Parse details JSON strings
+    // Details are already parsed as Json type from Prisma/PostgreSQL
     const parsedRecentActivity = recentActivity.map((log) => ({
       ...log,
-      details: log.details ? JSON.parse(log.details) : null,
+      details: log.details,
     }));
 
     // ── 6. Teacher effectiveness (avg student scores per teacher) ────

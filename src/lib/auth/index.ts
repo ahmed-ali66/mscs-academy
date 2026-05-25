@@ -89,7 +89,7 @@ export async function logAudit(action: string, actorType: string, actorId: strin
       actorName,
       targetType: targetType || null,
       targetId: targetId || null,
-      details: details ? JSON.stringify(details) : null,
+      details: details ?? null,
     }
   });
 }

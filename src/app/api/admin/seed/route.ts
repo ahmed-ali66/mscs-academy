@@ -2,6 +2,25 @@ import { verifyToken, logAudit, hashPassword } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 
+// ─── GET: Check if admin account exists (for initial setup detection) ─────
+export async function GET() {
+  try {
+    const adminCount = await db.admin.count();
+    return NextResponse.json({
+      exists: adminCount > 0,
+      count: adminCount,
+    });
+  } catch (error) {
+    console.error('[Admin Seed GET] Error:', error);
+    // If database is not yet set up, return exists: false so setup page shows
+    return NextResponse.json({
+      exists: false,
+      count: 0,
+      error: 'Database not accessible — please check DATABASE_URL configuration',
+    });
+  }
+}
+
 // ─── POST: Seed initial admin & system settings (one-time only) ─────
 export async function POST(request: Request) {
   try {
