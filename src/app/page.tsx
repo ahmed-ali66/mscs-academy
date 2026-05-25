@@ -15,7 +15,7 @@ import {
   Timer, FileText, Map, Brain, Target, Award, ExternalLink,
   Mountain, Landmark, Scroll, Swords, Calendar, Eye, Download,
   BarChart3, Filter, LogOut, User, Search, Trash2, Settings,
-  AlertTriangle, KeyRound, Activity, LayoutDashboard, X
+  AlertTriangle, KeyRound, Activity, LayoutDashboard, X, Bell
 } from 'lucide-react';
 import {
   getGradeInfo, getUnitData, getLesson, getLessonId, getCleanTitle, getUnitContextFromTitle,
@@ -196,7 +196,7 @@ const translationImprovements: Record<string, Record<string, string>> = {
 // TYPES
 // ═══════════════════════════════════════════════════════════════
 
-type ViewType = 'landing' | 'gradeSelect' | 'unitSelect' | 'lessonView' | 'aboutPage' | 'loginPage' | 'consentPage' | 'teacherDashboard';
+type ViewType = 'landing' | 'gradeSelect' | 'unitSelect' | 'lessonView' | 'aboutPage' | 'loginPage' | 'consentPage' | 'teacherDashboard' | 'adminDashboard' | 'studentDashboard' | 'setupPage';
 
 // ═══════════════════════════════════════════════════════════════
 // HELPER COMPONENTS
@@ -737,6 +737,20 @@ class ErrorBoundary extends Component<{ children: ReactNode }, ErrorBoundaryStat
 }
 
 // ═══════════════════════════════════════════════════════════════
+// API HELPER
+// ═══════════════════════════════════════════════════════════════
+
+async function apiCall(endpoint: string, options?: RequestInit) {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('mscs_token') : null;
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+  const res = await fetch(endpoint, { ...options, headers: { ...headers, ...(options?.headers as Record<string, string> || {}) } });
+  return res;
+}
+
+// ═══════════════════════════════════════════════════════════════
 // MAIN APPLICATION
 // ═══════════════════════════════════════════════════════════════
 
@@ -763,7 +777,7 @@ export default function Home() {
   const [langOpen, setLangOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [loginTab, setLoginTab] = useState<'student' | 'admin'>('student');
+  const [loginTab, setLoginTab] = useState<'student' | 'teacher' | 'admin'>('student');
   const [adminUsername, setAdminUsername] = useState('');
   const [studentSearch, setStudentSearch] = useState('');
   const [dashboardViewMode, setDashboardViewMode] = useState<'term' | 'semester' | 'year'>('term');
@@ -771,6 +785,25 @@ export default function Home() {
   const [dataClearedMsg, setDataClearedMsg] = useState(false);
   const [exportDateFrom, setExportDateFrom] = useState('');
   const [exportDateTo, setExportDateTo] = useState('');
+
+  // ════════════════════════════════════════════════════════════
+  // AUTH STATE
+  // ════════════════════════════════════════════════════════════
+  const [authToken, setAuthToken] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<{id: string; name: string; userType: 'admin' | 'teacher' | 'student'; grade?: number; studentCode?: string; subscriptionStatus?: string} | null>(null);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [teacherUsername, setTeacherUsername] = useState('');
+  const [teacherPassword, setTeacherPassword] = useState('');
+  const [adminPasswordInput, setAdminPasswordInput] = useState('');
+  const [adminNameInput, setAdminNameInput] = useState('');
+  const [adminEmailInput, setAdminEmailInput] = useState('');
+  const [needsSetup, setNeedsSetup] = useState(false);
+  const [contentPreview, setContentPreview] = useState(false);
+  const [adminDashboardTab, setAdminDashboardTab] = useState<'overview' | 'users' | 'subscriptions' | 'analytics' | 'notifications'>('overview');
+  const [adminData, setAdminData] = useState<Record<string, unknown> | null>(null);
+  const [teacherData, setTeacherData] = useState<Record<string, unknown> | null>(null);
+  const [studentData, setStudentData] = useState<Record<string, unknown> | null>(null);
+  const [notifications, setNotifications] = useState<Array<{id: string; title: string; message: string; isRead: boolean; type: string; sentAt: string}>>([]);
 
   const gradeInfoList = useMemo(() => getGradeInfo(), []);
   const platformStats = useMemo(() => getPlatformStats(), []);
@@ -782,6 +815,154 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // ════════════════════════════════════════════════════════════
+  // AUTH: Check existing session & admin existence
+  // ════════════════════════════════════════════════════════════
+  useEffect(() => {
+    const token = localStorage.getItem('mscs_token');
+    const user = localStorage.getItem('mscs_user');
+    if (token && user) {
+      try {
+        const parsed = JSON.parse(user);
+        setAuthToken(token);
+        setCurrentUser(parsed);
+        setIsAdmin(parsed.userType === 'admin');
+        setIsLoggedIn(true);
+        if (parsed.userType === 'admin') setLoginTab('admin');
+      } catch { /* invalid stored data */ }
+    }
+    // Check if admin exists
+    fetch('/api/admin/seed').then(r => r.json()).then(data => {
+      if (data.exists === false) {
+        setNeedsSetup(true);
+        setView('setupPage');
+      }
+    }).catch(() => {});
+  }, []);
+
+  const handleLogin = async (userType: 'admin' | 'teacher' | 'student', identifier: string, password?: string) => {
+    setLoginLoading(true);
+    setLoginError('');
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier, password, userType }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem('mscs_token', data.token);
+        localStorage.setItem('mscs_user', JSON.stringify(data.user));
+        setAuthToken(data.token);
+        setCurrentUser(data.user);
+        setIsLoggedIn(true);
+        setIsAdmin(data.user.userType === 'admin');
+        if (data.user.userType === 'admin') navigateTo('adminDashboard');
+        else if (data.user.userType === 'teacher') navigateTo('teacherDashboard');
+        else navigateTo('studentDashboard');
+      } else {
+        setLoginError(data.error || 'Login failed');
+      }
+    } catch {
+      setLoginError('Network error. Please try again.');
+    }
+    setLoginLoading(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('mscs_token');
+    localStorage.removeItem('mscs_user');
+    setAuthToken(null);
+    setCurrentUser(null);
+    setIsLoggedIn(false);
+    setIsAdmin(false);
+    navigateTo('landing');
+  };
+
+  const handleSetup = async () => {
+    if (!adminUsername.trim() || !adminPasswordInput.trim() || !adminNameInput.trim() || !adminEmailInput.trim()) return;
+    if (adminPasswordInput.length < 8) { setLoginError('Password must be at least 8 characters'); return; }
+    setLoginLoading(true);
+    try {
+      const res = await fetch('/api/admin/seed', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: adminUsername, password: adminPasswordInput, name: adminNameInput, email: adminEmailInput }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setNeedsSetup(false);
+        setLoginError('');
+        // Auto-login after setup
+        await handleLogin('admin', adminUsername, adminPasswordInput);
+      } else {
+        setLoginError(data.error || 'Setup failed');
+      }
+    } catch {
+      setLoginError('Network error during setup');
+    }
+    setLoginLoading(false);
+  };
+
+  const checkContentAccess = async (grade: number, term: number, unit: string, lesson: number): Promise<boolean> => {
+    if (!authToken) {
+      // Free preview: first lesson of each grade
+      const isPreviewLesson = (grade === 6 || grade === 7 || grade === 8 || grade === 9) && term === 1 && unit === 'Unit 1' && lesson === 0;
+      if (isPreviewLesson) { setContentPreview(true); return true; }
+      return false;
+    }
+    try {
+      const res = await apiCall(`/api/content/access?grade=${grade}&term=${term}&unit=${encodeURIComponent(unit)}&lesson=${lesson}`);
+      const data = await res.json();
+      setContentPreview(data.isPreview || false);
+      return data.hasAccess;
+    } catch {
+      return false;
+    }
+  };
+
+  const loadAdminData = async () => {
+    try {
+      const res = await apiCall('/api/admin/analytics');
+      if (res.ok) { const data = await res.json(); setAdminData(data); }
+    } catch { /* ignore */ }
+  };
+
+  const loadTeacherData = async () => {
+    try {
+      const [analyticsRes, studentsRes] = await Promise.all([
+        apiCall('/api/teacher/analytics'),
+        apiCall('/api/teacher/students'),
+      ]);
+      if (analyticsRes.ok && studentsRes.ok) {
+        const analytics = await analyticsRes.json();
+        const students = await studentsRes.json();
+        setTeacherData({ analytics, students });
+      }
+    } catch { /* ignore */ }
+  };
+
+  const loadStudentData = async () => {
+    try {
+      const res = await apiCall('/api/student/progress');
+      if (res.ok) { const data = await res.json(); setStudentData(data); }
+    } catch { /* ignore */ }
+  };
+
+  const loadNotifications = async () => {
+    try {
+      const res = await apiCall('/api/notifications?unreadOnly=false');
+      if (res.ok) { const data = await res.json(); setNotifications(data.notifications || []); }
+    } catch { /* ignore */ }
+  };
+
+  // Load dashboard data when view changes
+  useEffect(() => {
+    if (view === 'adminDashboard') { loadAdminData(); loadNotifications(); }
+    else if (view === 'teacherDashboard') { loadTeacherData(); loadNotifications(); }
+    else if (view === 'studentDashboard') { loadStudentData(); }
+  }, [view]);
 
   const navigateTo = (newView: ViewType) => { setView(newView); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const navigateSlide = (direction: 'left' | 'right') => { setSlideDirection(direction); setIsAnimating(true); setTimeout(() => setIsAnimating(false), 400); };
@@ -2882,83 +3063,76 @@ export default function Home() {
   // ════════════════════════════════════════════════════════════
 
   const renderLoginPage = () => {
-    // Detect if the code looks like an admin code (for backward compatibility with direct code entry)
-    const isPotentialAdminCode = loginCode.trim().toUpperCase().startsWith('MSCS-ADMIN') || loginCode.trim().toUpperCase().startsWith('MSCS-STAFF');
-
     return (
     <div className="min-h-screen bg-[#FFF9F0] flex items-center justify-center p-4">
-      <ArabicPattern opacity={0.03} color="#722F37" />
       <div className="relative z-10 w-full max-w-md">
         <Button variant="ghost" onClick={() => navigateTo('landing')} className="mb-4 text-gray-500">
           <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home
         </Button>
         <Card className="border-2 border-[#D4AF37] overflow-hidden">
-          {/* Tab Toggle: Student | Admin */}
+          {/* Tab Toggle: Student | Teacher | Admin */}
           <div className="flex border-b border-[#D4AF37]/30">
-            <button
-              onClick={() => { setLoginTab('student'); setLoginError(''); }}
-              className="flex-1 py-3.5 text-center text-sm font-bold transition-all relative"
-              style={{
-                backgroundColor: loginTab === 'student' ? 'transparent' : '#722F37',
-                color: loginTab === 'student' ? '#722F37' : '#fca5a5',
-              }}
-            >
-              <LogIn className="w-4 h-4 inline mr-1.5" />
-              {t('studentLoginTab')}
-              {loginTab === 'student' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: '#722F37' }} />
-              )}
-            </button>
-            <button
-              onClick={() => { setLoginTab('admin'); setLoginError(''); }}
-              className="flex-1 py-3.5 text-center text-sm font-bold transition-all relative"
-              style={{
-                backgroundColor: loginTab === 'admin' ? 'transparent' : '#722F37',
-                color: loginTab === 'admin' ? '#722F37' : '#fca5a5',
-              }}
-            >
-              <Shield className="w-4 h-4 inline mr-1.5" />
-              {t('adminLoginTab')}
-              {loginTab === 'admin' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: '#722F37' }} />
-              )}
-            </button>
+            {(['student', 'teacher', 'admin'] as const).map(tab => (
+              <button
+                key={tab}
+                onClick={() => { setLoginTab(tab); setLoginError(''); }}
+                className="flex-1 py-3.5 text-center text-sm font-bold transition-all relative"
+                style={{
+                  backgroundColor: loginTab === tab ? 'transparent' : '#722F37',
+                  color: loginTab === tab ? '#722F37' : '#fca5a5',
+                }}
+              >
+                {tab === 'student' && <LogIn className="w-4 h-4 inline mr-1.5" />}
+                {tab === 'teacher' && <GraduationCap className="w-4 h-4 inline mr-1.5" />}
+                {tab === 'admin' && <Shield className="w-4 h-4 inline mr-1.5" />}
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {loginTab === tab && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: '#722F37' }} />
+                )}
+              </button>
+            ))}
           </div>
 
           {/* Header */}
           <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-5 text-center">
             <div className="w-12 h-12 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-2">
-              {loginTab === 'student' ? <LogIn className="w-6 h-6 text-[#D4AF37]" /> : <Shield className="w-6 h-6 text-[#D4AF37]" />}
+              {loginTab === 'student' ? <LogIn className="w-6 h-6 text-[#D4AF37]" /> : loginTab === 'teacher' ? <GraduationCap className="w-6 h-6 text-[#D4AF37]" /> : <Shield className="w-6 h-6 text-[#D4AF37]" />}
             </div>
-            <h2 className="text-lg font-bold text-white">{loginTab === 'student' ? t('studentLogin') : t('adminLogin')}</h2>
-            <p className="text-rose-200 text-xs mt-1">{loginTab === 'student' ? 'Enter your access code to continue' : t('signInAsAdmin')}</p>
+            <h2 className="text-lg font-bold text-white">
+              {loginTab === 'student' ? t('studentLogin') : loginTab === 'teacher' ? 'Teacher Login' : t('adminLogin')}
+            </h2>
+            <p className="text-rose-200 text-xs mt-1">
+              {loginTab === 'student' ? 'Enter your access code to continue' : loginTab === 'teacher' ? 'Sign in with your credentials' : t('signInAsAdmin')}
+            </p>
           </div>
 
           <CardContent className="p-6">
             <div className="space-y-4">
               {loginTab === 'student' ? (
-                /* Student Login Form */
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1.5 block">Access Code</label>
+                  <Input value={loginCode} onChange={e => { setLoginCode(e.target.value.toUpperCase()); setLoginError(''); }}
+                    placeholder="MSCS-6-A-2026-01" className="text-center font-mono text-lg tracking-wider" />
+                  <p className="text-xs text-gray-400 mt-1">Format: MSCS-Grade-Section-Year-Number</p>
+                </div>
+              ) : loginTab === 'teacher' ? (
                 <>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 block">Access Code</label>
-                    <Input value={loginCode} onChange={e => { setLoginCode(e.target.value.toUpperCase()); setLoginError(''); }}
-                      placeholder="MSCS-7A-2026-014" className="text-center font-mono text-lg tracking-wider" />
-                    <p className="text-xs text-gray-400 mt-1">Format: MSCS-Grade-Section-Year-Number</p>
+                    <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                      <User className="w-4 h-4" /> Username
+                    </label>
+                    <Input value={teacherUsername} onChange={e => { setTeacherUsername(e.target.value); setLoginError(''); }}
+                      placeholder="Enter your username" className="font-mono" />
                   </div>
-
-                  {isPotentialAdminCode && (
-                    <div>
-                      <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
-                        <Shield className="w-4 h-4" /> Admin Password
-                      </label>
-                      <Input type="password" value={adminPassword} onChange={e => { setAdminPassword(e.target.value); setLoginError(''); }}
-                        placeholder="Enter admin password" className="text-center font-mono" />
-                      <p className="text-xs text-gray-400 mt-1">Staff access requires authorization</p>
-                    </div>
-                  )}
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                      <KeyRound className="w-4 h-4" /> Password
+                    </label>
+                    <Input type="password" value={teacherPassword} onChange={e => { setTeacherPassword(e.target.value); setLoginError(''); }}
+                      placeholder="Enter your password" className="font-mono" />
+                  </div>
                 </>
               ) : (
-                /* Admin Login Form */
                 <>
                   <div>
                     <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
@@ -2982,56 +3156,37 @@ export default function Home() {
                   <XCircle className="w-4 h-4 shrink-0" />{loginError}
                 </div>
               )}
-              <Button onClick={() => {
-                if (loginTab === 'admin') {
-                  // Admin login: username = "AhmedAli" (case insensitive), password via verifyMasterPassword
-                  if (!adminUsername.trim() || !adminPassword.trim()) {
-                    setLoginError(t('invalidCredentials'));
-                    return;
-                  }
-                  if (adminUsername.trim().toLowerCase() === 'ahmedali' && verifyMasterPassword(adminPassword.trim())) {
-                    setIsLoggedIn(true);
-                    setIsAdmin(true);
-                    setStudentName('Mr. Ahmed Ali');
-                    navigateTo('teacherDashboard');
+              <Button
+                onClick={() => {
+                  if (loginTab === 'student') {
+                    handleLogin('student', loginCode.trim());
+                  } else if (loginTab === 'teacher') {
+                    if (!teacherUsername.trim() || !teacherPassword.trim()) {
+                      setLoginError('Username and password are required');
+                      return;
+                    }
+                    handleLogin('teacher', teacherUsername.trim(), teacherPassword.trim());
                   } else {
-                    setLoginError(t('invalidCredentials'));
+                    if (!adminUsername.trim() || !adminPassword.trim()) {
+                      setLoginError(t('invalidCredentials'));
+                      return;
+                    }
+                    handleLogin('admin', adminUsername.trim(), adminPassword.trim());
                   }
-                  return;
-                }
-                // Student login
-                const trimmedCode = loginCode.trim().toUpperCase();
-                setLoginCode(trimmedCode);
-                // Admin access via code — requires both code AND password verification
-                if (isPotentialAdminCode) {
-                  if (!adminPassword.trim()) {
-                    setLoginError('Admin password is required');
-                    return;
-                  }
-                  if (verifyMasterPassword(adminPassword.trim())) {
-                    setIsLoggedIn(true); setIsAdmin(true); setStudentName('TEACHER'); navigateTo('teacherDashboard');
-                  } else {
-                    setLoginError('Invalid admin credentials');
-                  }
-                  return;
-                }
-                // Student access
-                const pattern = /^MSCS-\d{1,2}[A-Z]-\d{4}-\d{1,3}$/;
-                if (pattern.test(trimmedCode)) {
-                  setIsLoggedIn(true); setIsAdmin(false); setStudentName(trimmedCode); navigateTo('landing');
-                } else {
-                  setLoginError('Invalid code format. Use: MSCS-7A-2026-014');
-                }
-              }} className="w-full bg-[#722F37] hover:bg-[#5A1A23] text-white">
-                <LogIn className="w-4 h-4 mr-2" /> Sign In
+                }}
+                disabled={loginLoading}
+                className="w-full bg-[#722F37] hover:bg-[#5A1A23] text-white"
+              >
+                {loginLoading ? (
+                  <span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Signing in...</span>
+                ) : (
+                  <><LogIn className="w-4 h-4 mr-2" /> Sign In</>
+                )}
               </Button>
-              {isLoggedIn && (
-                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm text-emerald-700 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 shrink-0" /> {t('welcomeBack')}, {studentName}
-                </div>
-              )}
               <div className="text-center">
-                <p className="text-xs text-gray-400">{loginTab === 'student' ? 'Enter your school-issued access code' : 'Authorized personnel only'}</p>
+                <p className="text-xs text-gray-400">
+                  {loginTab === 'student' ? 'Enter your school-issued access code' : loginTab === 'teacher' ? 'Contact admin for account credentials' : 'Authorized personnel only'}
+                </p>
               </div>
             </div>
           </CardContent>
@@ -3124,6 +3279,244 @@ export default function Home() {
   );
 
   // ════════════════════════════════════════════════════════════
+  // SETUP PAGE (initial admin creation)
+  // ════════════════════════════════════════════════════════════
+
+  const renderSetupPage = () => (
+    <div className="min-h-screen bg-[#FFF9F0] flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <Card className="border-2 border-[#D4AF37] overflow-hidden">
+          <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-6 text-center">
+            <div className="w-14 h-14 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-3">
+              <Shield className="w-7 h-7 text-[#D4AF37]" />
+            </div>
+            <h2 className="text-xl font-bold text-white">Initial Setup</h2>
+            <p className="text-rose-200 text-sm mt-1">Create the administrator account to get started</p>
+          </div>
+          <CardContent className="p-6 space-y-4">
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-1 block">Admin Name</label>
+              <Input value={adminNameInput} onChange={e => { setAdminNameInput(e.target.value); setLoginError(''); }} placeholder="Full name" />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-1 block">Email</label>
+              <Input type="email" value={adminEmailInput} onChange={e => { setAdminEmailInput(e.target.value); setLoginError(''); }} placeholder="admin@example.com" />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-1 block">Username</label>
+              <Input value={adminUsername} onChange={e => { setAdminUsername(e.target.value); setLoginError(''); }} placeholder="Choose a username" className="font-mono" />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-1 block">Password</label>
+              <Input type="password" value={adminPasswordInput} onChange={e => { setAdminPasswordInput(e.target.value); setLoginError(''); }} placeholder="Min. 8 characters" className="font-mono" />
+            </div>
+            {loginError && (
+              <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm text-rose-700 flex items-center gap-2">
+                <XCircle className="w-4 h-4 shrink-0" />{loginError}
+              </div>
+            )}
+            <Button onClick={handleSetup} disabled={loginLoading} className="w-full bg-[#722F37] hover:bg-[#5A1A23] text-white">
+              {loginLoading ? <span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Setting up...</span> : 'Create Admin Account'}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
+  // ════════════════════════════════════════════════════════════
+  // ADMIN DASHBOARD
+  // ════════════════════════════════════════════════════════════
+
+  const renderAdminDashboard = () => {
+    const overview = adminData as Record<string, unknown> | null;
+    const stats = (overview?.overview as Record<string, number>) || {};
+    const tabs = ['overview', 'users', 'subscriptions', 'analytics', 'notifications'] as const;
+
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="bg-gradient-to-r from-[#1a1a2e] to-[#16213e] p-4 shadow-lg">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/20 border border-[#D4AF37] flex items-center justify-center">
+                <Shield className="w-5 h-5 text-[#D4AF37]" />
+              </div>
+              <div>
+                <h1 className="text-white font-bold text-lg">MSCS Academy Admin</h1>
+                <p className="text-gray-400 text-xs">Educational Intelligence System</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" size="sm" onClick={() => navigateTo('landing')} className="text-gray-400 hover:text-white">
+                <HomeIcon className="w-4 h-4" />
+              </Button>
+              <Button variant="ghost" size="sm" onClick={handleLogout} className="text-gray-400 hover:text-white">
+                <LogOut className="w-4 h-4 mr-1" /> Sign Out
+              </Button>
+            </div>
+          </div>
+        </div>
+        <div className="bg-white border-b shadow-sm">
+          <div className="max-w-7xl mx-auto flex gap-1 p-1 overflow-x-auto">
+            {tabs.map(tab => (
+              <button key={tab} onClick={() => setAdminDashboardTab(tab)}
+                className="px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap"
+                style={{ backgroundColor: adminDashboardTab === tab ? '#722F37' : 'transparent', color: adminDashboardTab === tab ? 'white' : '#666' }}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto p-4 sm:p-6">
+          {adminDashboardTab === 'overview' && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { label: 'Total Teachers', value: stats.totalTeachers ?? 0, icon: GraduationCap, color: '#047857' },
+                  { label: 'Total Students', value: stats.totalStudents ?? 0, icon: Users, color: '#722F37' },
+                  { label: 'Student Groups', value: stats.totalGroups ?? 0, icon: BookOpen, color: '#D97706' },
+                  { label: 'Active Subscriptions', value: stats.activeSubscriptions ?? 0, icon: Crown, color: '#0D9488' },
+                ].map((stat, i) => (
+                  <Card key={i} className="border-0 shadow-md">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${stat.color}15` }}>
+                          <stat.icon className="w-5 h-5" style={{ color: stat.color }} />
+                        </div>
+                        <div>
+                          <div className="text-2xl font-bold" style={{ color: stat.color }}>{String(stat.value)}</div>
+                          <div className="text-xs text-gray-500">{stat.label}</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <Card className="border-0 shadow-md">
+                <CardHeader><CardTitle className="text-sm">System Status</CardTitle></CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-sm text-gray-600">All systems operational</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+          {adminDashboardTab === 'users' && (
+            <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-gray-500">
+              <Users className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+              <p className="text-sm">User management available via /api/admin/users</p>
+            </CardContent></Card>
+          )}
+          {adminDashboardTab === 'subscriptions' && (
+            <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-gray-500">
+              <Crown className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+              <p className="text-sm">Subscription management available via /api/admin/subscriptions</p>
+            </CardContent></Card>
+          )}
+          {adminDashboardTab === 'analytics' && (
+            <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-gray-500">
+              <BarChart3 className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+              <p className="text-sm">Analytics available via /api/admin/analytics</p>
+            </CardContent></Card>
+          )}
+          {adminDashboardTab === 'notifications' && (
+            <div className="space-y-3">
+              {notifications.length === 0 ? (
+                <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-gray-500">No notifications</CardContent></Card>
+              ) : notifications.map((n, i) => (
+                <Card key={i} className="border-0 shadow-sm"><CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full mt-2 shrink-0" style={{ backgroundColor: n.isRead ? '#9ca3af' : '#D4AF37' }} />
+                    <div>
+                      <h4 className="text-sm font-bold text-gray-800">{n.title}</h4>
+                      <p className="text-xs text-gray-500 mt-1">{n.message}</p>
+                    </div>
+                  </div>
+                </CardContent></Card>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  // ════════════════════════════════════════════════════════════
+  // STUDENT DASHBOARD
+  // ════════════════════════════════════════════════════════════
+
+  const renderStudentDashboard = () => (
+    <div className="min-h-screen bg-[#FFF9F0]">
+      <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-4 shadow-lg">
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
+              <User className="w-5 h-5 text-[#D4AF37]" />
+            </div>
+            <div>
+              <h1 className="text-white font-bold">{currentUser?.name || 'Student'}</h1>
+              <p className="text-rose-200 text-xs">{currentUser?.studentCode} | Grade {currentUser?.grade}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={() => navigateTo('gradeSelect')} className="text-white/80 hover:text-white hover:bg-white/10">
+              <BookOpen className="w-4 h-4 mr-1" /> Lessons
+            </Button>
+            <Button variant="ghost" size="sm" onClick={handleLogout} className="text-white/80 hover:text-white hover:bg-white/10">
+              <LogOut className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className="max-w-4xl mx-auto p-4 sm:p-6 space-y-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { label: 'Lessons Done', value: studentData ? String((studentData as Record<string, unknown>).totalCompleted ?? 0) : '0', color: '#047857' },
+            { label: 'Quizzes Taken', value: studentData ? String((studentData as Record<string, unknown>).totalQuizzes ?? 0) : '0', color: '#722F37' },
+            { label: 'Avg Score', value: studentData ? `${String((studentData as Record<string, unknown>).averageScore ?? 0)}%` : '0%', color: '#D97706' },
+            { label: 'Grade', value: String(currentUser?.grade || '-'), color: '#0D9488' },
+          ].map((stat, i) => (
+            <Card key={i} className="border-0 shadow-sm">
+              <CardContent className="p-3 text-center">
+                <div className="text-xl font-bold" style={{ color: stat.color }}>{stat.value}</div>
+                <div className="text-[10px] text-gray-500">{stat.label}</div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <h2 className="text-lg font-bold text-gray-800">My Grades</h2>
+        <div className="grid grid-cols-2 gap-3">
+          {gradeInfoList.map((grade) => (
+            <Card key={grade.key} className="border-0 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => { setSelectedGrade(grade); navigateTo('unitSelect'); }}>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold"
+                    style={{ background: gradeColorMap[grade.number]?.gradientBg || 'linear-gradient(to right, #666, #333)' }}>
+                    {grade.number}
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-800">Grade {grade.number}</h3>
+                    <p className="text-[10px] text-gray-500">{grade.totalLessons} lessons</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        {contentPreview && (
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800 flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0" /> Free Preview Mode — Subscribe for full access
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  // ════════════════════════════════════════════════════════════
   // MAIN RENDER
   // ════════════════════════════════════════════════════════════
 
@@ -3138,6 +3531,9 @@ export default function Home() {
       {view === 'loginPage' && renderLoginPage()}
       {view === 'consentPage' && renderConsentPage()}
       {view === 'teacherDashboard' && renderTeacherDashboard()}
+      {view === 'adminDashboard' && renderAdminDashboard()}
+      {view === 'studentDashboard' && renderStudentDashboard()}
+      {view === 'setupPage' && renderSetupPage()}
 
       {/* User Menu - visible when logged in on ALL views */}
       {isLoggedIn && (
@@ -3197,11 +3593,29 @@ export default function Home() {
                 <div className="p-1.5">
                   {isAdmin && (
                     <button
-                      onClick={() => { navigateTo('teacherDashboard'); setShowUserMenu(false); }}
+                      onClick={() => { navigateTo('adminDashboard'); setShowUserMenu(false); }}
                       className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-amber-50 rounded-lg transition-colors"
                     >
                       <LayoutDashboard className="w-4 h-4 text-amber-600" />
                       {t('dashboardLink')}
+                    </button>
+                  )}
+                  {currentUser?.userType === 'teacher' && (
+                    <button
+                      onClick={() => { navigateTo('teacherDashboard'); setShowUserMenu(false); }}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 rounded-lg transition-colors"
+                    >
+                      <LayoutDashboard className="w-4 h-4 text-emerald-600" />
+                      Teacher Dashboard
+                    </button>
+                  )}
+                  {currentUser?.userType === 'student' && (
+                    <button
+                      onClick={() => { navigateTo('studentDashboard'); setShowUserMenu(false); }}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-rose-50 rounded-lg transition-colors"
+                    >
+                      <LayoutDashboard className="w-4 h-4 text-rose-600" />
+                      My Dashboard
                     </button>
                   )}
                   <button
@@ -3214,14 +3628,8 @@ export default function Home() {
                   <div className="my-1 border-t border-gray-100" />
                   <button
                     onClick={() => {
-                      setIsLoggedIn(false);
-                      setIsAdmin(false);
-                      setStudentName('');
-                      setLoginCode('');
-                      setAdminPassword('');
-                      setAdminUsername('');
+                      handleLogout();
                       setShowUserMenu(false);
-                      navigateTo('landing');
                     }}
                     className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-rose-700 hover:bg-rose-50 rounded-lg transition-colors"
                   >
