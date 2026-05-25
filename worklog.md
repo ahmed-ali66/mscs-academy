@@ -52,3 +52,27 @@ Reorganized Grade 6 MSCS curriculum per user's curriculum mapping requirements. 
 
 ## Pre-existing Issue (Not Fixed)
 G6 T3 Unit 7 has 6 lessons in the curriculum_mapping.json but only 5 content entries in g6t3-content.ts. The "How the Government Functions (Continued)" lesson at index 1 causes a content lookup mismatch for subsequent lessons. This was a pre-existing issue before this task.
+
+---
+Task ID: 1
+Agent: Main
+Task: Diagnose and fix Vercel deployment issues + verify code changes
+
+Work Log:
+- Checked git status: local code is committed and pushed to GitHub
+- Ran local build: succeeded with no errors
+- Checked deployed site: HTML served was stale, but JS bundles contained updated code
+- Found root cause: `output: "standalone"` in next.config.ts was designed for Docker/self-hosting, NOT for Vercel
+- Removed `output: "standalone"` from next.config.ts and pushed fix
+- Verified deployed JS bundles contain: "Four Pillars", "teacher-issued", "dashboard-float-orb"
+- Confirmed NO "school-issued" or "Student Login" in deployed code
+- Confirmed no duplicate About/Login/Parental Consent buttons in code
+- Browser caching is the likely reason user sees old design - need hard refresh
+
+Stage Summary:
+- Vercel deployment IS working and IS live with updated code
+- Removed `output: "standalone"` from next.config.ts for better Vercel compatibility
+- All text changes already in place: "Login" (not "Student Login"), "teacher-issued" (not "school-issued")
+- No duplicate navigation buttons in code
+- Admin credentials: Created via Setup page on first use (no hardcoded credentials)
+- Master password (for data operations): AhmedAli@MSCS2026
