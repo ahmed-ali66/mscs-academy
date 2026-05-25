@@ -121,15 +121,15 @@ The Russian Revolution (1905 and 1917 CE) was one of the most significant revolu
 
 However, the Industrial Revolution also created new social problems: workers (including children) laboured long hours in dangerous conditions, cities became overcrowded, and social classes became more divided. These problems led people to question how their societies should be governed.
 
-Today, there are three main types of political systems:
+Today, countries around the world are governed through different political systems, each with its own characteristics. Scholars generally identify several broad categories:
 
-Democracy — citizens have the right to vote and choose their leaders. Power is shared among different branches of government. People have rights such as freedom of speech and freedom of religion.
+Democracy — citizens have the right to vote and choose their leaders. Power is shared among different branches of government. People have rights such as freedom of speech and freedom of religion. Democracies can take different forms, including parliamentary and presidential systems.
 
-Monarchy — a king, queen, or emir holds power. In an absolute monarchy, the ruler has complete authority. In a constitutional monarchy, the ruler's power is limited by a constitution and laws.
+Monarchy — a king, queen, or emir holds power. In an absolute monarchy, the ruler has complete authority. In a constitutional monarchy, the ruler's power is defined and limited by a constitution and laws. Some constitutional monarchies also incorporate consultative institutions that allow citizens to participate in governance.
 
 Authoritarianism — a single leader or a small group holds power. Citizens have little or no say in how they are governed. Freedoms such as speech and assembly may be restricted.
 
-The UAE is a constitutional monarchy with consultative governance — combining traditional leadership with modern institutions that give citizens a voice.`,
+No single system is identical across countries — each nation adapts its governance to its history, culture, and values. The UAE is a constitutional monarchy with consultative governance — combining traditional leadership with modern institutions that give citizens a voice through the Federal National Council and the majlis system.`,
     reading1Time: 7,
     reading2Time: 6,
     kwlExplanation: KWL_EXPLANATION,
@@ -145,7 +145,7 @@ The UAE is a constitutional monarchy with consultative governance — combining 
       'The French Revolution (1789) was inspired by "Liberty, Equality, and Fraternity"',
       'The Russian Revolution (1917) established a communist government',
       'The Industrial Revolution (from 1760) changed manufacturing from individual craftsmen to mass production in factories',
-      'Three main political systems: democracy, monarchy, authoritarianism',
+      'Political systems around the world include democracy, monarchy, and authoritarianism, though each country adapts its system to its own history and values',
       'Democracy: citizens vote and choose leaders, power is shared among branches',
       'Monarchy: a king/queen/emir holds power; can be absolute or constitutional',
       'Authoritarianism: a single leader or small group holds power, citizens have little say',
@@ -173,7 +173,7 @@ The UAE is a constitutional monarchy with consultative governance — combining 
     interactiveStrategies: [
       { strategy: 'Walking Debate', description: 'Vote with your feet — agree or disagree about political systems', duration: 7, instructions: 'The teacher reads statements about political systems. Stand on the left side if you agree, right if you disagree, middle if unsure. Discuss your position with someone who chose differently. Example: "A constitutional monarchy is better than an absolute monarchy."' },
       { strategy: 'Simulations', description: 'Simulate a revolutionary debate about forming a new government', duration: 8, instructions: 'Divide into groups representing citizens of a fictional country. Each group must decide what type of political system they want: democracy, monarchy, or authoritarianism. Debate the advantages and disadvantages of each. Vote on which system to adopt.' },
-      { strategy: 'Content Recall', description: 'List the three types of political systems and one key fact about each', duration: 4, instructions: 'Without looking at your notes, list the three main types of political systems and write one key fact about each on your index card. Share with your partner.' },
+      { strategy: 'Content Recall', description: 'List the main categories of political systems and one key fact about each', duration: 4, instructions: 'Without looking at your notes, list the main categories of political systems (democracy, monarchy, authoritarianism) and write one key fact about each on your index card. Share with your partner.' },
     ],
   },
 

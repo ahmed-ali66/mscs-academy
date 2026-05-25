@@ -152,7 +152,7 @@ ICT has dramatically shortened distances and saved time. Business decisions that
 
 A key distinction in globalisation is between corporations and multinational corporations. A corporation typically operates within a single country, producing and selling goods primarily to a domestic market. A multinational corporation, on the other hand, operates across multiple countries, establishing factories, offices, and distribution networks around the world. Companies like Apple, Toyota, and Emirates are examples of multinational corporations that rely on global supply chains and international markets.
 
-Regional trade blocs have also been instrumental in promoting globalisation. A trade bloc is a group of countries that agree to reduce or eliminate trade barriers among themselves. NAFTA (North American Free Trade Agreement) links the United States, Canada, and Mexico. ASEAN (Association of Southeast Asian Nations) promotes economic integration among ten Southeast Asian countries. The EU (European Union) facilitates free movement of goods, services, people, and capital across Europe. MERCOSUR brings together South American nations, SADC promotes cooperation in Southern Africa, and the GCC (Gulf Cooperation Council) fosters economic ties among the Gulf states, including the UAE.
+Regional trade blocs have also been instrumental in promoting globalisation. A trade bloc is a group of countries that agree to reduce or eliminate trade barriers among themselves. USMCA (United States-Mexico-Canada Agreement) links the United States, Canada, and Mexico, succeeding the earlier NAFTA agreement. ASEAN (Association of Southeast Asian Nations) promotes economic integration among ten Southeast Asian countries. The EU (European Union) facilitates free movement of goods, services, people, and capital across Europe. MERCOSUR brings together South American nations, SADC promotes cooperation in Southern Africa, and the GCC (Gulf Cooperation Council) fosters economic ties among the Gulf states, including the UAE.
 
 At the global level, the World Trade Organization (WTO) and the General Agreement on Tariffs and Trade (GATT) regulate international trade. GATT was established in 1947 to reduce trade barriers, and the WTO, created in 1995, continues this mission by resolving trade disputes and negotiating new agreements. These multilateral organisations ensure that trade rules are fair and consistent, while unilateral decisions by individual countries can sometimes disrupt global trade patterns.`,
     reading2Title: 'Sustainability and Global Trade',
@@ -179,7 +179,7 @@ An economically sustainable transport system is one that covers its operating co
       'The first electronic computers were developed in the 1940s, the internet emerged in the 1980s, and the World Wide Web launched in the 1990s.',
       'ICT has shortened distances, saved time, enabled real-time decisions, and facilitated banking and financial transactions.',
       'A corporation operates in one country, while a multinational corporation operates across multiple countries.',
-      'Six major regional trade blocs: NAFTA (North America), ASEAN (Southeast Asia), EU (Europe), MERCOSUR (South America), SADC (Southern Africa), GCC (Gulf).',
+      'Six major regional trade blocs: USMCA (North America), ASEAN (Southeast Asia), EU (Europe), MERCOSUR (South America), SADC (Southern Africa), GCC (Gulf).',
       'The WTO (World Trade Organization) and GATT (General Agreement on Tariffs and Trade) regulate international trade.',
       'The three pillars of sustainability are social (equity), environmental (protecting resources), and economic (maintaining profitability).',
       'Trade bloc advantages include expansion of markets, increased competition, economies of scale, and increased foreign investment.',
@@ -191,7 +191,7 @@ An economically sustainable transport system is one that covers its operating co
     visualData: {
       title: 'Regional Trade Blocs of the World',
       blocs: [
-        { name: 'NAFTA', region: 'North America', members: 'USA, Canada, Mexico', description: 'Free trade agreement eliminating barriers between North American nations' },
+        { name: 'USMCA', region: 'North America', members: 'USA, Canada, Mexico', description: 'Free trade agreement succeeding NAFTA, eliminating barriers between North American nations' },
         { name: 'ASEAN', region: 'Southeast Asia', members: '10 countries including Indonesia, Thailand, Vietnam', description: 'Promotes economic integration and political cooperation in Southeast Asia' },
         { name: 'EU', region: 'Europe', members: '27 member states', description: 'Facilitates free movement of goods, services, people, and capital' },
         { name: 'MERCOSUR', region: 'South America', members: 'Brazil, Argentina, Uruguay, Paraguay, others', description: 'Promotes free trade and fluid movement of goods in South America' },
@@ -217,7 +217,7 @@ An economically sustainable transport system is one that covers its operating co
       {
         id: 'G7T2U4L2Q3',
         question: 'Which trade bloc includes the UAE as a member?',
-        options: ['NAFTA', 'ASEAN', 'EU', 'GCC'],
+        options: ['USMCA', 'ASEAN', 'EU', 'GCC'],
         correctAnswer: 3,
         explanation: 'The GCC (Gulf Cooperation Council) includes the UAE along with Saudi Arabia, Qatar, Bahrain, Kuwait, and Oman.',
       },
@@ -241,7 +241,7 @@ An economically sustainable transport system is one that covers its operating co
         strategy: 'Jigsaw Reading',
         description: 'Students become experts on one trade bloc each and then teach their classmates about it.',
         duration: 15,
-        instructions: '1. Divide the class into six groups, one for each trade bloc (NAFTA, ASEAN, EU, MERCOSUR, SADC, GCC). 2. Give each group 5 minutes to read and become experts on their assigned trade bloc using the textbook content. 3. Reorganise into new groups with one expert from each trade bloc. 4. Each expert has 2 minutes to teach their new group about their trade bloc. 5. As a class, discuss which trade bloc they think is most effective and why.',
+        instructions: '1. Divide the class into six groups, one for each trade bloc (USMCA, ASEAN, EU, MERCOSUR, SADC, GCC). 2. Give each group 5 minutes to read and become experts on their assigned trade bloc using the textbook content. 3. Reorganise into new groups with one expert from each trade bloc. 4. Each expert has 2 minutes to teach their new group about their trade bloc. 5. As a class, discuss which trade bloc they think is most effective and why.',
       },
       {
         strategy: 'Debate',

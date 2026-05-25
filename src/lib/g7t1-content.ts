@@ -272,11 +272,11 @@ The UAE's family values reflect this balanced approach. The government supports 
     reading1Content: `Moral rules are the principles that guide human behaviour towards what is right and away from what is wrong. They exist in every society and every religion, forming the foundation of how people interact with each other and make decisions. But where do moral rules come from, and why should we follow them?
 
 Sources of moral rules include:
-1. Divine revelation — Commands from Allah as revealed in the Quran and the teachings of the Prophet Muhammad (peace be upon him)
-2. Reason — Human intellect can determine right from wrong through logical thinking
-3. Conscience — The inner sense that tells us when something is right or wrong
-4. Social consensus — Agreed-upon rules within a community or society
-5. Natural law — Universal principles that can be observed in the nature of human beings
+1. Divine revelation — Commands from Allah as revealed in the Quran and the teachings of the Prophet Muhammad (peace be upon him), which is the primary and most reliable source
+2. Reason — Human intellect can recognise right from wrong through logical thinking, guided by the principles revealed by Allah
+3. Conscience — The inner sense that inclines a person toward what is right, which is understood as a gift from the Creator
+4. Social consensus — Agreed-upon rules within a community or society, which are valid when they align with fundamental moral principles
+5. Reflection on the natural order — Observing the patterns and purposes embedded in creation, which point toward the wisdom of the Creator and the moral principles He has established
 
 In Islamic tradition, moral rules are not merely suggestions — they are commanded by Allah and carry both worldly and spiritual consequences. The Quran describes itself as a "guidance for the righteous" (Surah Al-Baqarah 2:2), establishing that moral rules are divinely ordained for human benefit.
 
@@ -290,8 +290,8 @@ The concept of moral imperative is closely linked to the idea of "maqasid al-sha
 5. Property (hifz al-mal)
 
 These five objectives provide the framework for understanding why certain moral rules exist and why they are imperative rather than optional.`,
-    reading2Title: 'The Earth Charter: A Universal Moral Framework',
-    reading2Content: `The Earth Charter is a declaration of fundamental ethical principles for building a just, sustainable, and peaceful global society. Created through a decade-long, worldwide, cross-cultural dialogue, it was launched at The Hague in 2000 and has since been endorsed by thousands of organisations and individuals around the world.
+    reading2Title: 'The Earth Charter: An Ethical Framework for Sustainability and Justice',
+    reading2Content: `The Earth Charter is a declaration of ethical principles for building a just, sustainable, and peaceful global society. Created through a decade-long, worldwide dialogue involving people from different cultures and backgrounds, it was launched at The Hague in 2000. While the Earth Charter is one among several international frameworks that promote ethical values, its principles reflect many values that are also found in religious and cultural traditions around the world, including Islam.
 
 The Earth Charter contains four main pillars:
 1. Respect and Care for the Community of Life
@@ -299,7 +299,7 @@ The Earth Charter contains four main pillars:
 3. Social and Economic Justice
 4. Democracy, Nonviolence, and Peace
 
-While the Earth Charter is a secular document, its principles align closely with Islamic teachings. The Quran emphasises that human beings are "khalifa" (stewards) on Earth, with a responsibility to care for the environment and all of creation. The Prophet Muhammad (peace be upon him) taught that planting a tree, feeding an animal, and preserving water are all acts of worship.
+Its principles align with many Islamic teachings. The Quran emphasises that human beings are "khalifa" (stewards) on Earth, with a responsibility to care for the environment and all of creation. The Prophet Muhammad (peace be upon him) taught that planting a tree, feeding an animal, and preserving water are all acts of worship.
 
 In the UAE, environmental stewardship has become a national priority. The UAE government has established initiatives such as:
 - Masdar City — a pioneer in sustainable urban development
@@ -322,10 +322,10 @@ Voluntary work is another expression of moral imperative. When people choose to 
     ],
     keyFacts: [
       'Moral rules guide behaviour towards right and away from wrong',
-      'Sources of moral rules: divine revelation, reason, conscience, social consensus, natural law',
+      'Sources of moral rules include divine revelation (the primary source), reason, conscience, social consensus, and reflection on the natural order',
       'A moral imperative must be followed unconditionally regardless of circumstances',
       'Maqasid al-shariah protects five essential values: life, religion, intellect, lineage, property',
-      'The Earth Charter (2000) is a universal ethical framework for sustainability and justice',
+      'The Earth Charter (2000) is an international ethical framework for sustainability and justice',
       'Islam teaches that humans are "khalifa" (stewards) on Earth with environmental responsibilities',
       'The UAE has launched major environmental initiatives including Masdar City and Energy Strategy 2050',
       'Sheikh Zayed was known for his environmental conservation and stewardship',

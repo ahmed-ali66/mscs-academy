@@ -82,15 +82,15 @@ The UDHR has been translated into more than 300 languages, making it the most tr
       'The UDHR has 30 articles and has been translated into more than 300 languages',
       'Article 27 gives everyone the right to participate in the cultural life of the community',
       'Culture is like an iceberg — only a small part is visible (food, dress, language), while deeper aspects (values, beliefs, attitudes) are hidden',
-      'The UAE is a top international destination with people from over 200 nationalities',
+      'The UAE is home to people from over 200 nationalities, making it one of the most diverse societies in the world',
     ],
     visualType: 'venn',
     visualData: {
       leftTitle: 'Emirati Culture',
       rightTitle: 'Another Culture',
       centerTitle: 'Shared Human Values',
-      leftItems: ['Kandura & Abaya', 'Arabic Language', 'Islamic Faith', 'Dates & Machboos', 'Al-Ayyalah Dance'],
-      rightItems: ['Western Dress', 'English Language', 'Various Faiths', 'Pizza & Pasta', 'Pop Music'],
+      leftItems: ['Kandura & Abaya', 'Arabic Language', 'Islamic Heritage', 'Dates & Machboos', 'Al-Ayyalah Dance'],
+      rightItems: ['Diverse Traditional Dress', 'Other World Languages', 'Varied Faith Traditions', 'Regional Cuisines', 'Traditional & Modern Arts'],
       centerItems: ['Family Values', 'Respect for Elders', 'Love of Learning', 'Community Spirit', 'Celebrating Heritage'],
     },
     quizQuestions: [
