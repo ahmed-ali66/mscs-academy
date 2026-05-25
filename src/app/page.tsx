@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef, useMemo, Component, ReactNode } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -3445,76 +3446,475 @@ export default function Home() {
   };
 
   // ════════════════════════════════════════════════════════════
-  // STUDENT DASHBOARD
+  // STUDENT DASHBOARD — Academic-Themed Immersive Design
   // ════════════════════════════════════════════════════════════
 
-  const renderStudentDashboard = () => (
-    <div className="min-h-screen bg-[#FFF9F0]">
-      <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-4 shadow-lg">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
-              <User className="w-5 h-5 text-[#D4AF37]" />
-            </div>
-            <div>
-              <h1 className="text-white font-bold">{currentUser?.name || 'Student'}</h1>
-              <p className="text-rose-200 text-xs">{currentUser?.studentCode} | Grade {currentUser?.grade}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={() => navigateTo('gradeSelect')} className="text-white/80 hover:text-white hover:bg-white/10">
-              <BookOpen className="w-4 h-4 mr-1" /> Lessons
-            </Button>
-            <Button variant="ghost" size="sm" onClick={handleLogout} className="text-white/80 hover:text-white hover:bg-white/10">
-              <LogOut className="w-4 h-4" />
-            </Button>
-          </div>
+  const renderStudentDashboard = () => {
+    // Discipline data — the four pillars of MSCS
+    const disciplines = [
+      {
+        name: 'Philosophy',
+        icon: Brain,
+        desc: 'Exploring existence, knowledge, ethics, and the nature of reality through reasoned inquiry',
+        accent: '#722F37',
+        accentLight: 'rgba(114,47,55,0.12)',
+        gradientFrom: '#722F37',
+        gradientTo: '#5A1A23',
+        symbol: 'Φ',
+      },
+      {
+        name: 'Critical Thinking',
+        icon: Lightbulb,
+        desc: 'Analyzing arguments, identifying fallacies, and developing sound reasoning across disciplines',
+        accent: '#D4AF37',
+        accentLight: 'rgba(212,175,55,0.12)',
+        gradientFrom: '#D4AF37',
+        gradientTo: '#B8941F',
+        symbol: 'Λ',
+      },
+      {
+        name: 'Geography',
+        icon: Globe,
+        desc: 'Understanding landscapes, cultures, and the interconnected systems that shape our world',
+        accent: '#047857',
+        accentLight: 'rgba(4,120,87,0.12)',
+        gradientFrom: '#047857',
+        gradientTo: '#065f46',
+        symbol: 'Γ',
+      },
+      {
+        name: 'History',
+        icon: Landmark,
+        desc: 'Studying civilizations, events, and the enduring lessons that illuminate our shared human story',
+        accent: '#0D9488',
+        accentLight: 'rgba(13,148,136,0.12)',
+        gradientFrom: '#0D9488',
+        gradientTo: '#115e59',
+        symbol: 'Ω',
+      },
+    ];
+
+    const stats = [
+      { label: 'Lessons Done', value: studentData ? String((studentData as Record<string, unknown>).totalCompleted ?? 0) : '0', color: '#047857', icon: BookOpen },
+      { label: 'Quizzes Taken', value: studentData ? String((studentData as Record<string, unknown>).totalQuizzes ?? 0) : '0', color: '#722F37', icon: Trophy },
+      { label: 'Avg Score', value: studentData ? `${String((studentData as Record<string, unknown>).averageScore ?? 0)}%` : '0%', color: '#D4AF37', icon: Target },
+      { label: 'Grade', value: String(currentUser?.grade || '-'), color: '#0D9488', icon: GraduationCap },
+    ];
+
+    return (
+      <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(175deg, #1a0a0c 0%, #2d1018 25%, #3D0F15 50%, #2d1018 75%, #1a0a0c 100%)' }}>
+        {/* ─── Layer 1: Arabic geometric pattern ─── */}
+        <ArabicPattern opacity={0.04} color="#D4AF37" />
+
+        {/* ─── Layer 2: Floating academic orbs ─── */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Philosophy orb — deep maroon */}
+          <div className="dashboard-float-orb absolute rounded-full"
+            style={{
+              width: '280px', height: '280px', top: '5%', left: '-5%',
+              background: 'radial-gradient(circle, rgba(114,47,55,0.2) 0%, rgba(114,47,55,0.05) 50%, transparent 70%)',
+              filter: 'blur(40px)',
+              animationDelay: '0s',
+            }} />
+          {/* Critical Thinking orb — warm gold */}
+          <div className="dashboard-float-orb absolute rounded-full"
+            style={{
+              width: '240px', height: '240px', top: '8%', right: '-3%',
+              background: 'radial-gradient(circle, rgba(212,175,55,0.18) 0%, rgba(212,175,55,0.04) 50%, transparent 70%)',
+              filter: 'blur(40px)',
+              animationDelay: '-3s',
+            }} />
+          {/* Geography orb — emerald green */}
+          <div className="dashboard-float-orb absolute rounded-full"
+            style={{
+              width: '320px', height: '320px', top: '40%', left: '10%',
+              background: 'radial-gradient(circle, rgba(4,120,87,0.15) 0%, rgba(4,120,87,0.03) 50%, transparent 70%)',
+              filter: 'blur(50px)',
+              animationDelay: '-6s',
+            }} />
+          {/* History orb — teal */}
+          <div className="dashboard-float-orb absolute rounded-full"
+            style={{
+              width: '260px', height: '260px', top: '55%', right: '5%',
+              background: 'radial-gradient(circle, rgba(13,148,136,0.15) 0%, rgba(13,148,136,0.03) 50%, transparent 70%)',
+              filter: 'blur(45px)',
+              animationDelay: '-9s',
+            }} />
         </div>
-      </div>
-      <div className="max-w-4xl mx-auto p-4 sm:p-6 space-y-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+
+        {/* ─── Layer 3: Twinkling stars / knowledge points ─── */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {[
-            { label: 'Lessons Done', value: studentData ? String((studentData as Record<string, unknown>).totalCompleted ?? 0) : '0', color: '#047857' },
-            { label: 'Quizzes Taken', value: studentData ? String((studentData as Record<string, unknown>).totalQuizzes ?? 0) : '0', color: '#722F37' },
-            { label: 'Avg Score', value: studentData ? `${String((studentData as Record<string, unknown>).averageScore ?? 0)}%` : '0%', color: '#D97706' },
-            { label: 'Grade', value: String(currentUser?.grade || '-'), color: '#0D9488' },
-          ].map((stat, i) => (
-            <Card key={i} className="border-0 shadow-sm">
-              <CardContent className="p-3 text-center">
-                <div className="text-xl font-bold" style={{ color: stat.color }}>{stat.value}</div>
-                <div className="text-[10px] text-gray-500">{stat.label}</div>
-              </CardContent>
-            </Card>
+            { top: '12%', left: '20%', delay: '0s', size: '3px' },
+            { top: '18%', left: '75%', delay: '-1.5s', size: '2px' },
+            { top: '32%', left: '45%', delay: '-0.8s', size: '4px' },
+            { top: '28%', left: '88%', delay: '-2.2s', size: '2px' },
+            { top: '55%', left: '15%', delay: '-1.2s', size: '3px' },
+            { top: '48%', left: '62%', delay: '-3s', size: '2px' },
+            { top: '70%', left: '35%', delay: '-0.5s', size: '3px' },
+            { top: '65%', left: '80%', delay: '-2.8s', size: '4px' },
+            { top: '82%', left: '25%', delay: '-1.8s', size: '2px' },
+            { top: '88%', left: '55%', delay: '-0.3s', size: '3px' },
+            { top: '5%', left: '50%', delay: '-2s', size: '2px' },
+            { top: '38%', left: '5%', delay: '-3.5s', size: '3px' },
+          ].map((star, i) => (
+            <div key={i} className="dashboard-twinkle absolute rounded-full"
+              style={{
+                top: star.top, left: star.left,
+                width: star.size, height: star.size,
+                backgroundColor: '#D4AF37',
+                animationDelay: star.delay,
+              }} />
           ))}
         </div>
-        <h2 className="text-lg font-bold text-gray-800">My Grades</h2>
-        <div className="grid grid-cols-2 gap-3">
-          {gradeInfoList.map((grade) => (
-            <Card key={grade.key} className="border-0 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
-              onClick={() => { setSelectedGrade(grade); navigateTo('unitSelect'); }}>
-              <CardContent className="p-4">
+
+        {/* ─── Layer 4: Constellation SVG connecting disciplines ─── */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.06 }} xmlns="http://www.w3.org/2000/svg">
+          <line x1="20%" y1="20%" x2="80%" y2="18%" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="4 8">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite" />
+          </line>
+          <line x1="80%" y1="18%" x2="60%" y2="65%" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="4 8">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="5s" repeatCount="indefinite" />
+          </line>
+          <line x1="20%" y1="20%" x2="40%" y2="70%" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="4 8">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="6s" repeatCount="indefinite" />
+          </line>
+          <line x1="40%" y1="70%" x2="60%" y2="65%" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="4 8">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4.5s" repeatCount="indefinite" />
+          </line>
+        </svg>
+
+        {/* ─── Content Layer ─── */}
+        <div className="relative z-10">
+
+          {/* ═══════ HERO HEADER ═══════ */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="relative overflow-hidden"
+          >
+            {/* Header gradient overlay */}
+            <div className="absolute inset-0" style={{
+              background: 'linear-gradient(180deg, rgba(114,47,55,0.3) 0%, rgba(90,26,35,0.15) 60%, transparent 100%)'
+            }} />
+
+            {/* Top navigation bar */}
+            <div className="relative z-20 px-4 py-4 sm:px-6">
+              <div className="max-w-5xl mx-auto flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold"
-                    style={{ background: gradeColorMap[grade.number]?.gradientBg || 'linear-gradient(to right, #666, #333)' }}>
-                    {grade.number}
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center relative"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(212,175,55,0.2), rgba(212,175,55,0.05))',
+                      border: '1px solid rgba(212,175,55,0.3)',
+                      backdropFilter: 'blur(8px)',
+                    }}>
+                    <User className="w-5 h-5" style={{ color: '#D4AF37' }} />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-gray-800">Grade {grade.number}</h3>
-                    <p className="text-[10px] text-gray-500">{grade.totalLessons} lessons</p>
+                    <motion.h1
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                      className="text-white font-bold text-sm sm:text-base"
+                    >
+                      {currentUser?.name || 'Student'}
+                    </motion.h1>
+                    <p className="text-xs" style={{ color: 'rgba(212,175,55,0.7)' }}>
+                      {currentUser?.studentCode} | Grade {currentUser?.grade}
+                    </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        {contentPreview && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800 flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 shrink-0" /> Free Preview Mode — Subscribe for full access
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => navigateTo('gradeSelect')}
+                    className="text-white/70 hover:text-white hover:bg-white/10 text-xs sm:text-sm"
+                    style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px' }}>
+                    <BookOpen className="w-4 h-4 mr-1.5" /> Lessons
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={handleLogout}
+                    className="text-white/50 hover:text-white hover:bg-white/10"
+                    style={{ borderRadius: '10px' }}>
+                    <LogOut className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* ═══════ HERO TITLE — Disciplines ═══════ */}
+            <div className="relative z-20 px-4 pt-6 pb-10 sm:px-6">
+              <div className="max-w-5xl mx-auto text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.7 }}
+                >
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="h-px w-12 sm:w-16" style={{ background: 'linear-gradient(to right, transparent, rgba(212,175,55,0.5))' }} />
+                    <Scroll className="w-5 h-5" style={{ color: 'rgba(212,175,55,0.6)' }} />
+                    <div className="h-px w-12 sm:w-16" style={{ background: 'linear-gradient(to left, transparent, rgba(212,175,55,0.5))' }} />
+                  </div>
+
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">
+                    The Four Pillars of <span style={{ color: '#D4AF37' }}>Knowledge</span>
+                  </h2>
+                  <p className="text-sm sm:text-base mb-8" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                    Where wisdom meets wonder — explore the foundations of understanding
+                  </p>
+                </motion.div>
+
+                {/* Discipline Icons — Floating */}
+                <div className="flex items-center justify-center gap-6 sm:gap-10 md:gap-14">
+                  {disciplines.map((disc, i) => (
+                    <motion.div
+                      key={disc.name}
+                      initial={{ opacity: 0, y: 30, scale: 0.8 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ delay: 0.5 + i * 0.12, duration: 0.6, type: 'spring', stiffness: 100 }}
+                      className="dashboard-discipline-float flex flex-col items-center gap-2"
+                      style={{ animationDelay: `${i * 1.2}s` }}
+                    >
+                      <div className="relative">
+                        {/* Glow ring */}
+                        <div className="absolute inset-0 rounded-full"
+                          style={{
+                            background: `radial-gradient(circle, ${disc.accentLight} 0%, transparent 70%)`,
+                            transform: 'scale(2.5)',
+                            filter: 'blur(8px)',
+                          }} />
+                        {/* Icon container */}
+                        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center"
+                          style={{
+                            background: `linear-gradient(135deg, ${disc.accentLight}, rgba(255,255,255,0.03))`,
+                            border: `1px solid ${disc.accent}40`,
+                            backdropFilter: 'blur(12px)',
+                          }}>
+                          <disc.icon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: disc.accent }} />
+                        </div>
+                      </div>
+                      <span className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase" style={{ color: `${disc.accent}CC` }}>
+                        {disc.name}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ═══════ DISCIPLINE CARDS ═══════ */}
+          <div className="px-4 sm:px-6 pb-8">
+            <div className="max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {disciplines.map((disc, i) => (
+                  <motion.div
+                    key={disc.name}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 + i * 0.1, duration: 0.6 }}
+                  >
+                    <div className="group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02]"
+                      style={{
+                        background: 'rgba(255,255,255,0.04)',
+                        border: `1px solid ${disc.accent}25`,
+                        backdropFilter: 'blur(16px)',
+                      }}>
+                      {/* Animated gradient border on hover */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
+                        style={{
+                          background: `linear-gradient(135deg, ${disc.accent}15, transparent, ${disc.accent}10)`,
+                        }} />
+
+                      <div className="relative p-5 flex items-start gap-4">
+                        {/* Symbol + Icon */}
+                        <div className="flex-shrink-0 relative">
+                          <div className="w-12 h-12 rounded-xl flex items-center justify-center"
+                            style={{
+                              background: `linear-gradient(135deg, ${disc.gradientFrom}30, ${disc.gradientTo}15)`,
+                              border: `1px solid ${disc.accent}30`,
+                            }}>
+                            <disc.icon className="w-6 h-6" style={{ color: disc.accent }} />
+                          </div>
+                          <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold"
+                            style={{
+                              backgroundColor: `${disc.accent}20`,
+                              color: disc.accent,
+                              border: `1px solid ${disc.accent}40`,
+                            }}>
+                            {disc.symbol}
+                          </div>
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-bold text-sm sm:text-base text-white mb-1">{disc.name}</h3>
+                          <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                            {disc.desc}
+                          </p>
+                        </div>
+
+                        {/* Arrow indicator */}
+                        <ArrowRight className="w-4 h-4 flex-shrink-0 mt-1 opacity-0 group-hover:opacity-60 transition-opacity duration-300" style={{ color: disc.accent }} />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
-        )}
+
+          {/* ═══════ STATS SECTION ═══════ */}
+          <div className="px-4 sm:px-6 pb-8">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2, duration: 0.6 }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(212,175,55,0.3), transparent)' }} />
+                  <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: 'rgba(212,175,55,0.6)' }}>Your Progress</span>
+                  <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(212,175,55,0.3), transparent)' }} />
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {stats.map((stat, i) => (
+                    <motion.div
+                      key={stat.label}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 1.3 + i * 0.08, duration: 0.4, type: 'spring', stiffness: 120 }}
+                    >
+                      <div className="dashboard-glow-pulse relative rounded-xl overflow-hidden"
+                        style={{
+                          background: 'rgba(255,255,255,0.05)',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          backdropFilter: 'blur(12px)',
+                          animationDelay: `${i * 1}s`,
+                        }}>
+                        <div className="p-4 text-center">
+                          <div className="w-8 h-8 rounded-lg mx-auto mb-2 flex items-center justify-center"
+                            style={{ backgroundColor: `${stat.color}18` }}>
+                            <stat.icon className="w-4 h-4" style={{ color: stat.color }} />
+                          </div>
+                          <div className="text-xl sm:text-2xl font-bold" style={{ color: stat.color }}>{stat.value}</div>
+                          <div className="text-[10px] mt-1 tracking-wide uppercase" style={{ color: 'rgba(255,255,255,0.35)' }}>{stat.label}</div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* ═══════ GRADE CARDS ═══════ */}
+          <div className="px-4 sm:px-6 pb-8">
+            <div className="max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.6, duration: 0.6 }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, rgba(212,175,55,0.3), transparent)' }} />
+                  <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: 'rgba(212,175,55,0.6)' }}>My Grades</span>
+                  <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, rgba(212,175,55,0.3), transparent)' }} />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  {gradeInfoList.map((grade, i) => (
+                    <motion.div
+                      key={grade.key}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.7 + i * 0.08, duration: 0.5 }}
+                      className="group cursor-pointer"
+                      onClick={() => { setSelectedGrade(grade); navigateTo('unitSelect'); }}
+                    >
+                      <div className="relative rounded-xl overflow-hidden transition-all duration-300 group-hover:scale-[1.03]"
+                        style={{
+                          background: 'rgba(255,255,255,0.04)',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          backdropFilter: 'blur(12px)',
+                        }}>
+                        {/* Hover glow effect */}
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                          style={{
+                            background: `linear-gradient(135deg, ${gradeColorMap[grade.number]?.accent || '#666'}15, transparent, ${gradeColorMap[grade.number]?.accent || '#666'}08)`,
+                          }} />
+
+                        <div className="relative p-4 sm:p-5 flex items-center gap-3 sm:gap-4">
+                          {/* Grade number with gradient background */}
+                          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center text-white font-bold text-lg sm:text-xl transition-transform duration-300 group-hover:scale-105"
+                            style={{
+                              background: gradeColorMap[grade.number]?.gradientBg || 'linear-gradient(to right, #666, #333)',
+                              boxShadow: `0 4px 20px ${gradeColorMap[grade.number]?.accent || '#666'}25`,
+                            }}>
+                            {grade.number}
+                          </div>
+
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-bold text-white text-sm sm:text-base">Grade {grade.number}</h3>
+                            <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{grade.totalLessons} lessons</p>
+                          </div>
+
+                          <ArrowRight className="w-4 h-4 flex-shrink-0 transition-all duration-300 group-hover:translate-x-1"
+                            style={{ color: `${gradeColorMap[grade.number]?.accent || '#666'}80` }} />
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* ═══════ PREVIEW BANNER ═══════ */}
+          {contentPreview && (
+            <div className="px-4 sm:px-6 pb-8">
+              <div className="max-w-5xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2, duration: 0.5 }}
+                  className="rounded-xl p-4 flex items-center gap-3"
+                  style={{
+                    background: 'rgba(212,175,55,0.08)',
+                    border: '1px solid rgba(212,175,55,0.2)',
+                    backdropFilter: 'blur(12px)',
+                  }}>
+                  <AlertTriangle className="w-4 h-4 shrink-0" style={{ color: '#D4AF37' }} />
+                  <span className="text-xs sm:text-sm" style={{ color: 'rgba(212,175,55,0.85)' }}>
+                    Free Preview Mode — Subscribe for full access
+                  </span>
+                </motion.div>
+              </div>
+            </div>
+          )}
+
+          {/* ═══════ QUOTE / INSPIRATION FOOTER ═══════ */}
+          <div className="px-4 sm:px-6 pb-10">
+            <div className="max-w-5xl mx-auto text-center">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2.2, duration: 0.8 }}
+              >
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <div className="h-px w-8" style={{ background: 'rgba(212,175,55,0.2)' }} />
+                  <div className="w-1.5 h-1.5 rotate-45" style={{ border: '1px solid rgba(212,175,55,0.3)' }} />
+                  <div className="h-px w-8" style={{ background: 'rgba(212,175,55,0.2)' }} />
+                </div>
+                <p className="text-xs italic" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                  &ldquo;The pursuit of knowledge is a journey without end, a path illuminated by wisdom and guided by truth.&rdquo;
+                </p>
+              </motion.div>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   // ════════════════════════════════════════════════════════════
   // MAIN RENDER
