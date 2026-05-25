@@ -168,15 +168,21 @@ export async function POST(request: Request) {
     console.error('[Admin Seed POST] Error:', error);
     const message = error instanceof Error ? error.message : 'Unknown error';
     // Provide actionable error messages
-    if (message.includes('does not exist') || message.includes('relation')) {
+    if (message.includes("Can't reach database server") || message.includes('P1001')) {
       return NextResponse.json(
-        { error: 'Database tables not created yet. Please set DATABASE_URL and redeploy, or run: npx prisma db push' },
+        { error: 'Database not reachable. Please set up a PostgreSQL database: 1) Go to neon.tech (free), 2) Create a database, 3) Add the DATABASE_URL in Vercel Settings → Environment Variables, 4) Redeploy' },
         { status: 500 }
       );
     }
-    if (message.includes('URL must start with') || message.includes('P1001')) {
+    if (message.includes('does not exist') || message.includes('relation')) {
       return NextResponse.json(
-        { error: 'Database not configured. Please add a PostgreSQL DATABASE_URL in your Vercel project settings.' },
+        { error: 'Database tables not created. After setting DATABASE_URL, run: npx prisma db push, then redeploy' },
+        { status: 500 }
+      );
+    }
+    if (message.includes('URL must start with')) {
+      return NextResponse.json(
+        { error: 'DATABASE_URL is not a valid PostgreSQL URL. Please add a real PostgreSQL connection string in Vercel Settings → Environment Variables.' },
         { status: 500 }
       );
     }
