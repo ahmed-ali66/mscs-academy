@@ -76,3 +76,23 @@ Stage Summary:
 - No duplicate navigation buttons in code
 - Admin credentials: Created via Setup page on first use (no hardcoded credentials)
 - Master password (for data operations): AhmedAli@MSCS2026
+
+---
+Task ID: 2
+Agent: Main
+Task: Fix Vercel build failure caused by cp commands in package.json build script
+
+Work Log:
+- Received email: Vercel build failing with "cp: cannot create directory '.next/standalone/.next/': No such file or directory"
+- Diagnosed root cause: package.json build script included `cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/` but next.config.ts does NOT have `output: 'standalone'`, so `.next/standalone/` never gets created
+- Previous session had removed `output: 'standalone'` from next.config.ts but forgot to update the build script
+- Fixed build script from `next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/` to just `next build`
+- Verified local build succeeds: `npx next build` completes with all 18 routes generated
+- Committed and pushed fix to GitHub (commit e648da3)
+- This was THE reason all previous changes (dashboard redesign, Login rename, teacher-issued text, CSS animations) never appeared on Vercel - every deployment since the standalone cp was added had been failing
+
+Stage Summary:
+- Root cause: Build script referencing .next/standalone/ which doesn't exist without output: 'standalone' in next.config.ts
+- Fix: Simplified build script to just `next build` (Vercel handles its own optimization)
+- All code changes from previous sessions ARE in the repo and will now deploy successfully
+- Admin credentials: Setup page creates first admin account; master password for data operations is AhmedAli@MSCS2026
