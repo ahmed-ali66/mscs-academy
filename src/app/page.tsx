@@ -31,6 +31,13 @@ import { getG6T2LessonContent } from '@/lib/g6t2-content';
 import { getG6T3LessonContent } from '@/lib/g6t3-content';
 import { getG7T1LessonContent } from '@/lib/g7t1-content';
 import { getG7T2LessonContent } from '@/lib/g7t2-content';
+import { getG7T3LessonContent } from '@/lib/g7t3-content';
+import { getG8T1LessonContent } from '@/lib/g8t1-content';
+import { getG8T2LessonContent } from '@/lib/g8t2-content';
+import { getG8T3LessonContent } from '@/lib/g8t3-content';
+import { getG9T1LessonContent } from '@/lib/g9t1-content';
+import { getG9T2LessonContent } from '@/lib/g9t2-content';
+import { getG9T3LessonContent } from '@/lib/g9t3-content';
 
 // ═══════════════════════════════════════════════════════════════
 // CONTENT LOOKUP — Find rich textbook content for a lesson
@@ -52,6 +59,27 @@ function getRichLessonContent(gradeKey: string, termKey: string, unitKey: string
   // Try G7T2 lookup
   const g7t2 = getG7T2LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
   if (g7t2) return g7t2;
+  // Try G7T3 lookup
+  const g7t3 = getG7T3LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g7t3) return g7t3;
+  // Try G8T1 lookup
+  const g8t1 = getG8T1LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g8t1) return g8t1;
+  // Try G8T2 lookup
+  const g8t2 = getG8T2LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g8t2) return g8t2;
+  // Try G8T3 lookup
+  const g8t3 = getG8T3LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g8t3) return g8t3;
+  // Try G9T1 lookup
+  const g9t1 = getG9T1LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g9t1) return g9t1;
+  // Try G9T2 lookup
+  const g9t2 = getG9T2LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g9t2) return g9t2;
+  // Try G9T3 lookup
+  const g9t3 = getG9T3LessonContent(`${gradeKey}_${termKey}_${unitKey}_l${lessonIndex + 1}`);
+  if (g9t3) return g9t3;
   return null;
 }
 
@@ -1222,12 +1250,14 @@ export default function Home() {
                   // Fetch actual lessons for this unit
                   const unitData = getUnitData(grade.key, term.key, unit.key);
                   const lessonCount = unitData ? unitData.lessons.length : unit.lessonCount;
+                  const mappedCount = unitData ? unitData.lessons.filter(l => l.is_mapped).length : 0;
 
                   return (
-                    <Card key={unit.key} className="border-2 hover:shadow-lg transition-all cursor-pointer group border-gray-200 bg-white hover:border-amber-300"
+                    <Card key={unit.key} className={`border-2 hover:shadow-lg transition-all cursor-pointer group ${unit.isPriority ? 'border-[#D4AF37] bg-amber-50/30' : 'border-gray-200 bg-white hover:border-amber-300'}`}
                       onClick={() => { setSelectedTerm(term); setSelectedUnit(unit); navigateTo('unitSelect'); }}>
                       <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-bold text-gray-800 leading-tight group-hover:text-[#722F37] transition-colors">
+                          {unit.isPriority && <span className="mr-1" title="Priority Unit">⭐</span>}
                           {unit.title}
                         </CardTitle>
                       </CardHeader>
@@ -1235,6 +1265,9 @@ export default function Home() {
                         <p className="text-xs text-gray-500 mb-2">{unit.description}</p>
                         <div className="flex items-center gap-3 text-xs text-gray-400">
                           <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {lessonCount} lessons</span>
+                          {mappedCount > 0 && mappedCount < lessonCount && (
+                            <span className="flex items-center gap-1 text-[#D4AF37] font-medium">⭐ {mappedCount} mapped</span>
+                          )}
                           <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">
                             <Play className="w-2.5 h-2.5 mr-0.5" /> Interactive
                           </Badge>
@@ -1286,9 +1319,12 @@ export default function Home() {
               const cleanTitle = getCleanTitle(lesson.title);
               const unitContext = getUnitContextFromTitle(lesson.title);
               const isPriority = lesson.title.includes('PRIORITY UNIT');
+              const isMapped = lesson.is_mapped === true;
+              const lessonNum = lesson.lesson_number;
+              const displayLabel = lessonNum ? `L${lessonNum}` : `L${idx + 1}`;
 
               return (
-                <Card key={idx} className="border-2 hover:shadow-lg transition-all cursor-pointer group border-amber-200 bg-white hover:border-[#D4AF37]"
+                <Card key={idx} className={`border-2 hover:shadow-lg transition-all cursor-pointer group ${isMapped ? 'border-amber-200 bg-white hover:border-[#D4AF37]' : 'border-gray-200 bg-gray-50/50 hover:border-gray-300'}`}
                   onClick={() => {
                     setSelectedLesson(lesson);
                     setSelectedLessonIndex(idx);
@@ -1298,12 +1334,14 @@ export default function Home() {
                   }}>
                   <CardContent className="p-5">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#722F37] to-[#5A1A23] flex items-center justify-center text-white font-bold text-sm shrink-0">
-                        L{idx + 1}
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0 ${isMapped ? 'bg-gradient-to-br from-[#722F37] to-[#5A1A23]' : 'bg-gradient-to-br from-gray-400 to-gray-500'}`}>
+                        {displayLabel}
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-bold text-gray-800 group-hover:text-[#722F37] transition-colors text-sm">
+                          {isMapped && <span className="mr-1" title="In Curriculum Mapping & Scope & Sequence">⭐</span>}
                           {cleanTitle}
+                          {!isMapped && <span className="ml-2 text-[10px] font-normal text-gray-400 italic">(textbook supplement)</span>}
                         </h3>
                         {unitContext && (
                           <p className="text-xs text-amber-600 mt-0.5">{unitContext}</p>
@@ -1319,7 +1357,12 @@ export default function Home() {
                           <Badge variant="outline" className="text-[10px] border-rose-300 text-rose-700">
                             {lesson.domains}
                           </Badge>
-                          <Badge className="bg-[#722F37] text-white text-[10px]">
+                          {isMapped && (
+                            <Badge variant="outline" className="text-[10px] border-[#D4AF37] text-[#D4AF37] font-semibold">
+                              ⭐ Mapped
+                            </Badge>
+                          )}
+                          <Badge className={`text-white text-[10px] ${isMapped ? 'bg-[#722F37]' : 'bg-gray-500'}`}>
                             <Play className="w-2.5 h-2.5 mr-0.5" /> Start Lesson
                           </Badge>
                         </div>
@@ -1452,9 +1495,19 @@ export default function Home() {
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-4">
                 <Landmark className="w-8 h-8 text-[#D4AF37]" />
-                <h2 className="text-2xl sm:text-3xl font-bold">{cleanTitle}</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold">
+                  {lesson.is_mapped && <span title="In Curriculum Mapping & Scope & Sequence">⭐ </span>}
+                  {cleanTitle}
+                </h2>
               </div>
-              {unitContext && <p className="text-amber-100 text-sm">{unitContext}</p>}
+              <div className="flex items-center gap-2 mb-2">
+                {lesson.lesson_number && (
+                  <Badge className="bg-[#D4AF37]/30 text-amber-200 border-amber-400/40 text-[10px]">
+                    Lesson {lesson.lesson_number}
+                  </Badge>
+                )}
+                {unitContext && <p className="text-amber-100 text-sm">{unitContext}</p>}
+              </div>
               {richContent && richContent.keyVocabulary.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {richContent.keyVocabulary.slice(0, 8).map(v => (

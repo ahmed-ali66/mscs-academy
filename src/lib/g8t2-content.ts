@@ -18,7 +18,7 @@ const allG8T2Lessons = [...g8t2Unit4, ...g8t2Unit5, ...g8t2Unit6];
 
 /**
  * Look up rich textbook content for a G8T2 lesson by its lessonId.
- * lessonId format: "G8_T2_Unit 4_l1" through l5, "G8_T2_Unit 5_l1" through l5, "G8_T2_Unit 6_l1" through l6
+ * lessonId format: "G8_T2_Unit 4_l1", "G8_T2_Unit 5_l1", "G8_T2_General_l1" through "G8_T2_General_l6"
  */
 export function getG8T2LessonContent(lessonId: string): import('./g7t1-content').LessonContent | null {
   return allG8T2Lessons.find(l => l.lessonId === lessonId) || null;

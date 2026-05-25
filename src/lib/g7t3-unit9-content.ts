@@ -137,7 +137,7 @@ There is an interesting connection between Central Asia and the United Arab Emir
   {
     lessonId: 'G7_T3_Unit 9_l2',
     keyVocabulary: ['Silk Road', 'Han Dynasty', 'Caspian Sea', 'monopoly', 'cultural diffusion'],
-    reading1Title: 'The Silk Road',
+    reading1Title: 'The Silk Road: Heart of Trade',
     reading1Content: `The Silk Road was one of the most influential trading routes in all of human history, and Central Asia stood at its very heart. Stretching across thousands of kilometres, this vast network of trade routes connected East Asia to the Mediterranean, and Central Asia was the crucial crossroads that linked them all together. The region bordered Russia to the north, Iran to the south, China and Mongolia to the east, and the Caspian Sea to the west, placing it squarely at the centre of international commerce and cultural exchange.
 
 The Silk Road began in China during the Han Dynasty, which ruled from approximately 207 BCE to 220 CE. It was during this period that Chinese silk first made its way westward, and the trade route was eventually named after this precious commodity. Silk was extremely valuable in the ancient world — it was lightweight, beautiful, and could be woven into luxurious garments that only the wealthiest could afford. The demand for silk was enormous, and traders were willing to travel vast distances across dangerous terrain to bring it to eager markets in Central Asia, the Middle East, and Europe.
@@ -246,7 +246,7 @@ There are fascinating parallels between the Silk Road trade and modern Internet 
   {
     lessonId: 'G7_T3_Unit 9_l3',
     keyVocabulary: ['communist', 'Soviet Union', 'Mongol', 'Abbasid Caliphate', 'Tang Dynasty'],
-    reading1Title: 'The Culture of Central Asia',
+    reading1Title: 'The Cultural Mosaic of Central Asia',
     reading1Content: `As a hub for diverse trade and travel, Central Asian culture was greatly influenced by its neighbours and the many civilisations that passed through the region over the centuries. Before the arrival of Islam, Central Asia was deeply influenced by Iranian and Turkic civilisations, each of which left lasting marks on the region's language, customs, and social structures. Over time, a variety of religious beliefs were introduced to Central Asia through trade and conquest, including Buddhism, Christianity, Islam, and Judaism. Each of these faiths found followers among the Central Asian population, contributing to the region's rich spiritual diversity.
 
 Today, the population of Central Asia is roughly 77 million people spread across the five countries. Kazakhstan has the largest population at approximately 19 million, followed by Uzbekistan with about 35 million, Tajikistan with around 10 million, Kyrgyzstan with roughly 7 million, and Turkmenistan with about 6 million. These population figures reflect the varying sizes and geographic conditions of each country, with Uzbekistan being the most densely populated despite not being the largest in area.
@@ -357,7 +357,7 @@ Religiously, Uzbekistan, Tajikistan, and Turkmenistan are roughly ninety percent
   {
     lessonId: 'G7_T3_Unit 9_l4',
     keyVocabulary: ['secular', 'constitutional republic', 'GDP', 'landlocked', 'parliament'],
-    reading1Title: 'Kazakhstan',
+    reading1Title: 'Kazakhstan: An Economic Powerhouse',
     reading1Content: `Kazakhstan boasts the largest economy in Central Asia, with a Gross Domestic Product (GDP) of approximately 200 billion US dollars. This impressive economic output is driven by three major sectors: energy, oil and gas, and mining. Together, these industries have transformed Kazakhstan from a former Soviet republic into one of the most economically significant countries in the region and a key player on the global stage.
 
 In the energy sector, Kazakhstan holds a truly remarkable position. It is the world's leading producer of uranium, accounting for approximately thirty-five percent of global production. Uranium is a critical resource for nuclear energy, and Kazakhstan's vast uranium reserves are the second largest in the world. This makes the country an essential supplier for nations that rely on nuclear power, and it gives Kazakhstan significant geopolitical influence. The country's commitment to uranium production reflects its strategic approach to leveraging its natural resources for economic growth and international influence.
@@ -471,7 +471,7 @@ There is a meaningful connection between Kazakhstan and the UAE. Both nations va
   {
     lessonId: 'G7_T3_Unit 9_l5',
     keyVocabulary: ['multilingual', 'annexation', 'conflict', 'remittance', 'epic poem'],
-    reading1Title: 'Kyrgyzstan and Tajikistan',
+    reading1Title: 'Kyrgyzstan: Land of the 40 Tribes',
     reading1Content: `Kyrgyzstan is a landlocked country bordered by Kazakhstan to the north, Uzbekistan to the west, Tajikistan to the south, and China to the east. The name Kyrgyzstan carries a powerful meaning rooted in the region's history. It is derived from "Kyrg," meaning forty, "yz," meaning tribes, and "stan," meaning land — thus, Kyrgyzstan translates to "Land of the Forty Tribes." This name reflects the legendary unification of forty nomadic tribes under a single banner, a story that is central to Kyrgyz national identity.
 
 The Epic of Manas is an eighteenth-century folklore masterpiece that tells the story of the hero Manas and his unification of the forty nomadic tribes of Kyrgyzstan. It is considered one of the longest epic poems in the world, with versions containing hundreds of thousands of lines. The epic is so important to Kyrgyz culture that it has been designated by UNESCO as part of the Intangible Cultural Heritage of Humanity. The Epic of Manas is more than just a story — it is a symbol of Kyrgyz unity, resilience, and national pride that continues to be recited and celebrated in modern Kyrgyzstan.
@@ -602,7 +602,7 @@ There is a meaningful connection between Tajikistan and the UAE when it comes to
   {
     lessonId: 'G7_T3_Unit 9_l6',
     keyVocabulary: ['land degradation', 'ore', 'Cyrillic', 'presidential republic', 'cotton ginning'],
-    reading1Title: 'Turkmenistan and Uzbekistan',
+    reading1Title: 'Turkmenistan and Uzbekistan: Intertwined Histories',
     reading1Content: `Turkmenistan and Uzbekistan share an intertwined history, culture, and politics that stretches back centuries. Both nations were part of the Soviet Union as the Turkmen Soviet Socialist Republic and the Uzbek Soviet Socialist Republic, and both gained independence in 1991 when the USSR dissolved. Under Soviet rule, both republics were required to produce massive quantities of cotton and grain for the Soviet economy. This relentless agricultural production came at a severe environmental cost, leading to widespread land degradation and the depletion of water resources, particularly from the rivers that feed the Aral Sea. The consequences of this environmental damage are still felt today and serve as a cautionary tale about the dangers of prioritising short-term production over long-term sustainability.
 
 Although Turkmenistan is approximately nine percent larger than Uzbekistan in terms of land area, Uzbekistan has a significantly larger population. This difference in population density reflects the varying geographic and climatic conditions of the two countries, as well as the availability of water and arable land. Turkmenistan's name means "Land of the Turks," reflecting the Turkic heritage of its people, while Uzbekistan's name carries a different meaning rooted in both Turkic and Persian traditions.
@@ -739,7 +739,7 @@ Uzbekistan's exports include cotton, oil, natural gas, coal, silk, fruit, machin
   {
     lessonId: 'G7_T3_Unit 9_l7',
     keyVocabulary: ['satellite state', 'famine', 'soviet', 'Cold War', 'proxy war'],
-    reading1Title: 'Russia USSR and the Cold War',
+    reading1Title: 'Russia: A Giant of North Asia',
     reading1Content: `Russia is a vast North Asian country situated at the foot of Eastern Europe, stretching across an enormous expanse of territory that spans two continents. With a population of approximately 146 million people, Russia is one of the most populous countries in the world, and its society is remarkably diverse, home to more than 200 ethnic groups. Among the largest minority groups are the Tatar, Ukrainian, Bashkir, Chuvash, and Chechen peoples, each with their own distinct languages, traditions, and cultural practices. Russian is the official language, serving as the common language that unites this diverse population across the country's vast territory.
 
 Religiously, Russia is predominantly Russian Orthodox Christian, with approximately forty percent of the population adhering to this faith. Islam is the second largest religion, reflecting the significant Muslim populations in regions like Tatarstan and Chechnya. Other forms of Christianity are also practised, and the state officially recognises Judaism and Buddhism as well, the latter being particularly prevalent in regions like Kalmykia and Buryatia near the Mongolian border. This religious diversity is a legacy of Russia's expansion across vast territories over centuries, incorporating many different peoples and their faiths into a single state.

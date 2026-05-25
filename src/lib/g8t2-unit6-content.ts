@@ -32,7 +32,7 @@ const KWL_EXPLANATION = "KWL stands for Know, Want to know, Learned. It's a thin
 export const g8t2Unit6: LessonContent[] = [
   // ─── Lesson 1: The Land and Physical Geography of North America ───
   {
-    lessonId: "G8_T2_Unit 6_l1",
+    lessonId: "G8_T2_General_l1",
     keyVocabulary: ["Natural feature", "Panama Canal", "The Great Lakes", "Rocky Mountains", "Sierra Madre Occidental", "Canadian Shield"],
     reading1Title: "Geography of North America",
     reading1Content: `North America is a vast and diverse continent that contains ten countries and stretches from the icy reaches of the Arctic in the north to the tropical jungles of Central America in the south. The three largest countries on the continent — Canada, the United States, and Mexico — dominate both the landmass and the population, occupying the majority of the territory from the Arctic Circle down to the southern border of Mexico. Together, these three nations encompass an extraordinary range of climates, landscapes, and natural features that have shaped the lives of the people who inhabit them. From frozen tundra to sun-baked deserts, North America's geography is as varied as it is magnificent.
@@ -152,7 +152,7 @@ Among the continent's most remarkable natural features is Mount Denali (formerly
 
   // ─── Lesson 2: Indigenous People of North America ───
   {
-    lessonId: "G8_T2_Unit 6_l2",
+    lessonId: "G8_T2_General_l2",
     keyVocabulary: ["Aztecs", "Native Americans", "First Nations", "Inuit", "Iroquois", "Sioux"],
     reading1Title: "The First People Arrive in North America",
     reading1Content: `The story of the indigenous peoples of North America begins thousands of years ago with one of the most remarkable migrations in human history. According to the most widely accepted theory, the first people arrived in North America approximately 20,000 years ago, during the last Ice Age, when sea levels dropped dramatically and exposed a land bridge known as Beringia that connected Siberia in Asia to Alaska in North America. This land bridge, called the Bering Strait land bridge, existed where the Bering Strait now separates the two continents by a narrow stretch of water. Small groups of hunter-gatherers crossed this bridge on foot, following herds of animals such as mammoths and bison that were their primary source of food. These brave and resourceful people were the first humans to set foot on the North American continent, and their descendants would go on to populate the entire Western Hemisphere.
@@ -268,7 +268,7 @@ The arrival of Europeans in the Americas had a devastating impact on the indigen
 
   // ─── Lesson 3: Colonial North America ───
   {
-    lessonId: "G8_T2_Unit 6_l3",
+    lessonId: "G8_T2_General_l3",
     keyVocabulary: ["French", "Dutch", "English", "Spanish", "American Revolution", "plantation system"],
     reading1Title: "Spanish and Portuguese Colonies",
     reading1Content: `The age of European exploration was driven by a powerful economic motivation: the desire to find a direct sea route to Asia, where valuable spices, silk, and other goods could be obtained for trade. For centuries, these goods reached Europe through a complex network of Middle Eastern and Mediterranean merchants who added significant mark-ups to the prices, making the trade enormously expensive. European powers were determined to find a way around these middlemen by discovering a direct sea route to the markets of India, China, and the Spice Islands. The Portuguese were the first to succeed in this quest, sailing around the southern tip of Africa and reaching India by sea in the late fifteenth century. This achievement gave Portugal a tremendous advantage in the spice trade and inspired other European nations to seek their own routes to the riches of Asia.
@@ -398,9 +398,9 @@ Meanwhile, in Latin America, the Spanish colonies also eventually achieved indep
 
   // ─── Lesson 4: American Civil War and Reconstruction ───
   {
-    lessonId: "G8_T2_Unit 6_l4",
+    lessonId: "G8_T2_General_l4",
     keyVocabulary: ["Abraham Lincoln", "Frederick Douglass", "union", "confederacy", "Emancipation Proclamation", "reconstruction", "civil rights", "Women's Suffrage"],
-    reading1Title: "American Civil War and Reconstruction",
+    reading1Title: "The Road to Civil War",
     reading1Content: `The path to the American Civil War was shaped by decades of growing tension between the industrialised Northern states and the agricultural Southern states. One key event that intensified these tensions was the Mexican-American War. Mexico had gained its independence from Spain in 1821, and California declared its own independence in 1848. The war between the United States and Mexico ended in 1848, with the United States acquiring vast territories including California, Nevada, Utah, Arizona, New Mexico, and parts of Colorado and Wyoming. The acquisition of these new territories reignited the bitter debate over whether slavery should be allowed to expand into the western lands, a question that would eventually tear the nation apart.
 
 The fundamental divide between North and South was economic and social in nature. The Northern states had developed into an industrial economy based on manufacturing, commerce, and free labour, while the Southern states remained predominantly agricultural, dependent on the plantation system and the labour of enslaved African Americans. The invention of the cotton gin by Eli Whitney in 1821 had made cotton the dominant crop in the South, dramatically increasing the demand for enslaved labour. Cotton became the South's most valuable export and the foundation of its economy, and Southern planters were determined to preserve the system of slavery that generated their wealth. The North, by contrast, had gradually abolished slavery and embraced the idea that free labour was both more moral and more economically efficient than slave labour.
@@ -516,7 +516,7 @@ The struggle for civil rights would continue for another century, reaching a tur
 
   // ─── Lesson 5: Modern Canada ───
   {
-    lessonId: "G8_T2_Unit 6_l5",
+    lessonId: "G8_T2_General_l5",
     keyVocabulary: ["Dominion of Canada", "Oil sands of Alberta", "French Language Policy", "TransPacific Partnership", "Canadian Pacific Railway"],
     reading1Title: "Creation of the Dominion of Canada",
     reading1Content: `The creation of Canada as an independent nation was deeply influenced by the events of the American Revolution and the subsequent War of 1812. When the American colonies declared their independence from Britain, many colonists who remained loyal to the British Crown — known as Loyalists — were forced to flee the United States. Tens of thousands of these Loyalists migrated northward to the British colonies that would eventually become Canada, bringing with them their British traditions, institutions, and allegiance to the Crown. The Loyalists played a crucial role in shaping the character and culture of English-speaking Canada, establishing communities in what are now the provinces of Ontario, New Brunswick, and Nova Scotia. Their presence reinforced Canada's distinct identity as a society that valued British connections and gradual, orderly change over the revolutionary upheaval that had transformed the United States.
@@ -632,7 +632,7 @@ Canada's relationship with its indigenous First Peoples remains one of the most 
 
   // ─── Lesson 6: South America ───
   {
-    lessonId: "G8_T2_Unit 6_l6",
+    lessonId: "G8_T2_General_l6",
     keyVocabulary: ["hunter-gatherer", "sovereign", "cacao", "indigenous", "colonization", "conquistador", "quipu"],
     reading1Title: "Landforms and Ancient Civilizations of South America",
     reading1Content: `South America is the longest continent in the world when measured from north to south, stretching from the Caribbean Sea in the north all the way to the subarctic waters of Tierra del Fuego at the southern tip. The continent crosses the equator in its northern region and extends so far south that it reaches latitudes comparable to those of Scandinavia in the Northern Hemisphere. This extraordinary range of latitudes gives South America an unparalleled diversity of climates and ecosystems, from the steamy tropical rain forests of the Amazon basin to the icy glaciers of Patagonia. The continent is home to twelve sovereign countries, each with its own unique cultural heritage, political system, and economic characteristics.

@@ -167,117 +167,11 @@ The majlis can be compared to the western living room in terms of its function a
     ]
   },
 
-  // ─── Lesson 2: Sheikh Zayed and the Beginnings of the Federal National Council ───
+  // ─── Lesson 2: The Consultative Governance in the UAE ───
   {
     lessonId: "G8_T2_Unit 4_l2",
-    keyVocabulary: ["Sheikh Zayed", "Federal National Council", "federation", "union", "provisional constitution", "legislative body"],
-    reading1Title: "Sheikh Zayed and the Beginnings of the Federal National Council",
-    reading1Content: `Sheikh Zayed bin Sultan Al Nahyan, the founding father of the United Arab Emirates, understood that a successful nation required more than just political unity — it needed institutions that would give voice to the people and ensure their participation in governance. Even before the formal establishment of the UAE on 2 December 1971, Sheikh Zayed had been deeply committed to the principle of consultation, known as Shura, which had long been a cornerstone of governance in the Arabian Gulf. His vision was to create a modern nation that preserved the best of traditional governance while embracing the structures necessary for a contemporary state. This vision would find one of its most important expressions in the creation of the Federal National Council.
-
-The path to the Federal National Council began with the formation of the federation itself. When the rulers of the seven emirates agreed to unite under a single federal structure, they recognised the need for a national body that could represent the interests and voices of citizens from across the federation. The provisional Constitution of the UAE, adopted on the same day the nation was founded, established the framework for this consultative body. Article 69 of the Constitution defined the Federal National Council as one of the five federal authorities, alongside the Supreme Council, the President, the Council of Ministers, and the Federal Judiciary. This constitutional positioning ensured that the FNC would have a formal and significant role in the governance of the new nation, not merely an advisory one.
-
-The first session of the Federal National Council was convened on 13 February 1972, just two months after the establishment of the UAE. This inaugural session was a momentous occasion that marked the formal beginning of representative governance in the federation. The original 40 members of the Council were all appointed by the rulers of the individual emirates, reflecting the traditional method of selection that was consistent with the cultural practice of consultation through trusted and respected community members. Abu Dhabi and Dubai each had eight representatives, Sharjah and Ras Al Khaimah each had six, and Ajman, Umm Al Quwain, and Fujairah each had four. This distribution ensured that all emirates, regardless of size, had a voice in the federal legislative process.
-
-Sheikh Zayed's personal commitment to the Federal National Council was unwavering. He saw the Council not as a rubber stamp for executive decisions but as a genuine forum for debate, discussion, and the representation of the people's interests. He encouraged FNC members to speak freely, to question ministers, and to engage in rigorous debate on matters of national importance. His daily practice of attending the majlis — from 11 in the morning until lunchtime and again from 8 in the evening until dinner — demonstrated that consultation was not merely an institutional obligation but a personal conviction. Sheikh Zayed believed that the strength of the nation lay in the wisdom of its people, and the Federal National Council was the institutional embodiment of that belief.`,
-    reading2Title: "The FNC's Early Role in UAE Governance",
-    reading2Content: `In its early years, the Federal National Council played a crucial role in establishing the legislative and regulatory framework of the newly formed nation. The Council reviewed and debated federal laws on a wide range of topics, from education and healthcare to commerce and defence. FNC members brought the concerns of their communities directly to the national stage, ensuring that the laws passed by the federation reflected the needs and aspirations of citizens across all seven emirates. This was particularly important in a young nation where the population was small and the challenges of building a modern state from the ground up were immense.
-
-The early sessions of the FNC were characterised by a spirit of earnest deliberation and genuine engagement. Members debated the provisions of federal laws with care and rigour, often suggesting amendments and improvements that strengthened the legislation. The Council also exercised its power to question federal ministers, holding the executive branch accountable for the implementation of policies and the management of public resources. This function of oversight was essential in a new nation where institutions were still being built and the habits of transparent governance were being established. Through their questioning of ministers, FNC members helped to ensure that the government remained responsive to the needs of the people.
-
-Sheikh Zayed's vision for the FNC extended beyond its immediate legislative functions. He saw the Council as a training ground for civic participation and democratic engagement — a place where Emirati citizens could develop the skills and habits of representative governance that would serve the nation well in the future. He believed that the gradual empowerment of the FNC and the expansion of political participation were essential for the long-term health and stability of the federation. This forward-thinking approach would eventually lead to the landmark reforms of 2006, when the selection method for FNC members was changed to include elections alongside appointments, giving citizens a direct voice in choosing their representatives for the first time.
-
-The legacy of Sheikh Zayed's commitment to consultative governance continues to shape the Federal National Council today. The institution he founded has grown in influence and scope, becoming an increasingly important forum for representing the voices and concerns of UAE citizens. The FNC's evolution from a fully appointed body to a partially elected one reflects the enduring power of Sheikh Zayed's vision: that governance should be by the people and for the people, grounded in the ancient tradition of Shura and expressed through the modern institution of the Federal National Council. His words continue to inspire: "I am not imposing unity on anyone. That is tyranny. I am calling upon you to come and work together, not for me, but for yourselves and for your children and for the future of this country."`,
-    reading1Time: 8,
-    reading2Time: 8,
-    kwlExplanation: KWL_EXPLANATION,
-    discussionQuestions: [
-      "Why did Sheikh Zayed believe that a consultative body like the FNC was essential for the newly formed UAE?",
-      "How did the provisional Constitution of 1971 establish the Federal National Council as a significant institution in the governance of the UAE?",
-      "What was the significance of the first FNC session on 13 February 1972, and how were the original members selected?",
-      "How did Sheikh Zayed's personal practice of attending the majlis reflect his commitment to the principles of Shura and consultative governance?",
-      "In what ways did the early FNC contribute to establishing the legislative framework and governance culture of the UAE?"
-    ],
-    keyFacts: [
-      "Sheikh Zayed believed that a successful nation needed institutions that gave voice to the people and ensured their participation in governance.",
-      "The provisional Constitution, adopted on 2 December 1971, established the FNC as one of the five federal authorities under Article 69.",
-      "The first session of the Federal National Council was held on 13 February 1972.",
-      "The original 40 FNC members were all appointed by the rulers of the individual emirates.",
-      "Abu Dhabi and Dubai each had 8 FNC representatives, Sharjah and Ras Al Khaimah each had 6, and Ajman, Umm Al Quwain, and Fujairah each had 4.",
-      "Sheikh Zayed attended the majlis daily from 11am to lunch and from 8pm to dinner, practising open consultation with citizens.",
-      "The early FNC reviewed federal laws, suggested amendments, and questioned ministers to ensure transparency and accountability.",
-      "Sheikh Zayed saw the FNC as a training ground for civic participation and democratic engagement.",
-      "The reforms of 2006, which introduced elections alongside appointments, were a continuation of Sheikh Zayed's vision for gradual political empowerment.",
-      "Sheikh Zayed stated: 'I am not imposing unity on anyone. That is tyranny. I am calling upon you to come and work together... for your children and for the future of this country.'"
-    ],
-    visualType: "timeline",
-    visualData: {
-      title: "Sheikh Zayed and the Birth of the Federal National Council",
-      events: [
-        { year: "Pre-1971", label: "Shura Tradition", description: "Sheikh Zayed practises consultation through the majlis in Abu Dhabi" },
-        { year: "2 Dec 1971", label: "UAE Founded", description: "The provisional Constitution establishes the FNC as one of the five federal authorities" },
-        { year: "13 Feb 1972", label: "First FNC Session", description: "The Federal National Council convenes for the first time with 40 appointed members" },
-        { year: "1972-2006", label: "Appointed FNC Era", description: "FNC members are appointed by rulers, building legislative traditions and oversight practices" },
-        { year: "2006", label: "Electoral Reform", description: "Supreme Council Resolution No. 4 introduces elections for half of FNC seats, fulfilling Sheikh Zayed's vision of gradual empowerment" }
-      ]
-    },
-    quizQuestions: [
-      {
-        id: "G8T2U4L2Q1",
-        question: "When was the first session of the Federal National Council held?",
-        options: ["2 December 1971", "13 February 1972", "1 January 1973", "6 August 1966"],
-        correctAnswer: 1,
-        explanation: "The first session of the Federal National Council was held on 13 February 1972, just two months after the establishment of the UAE on 2 December 1971."
-      },
-      {
-        id: "G8T2U4L2Q2",
-        question: "How were the original 40 members of the FNC selected?",
-        options: ["They were elected by all UAE citizens through a general vote", "They were all appointed by the rulers of the individual emirates", "They were selected through a competitive examination process", "They were nominated by the Council of Ministers"],
-        correctAnswer: 1,
-        explanation: "The original 40 members of the FNC were all appointed by the rulers of the individual emirates, reflecting the traditional method of selection consistent with the cultural practice of consultation through trusted and respected community members."
-      },
-      {
-        id: "G8T2U4L2Q3",
-        question: "Under which article of the UAE Constitution was the FNC established as a federal authority?",
-        options: ["Article 50", "Article 69", "Article 100", "Article 120"],
-        correctAnswer: 1,
-        explanation: "Article 69 of the Constitution defined the Federal National Council as one of the five federal authorities, alongside the Supreme Council, the President, the Council of Ministers, and the Federal Judiciary."
-      },
-      {
-        id: "G8T2U4L2Q4",
-        question: "How many FNC representatives did Abu Dhabi and Dubai each have in the original Council?",
-        options: ["Four each", "Six each", "Eight each", "Ten each"],
-        correctAnswer: 2,
-        explanation: "Abu Dhabi and Dubai each had eight representatives in the original FNC, Sharjah and Ras Al Khaimah each had six, and Ajman, Umm Al Quwain, and Fujairah each had four."
-      },
-      {
-        id: "G8T2U4L2Q5",
-        question: "Why did Sheikh Zayed see the FNC as more than just an advisory body?",
-        options: ["He wanted it to replace the Supreme Council", "He saw it as a genuine forum for debate and representation of the people's interests, and a training ground for civic participation", "He wanted to use it to make all decisions himself", "He believed it should only discuss economic matters"],
-        correctAnswer: 1,
-        explanation: "Sheikh Zayed saw the FNC as a genuine forum for debate, discussion, and the representation of the people's interests. He also saw it as a training ground for civic participation and democratic engagement that would serve the nation in the long term."
-      }
-    ],
-    interactiveStrategies: [
-      {
-        strategy: "Founding Vision Letter",
-        description: "Students write a letter from the perspective of Sheikh Zayed explaining his vision for the Federal National Council to the rulers of the seven emirates before the first session.",
-        duration: 20,
-        instructions: "1. Imagine you are Sheikh Zayed in early 1972, preparing for the first session of the Federal National Council. 2. Write a formal letter to the rulers of the seven emirates explaining why you believe the FNC is essential for the new nation. 3. In your letter, include: the purpose of the FNC, how it connects to the tradition of Shura, how members will be selected, what role the Council will play in governance, and your hopes for what the FNC will achieve. 4. Use at least two quotes or ideas from the reading to support your arguments. 5. Share your letter with a partner and discuss: How well does the letter capture Sheikh Zayed's vision? What would you add or change?"
-      },
-      {
-        strategy: "FNC Simulation",
-        description: "Students simulate the first session of the Federal National Council, taking on the roles of appointed members debating an early federal law.",
-        duration: 25,
-        instructions: "1. Divide the class into groups of 7, with each student representing one of the seven emirates as an FNC member. 2. The teacher presents a mock federal law for debate (e.g., 'All schools in the UAE must teach both Arabic and English'). 3. Each representative has 2 minutes to present their emirate's perspective on the law, considering their emirate's size, population, and unique needs. 4. After all presentations, the group debates the law for 5 minutes, suggesting amendments and improvements. 5. The group votes on whether to approve, amend, or reject the law. 6. Reflect as a class: How did consultation change the outcome? What challenges did the early FNC members face?"
-      }
-    ]
-  },
-
-  // ─── Lesson 3: The Consultative Governance in the UAE ───
-  {
-    lessonId: "G8_T2_Unit 4_l3",
     keyVocabulary: ["Shura", "emirate", "Trucial States", "constitution", "Federal National Council", "electoral college"],
-    reading1Title: "The Consultative Governance in the UAE",
+    reading1Title: "Shura: The Tradition of Consultation",
     reading1Content: `Shura, which means consultation in Arabic, is the process of making decisions by thinking about and discussing issues collectively rather than imposing a single viewpoint. It is a principle deeply embedded in Islamic tradition and Arab culture, rooted in the Quranic injunction that believers should conduct their affairs by mutual consultation. For the people of the UAE, Shura was not an abstract concept but a lived practice that shaped their daily interactions and governance long before the formation of the modern state. In the Bedouin camps, the coastal settlements, and the oasis communities, people gathered in the majlis to discuss matters of common concern, seek the advice of elders, and arrive at decisions through dialogue and consensus. This tradition ensured that leadership was exercised with the consent and participation of the community, rather than through unilateral authority.
 
 Before the Union of the Emirates in 1971, the people of the UAE — then known as the Trucial States — practised Al Shura as their primary method of governance and community decision-making. Each emirate had its own ruler, but the ruler's authority was tempered and guided by the tradition of consultation. Rulers held regular majlis sessions where citizens could voice their opinions, raise concerns, and offer advice on matters ranging from local disputes to matters of trade and security. The rulers of the Trucial States understood that their legitimacy depended not merely on their lineage but on their willingness to listen to their people and govern with their consent. This culture of consultation created a strong bond between the rulers and the ruled, fostering trust, loyalty, and a shared sense of purpose that would prove essential when the time came to form a unified nation.
@@ -332,35 +226,35 @@ Sheikh Zayed's vision for the Federal National Council was articulated from the 
     },
     quizQuestions: [
       {
-        id: "G8T2U4L3Q1",
+        id: "G8T2U4L2Q1",
         question: "What does Shura mean, and how was it practised before the UAE Union?",
         options: ["Shura means 'obedience' and required citizens to follow rulers without question", "Shura means 'consultation' and was practised through the majlis as the primary method of governance in the Trucial States", "Shura means 'election' and was practised through formal voting in the Trucial States", "Shura means 'tradition' and was limited to religious ceremonies only"],
         correctAnswer: 1,
         explanation: "Shura means consultation in Arabic and is the process of making decisions by thinking about and discussing issues collectively. Before the Union, the people of the Trucial States practised Al Shura through the majlis as their primary method of governance and community decision-making."
       },
       {
-        id: "G8T2U4L3Q2",
+        id: "G8T2U4L2Q2",
         question: "What was significant about Supreme Council Resolution No. 4 of 2006?",
         options: ["It abolished the Federal National Council entirely", "It introduced a hybrid system combining election and appointment for FNC membership, with 20 elected and 20 appointed members", "It changed the capital of the UAE", "It reduced the number of emirates in the federation"],
         correctAnswer: 1,
         explanation: "Supreme Council Resolution No. 4 of 2006 introduced a hybrid system that combined election and appointment for FNC membership: half of the 40 members would be elected by citizens through an electoral college, and the other half would be appointed by the rulers of the individual emirates."
       },
       {
-        id: "G8T2U4L3Q3",
+        id: "G8T2U4L2Q3",
         question: "When was the first session of the Federal National Council held?",
         options: ["2 December 1971", "13 February 1972", "1 January 1973", "6 August 1966"],
         correctAnswer: 1,
         explanation: "The first session of the Federal National Council was held on 13 February 1972, marking a historic milestone in the transformation of the traditional practice of Shura into a modern institution of governance."
       },
       {
-        id: "G8T2U4L3Q4",
+        id: "G8T2U4L2Q4",
         question: "How many voters participated in the 2015 FNC election, and what percentage were women?",
         options: ["100,000 voters with 25% women", "224,279 voters with 48% women", "500,000 voters with 50% women", "50,000 voters with 10% women"],
         correctAnswer: 1,
         explanation: "In the 2015 FNC election, 224,279 voters participated, and women made up 48% of the electoral college, reflecting the UAE's commitment to gradually broadening democratic engagement and promoting gender inclusion."
       },
       {
-        id: "G8T2U4L3Q5",
+        id: "G8T2U4L2Q5",
         question: "What did Sheikh Zayed mean when he said: 'I am not imposing unity on anyone. That is tyranny'?",
         options: ["He was rejecting the idea of a unified UAE", "He believed that true unity must come from the free will and collective decision of the people, not from coercion or imposition", "He was criticising the Federal National Council", "He wanted each emirate to be completely independent"],
         correctAnswer: 1,
@@ -379,220 +273,6 @@ Sheikh Zayed's vision for the Federal National Council was articulated from the 
         description: "Students create a visual collage illustrating a majlis gathering and the consultative process, incorporating key elements from both lessons in this unit.",
         duration: 20,
         instructions: "1. Each student receives a large sheet of paper or poster board. 2. Draw or create a visual representation of a majlis in the centre of your poster — it can be a traditional arish majlis or a modern FNC session. 3. Around the central image, add visual elements representing: the people who participate (citizens, rulers, elders), the process of consultation (speaking, listening, discussing, deciding), the results of Shura (laws, community decisions, national unity), and the cultural elements (Arabic coffee, dates, cushions, carpets). 4. Include at least two quotes from the readings — one from Sheikh Zayed and one about the majlis from UNESCO. 5. Add labels and brief explanations for each element. 6. Display the collages around the classroom and have a gallery walk to appreciate the different interpretations of the majlis and consultative governance."
-      }
-    ]
-  },
-
-  // ─── Lesson 4: Traditional Elements of the UAE Government ───
-  {
-    lessonId: "G8_T2_Unit 4_l4",
-    keyVocabulary: ["ruler", "crown prince", "diwan", "executive council", "municipality", "traditional governance"],
-    reading1Title: "Traditional Elements of the UAE Government",
-    reading1Content: `The government of the United Arab Emirates is built upon a foundation that skilfully combines traditional elements of governance inherited from centuries of Arab and Islamic political culture with the modern institutional structures required by a contemporary federal state. Understanding these traditional elements is essential for appreciating how the UAE has managed to preserve its cultural identity while developing into one of the most advanced nations in the region. The traditional elements are not relics of the past; they are living features of governance that continue to shape decision-making, community engagement, and the relationship between rulers and citizens today.
-
-At the heart of the traditional governance structure is the institution of the Ruler, who serves as both the political leader and the symbolic father of the community in each emirate. The concept of rulership in the UAE is deeply rooted in the tribal traditions of the Arabian Peninsula, where leadership was based not only on lineage but also on the ability to command respect, provide for the community, and govern with wisdom and justice. Each of the seven emirates has its own Ruler, and the Ruler's authority is exercised through a combination of formal institutional powers and informal traditional practices. The Ruler holds regular majlis sessions where citizens can present their concerns, seek assistance, and offer advice — a practice that maintains the direct and personal connection between the leadership and the people that has characterised governance in the region for centuries.
-
-The Diwan, or the Ruler's Court, is another important traditional element that continues to play a central role in governance. The Diwan serves as the administrative centre of the Ruler's authority, managing the day-to-day affairs of the emirate, receiving petitions from citizens, and coordinating the work of government departments. Historically, the Diwan was the place where the Ruler held court, received visitors, and made decisions on matters ranging from land disputes to trade agreements. Today, the Diwan has evolved into a sophisticated administrative institution, but it retains its traditional function as the bridge between the Ruler and the people. Citizens who have grievances or requests can still approach the Diwan, knowing that their concerns will be heard and addressed.
-
-The Crown Prince, who is the designated successor to the Ruler, also plays a vital role in the traditional governance structure. The Crown Prince typically assumes significant responsibilities within the emirate's government, often chairing the Executive Council and overseeing the implementation of policies and development projects. This arrangement ensures continuity of leadership and provides the Crown Prince with the experience and preparation needed to assume the role of Ruler in the future. The institution of the Crown Prince reflects the traditional emphasis on orderly succession and the preparation of future leaders — a practice that has contributed to the remarkable stability of the UAE's political system.`,
-    reading2Title: "Traditional Governance in the Modern UAE",
-    reading2Content: `One of the most distinctive features of the UAE's governance system is the way in which traditional institutions have been adapted and integrated into the modern framework of the federal state. The municipalities, for example, have their roots in the traditional system of community management, where local leaders were responsible for maintaining public spaces, regulating markets, and ensuring the welfare of the community. Today, municipalities are modern government departments with professional staff and sophisticated capabilities, but they retain their fundamental mission of serving the community and improving the quality of life for residents.
-
-The Wali, or governor, is another traditional office that continues to play an important role in the governance of the UAE. In some emirates, Walis are appointed to oversee the administration of specific regions or cities, serving as the Ruler's representative at the local level. The Wali is responsible for maintaining public order, resolving disputes, and ensuring that government services are delivered effectively. The position of the Wali reflects the traditional practice of delegating authority to trusted individuals who can act on behalf of the Ruler while maintaining close contact with the local community.
-
-The Executive Council, which exists in each emirate, is a modern institution that has been shaped by traditional governance principles. Chaired by the Crown Prince or a senior member of the ruling family, the Executive Council is responsible for developing and implementing the emirate's strategic plans and policies. While the Council operates within a modern bureaucratic framework, its deliberations are informed by the traditional values of consultation, consensus, and the welfare of the community. The Council's decisions are often shaped by the input received through the majlis and other traditional channels of communication between the rulers and the people.
-
-The relationship between the traditional and modern elements of governance in the UAE can be described as one of mutual reinforcement. The traditional elements — the majlis, the Diwan, the personal authority of the Ruler, the institution of the Crown Prince — provide legitimacy, cultural continuity, and a direct connection between the government and the people. The modern elements — the constitution, the federal institutions, the professional civil service, the legal framework — provide the capacity, efficiency, and institutional strength needed to govern a complex and rapidly developing nation. Together, these elements create a governance system that is both rooted in tradition and capable of meeting the challenges of the twenty-first century. This combination of the old and the new is one of the defining characteristics of the UAE and a key factor in its remarkable success as a nation.`,
-    reading1Time: 8,
-    reading2Time: 8,
-    kwlExplanation: KWL_EXPLANATION,
-    discussionQuestions: [
-      "How does the traditional role of the Ruler in each emirate combine both formal authority and informal practices such as the majlis?",
-      "What is the Diwan, and how does it serve as a bridge between the Ruler and the people in both traditional and modern contexts?",
-      "Why is the institution of the Crown Prince important for the stability and continuity of governance in the UAE?",
-      "How have traditional governance elements like the municipality and the Wali been adapted to serve the modern UAE?",
-      "In what ways do the traditional and modern elements of UAE governance reinforce each other?"
-    ],
-    keyFacts: [
-      "The UAE government combines traditional elements of Arab and Islamic governance with modern institutional structures.",
-      "Each of the seven emirates has its own Ruler who serves as both the political leader and the symbolic father of the community.",
-      "The Ruler's authority is exercised through both formal institutional powers and informal traditional practices such as the majlis.",
-      "The Diwan (Ruler's Court) manages day-to-day affairs, receives citizen petitions, and coordinates government departments.",
-      "The Crown Prince is the designated successor to the Ruler and often chairs the Executive Council.",
-      "The institution of the Crown Prince ensures continuity of leadership and provides preparation for future rulers.",
-      "Municipalities have roots in the traditional system of community management and continue to serve the community today.",
-      "The Wali (governor) serves as the Ruler's representative at the local level, maintaining public order and resolving disputes.",
-      "The Executive Council in each emirate develops and implements strategic plans and policies, informed by traditional values of consultation.",
-      "The traditional elements of governance provide legitimacy and cultural continuity, while modern elements provide capacity and institutional strength."
-    ],
-    visualType: "diagram",
-    visualData: {
-      title: "Traditional Elements of UAE Governance",
-      comparison: [
-        { category: "Leadership", traditional: "Ruler as community father with personal authority", modern: "Ruler within constitutional framework with defined powers" },
-        { category: "Administration", traditional: "Diwan as the Ruler's Court for receiving petitions", modern: "Diwan as professional administrative centre" },
-        { category: "Succession", traditional: "Crown Prince designated from ruling family", modern: "Crown Prince with formal executive responsibilities" },
-        { category: "Local Governance", traditional: "Wali as Ruler's personal representative", modern: "Wali as regional governor with administrative duties" },
-        { category: "Community Services", traditional: "Community management by local leaders", modern: "Municipalities as professional government departments" },
-        { category: "Decision-Making", traditional: "Consultation through majlis and personal dialogue", modern: "Executive Council with strategic planning and policy implementation" }
-      ]
-    },
-    quizQuestions: [
-      {
-        id: "G8T2U4L4Q1",
-        question: "What is the Diwan, and what role does it play in UAE governance?",
-        options: ["A federal legislative body that makes laws for all emirates", "The Ruler's Court that manages day-to-day affairs, receives citizen petitions, and coordinates government departments", "A military headquarters for the UAE Armed Forces", "A religious institution responsible for Islamic affairs"],
-        correctAnswer: 1,
-        explanation: "The Diwan, or Ruler's Court, serves as the administrative centre of the Ruler's authority, managing the day-to-day affairs of the emirate, receiving petitions from citizens, and coordinating the work of government departments."
-      },
-      {
-        id: "G8T2U4L4Q2",
-        question: "What is the role of the Crown Prince in the traditional governance structure?",
-        options: ["The Crown Prince leads the Federal National Council", "The Crown Prince is the designated successor to the Ruler and often chairs the Executive Council, ensuring continuity of leadership", "The Crown Prince manages foreign affairs and diplomatic relations", "The Crown Prince is responsible for the judiciary in each emirate"],
-        correctAnswer: 1,
-        explanation: "The Crown Prince is the designated successor to the Ruler and typically assumes significant responsibilities, often chairing the Executive Council and overseeing the implementation of policies, ensuring continuity of leadership."
-      },
-      {
-        id: "G8T2U4L4Q3",
-        question: "How do municipalities in the UAE connect traditional governance to modern administration?",
-        options: ["They are entirely new institutions with no connection to tradition", "They have roots in the traditional system of community management but now operate as modern government departments with professional staff", "They only handle religious affairs and cultural events", "They are responsible only for the federal government's interests"],
-        correctAnswer: 1,
-        explanation: "Municipalities have their roots in the traditional system of community management, where local leaders were responsible for maintaining public spaces and ensuring community welfare. Today, they are modern government departments with professional staff but retain their fundamental mission of serving the community."
-      },
-      {
-        id: "G8T2U4L4Q4",
-        question: "What is the Wali's role in UAE governance?",
-        options: ["The Wali is the head of the federal judiciary", "The Wali serves as the Ruler's representative at the local level, overseeing administration, maintaining public order, and resolving disputes", "The Wali is responsible for conducting FNC elections", "The Wali manages international trade agreements"],
-        correctAnswer: 1,
-        explanation: "The Wali, or governor, serves as the Ruler's representative at the local level, responsible for maintaining public order, resolving disputes, and ensuring that government services are delivered effectively in specific regions or cities."
-      },
-      {
-        id: "G8T2U4L4Q5",
-        question: "How do traditional and modern elements of governance reinforce each other in the UAE?",
-        options: ["They compete with each other for authority and influence", "Traditional elements provide legitimacy and cultural continuity, while modern elements provide capacity and institutional strength", "Modern elements have completely replaced traditional ones", "Traditional elements are only symbolic and have no real influence on governance"],
-        correctAnswer: 1,
-        explanation: "The traditional elements (majlis, Diwan, personal authority of the Ruler) provide legitimacy, cultural continuity, and a direct connection between government and people. The modern elements (constitution, federal institutions, professional civil service) provide the capacity, efficiency, and institutional strength needed to govern a complex nation."
-      }
-    ],
-    interactiveStrategies: [
-      {
-        strategy: "Governance Structure Diagram",
-        description: "Students create a visual diagram showing how traditional and modern governance elements work together in a UAE emirate.",
-        duration: 20,
-        instructions: "1. On a large sheet of paper, draw two columns: 'Traditional Elements' on the left and 'Modern Elements' on the right. 2. In the Traditional column, include: the Ruler, the majlis, the Diwan, the Crown Prince, and the Wali. 3. In the Modern column, include: the Constitution, the Executive Council, the Federal National Council, municipalities, and the professional civil service. 4. Draw arrows connecting traditional and modern elements that work together (e.g., the majlis connects to the FNC, the Diwan connects to the Executive Council). 5. For each connection, write a brief explanation of how the two elements reinforce each other. 6. Present your diagram to a partner and discuss which connections you found most interesting."
-      },
-      {
-        strategy: "Diwan Petition Writing",
-        description: "Students write a petition to the Diwan of their emirate about a community issue, practising the traditional channel of citizen engagement.",
-        duration: 15,
-        instructions: "1. Think of a real community issue in your area that you would like to bring to the attention of the Ruler's Diwan (e.g., a need for better parks, improved traffic safety, more youth programmes). 2. Write a formal petition of 3-4 paragraphs that: describes the issue clearly, explains how it affects the community, suggests a possible solution, and respectfully requests the Diwan's attention and assistance. 3. Use appropriate formal language and address the petition to 'The Diwan of [your emirate].' 4. Share your petition with a partner and give each other feedback on clarity, persuasiveness, and tone. 5. Discuss as a class: How does the ability to petition the Diwan reflect the UAE's tradition of accessible governance?"
-      }
-    ]
-  },
-
-  // ─── Lesson 5: Combining the Traditional Concept of Majlis with New Technologies ───
-  {
-    lessonId: "G8_T2_Unit 4_l5",
-    keyVocabulary: ["digital majlis", "e-governance", "teleconsultation", "smart government", "virtual participation", "cultural preservation"],
-    reading1Title: "Combining the Traditional Concept of Majlis with New Technologies",
-    reading1Content: `The majlis, one of the most ancient and enduring institutions of Arab culture, is undergoing a remarkable transformation in the digital age. As the United Arab Emirates positions itself as a global leader in technology and innovation, the traditional concept of the majlis — a physical gathering space for consultation, discussion, and decision-making — is being reimagined and enhanced through the application of new technologies. This evolution is not a replacement of tradition but an extension of it, using digital tools to make the spirit of the majlis more accessible, more inclusive, and more effective than ever before. The challenge lies in preserving the essential qualities of the majlis — face-to-face interaction, personal connection, and the warmth of hospitality — while embracing the possibilities that technology offers.
-
-The concept of the digital majlis has emerged as one of the most significant innovations in the evolution of this ancient institution. A digital majlis uses online platforms, video conferencing, and social media to create virtual gathering spaces where people can come together to discuss issues, share ideas, and participate in decision-making, regardless of their physical location. During the COVID-19 pandemic, the importance of digital majlis platforms became especially apparent, as physical gatherings were restricted and the traditional channels of consultation were disrupted. Rulers, government officials, and community leaders turned to virtual platforms to maintain their connection with the people, holding online majlis sessions that allowed citizens to participate in discussions and raise concerns from the safety of their homes. This experience demonstrated that the spirit of the majlis — open dialogue, inclusive participation, and collective problem-solving — could be maintained even when physical gathering was not possible.
-
-The UAE's smart government initiatives have also drawn on the concept of the majlis to create digital platforms for civic engagement. The 'Weyakum' app, developed to foster closer interaction between Federal National Council members and the public, is a direct descendant of the majlis tradition. Through the app, citizens can communicate directly with their FNC representatives, share their views on proposed legislation, and participate in the consultative process that lies at the heart of Emirati governance. Similarly, the UAE government's various digital portals and feedback mechanisms allow citizens to submit suggestions, lodge complaints, and engage with government services online — all of which are modern expressions of the ancient principle that governance should be conducted through consultation and that the voices of the people must be heard.
-
-Social media has also become a powerful tool for extending the reach and impact of the majlis. Government leaders, including members of the ruling families, actively use platforms such as X (formerly Twitter) and Instagram to communicate with citizens, share information, and solicit feedback. These platforms create a virtual majlis where citizens can engage directly with their leaders in real time, asking questions, raising concerns, and offering suggestions. The informal and accessible nature of social media makes it a natural extension of the majlis tradition, breaking down barriers of distance and formality and enabling a more dynamic and responsive form of consultation.`,
-    reading2Title: "Preserving Tradition in the Digital Age",
-    reading2Content: `While the adoption of new technologies offers exciting possibilities for extending the reach and effectiveness of the majlis, it also raises important questions about the preservation of tradition and the potential loss of qualities that make the physical majlis so valuable. The face-to-face interaction that characterises the traditional majlis creates a depth of communication that is difficult to replicate in a digital setting. The nuances of body language, the warmth of a handshake, the sharing of Arabic coffee and dates, and the unhurried pace of conversation all contribute to an experience that builds trust, fosters understanding, and strengthens social bonds in ways that a screen cannot fully replicate.
-
-The challenge for the UAE is to find the right balance between embracing the convenience and reach of digital technologies and preserving the essential qualities of the traditional majlis. One approach has been to use technology as a complement to, rather than a replacement for, physical gatherings. Rulers and government officials continue to hold in-person majlis sessions, while also using digital platforms to extend their reach to citizens who cannot attend in person. This hybrid approach ensures that the traditional majlis remains a living and vital institution while making its benefits available to a wider audience.
-
-Another important consideration is the digital divide — the gap between those who have access to technology and those who do not. While the UAE has one of the highest rates of internet and smartphone penetration in the world, there are still members of the community, particularly among the elderly and those in remote areas, who may find it difficult to participate in digital majlis platforms. Ensuring that the move toward digital consultation does not exclude these voices is essential for maintaining the inclusive and democratic spirit of the majlis. The UAE has addressed this challenge by maintaining multiple channels of engagement, so that citizens can choose the method that best suits their needs and capabilities.
-
-The UAE's approach to combining the traditional concept of the majlis with new technologies offers valuable lessons for other nations and cultures. It demonstrates that tradition and innovation are not mutually exclusive — that ancient institutions can be strengthened and revitalised through the thoughtful application of modern tools. The key is to ensure that technology serves the values of the majlis — openness, inclusivity, consultation, and respect — rather than undermining them. As the UAE continues to pioneer new approaches to digital governance and civic engagement, the majlis remains the guiding principle: that the best decisions are made when people come together, listen to one another, and work toward common goals. Whether this gathering happens in a traditional arish house, a modern council chamber, or a virtual meeting room, the spirit of the majlis endures as one of the most powerful and enduring contributions of Arab culture to the art of governance.`,
-    reading1Time: 8,
-    reading2Time: 8,
-    kwlExplanation: KWL_EXPLANATION,
-    discussionQuestions: [
-      "How has the concept of the digital majlis emerged, and what advantages does it offer over the traditional physical majlis?",
-      "What role did digital majlis platforms play during the COVID-19 pandemic, and what did this reveal about the adaptability of the majlis tradition?",
-      "How do apps like 'Weyakum' and social media platforms extend the reach of the majlis, and how do they connect to the tradition of Shura?",
-      "What are the potential drawbacks of relying too heavily on digital technologies for consultation, and how might the qualities of the traditional majlis be lost?",
-      "How can the UAE balance the benefits of digital consultation with the need to preserve the essential qualities of the physical majlis?"
-    ],
-    keyFacts: [
-      "The digital majlis uses online platforms, video conferencing, and social media to create virtual gathering spaces for consultation and discussion.",
-      "During the COVID-19 pandemic, virtual majlis sessions allowed rulers and officials to maintain their connection with citizens when physical gatherings were restricted.",
-      "The 'Weyakum' app enables citizens to communicate directly with FNC representatives, sharing views and participating in the consultative process.",
-      "UAE government digital portals and feedback mechanisms are modern expressions of the ancient principle of consultative governance.",
-      "Social media platforms such as X (formerly Twitter) and Instagram are used by UAE leaders to communicate with citizens and solicit feedback.",
-      "The face-to-face interaction of the traditional majlis creates a depth of communication that is difficult to replicate digitally.",
-      "The UAE uses a hybrid approach, maintaining in-person majlis sessions alongside digital platforms to extend their reach.",
-      "The digital divide — the gap between those with technology access and those without — is an important consideration for digital majlis initiatives.",
-      "The UAE maintains multiple channels of engagement so that all citizens can participate regardless of their digital capabilities.",
-      "Technology should serve the values of the majlis — openness, inclusivity, consultation, and respect — rather than undermining them."
-    ],
-    visualType: "diagram",
-    visualData: {
-      title: "Traditional Majlis vs Digital Majlis",
-      comparison: [
-        { category: "Gathering Space", traditional: "Physical room with cushions and carpets", modern: "Virtual platform with video conferencing" },
-        { category: "Accessibility", traditional: "Limited to those who can attend in person", modern: "Accessible from anywhere with internet" },
-        { category: "Communication", traditional: "Face-to-face with full body language and nuance", modern: "Screen-based with limited non-verbal cues" },
-        { category: "Hospitality", traditional: "Arabic coffee, dates, and shared meals", modern: "No physical hospitality, but instant connection" },
-        { category: "Record-Keeping", traditional: "Oral tradition and memory", modern: "Digital records and transcripts" },
-        { category: "Inclusivity", traditional: "Open to all who attend physically", modern: "Can include remote and time-constrained participants" }
-      ]
-    },
-    quizQuestions: [
-      {
-        id: "G8T2U4L5Q1",
-        question: "What is a digital majlis?",
-        options: ["A traditional gathering space that has been converted into a museum", "An online platform that uses video conferencing and social media to create virtual gathering spaces for consultation", "A government building where computers are kept", "A type of Arabic coffee served at technology conferences"],
-        correctAnswer: 1,
-        explanation: "A digital majlis uses online platforms, video conferencing, and social media to create virtual gathering spaces where people can come together to discuss issues, share ideas, and participate in decision-making, regardless of their physical location."
-      },
-      {
-        id: "G8T2U4L5Q2",
-        question: "How did the COVID-19 pandemic affect the practice of the majlis in the UAE?",
-        options: ["The majlis tradition was completely abandoned", "Physical majlis sessions were restricted, but rulers and officials maintained their connection with citizens through virtual majlis platforms", "Only the Federal National Council was allowed to meet", "The pandemic had no effect on the majlis tradition"],
-        correctAnswer: 1,
-        explanation: "During the COVID-19 pandemic, physical gatherings were restricted, so rulers, government officials, and community leaders turned to virtual platforms to hold online majlis sessions, demonstrating that the spirit of the majlis could be maintained even when physical gathering was not possible."
-      },
-      {
-        id: "G8T2U4L5Q3",
-        question: "What is the purpose of the 'Weyakum' app in the context of the majlis tradition?",
-        options: ["It is a social media platform for sharing photos", "It enables citizens to communicate directly with FNC representatives, participating in the consultative process digitally", "It is used exclusively for government announcements", "It provides online shopping services for Emirati citizens"],
-        correctAnswer: 1,
-        explanation: "The 'Weyakum' app was developed to foster closer interaction between Federal National Council members and the public, allowing citizens to communicate directly with their FNC representatives, share views on proposed legislation, and participate in the consultative process."
-      },
-      {
-        id: "G8T2U4L5Q4",
-        question: "What is the 'digital divide,' and why is it important for digital majlis initiatives?",
-        options: ["The gap between different social media platforms", "The gap between those who have access to technology and those who do not, which could exclude some citizens from digital consultation", "The difference between traditional and modern governance", "The separation between different government departments"],
-        correctAnswer: 1,
-        explanation: "The digital divide is the gap between those who have access to technology and those who do not. It is important for digital majlis initiatives because elderly citizens and those in remote areas may find it difficult to participate in digital platforms, potentially excluding their voices from the consultative process."
-      },
-      {
-        id: "G8T2U4L5Q5",
-        question: "How does the UAE balance traditional and digital approaches to the majlis?",
-        options: ["By replacing all physical majlis sessions with digital ones", "By maintaining in-person majlis sessions alongside digital platforms, ensuring both tradition and wider accessibility", "By using only social media for all government consultation", "By requiring citizens to choose either traditional or digital engagement"],
-        correctAnswer: 1,
-        explanation: "The UAE uses a hybrid approach, maintaining in-person majlis sessions while also using digital platforms to extend their reach to citizens who cannot attend in person. This ensures the traditional majlis remains a living institution while making its benefits available to a wider audience."
-      }
-    ],
-    interactiveStrategies: [
-      {
-        strategy: "Digital Majlis Design Challenge",
-        description: "Students design a concept for a digital majlis platform that preserves the key values and qualities of the traditional majlis while leveraging the advantages of technology.",
-        duration: 25,
-        instructions: "1. Work in groups of 3-4 students. 2. Brainstorm the essential qualities of the traditional majlis that must be preserved in a digital version (e.g., openness, hospitality, respectful dialogue, equal participation). 3. Design a digital majlis platform that includes: a name and logo, key features (video, chat, polling, etc.), how it will preserve traditional majlis values, how it will address the digital divide, and how it will connect citizens with their FNC representatives. 4. Create a visual mockup or sketch of the platform's interface. 5. Present your design to the class and explain how it combines tradition with innovation."
-      },
-      {
-        strategy: "Majlis Comparison Debate",
-        description: "Students debate the advantages and disadvantages of traditional versus digital majlis, developing arguments for both sides.",
-        duration: 20,
-        instructions: "1. Divide the class into two teams: Team Traditional and Team Digital. 2. Each team has 10 minutes to prepare arguments for their side, using evidence from the readings. 3. Team Traditional argues that the physical majlis is superior and should remain the primary form of consultation. 4. Team Digital argues that the digital majlis offers important advantages and should be embraced. 5. Each team presents their opening arguments (3 minutes each). 6. Open debate for 5 minutes where teams can respond to each other's points. 7. After the debate, each student writes a personal reflection: Can the two approaches work together? What is the ideal balance?"
       }
     ]
   }

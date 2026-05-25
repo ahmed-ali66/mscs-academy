@@ -123,6 +123,8 @@ export interface LessonData {
   resources: string;
   homework: string;
   assessment_type: string;
+  is_mapped?: boolean;
+  lesson_number?: number | null;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -507,15 +509,6 @@ const unitDescriptions: Record<string, string> = {
   'G7_T1_Unit 1': 'Explore duties, responsibilities, moral rules, and moral imperatives that govern individual and community behaviour within the UAE and Islamic ethical framework',
   'G7_T1_Unit 2': 'Develop critical decision-making skills for personal safety, first aid, and crime prevention in home, community, and online environments',
   'G7_T1_Unit 3': 'Discover the geography, engineering, technology, art, and cultural achievements of East Asia — from ancient China to Korea\'s Renaissance',
-  // G9 specific descriptions
-  'G9_T1_Unit 1': 'Analyze global ethics in the context of international relations, ethical challenges, and strategies for addressing global moral issues',
-  'G9_T1_Unit 2': 'Develop financial awareness including the value of money, dangers of greed, wealth as a force for good, and entrepreneurship skills',
-  'G9_T1_Unit 3': 'Explore UAE history from the ancient landscape of Jebel Faya through the Bronze Age, Iron Age falaj systems, to shipbuilding and trade',
-  'G9_T2_Unit 4': 'Understand the importance of heritage, Emirati heritage preservation, cultural and natural heritage conservation, and heritage tourism',
-  'G9_T2_Unit 5': 'Examine the UAE constitution, federal system, federal authorities, law and order, and local governments across the emirates',
-  'G9_T2_Unit 6': 'Trace developments from the rise of Islamic civilisations through the founding of the UAE to early national development and heritage projects',
-  'G9_T3_Unit 1': 'Develop competencies in civic engagement, understand the qualities of a good citizen, and explore civic duties in the UAE context',
-  'G9_T3_Unit 2': 'Explore the UAE\'s transformation in the 21st century including knowledge economy, infrastructure, sustainability, and future development',
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -590,11 +583,8 @@ export function getGradeInfo(): GradeInfo[] {
         if (td.units) {
           for (const [uk, uv] of Object.entries(td.units)) {
             // Filter to only instructional lessons for lessonCount
-            // Also exclude non-textbook lessons (Setting Classroom Rules, etc.)
             const instructionalLessons = (uv.lessons || []).filter(l =>
-              l.phase === 'Instruction' &&
-              !l.lesson_title?.includes('Setting Classroom Rules') &&
-              !l.lesson_title?.includes('Diagnostic Assessment')
+              l.phase === 'Instruction'
             );
             const isPriority = uv.lessons?.some(l => (l.lesson_title || '').includes('★')) ?? false;
             // Extract unit title from lesson titles: "★ Unit 3: Perspectives of People through Time ★ PRIORITY UNIT ★: Lesson Name"
@@ -620,19 +610,37 @@ export function getGradeInfo(): GradeInfo[] {
               'Unit 4': 'Respect and Tolerance in a Diverse Community',
               'Unit 5': 'How the UAE Grew into a Diverse, Inclusive Society',
               'Unit 6': 'Impacts of Transitions in Europe',
+              'G6_T3_Unit 7': 'Government Services',
               // G7 T1 specific overrides
               'G7_T1_Unit 1': 'Individual Responsibilities and Duties and Moral Obligations',
               'G7_T1_Unit 2': 'Making Good Decisions',
               'G7_T1_Unit 3': 'East Asia',
-              // G9 specific overrides
+              // G7 T3 specific overrides
+              'G7_T3_Unit 7': 'Digital Challenge',
+              'G7_T3_Unit 8': 'Moral Education in Action',
+              'G7_T3_Unit 9': 'Central Asia',
+              // G8 T1 specific overrides
+              'G8_T1_Unit 1': 'Ethics in the Context of Communities',
+              'G8_T1_Unit 2': 'Valuing Diversity',
+              'G8_T1_Unit 3': 'African Civilizations',
+              // G8 T2 specific overrides
+              'G8_T2_Unit 4': 'The Growth of Consultative Governance in the UAE',
+              'G8_T2_Unit 5': 'Morality in the Context of States',
+              'G8_T2_General': 'North and South America',
+              // G8 T3 specific overrides
+              'G8_T3_General': 'West Asia, North Africa & The Ottoman Empire',
+              // G9 T1
               'G9_T1_Unit 1': 'Introduction to Global Ethics',
               'G9_T1_Unit 2': 'Financial Awareness',
               'G9_T1_Unit 3': 'UAE History and Heritage',
+              // G9 T2
               'G9_T2_Unit 4': 'What Should Be Preserved and How?',
               'G9_T2_Unit 5': 'Governments, Authority, and the Judiciary System in the UAE',
               'G9_T2_Unit 6': 'Developments Leading up to the Founding of the UAE',
-              'G9_T3_Unit 1': 'Being an Active Citizen',
-              'G9_T3_Unit 2': 'The UAE in the 21st Century',
+              'G9_T2_Unit 7': 'The UAE Emerges',
+              // G9 T3
+              'G9_T3_Unit 8': 'Being an Active Citizen',
+              'G9_T3_Unit 9': 'The UAE in the 21st Century',
             };
             // Check grade+term specific override first, then fallback to general
             const gradeTermKey = `${gk}_${tk}_${uk}`;
@@ -683,9 +691,7 @@ export function getUnitData(gradeKey: string, termKey: string, unitKey: string):
 
   const lessons: LessonData[] = (unitData.lessons || [])
     .filter((l: RawLesson) =>
-      l.phase === 'Instruction' &&
-      !l.lesson_title?.includes('Setting Classroom Rules') &&
-      !l.lesson_title?.includes('Diagnostic Assessment')
+      l.phase === 'Instruction'
     )
     .map((l: RawLesson) => {
       const ss = l.scope_sequence_detail || {};
@@ -703,6 +709,8 @@ export function getUnitData(gradeKey: string, termKey: string, unitKey: string):
         resources: ss.resources_materials || l.resources || '',
         homework: ss.homework_extension || '',
         assessment_type: l.assessment || '',
+        is_mapped: (l as Record<string, unknown>).is_mapped as boolean | undefined,
+        lesson_number: (l as Record<string, unknown>).lesson_number as number | null | undefined,
       };
     });
 
@@ -720,6 +728,7 @@ export function getLesson(gradeKey: string, termKey: string, unitKey: string, le
       title: '', week: 0, domains: '', dok: '', slo_codes: '',
       objective: '', success_criteria: '', prior_learning: '',
       activities: '', assessment: '', resources: '', homework: '', assessment_type: '',
+      is_mapped: false, lesson_number: null,
     };
   }
   return unitData.lessons[lessonIndex];
