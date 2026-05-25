@@ -3877,7 +3877,7 @@ export default function Home() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 1.7 + i * 0.08, duration: 0.5 }}
                       className="group cursor-pointer"
-                      onClick={() => { setSelectedGrade(grade); navigateTo('unitSelect'); }}
+                      onClick={() => { setSelectedGrade(grade); navigateTo('gradeSelect'); }}
                     >
                       <div className="relative rounded-xl overflow-hidden transition-all duration-300 group-hover:scale-[1.03]"
                         style={{
