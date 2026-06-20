@@ -581,40 +581,67 @@ export function getGradeInfo(): GradeInfo[] {
         const units: UnitInfo[] = [];
 
         if (td.units) {
-          for (const [uk, uv] of Object.entries(td.units)) {
+          // Sort units by their first instructional lesson's week number
+          // This ensures units appear in chronological order (Unit 1 → Unit 2 → Unit 3/priority)
+          // regardless of JSON key insertion order (which put "General" before "Unit 1")
+          const sortedUnits = Object.entries(td.units).sort(([, a], [, b]) => {
+            const aLessons = (a.lessons || []).filter(l => l.phase === 'Instruction');
+            const bLessons = (b.lessons || []).filter(l => l.phase === 'Instruction');
+            // For sorting, use the LAST instructional lesson's week (not first)
+            // This ensures "General" units containing week-1 diagnostic + weeks 8-12
+            // priority lessons sort by their actual unit position (week 12), not week 1
+            const aWeek = aLessons.length > 0 ? (aLessons[aLessons.length - 1].week_number || 999) : 999;
+            const bWeek = bLessons.length > 0 ? (bLessons[bLessons.length - 1].week_number || 999) : 999;
+            return aWeek - bWeek;
+          });
+          for (const [uk, uv] of sortedUnits) {
             // Filter to only instructional lessons for lessonCount
             const instructionalLessons = (uv.lessons || []).filter(l =>
               l.phase === 'Instruction'
             );
+            // Skip units with 0 instructional lessons (exam/review-only "General" artifacts)
+            if (instructionalLessons.length === 0) continue;
+
             const isPriority = uv.lessons?.some(l => (l.lesson_title || '').includes('★')) ?? false;
-            // Extract unit title from lesson titles: "★ Unit 3: Perspectives of People through Time ★ PRIORITY UNIT ★: Lesson Name"
-            // → "Perspectives of People through Time"
+            // Extract unit title from lesson titles: "★ Unit 3: African Civilizations ★ PRIORITY UNIT ★: Land and Resources"
+            // → "African Civilizations"
             let unitTitle = uk;
-            const titleLesson = uv.lessons?.find(l => l.lesson_title?.includes(':'));
+            const titleLesson = uv.lessons?.find(l => l.lesson_title?.includes('★') || l.lesson_title?.includes(':'));
             if (titleLesson?.lesson_title) {
               const cleaned = titleLesson.lesson_title.replace(/[★]/g, '').trim();
+              // Format: "Unit 3: African Civilizations  PRIORITY UNIT : Land and Resources"
               const colonParts = cleaned.split(':');
               if (colonParts.length >= 2) {
-                // "Unit 3: Perspectives of People through Time PRIORITY UNIT : Lesson Name"
-                const unitPart = colonParts[0].replace(/^Unit\s*\d+\s*/i, '').trim();
-                const priorityCleaned = unitPart.replace(/PRIORITY UNIT/i, '').trim();
-                unitTitle = priorityCleaned || colonParts[0].trim();
+                // colonParts[0] = "Unit 3", colonParts[1] = " African Civilizations  PRIORITY UNIT "
+                // Try colonParts[1] first (contains the actual unit name for priority units)
+                const part1 = colonParts[1] ? colonParts[1].replace(/PRIORITY UNIT/i, '').trim() : '';
+                if (part1 && !part1.match(/^Unit\s*\d+/i)) {
+                  unitTitle = part1;
+                } else {
+                  // Fallback: try colonParts[0] without "Unit X" prefix
+                  const unitPart = colonParts[0].replace(/^Unit\s*\d+\s*/i, '').trim();
+                  const priorityCleaned = unitPart.replace(/PRIORITY UNIT/i, '').trim();
+                  unitTitle = priorityCleaned || colonParts[0].trim();
+                }
               }
             }
             // Known unit title overrides from textbook (grade+term aware)
+            // NOTE: No global 'General' override — each General unit gets a grade+term specific name
             const unitTitleOverrides: Record<string, string> = {
-              // G6 overrides (default fallback)
-              'General': 'Perspectives of People through Time',
+              // G6 overrides
               'Unit 1': 'Equality and Justice as Fairness',
               'Unit 2': 'Physical Health and Diet',
               'Unit 4': 'Respect and Tolerance in a Diverse Community',
               'Unit 5': 'How the UAE Grew into a Diverse, Inclusive Society',
-              'Unit 6': 'Impacts of Transitions in Europe',
+              'G6_T2_Unit 6': 'Impacts of Transitions in Europe',
+              'G6_T1_General': 'Perspectives of People through Time',
               'G6_T3_Unit 7': 'Government Services',
               // G7 T1 specific overrides
               'G7_T1_Unit 1': 'Individual Responsibilities and Duties and Moral Obligations',
               'G7_T1_Unit 2': 'Making Good Decisions',
               'G7_T1_Unit 3': 'East Asia',
+              // G7 T2 specific
+              'G7_T2_Unit 6': 'Developments in South Asia',
               // G7 T3 specific overrides
               'G7_T3_Unit 7': 'Digital Challenge',
               'G7_T3_Unit 8': 'Moral Education in Action',

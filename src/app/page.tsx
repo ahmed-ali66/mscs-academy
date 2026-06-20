@@ -2587,7 +2587,7 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
                       </div>
                       <div>
                         <h4 className="font-bold text-sm" style={{ color: cs.titleText }}>{link.title}</h4>
-                        <p className="text-xs text-[var(--muted-foreground)] mt-1 leading-relaxed">{link.description}</p>
+                        <p className="text-xs text-[var(--muted-foreground)] mt-1 leading-relaxed">{link.content}</p>
                       </div>
                     </div>
                   </CardContent>
