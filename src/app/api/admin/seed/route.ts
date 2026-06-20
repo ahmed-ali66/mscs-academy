@@ -125,6 +125,7 @@ export async function POST(request: Request) {
 
     await db.systemSetting.createMany({
       data: defaultSettings,
+      skipDuplicates: true, // Idempotent — safe to re-run if settings already exist
     });
 
     // ── Log the seeding action ────────────────────────────────────────
