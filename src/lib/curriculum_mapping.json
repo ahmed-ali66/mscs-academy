@@ -9213,229 +9213,226 @@
           "units": {
             "Unit 1": {
               "unit_name": "Introduction to Global Ethics",
-              "lesson_count": 5,
+              "lesson_count": 3,
               "lessons": [
                 {
-                  "title": "Global Ethics in the Context of Global Issues",
-                  "slo_codes": [
-                    "S4.1.1",
-                    "S8.1.1"
-                  ],
-                  "objectives": [
-                    "Understand the concept of global ethics and moral imperatives",
-                    "Analyse the role of the UN in promoting global morality",
-                    "Evaluate the UAE's approach to tolerance and coexistence"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 2
+                  "week_number": 2,
+                  "date_range": "07 Sep – 11 Sep",
+                  "phase": "Instruction",
+                  "unit": "Unit 1",
+                  "lesson_title": "Introduction to Global Ethics: Global Ethics in the Context of Global Issues",
+                  "domains": "S2, S4, S8",
+                  "slo_codes": "S2.1, S4.1, S8.1",
+                  "dok_level": "DOK 1–2",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G9 V-1 p.4; Teacher Guide V-1",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Introduction to Global Ethics: Global Ethics in the Context of Global Issues",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Introduction to Global Ethics: Global Ethics in the Context of Global Issues.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Exit Ticket / Quick Write",
+                    "resources_materials": "MoE Textbook G9 V-1 p.4; Teacher Guide V-1",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 1,
+                  "is_mapped": true
                 },
                 {
-                  "title": "International Relations of the UAE",
-                  "slo_codes": [
-                    "S4.1.2",
-                    "S2.1.1"
-                  ],
-                  "objectives": [
-                    "Examine the UAE's foreign policy principles",
-                    "Compare UAE and international approaches to human rights",
-                    "Evaluate international collaboration through UAE-Japan partnership"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "week_number": 3,
+                  "date_range": "14 Sep – 18 Sep",
+                  "phase": "Instruction",
+                  "unit": "Unit 1",
+                  "lesson_title": "Introduction to Global Ethics: Global Ethical Challenges",
+                  "domains": "S2, S4, S8",
+                  "slo_codes": "S2.3, S4.3, S8.3",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Formative: Observation / Think-Pair-Share",
+                  "resources": "MoE Textbook G9 V-1 p.26; Teacher Guide V-1",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Introduction to Global Ethics: Global Ethical Challenges",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Introduction to Global Ethics: Global Ethical Challenges.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Observation / Think-Pair-Share",
+                    "resources_materials": "MoE Textbook G9 V-1 p.26; Teacher Guide V-1",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 2,
+                  "is_mapped": true
                 },
                 {
-                  "title": "Global Ethical Challenges",
-                  "slo_codes": [
-                    "S4.1.3",
-                    "S8.1.2"
-                  ],
-                  "objectives": [
-                    "Identify major global ethical challenges",
-                    "Analyse the moral dimensions of poverty and inequality",
-                    "Evaluate the UAE's response to climate change"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 3
-                },
-                {
-                  "title": "World Moral Challenges",
-                  "slo_codes": [
-                    "S4.1.4",
-                    "S8.1.3"
-                  ],
-                  "objectives": [
-                    "Examine the global refugee crisis as a moral challenge",
-                    "Analyse human trafficking and child labour",
-                    "Evaluate the UAE's humanitarian response"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "title": "Dealing with Global Ethical Challenges",
-                  "slo_codes": [
-                    "S4.1.5",
-                    "S8.1.4"
-                  ],
-                  "objectives": [
-                    "Evaluate approaches to addressing global challenges",
-                    "Examine the UAE's model of humanitarian aid",
-                    "Develop personal action plans for ethical engagement"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 4
+                  "week_number": 4,
+                  "date_range": "21 Sep – 25 Sep",
+                  "phase": "Instruction",
+                  "unit": "Unit 1",
+                  "lesson_title": "Introduction to Global Ethics: Dealing with Global Ethical Challenges",
+                  "domains": "S2, S4, S8",
+                  "slo_codes": "S2.4, S4.5, S8.5",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Summative: Unit Quiz / Performance Task",
+                  "resources": "MoE Textbook G9 V-1 p.44; Teacher Guide V-1",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Introduction to Global Ethics: Dealing with Global Ethical Challenges",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Introduction to Global Ethics: Dealing with Global Ethical Challenges.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Summative: Unit Quiz / Performance Task",
+                    "resources_materials": "MoE Textbook G9 V-1 p.44; Teacher Guide V-1",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 3,
+                  "is_mapped": true
                 }
               ]
             },
             "Unit 2": {
               "unit_name": "Financial Awareness",
-              "lesson_count": 5,
+              "lesson_count": 3,
               "lessons": [
                 {
-                  "title": "Realising The Value of Money",
-                  "slo_codes": [
-                    "S5.1.1",
-                    "S8.1.5"
-                  ],
-                  "objectives": [
-                    "Understand the history and function of money",
-                    "Examine the UAE dirham and its significance",
-                    "Develop budgeting skills and financial literacy"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 5
+                  "week_number": 5,
+                  "date_range": "28 Sep – 02 Oct",
+                  "phase": "Instruction",
+                  "unit": "Unit 2",
+                  "lesson_title": "Financial Awareness: Realising the Value of Money",
+                  "domains": "S5, S6, S7",
+                  "slo_codes": "S5.1, S6.1, S7.1",
+                  "dok_level": "DOK 1–2",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G9 V-1 p.54; Teacher Guide V-1",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Financial Awareness: Realising the Value of Money",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Financial Awareness: Realising the Value of Money.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Exit Ticket / Quick Write",
+                    "resources_materials": "MoE Textbook G9 V-1 p.54; Teacher Guide V-1",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 1,
+                  "is_mapped": true
                 },
                 {
-                  "title": "The Dangers of Wealth and Greed",
-                  "slo_codes": [
-                    "S5.1.2",
-                    "S8.1.6"
-                  ],
-                  "objectives": [
-                    "Analyse the psychological and social dangers of greed",
-                    "Examine the impact of debt on individuals and societies",
-                    "Evaluate Islamic teachings on financial responsibility"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "week_number": 8,
+                  "date_range": "19 Oct – 23 Oct",
+                  "phase": "Instruction",
+                  "unit": "Unit 2",
+                  "lesson_title": "Financial Awareness: How Wealth Can Be a Force for Good?",
+                  "domains": "S5, S6, S7",
+                  "slo_codes": "S5.3, S6.3, S7.3",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Formative: Observation / Think-Pair-Share",
+                  "resources": "MoE Textbook G9 V-1 p.78; Teacher Guide V-1",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Financial Awareness: How Wealth Can Be a Force for Good?",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Financial Awareness: How Wealth Can Be a Force for Good?.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Observation / Think-Pair-Share",
+                    "resources_materials": "MoE Textbook G9 V-1 p.78; Teacher Guide V-1",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 2,
+                  "is_mapped": true
                 },
                 {
-                  "title": "How Wealth Can Be a Force for Good?",
-                  "slo_codes": [
-                    "S5.1.3",
-                    "S8.1.7"
-                  ],
-                  "objectives": [
-                    "Examine Islamic concepts of zakat and sadaqah",
-                    "Analyse the role of waqf in Islamic civilization",
-                    "Evaluate CSR and ethical investment"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 6
-                },
-                {
-                  "title": "The Development of Entrepreneurship Skills",
-                  "slo_codes": [
-                    "S5.1.4",
-                    "S8.1.8"
-                  ],
-                  "objectives": [
-                    "Understand the entrepreneurial mindset",
-                    "Examine the UAE's support for entrepreneurs",
-                    "Develop core entrepreneurship skills"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "title": "Becoming an Entrepreneur",
-                  "slo_codes": [
-                    "S5.1.5",
-                    "S8.1.9"
-                  ],
-                  "objectives": [
-                    "Examine the steps of launching a business",
-                    "Evaluate the UAE's entrepreneurial ecosystem",
-                    "Understand ethical principles in entrepreneurship"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 7
+                  "week_number": 9,
+                  "date_range": "26 Oct – 30 Oct",
+                  "phase": "Instruction",
+                  "unit": "Unit 2",
+                  "lesson_title": "Financial Awareness: Becoming an Entrepreneur",
+                  "domains": "S5, S6, S7",
+                  "slo_codes": "S5.5, S6.5, S7.5",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Summative: Unit Quiz / Performance Task",
+                  "resources": "MoE Textbook G9 V-1 p.98; Teacher Guide V-1",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Financial Awareness: Becoming an Entrepreneur",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Financial Awareness: Becoming an Entrepreneur.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Summative: Unit Quiz / Performance Task",
+                    "resources_materials": "MoE Textbook G9 V-1 p.98; Teacher Guide V-1",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 3,
+                  "is_mapped": true
                 }
               ]
             },
             "Unit 3": {
               "unit_name": "UAE History and Heritage",
-              "lesson_count": 5,
+              "lesson_count": 3,
               "lessons": [
                 {
-                  "title": "The UAE Landscape and Jebel Faya",
-                  "slo_codes": [
-                    "S1.1.1",
-                    "S3.1.1"
-                  ],
-                  "objectives": [
-                    "Examine the geological and geographical landscape of the UAE",
-                    "Analyse the archaeological significance of Jebel Faya",
-                    "Evaluate the connection between UAE heritage and global human history"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 8
+                  "week_number": 10,
+                  "date_range": "02 Nov – 06 Nov",
+                  "phase": "Instruction",
+                  "unit": "Unit 3",
+                  "lesson_title": "UAE History and Heritage: The UAE Landscape and Jebel Faya",
+                  "domains": "S1, S3, S9",
+                  "slo_codes": "S1.1, S3.1, S9.1",
+                  "dok_level": "DOK 1–2",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G9 V-1 p.106; Teacher Guide V-1",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: UAE History and Heritage: The UAE Landscape and Jebel Faya",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about UAE History and Heritage: The UAE Landscape and Jebel Faya.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Exit Ticket / Quick Write",
+                    "resources_materials": "MoE Textbook G9 V-1 p.106; Teacher Guide V-1",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 1,
+                  "is_mapped": true
                 },
                 {
-                  "title": "The Bronze Age and Umm an-Nar",
-                  "slo_codes": [
-                    "S1.1.2",
-                    "S3.1.2"
-                  ],
-                  "objectives": [
-                    "Examine the Bronze Age in the UAE",
-                    "Analyse the Umm an-Nar culture and trade networks",
-                    "Evaluate the significance of Bronze Age discoveries"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "week_number": 11,
+                  "date_range": "09 Nov – 13 Nov",
+                  "phase": "Instruction",
+                  "unit": "Unit 3",
+                  "lesson_title": "UAE History and Heritage: The Impact of the Falaj during the Iron Age",
+                  "domains": "S1, S3, S9",
+                  "slo_codes": "S1.3, S3.3, S9.3",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Formative: Observation / Think-Pair-Share",
+                  "resources": "MoE Textbook G9 V-1 p.134; Teacher Guide V-1",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: UAE History and Heritage: The Impact of the Falaj during the Iron Age",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about UAE History and Heritage: The Impact of the Falaj during the Iron Age.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Observation / Think-Pair-Share",
+                    "resources_materials": "MoE Textbook G9 V-1 p.134; Teacher Guide V-1",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 2,
+                  "is_mapped": true
                 },
                 {
-                  "title": "The Impact of the Falaj during the Iron Age",
-                  "slo_codes": [
-                    "S1.1.3",
-                    "S3.1.3"
-                  ],
-                  "objectives": [
-                    "Understand the falaj irrigation system",
-                    "Examine the social and economic impact of the falaj",
-                    "Evaluate the falaj as a model of sustainable water management"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 9
-                },
-                {
-                  "title": "Domestication of Camels and Muweilah",
-                  "slo_codes": [
-                    "S1.1.4",
-                    "S3.1.4"
-                  ],
-                  "objectives": [
-                    "Examine the domestication of camels and its impact",
-                    "Analyse the Muweilah archaeological site",
-                    "Evaluate the role of camels in shaping Emirati heritage"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "title": "Shipbuilding and Trade: Ed-Dur and the Arabian Gulf",
-                  "slo_codes": [
-                    "S1.1.5",
-                    "S3.1.5"
-                  ],
-                  "objectives": [
-                    "Examine traditional shipbuilding in the UAE",
-                    "Analyse the Ed-Dur archaeological site and maritime trade",
-                    "Evaluate the legacy of maritime trade in Emirati culture"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 10
+                  "week_number": 12,
+                  "date_range": "16 Nov – 20 Nov",
+                  "phase": "Instruction",
+                  "unit": "Unit 3",
+                  "lesson_title": "UAE History and Heritage: Shipbuilding and Trade: Ed-Dur and the Arabian Gulf",
+                  "domains": "S1, S3, S9",
+                  "slo_codes": "S1.5, S3.5, S5.1, S9.4",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Summative: Unit Quiz / Performance Task",
+                  "resources": "MoE Textbook G9 V-1 p.158; Teacher Guide V-1",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: UAE History and Heritage: Shipbuilding and Trade: Ed-Dur and the Arabian Gulf",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about UAE History and Heritage: Shipbuilding and Trade: Ed-Dur and the Arabian Gulf.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Summative: Unit Quiz / Performance Task",
+                    "resources_materials": "MoE Textbook G9 V-1 p.158; Teacher Guide V-1",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 3,
+                  "is_mapped": true
                 }
               ]
             }
@@ -9446,215 +9443,180 @@
           "units": {
             "Unit 4": {
               "unit_name": "What Should Be Preserved and How?",
-              "lesson_count": 5,
+              "lesson_count": 2,
               "lessons": [
                 {
-                  "title": "The Importance of Heritage",
-                  "slo_codes": [
-                    "S1.2.1",
-                    "S8.2.1"
-                  ],
-                  "objectives": [
-                    "Distinguish between tangible and intangible heritage",
-                    "Evaluate case studies of heritage preservation",
-                    "Understand UNESCO conventions on cultural heritage"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 1
+                  "week_number": 15,
+                  "date_range": "04 Jan – 08 Jan",
+                  "phase": "Instruction",
+                  "unit": "Unit 4",
+                  "lesson_title": "What Should Be Preserved and How?: The Importance of Heritage",
+                  "domains": "S3, S8, S9",
+                  "slo_codes": "S3.1, S8.1, S9.1",
+                  "dok_level": "DOK 1–2",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G9 V-2 p.8; Teacher Guide V-2",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: What Should Be Preserved and How?: The Importance of Heritage",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about What Should Be Preserved and How?: The Importance of Heritage.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Exit Ticket / Quick Write",
+                    "resources_materials": "MoE Textbook G9 V-2 p.8; Teacher Guide V-2",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 1,
+                  "is_mapped": true
                 },
                 {
-                  "title": "Understanding Emirati Heritage",
-                  "slo_codes": [
-                    "S1.2.2",
-                    "S9.2.1"
-                  ],
-                  "objectives": [
-                    "Examine falconry and its UNESCO recognition",
-                    "Analyse traditional Emirati architecture",
-                    "Evaluate UAE archaeological sites and their significance"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "title": "Preserving the Cultural and Natural Heritage",
-                  "slo_codes": [
-                    "S1.2.3",
-                    "S8.2.2"
-                  ],
-                  "objectives": [
-                    "Understand archaeological excavation processes",
-                    "Examine heritage villages and institutional preservation",
-                    "Evaluate virtual museums and digital preservation"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 2
-                },
-                {
-                  "title": "Heritage Tourism",
-                  "slo_codes": [
-                    "S1.2.4",
-                    "S5.2.1"
-                  ],
-                  "objectives": [
-                    "Analyse the economic impact of heritage tourism",
-                    "Examine threats to heritage sites from tourism",
-                    "Evaluate UAE heritage tourism initiatives"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "title": "What Am I Supposed to Do to Keep my Heritage?",
-                  "slo_codes": [
-                    "S1.2.5",
-                    "S8.2.3"
-                  ],
-                  "objectives": [
-                    "Examine UNESCO World Heritage Convention and youth involvement",
-                    "Evaluate traditional Emirati arts and their preservation",
-                    "Develop personal heritage preservation action plans"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "week_number": 16,
+                  "date_range": "11 Jan – 15 Jan",
+                  "phase": "Instruction",
+                  "unit": "Unit 4",
+                  "lesson_title": "What Should Be Preserved and How?: Preserving the Cultural and Natural Heritage",
+                  "domains": "S3, S8, S9",
+                  "slo_codes": "S3.2, S8.3, S9.3",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Summative: Unit Quiz / Performance Task",
+                  "resources": "MoE Textbook G9 V-2 p.26; Teacher Guide V-2",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: What Should Be Preserved and How?: Preserving the Cultural and Natural Heritage",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about What Should Be Preserved and How?: Preserving the Cultural and Natural Heritage.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Summative: Unit Quiz / Performance Task",
+                    "resources_materials": "MoE Textbook G9 V-2 p.26; Teacher Guide V-2",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 2,
+                  "is_mapped": true
                 }
               ]
             },
             "Unit 5": {
               "unit_name": "Governments, Authority, and the Judiciary System in the UAE",
-              "lesson_count": 5,
+              "lesson_count": 2,
               "lessons": [
                 {
-                  "title": "Exploring the UAE Constitution",
-                  "slo_codes": [
-                    "S2.2.1",
-                    "S4.2.1"
-                  ],
-                  "objectives": [
-                    "Understand the UAE Constitution and key articles",
-                    "Examine the UAE as a constitutional federation",
-                    "Evaluate constitutional rights and duties"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 3
+                  "week_number": 17,
+                  "date_range": "18 Jan – 22 Jan",
+                  "phase": "Instruction",
+                  "unit": "Unit 5",
+                  "lesson_title": "Governments, Authority, and the Judiciary System in the UAE: Exploring the UAE Constitution and Government System",
+                  "domains": "S1, S2, S9",
+                  "slo_codes": "S1.1, S2.1, S9.1",
+                  "dok_level": "DOK 1–2",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G9 V-2 p.56; Teacher Guide V-2",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Governments, Authority, and the Judiciary System in the UAE: Exploring the UAE Constitution and Government System",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Governments, Authority, and the Judiciary System in the UAE: Exploring the UAE Constitution and Government System.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Exit Ticket / Quick Write",
+                    "resources_materials": "MoE Textbook G9 V-2 p.56; Teacher Guide V-2",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 1,
+                  "is_mapped": true
                 },
                 {
-                  "title": "The Federal System",
-                  "slo_codes": [
-                    "S2.2.2",
-                    "S4.2.2"
-                  ],
-                  "objectives": [
-                    "Identify the three branches of government",
-                    "Examine the five federal authorities",
-                    "Understand the structure and composition of federal bodies"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "title": "Federal Authorities of the UAE",
-                  "slo_codes": [
-                    "S2.2.3",
-                    "S4.2.3"
-                  ],
-                  "objectives": [
-                    "Analyse the roles of the Supreme Council and President",
-                    "Examine federal ministries and government evolution",
-                    "Understand how government changes reflect citizen needs"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 4
-                },
-                {
-                  "title": "Law and Order in the UAE",
-                  "slo_codes": [
-                    "S2.2.4",
-                    "S4.2.4"
-                  ],
-                  "objectives": [
-                    "Examine the UAE judicial structure",
-                    "Understand the role of Sharia in the court system",
-                    "Evaluate smart transformation of judicial services"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
-                },
-                {
-                  "title": "Local Governments Across the UAE",
-                  "slo_codes": [
-                    "S2.2.5",
-                    "S4.2.5"
-                  ],
-                  "objectives": [
-                    "Understand federal vs local jurisdiction",
-                    "Examine emirate autonomy and executive councils",
-                    "Evaluate smart governance initiatives"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "week_number": 18,
+                  "date_range": "25 Jan – 29 Jan",
+                  "phase": "Instruction",
+                  "unit": "Unit 5",
+                  "lesson_title": "Governments, Authority, and the Judiciary System in the UAE: Federal Authorities of the UAE",
+                  "domains": "S1, S2, S9",
+                  "slo_codes": "S1.2, S2.3, S9.3",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Summative: Unit Quiz / Performance Task",
+                  "resources": "MoE Textbook G9 V-2 p.70; Teacher Guide V-2",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Governments, Authority, and the Judiciary System in the UAE: Federal Authorities of the UAE",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Governments, Authority, and the Judiciary System in the UAE: Federal Authorities of the UAE.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Summative: Unit Quiz / Performance Task",
+                    "resources_materials": "MoE Textbook G9 V-2 p.70; Teacher Guide V-2",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 2,
+                  "is_mapped": true
                 }
               ]
             },
             "Unit 6": {
               "unit_name": "Developments Leading up to the Founding of the UAE",
-              "lesson_count": 4,
+              "lesson_count": 3,
               "lessons": [
                 {
-                  "title": "The Rise of Islamic Civilisations in the land of the UAE",
-                  "slo_codes": [
-                    "S1.2.6",
-                    "S3.2.1"
-                  ],
-                  "objectives": [
-                    "Trace the arrival of Islam in the UAE region",
-                    "Examine early Islamic architecture",
-                    "Evaluate the contributions of Ahmed bin Majid"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 5
+                  "week_number": 19,
+                  "date_range": "01 Feb – 05 Feb",
+                  "phase": "Instruction",
+                  "unit": "Unit 6",
+                  "lesson_title": "Developments Leading up to the Founding of the UAE: The Rise of Islamic Civilisations in the Land of the UAE",
+                  "domains": "S1, S2, S9",
+                  "slo_codes": "S1.1, S2.1, S9.1",
+                  "dok_level": "DOK 1–2",
+                  "assessment": "Formative: Exit Ticket / Quick Write",
+                  "resources": "MoE Textbook G9 V-2 p.90; Teacher Guide V-2",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Developments Leading up to the Founding of the UAE: The Rise of Islamic Civilisations in the Land of the UAE",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Developments Leading up to the Founding of the UAE: The Rise of Islamic Civilisations in the Land of the UAE.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Exit Ticket / Quick Write",
+                    "resources_materials": "MoE Textbook G9 V-2 p.90; Teacher Guide V-2",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 1,
+                  "is_mapped": true
                 },
                 {
-                  "title": "Emergence of Bani Yas and Qawasim",
-                  "slo_codes": [
-                    "S1.2.7",
-                    "S3.2.2"
-                  ],
-                  "objectives": [
-                    "Examine Portuguese colonial period in the Gulf",
-                    "Analyse local resistance against Portuguese occupation",
-                    "Understand the origins of Bani Yas and Qawasim tribes"
-                  ],
-                  "is_mapped": false,
-                  "lesson_number": null
+                  "week_number": 22,
+                  "date_range": "22 Feb – 26 Feb",
+                  "phase": "Instruction",
+                  "unit": "Unit 6",
+                  "lesson_title": "Developments Leading up to the Founding of the UAE: The British Maritime System and National Identity",
+                  "domains": "S1, S2, S9",
+                  "slo_codes": "S1.3, S2.3, S9.3",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Formative: Observation / Think-Pair-Share",
+                  "resources": "MoE Textbook G9 V-2 p.111; Teacher Guide V-2",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Developments Leading up to the Founding of the UAE: The British Maritime System and National Identity",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Developments Leading up to the Founding of the UAE: The British Maritime System and National Identity.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Formative: Observation / Think-Pair-Share",
+                    "resources_materials": "MoE Textbook G9 V-2 p.111; Teacher Guide V-2",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 2,
+                  "is_mapped": true
                 },
                 {
-                  "title": "The British Maritime System and National Identity",
-                  "slo_codes": [
-                    "S1.2.8",
-                    "S3.2.3"
-                  ],
-                  "objectives": [
-                    "Examine British interference in the southern Gulf",
-                    "Analyse the treaty system 1820-1892",
-                    "Evaluate the impact of British treaties on local sovereignty"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 6
-                },
-                {
-                  "title": "The Trucial States Leading up to Nationalisation",
-                  "slo_codes": [
-                    "S1.2.9",
-                    "S3.2.4"
-                  ],
-                  "objectives": [
-                    "Examine key leaders of the Emirates",
-                    "Understand the impact of WWII and the oil discovery",
-                    "Evaluate the transition from Trucial States to UAE"
-                  ],
-                  "is_mapped": true,
-                  "lesson_number": 7
+                  "week_number": 23,
+                  "date_range": "01 Mar – 05 Mar",
+                  "phase": "Instruction",
+                  "unit": "Unit 6",
+                  "lesson_title": "Developments Leading up to the Founding of the UAE: The Trucial States Leading up to Nationalisation",
+                  "domains": "S1, S2, S9",
+                  "slo_codes": "S1.4, S2.4, S9.4",
+                  "dok_level": "DOK 2–3",
+                  "assessment": "Summative: Unit Quiz / Performance Task",
+                  "resources": "MoE Textbook G9 V-2 p.123; Teacher Guide V-2",
+                  "scope_sequence_detail": {
+                    "learning_objective": "You will be able to analyze, evaluate, and synthesize the key concepts of: Developments Leading up to the Founding of the UAE: The Trucial States Leading up to Nationalisation",
+                    "success_criteria": "I can explain the key concepts, apply them to real-world examples, and reflect on their relevance to UAE society.",
+                    "prior_learning_engagement": "Recall what you already know about Developments Leading up to the Founding of the UAE: The Trucial States Leading up to Nationalisation.",
+                    "teaching_learning_activities": "Interactive reading, discussion, KWL chart, visual analysis, and formative assessment.",
+                    "assessment_closure": "Summative: Unit Quiz / Performance Task",
+                    "resources_materials": "MoE Textbook G9 V-2 p.123; Teacher Guide V-2",
+                    "homework_extension": "Research and reflect on how this topic applies to your community."
+                  },
+                  "lesson_number": 3,
+                  "is_mapped": true
                 }
               ]
             },

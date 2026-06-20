@@ -1426,57 +1426,47 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
     const grade = selectedGrade;
     const colors = gradeColorMap[grade.number];
 
-    // Get curriculum data for this grade (from XLSX extraction)
+    // Get curriculum data for this grade (from XLSX extraction) — used for stats only
     const gradeKey = `g${grade.number}` as keyof typeof CURRICULUM_2026_2027;
     const curriculum = CURRICULUM_2026_2027[gradeKey];
     const weeks = curriculum?.weeks || [];
+    const instructionWeeks = weeks.filter(w => w.phase === 'Instruction').length;
 
     // Pick a representative subject for the hero based on grade
     const gradeSubjectMap: Record<number, Subject> = {
-      6: 'ethics',        // G6: identity, values, character
-      7: 'geography',     // G7: East Asia, South Asia, Central Asia
-      8: 'history',       // G8: African civ, Americas, Ottoman
-      9: 'uae_heritage',  // G9: UAE history, civic engagement
+      6: 'ethics',
+      7: 'geography',
+      8: 'history',
+      9: 'uae_heritage',
     };
     const heroSubject: Subject = gradeSubjectMap[grade.number] || 'general';
 
-    // Stats from the curriculum
-    const instructionWeeks = weeks.filter(w => w.phase === 'Instruction').length;
-    const priorityUnits = weeks.filter(w => w.isPriorityUnit);
-    const uniqueDomains = new Set<string>();
-    weeks.forEach(w => {
-      if (w.domains) w.domains.split(',').forEach((d: string) => uniqueDomains.add(d.trim()));
-    });
-
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        {/* 3D HERO — Immersive subject-themed header */}
+        {/* 3D HERO */}
         <div className="relative">
           <Hero3D
             subject={heroSubject}
             title={grade.title}
-            eyebrow={`Grade ${grade.number} · ${grade.tagline}`}
+            eyebrow={`Grade ${grade.number} · Academic Year 2026–2027`}
             accentColor={colors.accent === '#0F5C5E' ? '#C68A2E' : colors.accent}
           >
             <p className="text-sm sm:text-base mb-4 max-w-2xl mx-auto">{grade.tagline}</p>
             <div className="flex flex-wrap justify-center gap-3 text-xs">
               <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 rounded-full px-3 py-1.5">
-                <BookOpen className="w-3.5 h-3.5" /> {instructionWeeks} lessons
+                <BookOpen className="w-3.5 h-3.5" /> {grade.totalLessons} lessons
               </span>
               <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 rounded-full px-3 py-1.5">
-                <Calendar className="w-3.5 h-3.5" /> 40 weeks · 3 terms
+                <Calendar className="w-3.5 h-3.5" /> 3 terms · 40 weeks
               </span>
               <span className="inline-flex items-center gap-1.5 bg-[#C68A2E]/20 border border-[#C68A2E]/40 rounded-full px-3 py-1.5">
-                <Star className="w-3.5 h-3.5" /> {priorityUnits.length} priority unit lessons
-              </span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 rounded-full px-3 py-1.5">
-                <Target className="w-3.5 h-3.5" /> {uniqueDomains.size} domain standards
+                <Target className="w-3.5 h-3.5" /> 45 min/week
               </span>
             </div>
           </Hero3D>
         </div>
 
-        {/* Back button + nav strip */}
+        {/* Nav strip */}
         <div className="bg-[var(--card)] border-b border-[var(--border)] sticky top-0 z-20 backdrop-blur-md bg-[var(--card)]/95">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <Button variant="ghost" onClick={() => navigateTo('landing')} className="text-[var(--ink)] hover:text-[var(--teal)] hover:bg-[var(--muted)]">
@@ -1486,117 +1476,97 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
           </div>
         </div>
 
-        {/* MAIN CONTENT */}
+        {/* MAIN CONTENT — Units grouped by Term, each unit clickable */}
         <div className="max-w-6xl mx-auto px-4 py-10 flex-1 space-y-12">
+          {grade.terms.map(term => {
+            const termColors = colors;
+            return (
+              <section key={term.key}>
+                {/* Term header */}
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold shrink-0" style={{ background: termColors.accent, boxShadow: '0 4px 12px rgba(15,92,94,0.25)' }}>
+                    T{term.number}
+                  </div>
+                  <div>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[var(--ink)]" style={{ fontFamily: 'var(--font-serif)' }}>
+                      {term.title}
+                    </h2>
+                    <p className="text-xs text-[var(--muted-foreground)]">{term.units.length} units · click a unit to explore lessons</p>
+                  </div>
+                  <div className="flex-1 h-px bg-[var(--border)]" />
+                </div>
 
-          {/* Section: Academic Year Journey (40-week timeline) */}
-          <section>
-            <div className="text-center mb-6">
-              <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--bronze)]">Academic Year 2026–2027</span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink)] mt-1" style={{ fontFamily: 'var(--font-serif)' }}>
-                The 40-Week Journey
-              </h2>
-              <p className="text-sm text-[var(--muted-foreground)] mt-1 max-w-xl mx-auto">
-                Every lesson mapped to its week, term, and phase — from diagnostic assessment through final exams.
-              </p>
-              <DecorativeBorder />
-            </div>
-            <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 sm:p-6 card-heritage">
-              <WeekTimeline weeks={weeks} />
-            </div>
-          </section>
+                {/* Unit cards grid */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {term.units.map(unit => {
+                    const unitData = getUnitData(grade.key, term.key, unit.key);
+                    const lessonCount = unitData ? unitData.lessons.length : unit.lessonCount;
+                    const mappedCount = unitData ? unitData.lessons.filter(l => l.is_mapped).length : 0;
+                    const unitSubject: Subject = unit.isPriority ? 'history' : 'general';
 
-          {/* Section: Term-by-term breakdown */}
-          <section>
-            <div className="text-center mb-8">
-              <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--bronze)]">Three Terms · 24 Lessons</span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink)] mt-1" style={{ fontFamily: 'var(--font-serif)' }}>
-                Explore by Term
-              </h2>
-              <DecorativeBorder />
-            </div>
-            <div className="grid md:grid-cols-3 gap-6">
-              {grade.terms.map(term => {
-                const termWeeks = weeks.filter(w => w.term === `T${term.number}`);
-                const termInstructionWeeks = termWeeks.filter(w => w.phase === 'Instruction').length;
-                const termHasPriority = termWeeks.some(w => w.isPriorityUnit);
-                return (
-                  <Card3D
-                    key={term.key}
-                    lift={10}
-                    tiltAmount={5}
-                    onClick={() => { setSelectedTerm(term); navigateTo('unitSelect'); }}
-                    className="h-full"
-                  >
-                    <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl overflow-hidden h-full flex flex-col">
-                      {/* Term header bar with gradient */}
-                      <div className="h-2" style={{ background: colors.gradientBg }} />
-                      <div className="p-5 flex-1 flex flex-col">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0" style={{ background: colors.accent }}>
-                            T{term.number}
-                          </div>
-                          <div>
-                            <h3 className="font-bold text-[var(--ink)]" style={{ fontFamily: 'var(--font-serif)' }}>{term.title}</h3>
-                            <p className="text-xs text-[var(--muted-foreground)]">{termInstructionWeeks} instructional weeks</p>
-                          </div>
-                          {termHasPriority && (
-                            <span title="Contains priority unit" className="ml-auto text-[#B08D3C]">★</span>
-                          )}
-                        </div>
+                    return (
+                      <Card3D
+                        key={unit.key}
+                        lift={8}
+                        tiltAmount={4}
+                        onClick={() => { setSelectedTerm(term); setSelectedUnit(unit); navigateTo('unitSelect'); }}
+                        className="h-full"
+                      >
+                        <div className={`bg-[var(--card)] border rounded-xl overflow-hidden h-full flex flex-col ${unit.isPriority ? 'border-[var(--teal)]/60' : 'border-[var(--border)]'}`}>
+                          {/* Top color stripe */}
+                          <div className="h-1.5" style={{ background: termColors.gradientBg }} />
 
-                        {/* Term unit cards (compact) */}
-                        <div className="space-y-2 flex-1">
-                          {term.units.slice(0, 4).map(unit => (
-                            <div key={unit.key} className="text-xs p-2 rounded-lg bg-[var(--muted)]/40 border border-[var(--border)]">
-                              <div className="font-medium text-[var(--ink)] flex items-center gap-1.5">
-                                {unit.isPriority && <Star className="w-3 h-3 text-[#B08D3C]" />}
-                                <span className="line-clamp-1">{unit.title}</span>
-                              </div>
-                              <div className="text-[10px] text-[var(--muted-foreground)] mt-0.5">{unit.lessonCount} lessons</div>
+                          <div className="p-5 flex-1 flex flex-col">
+                            {/* Title row with priority star */}
+                            <div className="flex items-start gap-2 mb-2">
+                              {unit.isPriority && (
+                                <span title="Priority Unit" className="text-[#B08D3C] text-lg leading-none">★</span>
+                              )}
+                              <h3 className="font-bold text-[var(--ink)] leading-tight flex-1" style={{ fontFamily: 'var(--font-serif)' }}>
+                                {unit.title}
+                              </h3>
                             </div>
-                          ))}
-                          {term.units.length > 4 && (
-                            <div className="text-[10px] text-[var(--muted-foreground)] italic text-center pt-1">
-                              +{term.units.length - 4} more units
+
+                            {/* Description */}
+                            <p className="text-xs text-[var(--muted-foreground)] mb-3 line-clamp-2 flex-1">{unit.description}</p>
+
+                            {/* Meta row */}
+                            <div className="flex items-center gap-2 text-[10px] flex-wrap pt-3 border-t border-[var(--border)]">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)]">
+                                <BookOpen className="w-3 h-3" /> {lessonCount} lessons
+                              </span>
+                              {mappedCount > 0 && mappedCount < lessonCount && (
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--bronze)]/15 text-[var(--bronze)]">
+                                  ★ {mappedCount} mapped
+                                </span>
+                              )}
+                              {unit.isPriority && (
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--teal)]/15 text-[var(--teal)] font-medium">
+                                  Priority
+                                </span>
+                              )}
+                              <span className="ml-auto inline-flex items-center gap-1 text-[var(--teal)] font-medium">
+                                Explore <ChevronRight className="w-3 h-3" />
+                              </span>
                             </div>
-                          )}
+                          </div>
                         </div>
+                      </Card3D>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
 
-                        {/* CTA */}
-                        <div className="mt-4 pt-3 border-t border-[var(--border)]">
-                          <button
-                            onClick={() => { setSelectedTerm(term); navigateTo('unitSelect'); }}
-                            className="w-full text-xs font-semibold text-[var(--teal)] hover:text-[var(--teal-deep)] flex items-center justify-center gap-1.5 transition-colors"
-                          >
-                            Explore Term {term.number} <ChevronRight className="w-3 h-3" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </Card3D>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* Section: Domain Standards covered this year */}
-          <section>
-            <div className="text-center mb-6">
-              <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--bronze)]">9 Domain Standards · S1–S9</span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink)] mt-1" style={{ fontFamily: 'var(--font-serif)' }}>
-                Domains Covered
-              </h2>
-              <DecorativeBorder />
-            </div>
-            <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 sm:p-6">
-              <div className="flex flex-wrap gap-2 justify-center">
-                {Array.from(uniqueDomains).sort().map(code => (
-                  <DomainBadge key={code} code={code} size="md" />
-                ))}
-              </div>
-            </div>
-          </section>
+          {/* Footer note about curriculum */}
+          <div className="bg-[var(--muted)]/40 border border-[var(--border)] rounded-xl p-5 text-center">
+            <p className="text-xs text-[var(--muted-foreground)]">
+              <Calendar className="w-3.5 h-3.5 inline mr-1.5" />
+              Each lesson is mapped to a specific week in the 40-week academic year.
+              Lesson numbers indicate sequence within each unit.
+            </p>
+          </div>
         </div>
 
         <footer className="bg-[var(--ink)] text-[#E8DCC0]/40 py-6 px-4 text-center">
@@ -1616,31 +1586,21 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
 
     const unitData = getUnitData(selectedGrade.key, selectedTerm.key, selectedUnit.key);
     const lessons = unitData ? unitData.lessons : [];
-
-    // Get curriculum context for this grade
-    const gradeKey = `g${selectedGrade.number}` as keyof typeof CURRICULUM_2026_2027;
-    const curriculum = CURRICULUM_2026_2027[gradeKey];
-    const termWeeks = (curriculum?.weeks || []).filter(w => w.term === `T${selectedTerm.number}`);
-
-    // Find lessons in this unit from the curriculum (by week matching)
-    const unitLessonWeeks = termWeeks.filter(w => {
-      const t = (w.topic || '').toLowerCase();
-      const u = (selectedUnit.title || '').toLowerCase();
-      // Match priority units by name, or unit by number
-      if (w.isPriorityUnit && w.priorityUnitName) {
-        return w.priorityUnitName.toLowerCase().includes(u) || u.includes(w.priorityUnitName.toLowerCase());
-      }
-      return false;
-    });
-
     const colors = gradeColorMap[selectedGrade.number];
+
+    // Pick subject for hero based on unit priority + grade
+    const unitSubject: Subject = selectedUnit.isPriority ? 'history' : (
+      selectedGrade.number === 7 ? 'geography' :
+      selectedGrade.number === 9 ? 'uae_heritage' :
+      selectedGrade.number === 6 ? 'ethics' : 'general'
+    );
 
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        {/* 3D HERO — Unit-themed */}
+        {/* 3D HERO */}
         <div className="relative">
           <Hero3D
-            subject={selectedUnit.isPriority ? 'history' : 'general'}
+            subject={unitSubject}
             title={selectedUnit.title}
             eyebrow={`Grade ${selectedGrade.number} · Term ${selectedTerm.number} · ${selectedUnit.isPriority ? 'Priority Unit' : 'Unit'}`}
             accentColor={colors.accent === '#0F5C5E' ? '#C68A2E' : colors.accent}
@@ -1655,6 +1615,9 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
                   <Star className="w-3.5 h-3.5" /> Priority Unit
                 </span>
               )}
+              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 rounded-full px-3 py-1.5">
+                <Calendar className="w-3.5 h-3.5" /> 45 min/lesson
+              </span>
             </div>
           </Hero3D>
         </div>
@@ -1674,10 +1637,12 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
           {lessons.length === 0 ? (
             <div className="text-center py-20">
               <BookOpen className="w-16 h-16 mx-auto text-[var(--muted-foreground)] opacity-50 mb-4" />
-              <h3 className="text-xl font-bold text-[var(--ink)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>No lessons mapped yet</h3>
+              <h3 className="text-xl font-bold text-[var(--ink)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>
+                No lessons available yet
+              </h3>
               <p className="text-sm text-[var(--muted-foreground)] max-w-md mx-auto">
-                This unit is part of the curriculum but doesn&rsquo;t have specific lesson content yet.
-                Check the curriculum mapping for what should be covered here.
+                This unit is part of the curriculum but lesson content is still being prepared.
+                Check back soon, or contact your teacher.
               </p>
             </div>
           ) : (
@@ -1698,11 +1663,11 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
                 const lessonNum = lesson.lesson_number;
                 const displayLabel = lessonNum ? `L${lessonNum}` : `L${idx + 1}`;
 
-                // Get DOK + domains as arrays
+                // DOK + domains as arrays
                 const dokLevels = (lesson.dok || '').split(',').map(s => s.trim()).filter(Boolean);
                 const domainCodes = (lesson.domains || '').split(',').map(s => s.trim()).filter(Boolean);
                 const primaryDomain = domainCodes[0];
-                const primarySubject = primaryDomain ? getDomainMeta(primaryDomain).subject : 'general' as Subject;
+                const primarySubject = primaryDomain ? getDomainMeta(primaryDomain).subject : unitSubject;
 
                 return (
                   <Card3D
@@ -1720,7 +1685,7 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
                     <div className={`bg-[var(--card)] border rounded-xl overflow-hidden transition-all ${isMapped ? 'border-[var(--teal)]/40' : 'border-[var(--border)]'}`}>
                       <div className="p-5 sm:p-6">
                         <div className="flex items-start gap-4">
-                          {/* Lesson number badge with 3D effect */}
+                          {/* Lesson number badge */}
                           <div
                             className="w-14 h-14 rounded-xl flex items-center justify-center text-white font-bold shrink-0 relative overflow-hidden"
                             style={{
@@ -1735,7 +1700,7 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
                           </div>
 
                           <div className="flex-1 min-w-0">
-                            {/* Title row */}
+                            {/* Title */}
                             <div className="flex items-start gap-2 mb-1">
                               {isMapped && <Star className="w-3.5 h-3.5 text-[#B08D3C] mt-1 shrink-0" />}
                               <h3 className="font-bold text-[var(--ink)] text-sm sm:text-base leading-tight" style={{ fontFamily: 'var(--font-serif)' }}>
@@ -1749,13 +1714,13 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
 
                             {/* Objective preview */}
                             <p className="text-xs text-[var(--muted-foreground)] mt-1 line-clamp-2">
-                              {lesson.objective.replace(/^SWBAT\s*/i, '').substring(0, 140)}
-                              {lesson.objective.length > 140 ? '...' : ''}
+                              {lesson.objective.replace(/^SWBAT\s*/i, 'You will ').replace(/^Student can:\s*/i, '').substring(0, 160)}
+                              {lesson.objective.length > 160 ? '...' : ''}
                             </p>
 
-                            {/* Meta row: Week + DOK + Domains + CTA */}
+                            {/* Meta row: WEEK NUMBER + DOK + Domains + CTA */}
                             <div className="flex items-center gap-2 mt-3 flex-wrap">
-                              <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] border border-[var(--border)]">
+                              <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[var(--teal)]/15 text-[var(--teal)] border border-[var(--teal)]/30 font-semibold">
                                 <Calendar className="w-3 h-3" /> Week {lesson.week}
                               </span>
                               {dokLevels.map((d, i) => (
