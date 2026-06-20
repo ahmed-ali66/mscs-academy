@@ -38,6 +38,11 @@ import { getG8T3LessonContent } from '@/lib/g8t3-content';
 import { getG9T1LessonContent } from '@/lib/g9t1-content';
 import { getG9T2LessonContent } from '@/lib/g9t2-content';
 import { getG9T3LessonContent } from '@/lib/g9t3-content';
+import { CURRICULUM_2026_2027 } from '@/lib/curriculum_2026_2027';
+import {
+  Hero3D, Card3D, WeekTimeline, DomainBadge, DokBadge, getDomainMeta,
+  type Subject,
+} from '@/components/visual/Visual3DToolkit';
 
 // ═══════════════════════════════════════════════════════════════
 // CONTENT LOOKUP — Find rich textbook content for a lesson
@@ -347,13 +352,13 @@ function KWLChart() {
     <div className="flex gap-3 overflow-x-auto pb-2">
       <KWLColumn title="What I Know" icon={<Eye className="w-4 h-4" />} items={knowItems}
         onAdd={() => setKnowItems([...knowItems, ''])} onUpdate={(i, v) => { const a = [...knowItems]; a[i] = v; setKnowItems(a); }}
-        color="text-amber-700" bgColor="bg-amber-50/50" borderColor="border-amber-300" />
+        color="text-[var(--bronze)]" bgColor="bg-[var(--muted)]/50" borderColor="border-[var(--bronze)]/40" />
       <KWLColumn title="Want to Know" icon={<Lightbulb className="w-4 h-4" />} items={wantItems}
         onAdd={() => setWantItems([...wantItems, ''])} onUpdate={(i, v) => { const a = [...wantItems]; a[i] = v; setWantItems(a); }}
-        color="text-emerald-700" bgColor="bg-emerald-50/50" borderColor="border-emerald-300" />
+        color="text-[var(--sage)]" bgColor="bg-[var(--sage)]/10/50" borderColor="border-[var(--sage)]/40" />
       <KWLColumn title="What I Learned" icon={<CheckCircle2 className="w-4 h-4" />} items={learnedItems}
         onAdd={() => setLearnedItems([...learnedItems, ''])} onUpdate={(i, v) => { const a = [...learnedItems]; a[i] = v; setLearnedItems(a); }}
-        color="text-rose-700" bgColor="bg-rose-50/50" borderColor="border-rose-300" />
+        color="text-[var(--terracotta)]" bgColor="bg-[var(--terracotta)]/10/50" borderColor="border-[var(--terracotta)]/40" />
     </div>
   );
 }
@@ -400,11 +405,11 @@ function InteractiveMap({ markers }: { markers: Array<{ name: string; desc: stri
   }, [markers]);
 
   return (
-    <div className="relative rounded-xl border-2 border-amber-200 overflow-hidden" style={{ height: '350px' }}>
+    <div className="relative rounded-xl border-2 border-[var(--border)] overflow-hidden" style={{ height: '350px' }}>
       <div ref={mapRef} className="w-full h-full" />
       {!mapReady && (
         <div className="absolute inset-0 bg-gradient-to-b from-amber-50 to-rose-50 flex items-center justify-center">
-          <div className="text-center"><Globe className="w-10 h-10 text-[#D4AF37] mx-auto mb-2 animate-pulse" /><p className="text-sm text-amber-700 font-medium">Loading map...</p></div>
+          <div className="text-center"><Globe className="w-10 h-10 text-[#C68A2E] mx-auto mb-2 animate-pulse" /><p className="text-sm text-[var(--bronze)] font-medium">Loading map...</p></div>
         </div>
       )}
     </div>
@@ -477,12 +482,12 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
           </div>
         </div>
         <div>
-          <h3 className="text-xl font-bold text-gray-800">
+          <h3 className="text-xl font-bold text-[var(--ink)]">
             {percentage >= 75 ? '🌟 Excellent Work!' : percentage >= 50 ? '📚 Good Effort!' : '💪 Keep Learning!'}
           </h3>
-          <p className="text-gray-600 text-sm mt-1">You scored {percentage}% on this quiz</p>
+          <p className="text-[var(--muted-foreground)] text-sm mt-1">You scored {percentage}% on this quiz</p>
         </div>
-        {markSaved && <Badge className="bg-emerald-100 text-emerald-700 border-emerald-300"><CheckCircle2 className="w-3 h-3 mr-1" /> Mark Saved</Badge>}
+        {markSaved && <Badge className="bg-[var(--sage)]/15 text-[var(--sage)] border-[var(--sage)]/40"><CheckCircle2 className="w-3 h-3 mr-1" /> Mark Saved</Badge>}
         <div className="space-y-2">
           {questions.map((q) => (
             <div key={q.id} className="flex items-center gap-2 text-sm px-4 py-2 rounded-lg" style={{
@@ -495,7 +500,7 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
           ))}
         </div>
         <Button onClick={() => { setQuizComplete(false); setCurrentQ(0); setAnswers({}); setShowExplanation(false); setMarkSaved(false); }}
-          className="bg-[#722F37] hover:bg-[#5A1A23] text-white">Try Again</Button>
+          className="bg-[#0F5C5E] hover:bg-[#0A4042] text-white">Try Again</Button>
       </div>
     );
   }
@@ -503,21 +508,21 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-xs font-medium text-gray-500">Question {currentQ + 1} of {questions.length}</span>
+        <span className="text-xs font-medium text-[var(--muted-foreground)]">Question {currentQ + 1} of {questions.length}</span>
         <div className="flex gap-1">
           {questions.map((_, i) => (
-            <div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: i < currentQ ? '#D4AF37' : i === currentQ ? '#722F37' : '#e5e7eb' }} />
+            <div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: i < currentQ ? '#C68A2E' : i === currentQ ? '#0F5C5E' : '#e5e7eb' }} />
           ))}
         </div>
       </div>
-      <div className="bg-gradient-to-br from-amber-50 to-rose-50 rounded-xl p-4 border border-amber-200">
-        <h4 className="font-bold text-gray-800 text-sm mb-3">{question.question}</h4>
+      <div className="bg-gradient-to-br from-amber-50 to-rose-50 rounded-xl p-4 border border-[var(--border)]">
+        <h4 className="font-bold text-[var(--ink)] text-sm mb-3">{question.question}</h4>
         <div className="space-y-2">
           {question.options?.map((option, idx) => {
             const isSelected = answers[question.id] === idx;
             const isCorrectOption = question.correctAnswer === idx;
             let optionStyle: React.CSSProperties = { borderColor: '#e5e7eb', backgroundColor: '#ffffff', cursor: 'pointer' };
-            let optionHoverClass = 'hover:border-[#D4AF37] hover:bg-amber-50';
+            let optionHoverClass = 'hover:border-[#C68A2E] hover:bg-[var(--muted)]';
             if (isAnswered) {
               optionHoverClass = '';
               if (isCorrectOption) optionStyle = { borderColor: '#34d399', backgroundColor: '#ecfdf5', boxShadow: '0 0 0 2px #a7f3d0' };
@@ -528,7 +533,7 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
               <button key={idx} onClick={() => handleAnswer(idx)} disabled={isAnswered}
                 className={`w-full text-left px-4 py-2.5 rounded-lg border-2 text-sm transition-all ${optionHoverClass}`}
                 style={optionStyle}>
-                <span className="font-medium mr-2 text-gray-500">{String.fromCharCode(65 + idx)})</span>
+                <span className="font-medium mr-2 text-[var(--muted-foreground)]">{String.fromCharCode(65 + idx)})</span>
                 {option}
                 {isAnswered && isCorrectOption && <CheckCircle2 className="inline w-4 h-4 ml-2 text-emerald-600" />}
                 {isAnswered && isSelected && !isCorrectOption && <XCircle className="inline w-4 h-4 ml-2 text-rose-600" />}
@@ -550,7 +555,7 @@ function QuizEngine({ questions, lessonId, studentCode, gradeNum, termNum, unitK
         </div>
       )}
       {isAnswered && (
-        <Button onClick={nextQuestion} className="w-full bg-[#722F37] hover:bg-[#5A1A23] text-white">
+        <Button onClick={nextQuestion} className="w-full bg-[#0F5C5E] hover:bg-[#0A4042] text-white">
           {currentQ < questions.length - 1 ? 'Next Question →' : 'See Results'}
         </Button>
       )}
@@ -590,11 +595,11 @@ function ActivityTimer({ duration }: { duration: number }) {
       {!isComplete && (
         <Button size="sm" variant={isRunning ? 'outline' : 'default'}
           onClick={() => setIsRunning(!isRunning)}
-          className={`text-xs h-7 ${!isRunning ? 'bg-[#D4AF37] hover:bg-amber-600 text-white' : ''}`}>
+          className={`text-xs h-7 ${!isRunning ? 'bg-[#C68A2E] hover:bg-amber-600 text-white' : ''}`}>
           {isRunning ? 'Pause' : 'Start'}
         </Button>
       )}
-      {isComplete && <Badge className="bg-emerald-100 text-emerald-700 border-emerald-300 text-xs"><CheckCircle2 className="w-3 h-3 mr-1" /> Done</Badge>}
+      {isComplete && <Badge className="bg-[var(--sage)]/15 text-[var(--sage)] border-[var(--sage)]/40 text-xs"><CheckCircle2 className="w-3 h-3 mr-1" /> Done</Badge>}
     </div>
   );
 }
@@ -613,11 +618,11 @@ function GradeIcon({ type, className = 'w-8 h-8' }: { type: 'heart' | 'globe' | 
 function ReadingContinuation({ content }: { content: string }) {
   const [expanded, setExpanded] = useState(false);
   if (expanded) {
-    return <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm mt-3">{content}</div>;
+    return <div className="prose prose-sm max-w-none text-[var(--ink)] leading-relaxed whitespace-pre-line text-sm mt-3">{content}</div>;
   }
   return (
     <div className="mt-3 text-center">
-      <Button variant="outline" size="sm" onClick={() => setExpanded(true)} className="border-amber-300 text-amber-700 hover:bg-amber-50">
+      <Button variant="outline" size="sm" onClick={() => setExpanded(true)} className="border-[var(--bronze)]/40 text-[var(--bronze)] hover:bg-[var(--muted)]">
         <BookOpen className="w-3 h-3 mr-1" /> Continue Reading
       </Button>
     </div>
@@ -638,9 +643,9 @@ function VisualRenderer({ type, data }: { type: string; data: Record<string, unk
   if (type === 'diagram' || type === 'chart' || type === 'mindmap' || type === 'piechart') {
     const vd = data as { title?: string; items?: unknown[] };
     return (
-      <Card className="border-2 border-amber-200 bg-amber-50/20">
+      <Card className="border-2 border-[var(--border)] bg-[var(--muted)]/20">
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
+          <CardTitle className="text-sm font-bold text-[var(--ink)] flex items-center gap-2">
             <BarChart3 className="w-4 h-4" /> {vd.title || 'Visual'}
           </CardTitle>
         </CardHeader>
@@ -650,9 +655,9 @@ function VisualRenderer({ type, data }: { type: string; data: Record<string, unk
               const label = typeof item === 'string' ? item : (item as Record<string, unknown>)?.label || `Item ${i + 1}`;
               const desc = typeof item === 'string' ? '' : (item as Record<string, unknown>)?.description || '';
               return (
-                <div key={i} className="bg-white border border-amber-200 rounded-lg px-3 py-2 text-xs">
-                  <span className="font-bold text-gray-800">{label}</span>
-                  {desc && <p className="text-gray-500 mt-0.5">{String(desc)}</p>}
+                <div key={i} className="bg-white border border-[var(--border)] rounded-lg px-3 py-2 text-xs">
+                  <span className="font-bold text-[var(--ink)]">{label}</span>
+                  {desc && <p className="text-[var(--muted-foreground)] mt-0.5">{String(desc)}</p>}
                 </div>
               );
             })}
@@ -664,9 +669,9 @@ function VisualRenderer({ type, data }: { type: string; data: Record<string, unk
   if (type === 'timeline') {
     const vd = data as { title?: string; events?: Array<{ year?: string; event?: string }> };
     return (
-      <Card className="border-2 border-amber-200 bg-amber-50/20">
+      <Card className="border-2 border-[var(--border)] bg-[var(--muted)]/20">
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-bold text-amber-800 flex items-center gap-2">
+          <CardTitle className="text-sm font-bold text-[var(--ink)] flex items-center gap-2">
             <Calendar className="w-4 h-4" /> {vd.title || 'Timeline'}
           </CardTitle>
         </CardHeader>
@@ -674,9 +679,9 @@ function VisualRenderer({ type, data }: { type: string; data: Record<string, unk
           <div className="space-y-2">
             {(vd.events || []).map((evt, i) => (
               <div key={i} className="flex items-center gap-3">
-                <div className="w-16 text-right font-bold text-amber-700 text-xs shrink-0">{evt.year}</div>
-                <div className="w-3 h-3 rounded-full bg-[#722F37] shrink-0" />
-                <div className="text-xs text-gray-700">{evt.event}</div>
+                <div className="w-16 text-right font-bold text-[var(--bronze)] text-xs shrink-0">{evt.year}</div>
+                <div className="w-3 h-3 rounded-full bg-[#0F5C5E] shrink-0" />
+                <div className="text-xs text-[var(--ink)]">{evt.event}</div>
               </div>
             ))}
           </div>
@@ -722,11 +727,11 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
         ].map((col, i) => (
           <div key={i} className="rounded-xl border-2 overflow-hidden" style={{ borderColor: colorStyles[col.color].border, backgroundColor: colorStyles[col.color].bg }}>
             <div className="px-3 py-2.5 text-center" style={{ backgroundColor: colorStyles[col.color].bgHeader }}>
-              <h4 className="text-sm font-bold text-gray-800">{col.title}</h4>
+              <h4 className="text-sm font-bold text-[var(--ink)]">{col.title}</h4>
             </div>
             <div className="p-3 space-y-2">
               {col.items.map((item, j) => (
-                <div key={j} className="border rounded-lg px-3 py-1.5 text-xs text-gray-700 font-medium" style={{ backgroundColor: colorStyles[col.color].bgItem, borderColor: colorStyles[col.color].borderItem }}>
+                <div key={j} className="border rounded-lg px-3 py-1.5 text-xs text-[var(--ink)] font-medium" style={{ backgroundColor: colorStyles[col.color].bgItem, borderColor: colorStyles[col.color].borderItem }}>
                   {item}
                 </div>
               ))}
@@ -743,7 +748,7 @@ function ComparisonChart({ leftTitle, rightTitle, centerTitle, leftItems: initia
           <option value="center">{centerTitle}</option>
           <option value="right">{rightTitle}</option>
         </select>
-        <Button size="sm" onClick={addItem} className="text-sm bg-[#D4AF37] hover:bg-amber-600 text-white">Add</Button>
+        <Button size="sm" onClick={addItem} className="text-sm bg-[#C68A2E] hover:bg-amber-600 text-white">Add</Button>
       </div>
     </div>
   );
@@ -777,7 +782,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, ErrorBoundaryStat
     if (this.state.hasError) {
       return (
         <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ color: '#722F37', marginBottom: '10px' }}>Something went wrong</h2>
+          <h2 style={{ color: '#0F5C5E', marginBottom: '10px' }}>Something went wrong</h2>
           <div style={{ background: '#fff1f2', border: '2px solid #fca5a5', borderRadius: '8px', padding: '16px', marginBottom: '16px' }}>
             <p style={{ fontWeight: 'bold', color: '#dc2626', marginBottom: '8px' }}>{this.state.error?.message}</p>
             <pre style={{ fontSize: '11px', overflow: 'auto', color: '#7f1d1d', whiteSpace: 'pre-wrap' }}>{this.state.error?.stack}</pre>
@@ -789,7 +794,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, ErrorBoundaryStat
             </div>
           )}
           <button onClick={() => { this.setState({ hasError: false, error: null, errorInfo: null }); window.location.href = '/'; }}
-            style={{ marginTop: '16px', padding: '8px 16px', background: '#722F37', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>
+            style={{ marginTop: '16px', padding: '8px 16px', background: '#0F5C5E', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>
             Go Home
           </button>
         </div>
@@ -1404,83 +1409,197 @@ export default function Home() {
   // GRADE SELECT PAGE
   // ════════════════════════════════════════════════════════════
 
+
+// Mini SubjectMotif for inline use in lesson cards (simplified for performance)
+function SubjectMotifMini({ subject, color }: { subject: Subject; color: string }) {
+  // Just render a starburst — full motif too heavy for inline use
+  return (
+    <svg viewBox="0 0 80 80" className="w-full h-full" aria-hidden="true">
+      <path d="M40 10 L45 35 L70 40 L45 45 L40 70 L35 45 L10 40 L35 35 Z" fill={color} opacity="0.3" />
+      <circle cx="40" cy="40" r="3" fill={color} opacity="0.5" />
+    </svg>
+  );
+}
+
   const renderGradeSelect = () => {
     if (!selectedGrade) return null;
     const grade = selectedGrade;
     const colors = gradeColorMap[grade.number];
 
+    // Get curriculum data for this grade (from XLSX extraction)
+    const gradeKey = `g${grade.number}` as keyof typeof CURRICULUM_2026_2027;
+    const curriculum = CURRICULUM_2026_2027[gradeKey];
+    const weeks = curriculum?.weeks || [];
+
+    // Pick a representative subject for the hero based on grade
+    const gradeSubjectMap: Record<number, Subject> = {
+      6: 'ethics',        // G6: identity, values, character
+      7: 'geography',     // G7: East Asia, South Asia, Central Asia
+      8: 'history',       // G8: African civ, Americas, Ottoman
+      9: 'uae_heritage',  // G9: UAE history, civic engagement
+    };
+    const heroSubject: Subject = gradeSubjectMap[grade.number] || 'general';
+
+    // Stats from the curriculum
+    const instructionWeeks = weeks.filter(w => w.phase === 'Instruction').length;
+    const priorityUnits = weeks.filter(w => w.isPriorityUnit);
+    const uniqueDomains = new Set<string>();
+    weeks.forEach(w => {
+      if (w.domains) w.domains.split(',').forEach((d: string) => uniqueDomains.add(d.trim()));
+    });
+
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        <div className="relative py-12 px-4" style={{ background: colors.gradientBg }}>
-          <ArabicPattern opacity={0.08} color={colors.patternColor} />
-          <div className="relative z-10 max-w-4xl mx-auto">
-            <Button variant="ghost" onClick={() => navigateTo('landing')} className="text-white/80 hover:text-white hover:bg-white/10 mb-4">
-              <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home
+        {/* 3D HERO — Immersive subject-themed header */}
+        <div className="relative">
+          <Hero3D
+            subject={heroSubject}
+            title={grade.title}
+            eyebrow={`Grade ${grade.number} · ${grade.tagline}`}
+            accentColor={colors.accent === '#0F5C5E' ? '#C68A2E' : colors.accent}
+          >
+            <p className="text-sm sm:text-base mb-4 max-w-2xl mx-auto">{grade.tagline}</p>
+            <div className="flex flex-wrap justify-center gap-3 text-xs">
+              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 rounded-full px-3 py-1.5">
+                <BookOpen className="w-3.5 h-3.5" /> {instructionWeeks} lessons
+              </span>
+              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 rounded-full px-3 py-1.5">
+                <Calendar className="w-3.5 h-3.5" /> 40 weeks · 3 terms
+              </span>
+              <span className="inline-flex items-center gap-1.5 bg-[#C68A2E]/20 border border-[#C68A2E]/40 rounded-full px-3 py-1.5">
+                <Star className="w-3.5 h-3.5" /> {priorityUnits.length} priority unit lessons
+              </span>
+              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 rounded-full px-3 py-1.5">
+                <Target className="w-3.5 h-3.5" /> {uniqueDomains.size} domain standards
+              </span>
+            </div>
+          </Hero3D>
+        </div>
+
+        {/* Back button + nav strip */}
+        <div className="bg-[var(--card)] border-b border-[var(--border)] sticky top-0 z-20 backdrop-blur-md bg-[var(--card)]/95">
+          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <Button variant="ghost" onClick={() => navigateTo('landing')} className="text-[var(--ink)] hover:text-[var(--teal)] hover:bg-[var(--muted)]">
+              <ChevronLeft className="w-4 h-4 mr-1" /> Home
             </Button>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-white/10 border-2 border-white/30 flex items-center justify-center text-white">
-                <GradeIcon type={grade.iconType} className="w-8 h-8" />
-              </div>
-              <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-white" style={{ fontFamily: 'var(--font-serif)' }}>{grade.title}</h1>
-                <p className="text-white/80">{grade.tagline}</p>
-                <p className="text-white/60 text-sm mt-1">{grade.totalLessons} lessons across {grade.terms.length} terms</p>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center gap-2">
-              <AhmedAliLink size="md" className="text-white/90 hover:text-white" />
-            </div>
+            <AhmedAliLink size="sm" />
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 flex-1">
-          {grade.terms.map(term => (
-            <div key={term.key}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ background: colors.accent }}>
-                  T{term.number}
-                </div>
-                <h2 className="text-xl font-bold text-[var(--ink)]" style={{ fontFamily: 'var(--font-serif)' }}>{term.title}</h2>
-                <div className="flex-1 h-px bg-[var(--border)]" />
-              </div>
+        {/* MAIN CONTENT */}
+        <div className="max-w-6xl mx-auto px-4 py-10 flex-1 space-y-12">
 
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {term.units.map(unit => {
-                  // Fetch actual lessons for this unit
-                  const unitData = getUnitData(grade.key, term.key, unit.key);
-                  const lessonCount = unitData ? unitData.lessons.length : unit.lessonCount;
-                  const mappedCount = unitData ? unitData.lessons.filter(l => l.is_mapped).length : 0;
+          {/* Section: Academic Year Journey (40-week timeline) */}
+          <section>
+            <div className="text-center mb-6">
+              <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--bronze)]">Academic Year 2026–2027</span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink)] mt-1" style={{ fontFamily: 'var(--font-serif)' }}>
+                The 40-Week Journey
+              </h2>
+              <p className="text-sm text-[var(--muted-foreground)] mt-1 max-w-xl mx-auto">
+                Every lesson mapped to its week, term, and phase — from diagnostic assessment through final exams.
+              </p>
+              <DecorativeBorder />
+            </div>
+            <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 sm:p-6 card-heritage">
+              <WeekTimeline weeks={weeks} />
+            </div>
+          </section>
 
-                  return (
-                    <Card key={unit.key} className={`border-2 hover:shadow-lg transition-all cursor-pointer group ${unit.isPriority ? 'border-[var(--teal)] bg-[var(--muted)]/30' : 'border-[var(--border)] bg-[var(--card)] hover:border-[var(--teal)]'}`}
-                      onClick={() => { setSelectedTerm(term); setSelectedUnit(unit); navigateTo('unitSelect'); }}>
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-bold text-[var(--ink)] leading-tight group-hover:text-[var(--teal)] transition-colors" style={{ fontFamily: 'var(--font-serif)' }}>
-                          {unit.isPriority && <span className="mr-1" title="Priority Unit">★</span>}
-                          {unit.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-xs text-[var(--muted-foreground)] mb-2">{unit.description}</p>
-                        <div className="flex items-center gap-3 text-xs text-[var(--muted-foreground)]">
-                          <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {lessonCount} lessons</span>
-                          {mappedCount > 0 && mappedCount < lessonCount && (
-                            <span className="flex items-center gap-1 text-[var(--bronze)] font-medium">★ {mappedCount} mapped</span>
+          {/* Section: Term-by-term breakdown */}
+          <section>
+            <div className="text-center mb-8">
+              <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--bronze)]">Three Terms · 24 Lessons</span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink)] mt-1" style={{ fontFamily: 'var(--font-serif)' }}>
+                Explore by Term
+              </h2>
+              <DecorativeBorder />
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {grade.terms.map(term => {
+                const termWeeks = weeks.filter(w => w.term === `T${term.number}`);
+                const termInstructionWeeks = termWeeks.filter(w => w.phase === 'Instruction').length;
+                const termHasPriority = termWeeks.some(w => w.isPriorityUnit);
+                return (
+                  <Card3D
+                    key={term.key}
+                    lift={10}
+                    tiltAmount={5}
+                    onClick={() => { setSelectedTerm(term); navigateTo('unitSelect'); }}
+                    className="h-full"
+                  >
+                    <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl overflow-hidden h-full flex flex-col">
+                      {/* Term header bar with gradient */}
+                      <div className="h-2" style={{ background: colors.gradientBg }} />
+                      <div className="p-5 flex-1 flex flex-col">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0" style={{ background: colors.accent }}>
+                            T{term.number}
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-[var(--ink)]" style={{ fontFamily: 'var(--font-serif)' }}>{term.title}</h3>
+                            <p className="text-xs text-[var(--muted-foreground)]">{termInstructionWeeks} instructional weeks</p>
+                          </div>
+                          {termHasPriority && (
+                            <span title="Contains priority unit" className="ml-auto text-[#B08D3C]">★</span>
                           )}
-                          <Badge className="bg-[var(--sage)]/15 text-[var(--sage)] border border-[var(--sage)]/30 text-[10px]">
-                            <Play className="w-2.5 h-2.5 mr-0.5" /> Interactive
-                          </Badge>
                         </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
+
+                        {/* Term unit cards (compact) */}
+                        <div className="space-y-2 flex-1">
+                          {term.units.slice(0, 4).map(unit => (
+                            <div key={unit.key} className="text-xs p-2 rounded-lg bg-[var(--muted)]/40 border border-[var(--border)]">
+                              <div className="font-medium text-[var(--ink)] flex items-center gap-1.5">
+                                {unit.isPriority && <Star className="w-3 h-3 text-[#B08D3C]" />}
+                                <span className="line-clamp-1">{unit.title}</span>
+                              </div>
+                              <div className="text-[10px] text-[var(--muted-foreground)] mt-0.5">{unit.lessonCount} lessons</div>
+                            </div>
+                          ))}
+                          {term.units.length > 4 && (
+                            <div className="text-[10px] text-[var(--muted-foreground)] italic text-center pt-1">
+                              +{term.units.length - 4} more units
+                            </div>
+                          )}
+                        </div>
+
+                        {/* CTA */}
+                        <div className="mt-4 pt-3 border-t border-[var(--border)]">
+                          <button
+                            onClick={() => { setSelectedTerm(term); navigateTo('unitSelect'); }}
+                            className="w-full text-xs font-semibold text-[var(--teal)] hover:text-[var(--teal-deep)] flex items-center justify-center gap-1.5 transition-colors"
+                          >
+                            Explore Term {term.number} <ChevronRight className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card3D>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Section: Domain Standards covered this year */}
+          <section>
+            <div className="text-center mb-6">
+              <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--bronze)]">9 Domain Standards · S1–S9</span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--ink)] mt-1" style={{ fontFamily: 'var(--font-serif)' }}>
+                Domains Covered
+              </h2>
+              <DecorativeBorder />
+            </div>
+            <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 sm:p-6">
+              <div className="flex flex-wrap gap-2 justify-center">
+                {Array.from(uniqueDomains).sort().map(code => (
+                  <DomainBadge key={code} code={code} size="md" />
+                ))}
               </div>
             </div>
-          ))}
+          </section>
         </div>
 
-        <footer className="bg-[var(--ink)] text-[#E8DCC0]/40 py-4 px-4 text-center">
+        <footer className="bg-[var(--ink)] text-[#E8DCC0]/40 py-6 px-4 text-center">
           <AhmedAliLink size="sm" className="text-[#C68A2E]/80 hover:text-[#C68A2E]" />
           <p className="text-[10px] text-[#E8DCC0]/30 mt-1">Teacher-Created Study Material — Not an Official ADEK Resource</p>
         </footer>
@@ -1498,90 +1617,178 @@ export default function Home() {
     const unitData = getUnitData(selectedGrade.key, selectedTerm.key, selectedUnit.key);
     const lessons = unitData ? unitData.lessons : [];
 
+    // Get curriculum context for this grade
+    const gradeKey = `g${selectedGrade.number}` as keyof typeof CURRICULUM_2026_2027;
+    const curriculum = CURRICULUM_2026_2027[gradeKey];
+    const termWeeks = (curriculum?.weeks || []).filter(w => w.term === `T${selectedTerm.number}`);
+
+    // Find lessons in this unit from the curriculum (by week matching)
+    const unitLessonWeeks = termWeeks.filter(w => {
+      const t = (w.topic || '').toLowerCase();
+      const u = (selectedUnit.title || '').toLowerCase();
+      // Match priority units by name, or unit by number
+      if (w.isPriorityUnit && w.priorityUnitName) {
+        return w.priorityUnitName.toLowerCase().includes(u) || u.includes(w.priorityUnitName.toLowerCase());
+      }
+      return false;
+    });
+
+    const colors = gradeColorMap[selectedGrade.number];
+
     return (
-      <div className="min-h-screen bg-[#FFF9F0] flex flex-col">
-        <div className="relative py-8 px-4" style={{ background: gradeColorMap[selectedGrade.number].gradientBg }}>
-          <ArabicPattern opacity={0.06} color="#D4AF37" />
-          <div className="relative z-10 max-w-4xl mx-auto">
-            <Button variant="ghost" onClick={() => navigateTo('gradeSelect')} className="text-white/80 hover:text-white hover:bg-white/10 mb-3">
-              <ChevronLeft className="w-4 h-4 mr-1" /> Back to {selectedGrade.title}
+      <div className="min-h-screen bg-background flex flex-col">
+        {/* 3D HERO — Unit-themed */}
+        <div className="relative">
+          <Hero3D
+            subject={selectedUnit.isPriority ? 'history' : 'general'}
+            title={selectedUnit.title}
+            eyebrow={`Grade ${selectedGrade.number} · Term ${selectedTerm.number} · ${selectedUnit.isPriority ? 'Priority Unit' : 'Unit'}`}
+            accentColor={colors.accent === '#0F5C5E' ? '#C68A2E' : colors.accent}
+          >
+            <p className="text-sm max-w-2xl mx-auto">{selectedUnit.description}</p>
+            <div className="flex flex-wrap justify-center gap-3 text-xs mt-3">
+              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 rounded-full px-3 py-1.5">
+                <BookOpen className="w-3.5 h-3.5" /> {lessons.length} lessons
+              </span>
+              {selectedUnit.isPriority && (
+                <span className="inline-flex items-center gap-1.5 bg-[#C68A2E]/20 border border-[#C68A2E]/40 rounded-full px-3 py-1.5">
+                  <Star className="w-3.5 h-3.5" /> Priority Unit
+                </span>
+              )}
+            </div>
+          </Hero3D>
+        </div>
+
+        {/* Nav strip */}
+        <div className="bg-[var(--card)] border-b border-[var(--border)] sticky top-0 z-20 backdrop-blur-md bg-[var(--card)]/95">
+          <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <Button variant="ghost" onClick={() => navigateTo('gradeSelect')} className="text-[var(--ink)] hover:text-[var(--teal)] hover:bg-[var(--muted)]">
+              <ChevronLeft className="w-4 h-4 mr-1" /> {selectedGrade.title}
             </Button>
-            <h1 className="text-2xl font-bold text-white">{selectedUnit.title}</h1>
-            <p className="text-white/70 text-sm mt-1">{selectedUnit.description}</p>
-            <AhmedAliLink className="mt-2" />
+            <AhmedAliLink size="sm" />
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 py-8 flex-1">
-          <div className="grid gap-4">
-            {lessons.map((lesson, idx) => {
-              const cleanTitle = getCleanTitle(lesson.title);
-              const unitContext = getUnitContextFromTitle(lesson.title);
-              const isPriority = lesson.title.includes('PRIORITY UNIT');
-              const isMapped = lesson.is_mapped === true;
-              const lessonNum = lesson.lesson_number;
-              const displayLabel = lessonNum ? `L${lessonNum}` : `L${idx + 1}`;
+        {/* Lessons list */}
+        <div className="max-w-5xl mx-auto px-4 py-10 flex-1">
+          {lessons.length === 0 ? (
+            <div className="text-center py-20">
+              <BookOpen className="w-16 h-16 mx-auto text-[var(--muted-foreground)] opacity-50 mb-4" />
+              <h3 className="text-xl font-bold text-[var(--ink)] mb-2" style={{ fontFamily: 'var(--font-serif)' }}>No lessons mapped yet</h3>
+              <p className="text-sm text-[var(--muted-foreground)] max-w-md mx-auto">
+                This unit is part of the curriculum but doesn&rsquo;t have specific lesson content yet.
+                Check the curriculum mapping for what should be covered here.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-6">
+                <h2 className="text-xl font-bold text-[var(--ink)]" style={{ fontFamily: 'var(--font-serif)' }}>
+                  Lessons in this Unit
+                </h2>
+                <div className="flex-1 h-px bg-[var(--border)]" />
+                <span className="text-xs text-[var(--muted-foreground)]">{lessons.length} total</span>
+              </div>
 
-              return (
-                <Card key={idx} className={`border-2 hover:shadow-lg transition-all cursor-pointer group ${isMapped ? 'border-amber-200 bg-white hover:border-[#D4AF37]' : 'border-gray-200 bg-gray-50/50 hover:border-gray-300'}`}
-                  onClick={() => {
-                    setSelectedLesson(lesson);
-                    setSelectedLessonIndex(idx);
-                    setCurrentSlide(0);
-                    setShowClassroomRules(true);
-                    navigateTo('lessonView');
-                  }}>
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0 ${isMapped ? 'bg-gradient-to-br from-[#722F37] to-[#5A1A23]' : 'bg-gradient-to-br from-gray-400 to-gray-500'}`}>
-                        {displayLabel}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-gray-800 group-hover:text-[#722F37] transition-colors text-sm">
-                          {isMapped && <span className="mr-1" title="In Curriculum Mapping & Scope & Sequence">⭐</span>}
-                          {cleanTitle}
-                          {!isMapped && <span className="ml-2 text-[10px] font-normal text-gray-400 italic">(textbook supplement)</span>}
-                        </h3>
-                        {unitContext && (
-                          <p className="text-xs text-amber-600 mt-0.5">{unitContext}</p>
-                        )}
-                        <p className="text-xs text-gray-500 mt-1 line-clamp-2">{lesson.objective.replace(/^SWBAT\s*/i, '').substring(0, 120)}...</p>
-                        <div className="flex items-center gap-3 mt-2 flex-wrap">
-                          <Badge variant="outline" className="text-[10px] border-amber-300 text-amber-700">
-                            Week {lesson.week}
-                          </Badge>
-                          <Badge variant="outline" className="text-[10px] border-emerald-300 text-emerald-700">
-                            {lesson.dok}
-                          </Badge>
-                          <Badge variant="outline" className="text-[10px] border-rose-300 text-rose-700">
-                            {lesson.domains}
-                          </Badge>
-                          {isMapped && (
-                            <Badge variant="outline" className="text-[10px] border-[#D4AF37] text-[#D4AF37] font-semibold">
-                              ⭐ Mapped
-                            </Badge>
-                          )}
-                          <Badge className={`text-white text-[10px] ${isMapped ? 'bg-[#722F37]' : 'bg-gray-500'}`}>
-                            <Play className="w-2.5 h-2.5 mr-0.5" /> Start Lesson
-                          </Badge>
+              {lessons.map((lesson, idx) => {
+                const cleanTitle = getCleanTitle(lesson.title);
+                const unitContext = getUnitContextFromTitle(lesson.title);
+                const isPriority = lesson.title.includes('PRIORITY UNIT');
+                const isMapped = lesson.is_mapped === true;
+                const lessonNum = lesson.lesson_number;
+                const displayLabel = lessonNum ? `L${lessonNum}` : `L${idx + 1}`;
+
+                // Get DOK + domains as arrays
+                const dokLevels = (lesson.dok || '').split(',').map(s => s.trim()).filter(Boolean);
+                const domainCodes = (lesson.domains || '').split(',').map(s => s.trim()).filter(Boolean);
+                const primaryDomain = domainCodes[0];
+                const primarySubject = primaryDomain ? getDomainMeta(primaryDomain).subject : 'general' as Subject;
+
+                return (
+                  <Card3D
+                    key={idx}
+                    lift={6}
+                    tiltAmount={3}
+                    onClick={() => {
+                      setSelectedLesson(lesson);
+                      setSelectedLessonIndex(idx);
+                      setCurrentSlide(0);
+                      setShowClassroomRules(true);
+                      navigateTo('lessonView');
+                    }}
+                  >
+                    <div className={`bg-[var(--card)] border rounded-xl overflow-hidden transition-all ${isMapped ? 'border-[var(--teal)]/40' : 'border-[var(--border)]'}`}>
+                      <div className="p-5 sm:p-6">
+                        <div className="flex items-start gap-4">
+                          {/* Lesson number badge with 3D effect */}
+                          <div
+                            className="w-14 h-14 rounded-xl flex items-center justify-center text-white font-bold shrink-0 relative overflow-hidden"
+                            style={{
+                              background: colors.gradientBg,
+                              boxShadow: '0 4px 12px rgba(15, 92, 94, 0.25), inset 0 1px 0 rgba(255,255,255,0.2)',
+                            }}
+                          >
+                            <div className="absolute inset-0 opacity-30">
+                              <SubjectMotifMini subject={primarySubject} color="#F6EFDD" />
+                            </div>
+                            <span className="relative z-10 text-sm">{displayLabel}</span>
+                          </div>
+
+                          <div className="flex-1 min-w-0">
+                            {/* Title row */}
+                            <div className="flex items-start gap-2 mb-1">
+                              {isMapped && <Star className="w-3.5 h-3.5 text-[#B08D3C] mt-1 shrink-0" />}
+                              <h3 className="font-bold text-[var(--ink)] text-sm sm:text-base leading-tight" style={{ fontFamily: 'var(--font-serif)' }}>
+                                {cleanTitle}
+                              </h3>
+                            </div>
+
+                            {unitContext && (
+                              <p className="text-xs text-[var(--bronze)] mt-0.5 mb-1.5">{unitContext}</p>
+                            )}
+
+                            {/* Objective preview */}
+                            <p className="text-xs text-[var(--muted-foreground)] mt-1 line-clamp-2">
+                              {lesson.objective.replace(/^SWBAT\s*/i, '').substring(0, 140)}
+                              {lesson.objective.length > 140 ? '...' : ''}
+                            </p>
+
+                            {/* Meta row: Week + DOK + Domains + CTA */}
+                            <div className="flex items-center gap-2 mt-3 flex-wrap">
+                              <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] border border-[var(--border)]">
+                                <Calendar className="w-3 h-3" /> Week {lesson.week}
+                              </span>
+                              {dokLevels.map((d, i) => (
+                                <DokBadge key={i} level={d} size="xs" />
+                              ))}
+                              {domainCodes.slice(0, 3).map((d, i) => (
+                                <DomainBadge key={i} code={d} size="xs" />
+                              ))}
+                              {domainCodes.length > 3 && (
+                                <span className="text-[10px] text-[var(--muted-foreground)]">+{domainCodes.length - 3} more</span>
+                              )}
+                              <span className="ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--teal)]">
+                                <Play className="w-2.5 h-2.5" /> Start Lesson
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                  </Card3D>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        <footer className="bg-[#1a0a0c] text-white/40 py-4 px-4 text-center">
-          <AhmedAliLink size="sm" className="text-[#D4AF37]/60" />
-          <p className="text-[10px] text-white/30 mt-1">Teacher-Created Study Material — Not an Official ADEK Resource</p>
+        <footer className="bg-[var(--ink)] text-[#E8DCC0]/40 py-6 px-4 text-center">
+          <AhmedAliLink size="sm" className="text-[#C68A2E]/80 hover:text-[#C68A2E]" />
+          <p className="text-[10px] text-[#E8DCC0]/30 mt-1">Teacher-Created Study Material — Not an Official ADEK Resource</p>
         </footer>
       </div>
     );
   };
-
 
   // ════════════════════════════════════════════════════════════
   // LESSON VIEWER — Dynamic for ALL lessons
@@ -1686,14 +1893,14 @@ export default function Home() {
       id: 1, type: 'title', title: cleanTitle,
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-br from-[#722F37] to-[#5A1A23] rounded-xl p-6 text-white relative overflow-hidden">
-            <ArabicPattern opacity={0.06} color="#D4AF37" />
+          <div className="bg-gradient-to-br from-[#0F5C5E] to-[#0A4042] rounded-xl p-6 text-white relative overflow-hidden">
+            <ArabicPattern opacity={0.06} color="#C68A2E" />
             {heroImage && (
               <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
             )}
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-4">
-                <Landmark className="w-8 h-8 text-[#D4AF37]" />
+                <Landmark className="w-8 h-8 text-[#C68A2E]" />
                 <h2 className="text-2xl sm:text-3xl font-bold">
                   {lesson.is_mapped && <span title="In Curriculum Mapping & Scope & Sequence">⭐ </span>}
                   {cleanTitle}
@@ -1701,39 +1908,39 @@ export default function Home() {
               </div>
               <div className="flex items-center gap-2 mb-2">
                 {lesson.lesson_number && (
-                  <Badge className="bg-[#D4AF37]/30 text-amber-200 border-amber-400/40 text-[10px]">
+                  <Badge className="bg-[#C68A2E]/30 text-[#E8DCC0] border-[var(--bronze)]/60/40 text-[10px]">
                     Lesson {lesson.lesson_number}
                   </Badge>
                 )}
-                {unitContext && <p className="text-amber-100 text-sm">{unitContext}</p>}
+                {unitContext && <p className="text-[#E8DCC0] text-sm">{unitContext}</p>}
               </div>
               {richContent && richContent.keyVocabulary.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {richContent.keyVocabulary.slice(0, 8).map(v => (
-                    <Badge key={v} className="bg-white/15 text-amber-200 border-amber-400/30 text-[10px]">{v}</Badge>
+                    <Badge key={v} className="bg-white/15 text-[#E8DCC0] border-[var(--bronze)]/60/30 text-[10px]">{v}</Badge>
                   ))}
                   {richContent.keyVocabulary.length > 8 && (
-                    <Badge className="bg-white/10 text-amber-300 border-amber-400/20 text-[10px]">+{richContent.keyVocabulary.length - 8} more</Badge>
+                    <Badge className="bg-white/10 text-[#C68A2E] border-[var(--bronze)]/60/20 text-[10px]">+{richContent.keyVocabulary.length - 8} more</Badge>
                   )}
                 </div>
               )}
-              <DecorativeBorder color="#D4AF37" />
-              <AhmedAliLink size="md" className="text-amber-300" />
+              <DecorativeBorder color="#C68A2E" />
+              <AhmedAliLink size="md" className="text-[#C68A2E]" />
             </div>
           </div>
 
           {heroImage ? (
-            <div className="rounded-xl overflow-hidden border-2 border-amber-200 shadow-md">
+            <div className="rounded-xl overflow-hidden border-2 border-[var(--border)] shadow-md">
               <img src={heroImage} alt={cleanTitle} className="w-full h-48 sm:h-56 object-cover" />
-              <div className="bg-amber-50 p-3 text-center">
-                <p className="text-xs text-amber-700 italic">{cleanTitle}</p>
+              <div className="bg-[var(--muted)] p-3 text-center">
+                <p className="text-xs text-[var(--bronze)] italic">{cleanTitle}</p>
               </div>
             </div>
           ) : (
-            <div className="rounded-xl p-8 text-center border-2 border-[#D4AF37]/30" style={{ background: 'linear-gradient(135deg, #722F37 0%, #5A1A23 50%, #3D0F15 100%)' }}>
-              <Landmark className="w-16 h-16 text-[#D4AF37] mx-auto mb-3" />
-              <p className="text-[#D4AF37] font-bold text-lg">{cleanTitle}</p>
-              <DecorativeBorder color="#D4AF37" />
+            <div className="rounded-xl p-8 text-center border-2 border-[#C68A2E]/30" style={{ background: 'linear-gradient(135deg, #0F5C5E 0%, #0A4042 50%, #1A2622 100%)' }}>
+              <Landmark className="w-16 h-16 text-[#C68A2E] mx-auto mb-3" />
+              <p className="text-[#C68A2E] font-bold text-lg">{cleanTitle}</p>
+              <DecorativeBorder color="#C68A2E" />
             </div>
           )}
 
@@ -1751,41 +1958,41 @@ export default function Home() {
         <div className="space-y-4">
           <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-xl p-4 text-white">
             <div className="flex items-center gap-2 mb-1">
-              <Target className="w-5 h-5 text-amber-300" />
+              <Target className="w-5 h-5 text-[#C68A2E]" />
               <h3 className="text-lg font-bold">Standards & Learning Goals</h3>
             </div>
             {richContent?.kwlExplanation && (
               <p className="text-emerald-100 text-xs mt-1">
-                <Lightbulb className="w-3 h-3 inline mr-1 text-amber-300" />
+                <Lightbulb className="w-3 h-3 inline mr-1 text-[#C68A2E]" />
                 {richContent.kwlExplanation}
               </p>
             )}
           </div>
 
           <div className="grid sm:grid-cols-3 gap-3">
-            <Card className="border-2 border-amber-200 bg-amber-50/50">
+            <Card className="border-2 border-[var(--border)] bg-[var(--muted)]/50">
               <CardHeader className="pb-1.5 px-3 pt-3">
-                <CardTitle className="text-xs font-bold text-amber-800 flex items-center gap-1.5">
+                <CardTitle className="text-xs font-bold text-[var(--ink)] flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5" /> Standards
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-3 pb-3">
                 <div className="flex flex-wrap gap-1">
                   {standards.map(s => (
-                    <Badge key={s} variant="outline" className="text-[9px] border-amber-300 text-amber-700">{s}</Badge>
+                    <Badge key={s} variant="outline" className="text-[9px] border-[var(--bronze)]/40 text-[var(--bronze)]">{s}</Badge>
                   ))}
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-emerald-200 bg-emerald-50/50">
+            <Card className="border-2 border-[var(--sage)]/30 bg-[var(--sage)]/10/50">
               <CardHeader className="pb-1.5 px-3 pt-3">
-                <CardTitle className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
+                <CardTitle className="text-xs font-bold text-[var(--sage)] flex items-center gap-1.5">
                   <Target className="w-3.5 h-3.5" /> Objectives
                 </CardTitle>
               </CardHeader>
               <CardContent className="px-3 pb-3">
-                <ol className="space-y-1 text-[11px] text-emerald-700">
+                <ol className="space-y-1 text-[11px] text-[var(--sage)]">
                   {objectives.map((obj, i) => (
                     <li key={i}>{i + 1}. {obj}</li>
                   ))}
@@ -1793,7 +2000,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-rose-200 bg-rose-50/50">
+            <Card className="border-2 border-rose-200 bg-[var(--terracotta)]/10/50">
               <CardHeader className="pb-1.5 px-3 pt-3">
                 <CardTitle className="text-xs font-bold text-rose-800 flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Success Criteria
@@ -1802,7 +2009,7 @@ export default function Home() {
               <CardContent className="px-3 pb-3">
                 <div className="space-y-1">
                   {successCriteria.slice(0, 4).map((c, i) => (
-                    <div key={i} className="flex items-start gap-1.5 text-[11px] text-rose-700">
+                    <div key={i} className="flex items-start gap-1.5 text-[11px] text-[var(--terracotta)]">
                       <CheckCircle2 className="w-2.5 h-2.5 mt-0.5 shrink-0" />
                       <span>{c}</span>
                     </div>
@@ -1812,18 +2019,18 @@ export default function Home() {
             </Card>
           </div>
 
-          <Card className="border-2 border-amber-200">
+          <Card className="border-2 border-[var(--border)]">
             <CardHeader className="pb-2 px-3 pt-3">
-              <CardTitle className="text-xs font-bold text-gray-800">Prior Learning</CardTitle>
+              <CardTitle className="text-xs font-bold text-[var(--ink)]">Prior Learning</CardTitle>
             </CardHeader>
             <CardContent className="px-3 pb-3">
-              <p className="text-xs text-gray-700 leading-relaxed">{lesson.prior_learning}</p>
+              <p className="text-xs text-[var(--ink)] leading-relaxed">{lesson.prior_learning}</p>
             </CardContent>
           </Card>
 
           <div>
-            <h4 className="text-xs font-bold text-gray-700 mb-2 flex items-center gap-2">
-              <Lightbulb className="w-3.5 h-3.5 text-[#D4AF37]" /> KWL Chart
+            <h4 className="text-xs font-bold text-[var(--ink)] mb-2 flex items-center gap-2">
+              <Lightbulb className="w-3.5 h-3.5 text-[#C68A2E]" /> KWL Chart
             </h4>
             <KWLChart />
           </div>
@@ -1841,31 +2048,31 @@ export default function Home() {
       id: 3, type: 'hook', title: 'Hook Question',
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-br from-[#722F37] via-[#5A1A23] to-[#3D0F15] rounded-xl p-8 text-center relative overflow-hidden">
-            <ArabicPattern opacity={0.08} color="#D4AF37" />
+          <div className="bg-gradient-to-br from-[#0F5C5E] via-[#0A4042] to-[#1A2622] rounded-xl p-8 text-center relative overflow-hidden">
+            <ArabicPattern opacity={0.08} color="#C68A2E" />
             <div className="relative z-10">
               <div className="flex justify-center mb-4">
-                <div className="w-14 h-14 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
-                  <Sparkles className="w-7 h-7 text-[#D4AF37]" />
+                <div className="w-14 h-14 rounded-full bg-[#C68A2E]/20 border-2 border-[#C68A2E] flex items-center justify-center">
+                  <Sparkles className="w-7 h-7 text-[#C68A2E]" />
                 </div>
               </div>
-              <blockquote className="text-lg sm:text-xl font-semibold text-[#D4AF37] italic leading-relaxed">
+              <blockquote className="text-lg sm:text-xl font-semibold text-[#C68A2E] italic leading-relaxed">
                 &ldquo;{warmUp.content}&rdquo;
               </blockquote>
               {warmUp.subtitle && (
-                <div className="mt-4 text-amber-200/80 text-sm">{warmUp.subtitle}</div>
+                <div className="mt-4 text-[#E8DCC0]/80 text-sm">{warmUp.subtitle}</div>
               )}
-              <DecorativeBorder color="#D4AF37" />
+              <DecorativeBorder color="#C68A2E" />
             </div>
           </div>
 
-          <Card className="border-2 border-[#D4AF37] bg-amber-50/30">
+          <Card className="border-2 border-[#C68A2E] bg-[var(--muted)]/30">
             <CardContent className="p-6 text-center">
               <div className="flex items-center justify-center gap-2 mb-3">
-                <Users className="w-5 h-5 text-[#D4AF37]" />
-                <h3 className="text-lg font-bold text-gray-800">Discussion</h3>
+                <Users className="w-5 h-5 text-[#C68A2E]" />
+                <h3 className="text-lg font-bold text-[var(--ink)]">Discussion</h3>
               </div>
-              <p className="text-gray-700 text-sm max-w-lg mx-auto">
+              <p className="text-[var(--ink)] text-sm max-w-lg mx-auto">
                 {warmUp.discussionPrompt || 'Take 2 minutes to think and share your thoughts with a partner.'}
               </p>
             </CardContent>
@@ -1879,7 +2086,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4 className="font-bold text-teal-800 text-sm">Inquiry-Based Opening Prompt</h4>
-                  <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+                  <p className="text-xs text-[var(--muted-foreground)] mt-1 leading-relaxed">
                     As you explore this lesson on <strong>{cleanTitle}</strong>, keep this guiding question in mind: <em>&ldquo;How does this topic shape our understanding of the world and our role within it?&rdquo;</em> Write your initial thoughts and revisit them at the end.
                   </p>
                 </div>
@@ -1903,20 +2110,20 @@ export default function Home() {
           <div className="bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl p-5 text-white">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <BookOpen className="w-6 h-6 text-amber-200" />
+                <BookOpen className="w-6 h-6 text-[#E8DCC0]" />
                 <h3 className="text-xl font-bold">📖 {reading1Title}</h3>
               </div>
               <div className="flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 text-sm">
                 <Clock className="w-4 h-4" /> {reading1Time} min
               </div>
             </div>
-            <p className="text-amber-100 text-sm">Read carefully — you&apos;ll discuss this text afterward</p>
+            <p className="text-[#E8DCC0] text-sm">Read carefully — you&apos;ll discuss this text afterward</p>
           </div>
 
           {(heroImage || (richContent && richContent.visualType !== 'none' && richContent.visualData)) && (
             <div className="grid sm:grid-cols-2 gap-4">
               {heroImage && (
-                <div className="rounded-xl overflow-hidden border-2 border-amber-200 shadow-md">
+                <div className="rounded-xl overflow-hidden border-2 border-[var(--border)] shadow-md">
                   <img src={heroImage} alt={cleanTitle} className="w-full h-40 object-cover" />
                 </div>
               )}
@@ -1928,9 +2135,9 @@ export default function Home() {
             </div>
           )}
 
-          <Card className="border-2 border-amber-200">
+          <Card className="border-2 border-[var(--border)]">
             <CardContent className="p-5">
-              <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm">
+              <div className="prose prose-sm max-w-none text-[var(--ink)] leading-relaxed whitespace-pre-line text-sm">
                 {r1First}
               </div>
               {r1Second && (
@@ -1954,10 +2161,10 @@ export default function Home() {
         <div className="space-y-6">
           <div className="bg-gradient-to-r from-amber-600 to-amber-800 rounded-xl p-5 text-white">
             <div className="flex items-center gap-2 mb-2">
-              <Star className="w-6 h-6 text-amber-200" />
+              <Star className="w-6 h-6 text-[#E8DCC0]" />
               <h3 className="text-xl font-bold">⭐ Key Takeaways from Reading One</h3>
             </div>
-            <p className="text-amber-100 text-sm">Review these essential points before moving on</p>
+            <p className="text-[#E8DCC0] text-sm">Review these essential points before moving on</p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-3">
@@ -1969,11 +2176,11 @@ export default function Home() {
                   `Key concept: Understanding ${cleanTitle}`,
                 ]
             ).map((fact, i) => (
-              <Card key={i} className="border-2 border-amber-200 bg-amber-50/30">
+              <Card key={i} className="border-2 border-[var(--border)] bg-[var(--muted)]/30">
                 <CardContent className="p-3">
                   <div className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-                    <p className="text-xs text-gray-700 leading-relaxed">{fact}</p>
+                    <CheckCircle2 className="w-4 h-4 text-[var(--bronze)] mt-0.5 shrink-0" />
+                    <p className="text-xs text-[var(--ink)] leading-relaxed">{fact}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -1986,7 +2193,7 @@ export default function Home() {
                 <Brain className="w-4 h-4 text-teal-600" />
                 <h4 className="font-bold text-sm text-teal-800">Reflection Prompt</h4>
               </div>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <p className="text-xs text-[var(--muted-foreground)] leading-relaxed">
                 In your own words, summarize the most important idea from this reading. How does it connect to what you already knew?
               </p>
             </CardContent>
@@ -2005,7 +2212,7 @@ export default function Home() {
       id: 6, type: 'visual', title: 'Visual Analysis',
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-rose-600 to-[#722F37] rounded-xl p-5 text-white">
+          <div className="bg-gradient-to-r from-rose-600 to-[#0F5C5E] rounded-xl p-5 text-white">
             <div className="flex items-center gap-2 mb-2">
               <Eye className="w-6 h-6 text-rose-200" />
               <h3 className="text-xl font-bold">Visual Analysis</h3>
@@ -2020,15 +2227,15 @@ export default function Home() {
               <div className="rounded-xl overflow-hidden border-2 border-rose-200 shadow-md">
                 <img src={heroImage} alt={cleanTitle} className="w-full h-48 sm:h-56 object-cover" />
               </div>
-              <Card className="border-2 border-rose-200 bg-rose-50/20">
+              <Card className="border-2 border-rose-200 bg-[var(--terracotta)]/10/20">
                 <CardContent className="p-4">
                   <h4 className="font-bold text-sm text-rose-800 mb-2 flex items-center gap-2">
                     <Eye className="w-4 h-4" /> Visual Analysis Questions
                   </h4>
                   <div className="space-y-2">
                     {['What do you notice first in this image?', 'What details stand out to you?', 'How does this visual relate to the lesson topic?'].map((q, i) => (
-                      <div key={i} className="flex items-start gap-2 text-xs text-gray-700">
-                        <div className="w-5 h-5 rounded-full bg-rose-100 border border-rose-300 flex items-center justify-center shrink-0 text-rose-700 font-bold text-[10px]">{i + 1}</div>
+                      <div key={i} className="flex items-start gap-2 text-xs text-[var(--ink)]">
+                        <div className="w-5 h-5 rounded-full bg-rose-100 border border-[var(--terracotta)]/40 flex items-center justify-center shrink-0 text-[var(--terracotta)] font-bold text-[10px]">{i + 1}</div>
                         <span className="pt-0.5">{q}</span>
                       </div>
                     ))}
@@ -2047,7 +2254,7 @@ export default function Home() {
 
           {mapMarkers.length > 0 && (
             <div>
-              <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+              <h4 className="text-sm font-bold text-[var(--ink)] mb-3 flex items-center gap-2">
                 <Map className="w-4 h-4 text-rose-600" /> Geographic Context
               </h4>
               <InteractiveMap markers={mapMarkers} />
@@ -2082,7 +2289,7 @@ export default function Home() {
 
           <Card className="border-2 border-teal-200">
             <CardContent className="p-5">
-              <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line text-sm">
+              <div className="prose prose-sm max-w-none text-[var(--ink)] leading-relaxed whitespace-pre-line text-sm">
                 {r2First}
               </div>
               {r2Second && (
@@ -2128,20 +2335,20 @@ export default function Home() {
                 <CardContent className="p-3">
                   <div className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-teal-600 mt-0.5 shrink-0" />
-                    <p className="text-xs text-gray-700 leading-relaxed">{fact}</p>
+                    <p className="text-xs text-[var(--ink)] leading-relaxed">{fact}</p>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <Card className="border-2 border-amber-200 bg-amber-50/20">
+          <Card className="border-2 border-[var(--border)] bg-[var(--muted)]/20">
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Lightbulb className="w-4 h-4 text-amber-600" />
-                <h4 className="font-bold text-sm text-amber-800">Compare & Connect</h4>
+                <Lightbulb className="w-4 h-4 text-[var(--bronze)]" />
+                <h4 className="font-bold text-sm text-[var(--ink)]">Compare & Connect</h4>
               </div>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <p className="text-xs text-[var(--muted-foreground)] leading-relaxed">
                 How does this second reading extend or challenge the ideas from the first reading? Write down one connection and one new question.
               </p>
             </CardContent>
@@ -2160,7 +2367,7 @@ export default function Home() {
       id: 9, type: 'analytical', title: 'Analysis & Discussion',
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-rose-600 to-[#722F37] rounded-xl p-5 text-white">
+          <div className="bg-gradient-to-r from-rose-600 to-[#0F5C5E] rounded-xl p-5 text-white">
             <div className="flex items-center gap-2 mb-2">
               <Brain className="w-6 h-6 text-rose-200" />
               <h3 className="text-xl font-bold">Analysis & Discussion</h3>
@@ -2171,13 +2378,13 @@ export default function Home() {
           {richContent && richContent.discussionQuestions.length > 0 ? (
             <div className="space-y-3">
               {richContent.discussionQuestions.map((q, i) => (
-                <Card key={i} className="border-2 border-rose-200 bg-rose-50/30">
+                <Card key={i} className="border-2 border-rose-200 bg-[var(--terracotta)]/10/30">
                   <CardContent className="p-4">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-rose-100 border-2 border-rose-300 flex items-center justify-center shrink-0 text-rose-700 font-bold text-sm">
+                      <div className="w-8 h-8 rounded-full bg-rose-100 border-2 border-[var(--terracotta)]/40 flex items-center justify-center shrink-0 text-[var(--terracotta)] font-bold text-sm">
                         {i + 1}
                       </div>
-                      <p className="text-sm text-gray-700 leading-relaxed pt-1">{q}</p>
+                      <p className="text-sm text-[var(--ink)] leading-relaxed pt-1">{q}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -2201,8 +2408,8 @@ export default function Home() {
                         {i + 1}
                       </div>
                       <div>
-                        <h4 className="font-bold text-sm text-gray-800">{task.title}</h4>
-                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{task.desc}</p>
+                        <h4 className="font-bold text-sm text-[var(--ink)]">{task.title}</h4>
+                        <p className="text-xs text-[var(--muted-foreground)] mt-1 leading-relaxed">{task.desc}</p>
                       </div>
                     </div>
                   </div>
@@ -2248,12 +2455,12 @@ export default function Home() {
                         }}>
                           {s.strategy}
                         </Badge>
-                        <span className="font-bold text-sm text-gray-800">Strategy {i + 1}</span>
+                        <span className="font-bold text-sm text-[var(--ink)]">Strategy {i + 1}</span>
                       </div>
                       <ActivityTimer duration={s.duration} />
                     </div>
-                    <h4 className="font-bold text-gray-800 mt-2">{s.description}</h4>
-                    <p className="text-xs text-gray-600 mt-1">{s.instructions}</p>
+                    <h4 className="font-bold text-[var(--ink)] mt-2">{s.description}</h4>
+                    <p className="text-xs text-[var(--muted-foreground)] mt-1">{s.instructions}</p>
                   </div>
                 </Card>
               ))
@@ -2267,7 +2474,7 @@ export default function Home() {
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <div className="flex items-center gap-2">
                         <Badge style={{
-                          backgroundColor: activity.type === 'interactive' ? '#D4AF37' :
+                          backgroundColor: activity.type === 'interactive' ? '#C68A2E' :
                           activity.type === 'read' ? '#fde68a' :
                           activity.type === 'discuss' ? '#fecdd3' :
                           activity.type === 'creative' ? '#a7f3d0' : '#99f6e4',
@@ -2283,16 +2490,16 @@ export default function Home() {
                            <Brain className="w-3 h-3 mr-1" />}
                           {activity.type.charAt(0).toUpperCase() + activity.type.slice(1)}
                         </Badge>
-                        <span className="font-bold text-sm text-gray-800">Activity {idx + 1}</span>
+                        <span className="font-bold text-sm text-[var(--ink)]">Activity {idx + 1}</span>
                       </div>
                       <ActivityTimer duration={activity.duration} />
                     </div>
-                    <h4 className="font-bold text-gray-800 mt-2">{activity.title}</h4>
-                    <p className="text-xs text-gray-600 mt-1">{activity.description}</p>
+                    <h4 className="font-bold text-[var(--ink)] mt-2">{activity.title}</h4>
+                    <p className="text-xs text-[var(--muted-foreground)] mt-1">{activity.description}</p>
                   </div>
                   {activity.content && (
                     <CardContent className="pt-3 pb-4">
-                      <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-700 leading-relaxed border border-gray-100">
+                      <div className="bg-[var(--muted)]/40 rounded-lg p-4 text-sm text-[var(--ink)] leading-relaxed border border-gray-100">
                         {activity.content}
                       </div>
                     </CardContent>
@@ -2314,7 +2521,7 @@ export default function Home() {
                   'Did your partner use evidence from the reading to support their answers?',
                   'What is one thing your partner did well? One thing they could improve?',
                 ].map((prompt, i) => (
-                  <div key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                  <div key={i} className="flex items-start gap-2 text-xs text-[var(--ink)]">
                     <div className="w-5 h-5 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center shrink-0 text-purple-700 font-bold text-[10px]">{i + 1}</div>
                     <span className="pt-0.5">{prompt}</span>
                   </div>
@@ -2324,11 +2531,11 @@ export default function Home() {
           </Card>
 
           {/* Assessment Rubric */}
-          <Card className="border-2 border-amber-200 bg-amber-50/20">
+          <Card className="border-2 border-[var(--border)] bg-[var(--muted)]/20">
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-3">
-                <Award className="w-4 h-4 text-amber-600" />
-                <h4 className="font-bold text-sm text-amber-800">Assessment Rubric</h4>
+                <Award className="w-4 h-4 text-[var(--bronze)]" />
+                <h4 className="font-bold text-sm text-[var(--ink)]">Assessment Rubric</h4>
               </div>
               <div className="grid grid-cols-4 gap-2 text-center">
                 {[
@@ -2339,7 +2546,7 @@ export default function Home() {
                 ].map((r, i) => (
                   <div key={i} className="rounded-lg p-2 border" style={{ backgroundColor: r.bg, borderColor: r.color + '40' }}>
                     <div className="font-bold text-[10px]" style={{ color: r.color }}>{r.level}</div>
-                    <div className="text-[9px] text-gray-600 mt-1">{r.desc}</div>
+                    <div className="text-[9px] text-[var(--muted-foreground)] mt-1">{r.desc}</div>
                   </div>
                 ))}
               </div>
@@ -2389,7 +2596,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h4 className="font-bold text-sm" style={{ color: cs.titleText }}>{link.title}</h4>
-                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">{link.description}</p>
+                        <p className="text-xs text-[var(--muted-foreground)] mt-1 leading-relaxed">{link.description}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -2400,7 +2607,7 @@ export default function Home() {
 
           {mapMarkers.length > 0 && (
             <div>
-              <h4 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+              <h4 className="text-sm font-bold text-[var(--ink)] mb-3 flex items-center gap-2">
                 <Map className="w-4 h-4 text-emerald-600" /> Interactive Map
               </h4>
               <InteractiveMap markers={mapMarkers} />
@@ -2422,7 +2629,7 @@ export default function Home() {
                 ].map((conn, i) => (
                   <div key={i} className="bg-white rounded-lg p-3 border border-purple-100">
                     <div className="font-bold text-[11px] text-purple-700">{conn.subject}</div>
-                    <p className="text-[10px] text-gray-600 mt-1 leading-relaxed">{conn.desc}</p>
+                    <p className="text-[10px] text-[var(--muted-foreground)] mt-1 leading-relaxed">{conn.desc}</p>
                   </div>
                 ))}
               </div>
@@ -2451,50 +2658,50 @@ export default function Home() {
         <div className="space-y-6">
           <div className="bg-gradient-to-r from-amber-600 to-amber-800 rounded-xl p-5 text-white">
             <div className="flex items-center gap-2 mb-2">
-              <FileText className="w-6 h-6 text-amber-200" />
+              <FileText className="w-6 h-6 text-[#E8DCC0]" />
               <h3 className="text-xl font-bold">Homework & Lesson Closure</h3>
             </div>
-            <p className="text-amber-100 text-sm">Continue your learning journey beyond the classroom</p>
+            <p className="text-[#E8DCC0] text-sm">Continue your learning journey beyond the classroom</p>
           </div>
 
-          <Card className="border-2 border-amber-200 bg-amber-50/30">
+          <Card className="border-2 border-[var(--border)] bg-[var(--muted)]/30">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-amber-100 border-2 border-[#D4AF37] flex items-center justify-center shrink-0">
-                  <Calendar className="w-5 h-5 text-amber-700" />
+                <div className="w-10 h-10 rounded-full bg-[var(--muted)] border-2 border-[#C68A2E] flex items-center justify-center shrink-0">
+                  <Calendar className="w-5 h-5 text-[var(--bronze)]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-amber-800">Homework Task</h4>
-                  <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.homework}</p>
+                  <h4 className="font-bold text-[var(--ink)]">Homework Task</h4>
+                  <p className="text-sm text-[var(--muted-foreground)] mt-1 leading-relaxed">{lesson.homework}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-emerald-200 bg-emerald-50/30">
+          <Card className="border-2 border-[var(--sage)]/30 bg-[var(--sage)]/10/30">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center shrink-0">
-                  <BookOpen className="w-5 h-5 text-emerald-700" />
+                <div className="w-10 h-10 rounded-full bg-[var(--sage)]/15 border-2 border-emerald-500 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-5 h-5 text-[var(--sage)]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-emerald-800">Resources</h4>
-                  <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.resources}</p>
+                  <h4 className="font-bold text-[var(--sage)]">Resources</h4>
+                  <p className="text-sm text-[var(--muted-foreground)] mt-1 leading-relaxed">{lesson.resources}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-2 border-rose-200 bg-rose-50/30">
+          <Card className="border-2 border-rose-200 bg-[var(--terracotta)]/10/30">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full bg-rose-100 border-2 border-rose-400 flex items-center justify-center shrink-0">
-                  <Target className="w-5 h-5 text-rose-700" />
+                  <Target className="w-5 h-5 text-[var(--terracotta)]" />
                 </div>
                 <div>
                   <h4 className="font-bold text-rose-800">Assessment</h4>
-                  <p className="text-sm text-gray-600 mt-1 leading-relaxed">{lesson.assessment}</p>
-                  <Badge className="mt-2 bg-rose-100 text-rose-700 border-rose-200 text-[10px]">
+                  <p className="text-sm text-[var(--muted-foreground)] mt-1 leading-relaxed">{lesson.assessment}</p>
+                  <Badge className="mt-2 bg-rose-100 text-[var(--terracotta)] border-rose-200 text-[10px]">
                     {lesson.assessment_type}
                   </Badge>
                 </div>
@@ -2509,7 +2716,7 @@ export default function Home() {
                 <CheckCircle2 className="w-4 h-4 text-teal-600" />
                 <h4 className="font-bold text-sm text-teal-800">Lesson Closure</h4>
               </div>
-              <div className="space-y-2 text-xs text-gray-700">
+              <div className="space-y-2 text-xs text-[var(--ink)]">
                 <p>📋 <strong>Review:</strong> Go back to your KWL chart and fill in the &ldquo;Learned&rdquo; column.</p>
                 <p>🔄 <strong>Reflect:</strong> How has your understanding of {cleanTitle} changed?</p>
                 <p>🎯 <strong>Next Steps:</strong> What questions do you still have? Write them down for next lesson.</p>
@@ -2533,27 +2740,27 @@ export default function Home() {
       id: 13, type: 'quiz', title: 'Formative Assessment',
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-rose-700 to-[#722F37] rounded-xl p-5 text-white">
+          <div className="bg-gradient-to-r from-rose-700 to-[#0F5C5E] rounded-xl p-5 text-white">
             <div className="flex items-center gap-2 mb-2">
-              <Trophy className="w-6 h-6 text-[#D4AF37]" />
+              <Trophy className="w-6 h-6 text-[#C68A2E]" />
               <h3 className="text-xl font-bold">Formative Assessment</h3>
             </div>
             <p className="text-rose-100 text-sm">Test your understanding — you&apos;ve got this! 💪</p>
             <div className="flex items-center gap-2 mt-2 flex-wrap">
               <Badge className="bg-white/20 text-white border-white/30 text-[10px]">{lesson.dok}</Badge>
               <Badge className="bg-white/20 text-white border-white/30 text-[10px]">{quizQs.length} Questions</Badge>
-              {richContent && <Badge className="bg-[#D4AF37]/30 text-[#D4AF37] border-[#D4AF37]/50 text-[10px]">Textbook-Based</Badge>}
+              {richContent && <Badge className="bg-[#C68A2E]/30 text-[#C68A2E] border-[#C68A2E]/50 text-[10px]">Textbook-Based</Badge>}
             </div>
           </div>
 
           {!isLoggedIn && (
-            <Card className="border-2 border-amber-200 bg-amber-50/30">
+            <Card className="border-2 border-[var(--border)] bg-[var(--muted)]/30">
               <CardContent className="p-4">
-                <div className="flex items-center gap-2 text-amber-700">
+                <div className="flex items-center gap-2 text-[var(--bronze)]">
                   <LogIn className="w-4 h-4" />
                   <p className="text-xs font-medium">{t('loginRequired')}</p>
                 </div>
-                <Button size="sm" variant="outline" onClick={() => navigateTo('loginPage')} className="mt-2 border-[#D4AF37] text-[#D4AF37] text-xs">
+                <Button size="sm" variant="outline" onClick={() => navigateTo('loginPage')} className="mt-2 border-[#C68A2E] text-[#C68A2E] text-xs">
                   <LogIn className="w-3 h-3 mr-1" /> {t('loginToContinue')}
                 </Button>
               </CardContent>
@@ -2586,36 +2793,36 @@ export default function Home() {
       content: (
         <div className="text-center space-y-8 py-8">
           <div className="relative inline-block">
-            <div className="bg-gradient-to-br from-[#722F37] to-[#5A1A23] rounded-2xl p-10 relative overflow-hidden">
-              <ArabicPattern opacity={0.1} color="#D4AF37" />
+            <div className="bg-gradient-to-br from-[#0F5C5E] to-[#0A4042] rounded-2xl p-10 relative overflow-hidden">
+              <ArabicPattern opacity={0.1} color="#C68A2E" />
               <div className="relative z-10">
                 <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
-                    <Award className="w-8 h-8 text-[#D4AF37]" />
+                  <div className="w-16 h-16 rounded-full bg-[#C68A2E]/20 border-2 border-[#C68A2E] flex items-center justify-center">
+                    <Award className="w-8 h-8 text-[#C68A2E]" />
                   </div>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-bold text-[#D4AF37] mb-3">MashaAllah!</h2>
+                <h2 className="text-3xl sm:text-4xl font-bold text-[#C68A2E] mb-3">MashaAllah!</h2>
                 <p className="text-white text-lg">You completed the lesson!</p>
-                <DecorativeBorder color="#D4AF37" />
+                <DecorativeBorder color="#C68A2E" />
               </div>
             </div>
           </div>
 
-          <div className="bg-amber-50 rounded-xl p-6 border-2 border-[#D4AF37] max-w-md mx-auto">
+          <div className="bg-[var(--muted)] rounded-xl p-6 border-2 border-[#C68A2E] max-w-md mx-auto">
             <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer"
-              className="text-xl font-bold text-[#D4AF37] hover:text-amber-600 transition-colors inline-flex items-center gap-2">
+              className="text-xl font-bold text-[#C68A2E] hover:text-[var(--bronze)] transition-colors inline-flex items-center gap-2">
               <GraduationCap className="w-6 h-6" /> Mr. Ahmed Ali <ExternalLink className="w-4 h-4" />
             </a>
-            <p className="text-sm text-gray-600 mt-2">Your MSCS Educator</p>
+            <p className="text-sm text-[var(--muted-foreground)] mt-2">Your MSCS Educator</p>
           </div>
 
           <DisclaimerBanner />
 
           <div className="flex justify-center gap-3">
-            <Button onClick={() => setCurrentSlide(0)} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
+            <Button onClick={() => setCurrentSlide(0)} className="bg-[#0F5C5E] hover:bg-[#0A4042] text-white">
               <Play className="w-4 h-4 mr-2" /> Restart Lesson
             </Button>
-            <Button variant="outline" onClick={() => navigateTo('gradeSelect')} className="border-[#D4AF37] text-[#D4AF37]">
+            <Button variant="outline" onClick={() => navigateTo('gradeSelect')} className="border-[#C68A2E] text-[#C68A2E]">
               <HomeIcon className="w-4 h-4 mr-2" /> Back to {selectedGrade.title}
             </Button>
           </div>
@@ -2628,9 +2835,9 @@ export default function Home() {
     const currentSlideData = slides[currentSlide];
 
     return (
-      <div className="min-h-screen bg-[#FFF9F0] flex flex-col">
+      <div className="min-h-screen bg-[#F6EFDD] flex flex-col">
         {/* Top navigation bar */}
-        <div className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-amber-200 shadow-sm">
+        <div className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[var(--border)] shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 min-w-0">
@@ -2639,13 +2846,13 @@ export default function Home() {
                 </Button>
                 <Separator orientation="vertical" className="h-5" />
                 <div className="min-w-0">
-                  <h1 className="text-xs font-bold text-gray-800 truncate">{cleanTitle}</h1>
+                  <h1 className="text-xs font-bold text-[var(--ink)] truncate">{cleanTitle}</h1>
                   <AhmedAliLink />
                 </div>
               </div>
               <div className="flex items-center gap-2 shrink-0">
-                <Badge className="bg-[#722F37] text-white text-[10px]">{lesson.dok}</Badge>
-                <span className="text-xs text-gray-500">{currentSlide + 1}/{totalSlides}</span>
+                <Badge className="bg-[#0F5C5E] text-white text-[10px]">{lesson.dok}</Badge>
+                <span className="text-xs text-[var(--muted-foreground)]">{currentSlide + 1}/{totalSlides}</span>
               </div>
             </div>
             <div className="mt-2">
@@ -2656,7 +2863,7 @@ export default function Home() {
                 <button key={slide.id} onClick={() => { setSlideDirection(i > currentSlide ? 'right' : 'left'); setCurrentSlide(i); }}
                   className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-all whitespace-nowrap"
                   style={{
-                    backgroundColor: i === currentSlide ? '#722F37' : i < currentSlide ? '#fef3c7' : '#f3f4f6',
+                    backgroundColor: i === currentSlide ? '#0F5C5E' : i < currentSlide ? '#fef3c7' : '#f3f4f6',
                     color: i === currentSlide ? '#ffffff' : i < currentSlide ? '#b45309' : '#9ca3af',
                   }}>
                   {i < currentSlide && <CheckCircle2 className="w-2.5 h-2.5" />}
@@ -2687,32 +2894,32 @@ export default function Home() {
             transform: isAnimating ? `translateX(${slideDirection === 'right' ? '30px' : '-30px'})` : 'translateX(0)',
           }}>
             <div className="mb-4">
-              <Badge className="bg-[#722F37] text-white mb-2">Slide {currentSlide + 1} of {totalSlides}</Badge>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">{currentSlideData.title}</h2>
+              <Badge className="bg-[#0F5C5E] text-white mb-2">Slide {currentSlide + 1} of {totalSlides}</Badge>
+              <h2 className="text-xl sm:text-2xl font-bold text-[var(--ink)]">{currentSlideData.title}</h2>
             </div>
             {currentSlideData.content}
           </div>
         </div>
 
         {/* Bottom navigation */}
-        <div className="sticky bottom-0 bg-white/95 backdrop-blur border-t border-amber-200 shadow-lg">
+        <div className="sticky bottom-0 bg-white/95 backdrop-blur border-t border-[var(--border)] shadow-lg">
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
             <Button variant="outline" onClick={() => { if (currentSlide > 0) { setSlideDirection('left'); navigateSlide('left'); setCurrentSlide(currentSlide - 1); } }}
-              disabled={currentSlide === 0} className="border-[#722F37] text-[#722F37] hover:bg-rose-50">
+              disabled={currentSlide === 0} className="border-[#0F5C5E] text-[#0F5C5E] hover:bg-[var(--terracotta)]/10">
               <ChevronLeft className="w-4 h-4 mr-1" /> Previous
             </Button>
             <div className="flex gap-1">
               {slides.map((_, i) => (
                 <div key={i} className="w-2 h-2 rounded-full transition-all cursor-pointer"
                   style={{
-                    backgroundColor: i === currentSlide ? '#722F37' : i < currentSlide ? '#D4AF37' : '#d1d5db',
+                    backgroundColor: i === currentSlide ? '#0F5C5E' : i < currentSlide ? '#C68A2E' : '#d1d5db',
                     width: i === currentSlide ? '16px' : '8px',
                   }}
                   onClick={() => { setSlideDirection(i > currentSlide ? 'right' : 'left'); setCurrentSlide(i); }} />
               ))}
             </div>
             <Button onClick={() => { if (currentSlide < totalSlides - 1) { setSlideDirection('right'); navigateSlide('right'); setCurrentSlide(currentSlide + 1); } }}
-              disabled={currentSlide === totalSlides - 1} className="bg-[#722F37] hover:bg-[#5A1A23] text-white">
+              disabled={currentSlide === totalSlides - 1} className="bg-[#0F5C5E] hover:bg-[#0A4042] text-white">
               Next <ChevronRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
@@ -2728,8 +2935,8 @@ export default function Home() {
     // Ottoman Empire specific markers
     if (title.includes('ottoman')) {
       return [
-        { name: 'Istanbul (Constantinople)', desc: 'Conquered in 1453 by Muhammad al-Fatih', lat: 41.0082, lng: 28.9784, color: '#722F37' },
-        { name: 'Anatolia (Turkey)', desc: 'Heart of the Ottoman Empire', lat: 39.9334, lng: 32.8597, color: '#D4AF37' },
+        { name: 'Istanbul (Constantinople)', desc: 'Conquered in 1453 by Muhammad al-Fatih', lat: 41.0082, lng: 28.9784, color: '#0F5C5E' },
+        { name: 'Anatolia (Turkey)', desc: 'Heart of the Ottoman Empire', lat: 39.9334, lng: 32.8597, color: '#C68A2E' },
         { name: 'Arabian Peninsula & Hijaz', desc: 'Makkah & Madinah — protected after 1517', lat: 24.0, lng: 42.0, color: '#047857' },
         { name: 'Egypt & North Africa', desc: 'Conquered by Selim I in 1516-1517', lat: 30.0444, lng: 31.2357, color: '#D97706' },
         { name: 'Balkans & SE Europe', desc: 'Expanded into Europe from 1354', lat: 44.0, lng: 20.0, color: '#7C3AED' },
@@ -2739,8 +2946,8 @@ export default function Home() {
     // UAE specific markers
     if (title.includes('uae') || title.includes('emirat') || title.includes('zayed') || title.includes('heritage') || title.includes('government') || title.includes('governance') || title.includes('federal') || title.includes('citizen') || title.includes('constitution')) {
       return [
-        { name: 'Abu Dhabi', desc: 'Capital of the UAE, seat of federal government', lat: 24.4539, lng: 54.3773, color: '#722F37' },
-        { name: 'Dubai', desc: 'Major commercial and financial hub', lat: 25.2048, lng: 55.2708, color: '#D4AF37' },
+        { name: 'Abu Dhabi', desc: 'Capital of the UAE, seat of federal government', lat: 24.4539, lng: 54.3773, color: '#0F5C5E' },
+        { name: 'Dubai', desc: 'Major commercial and financial hub', lat: 25.2048, lng: 55.2708, color: '#C68A2E' },
         { name: 'Al Ain', desc: 'Garden city, UNESCO World Heritage sites', lat: 24.1915, lng: 55.7606, color: '#047857' },
         { name: 'Sharjah', desc: 'Cultural capital of the UAE', lat: 25.3463, lng: 55.4209, color: '#D97706' },
       ];
@@ -2749,8 +2956,8 @@ export default function Home() {
     // East Asia markers
     if (title.includes('east asia') || title.includes('china') || title.includes('korea')) {
       return [
-        { name: 'Beijing', desc: 'Capital of China, ancient imperial center', lat: 39.9042, lng: 116.4074, color: '#722F37' },
-        { name: 'Seoul', desc: 'Capital of South Korea', lat: 37.5665, lng: 126.978, color: '#D4AF37' },
+        { name: 'Beijing', desc: 'Capital of China, ancient imperial center', lat: 39.9042, lng: 116.4074, color: '#0F5C5E' },
+        { name: 'Seoul', desc: 'Capital of South Korea', lat: 37.5665, lng: 126.978, color: '#C68A2E' },
         { name: 'Great Wall', desc: 'Ancient Chinese defensive structure', lat: 40.4319, lng: 116.5704, color: '#047857' },
       ];
     }
@@ -2758,8 +2965,8 @@ export default function Home() {
     // South Asia markers
     if (title.includes('south asia') || title.includes('india')) {
       return [
-        { name: 'Delhi', desc: 'Historic capital of multiple empires', lat: 28.6139, lng: 77.2090, color: '#722F37' },
-        { name: 'Mumbai', desc: 'Major port city on the Arabian Sea', lat: 19.076, lng: 72.8777, color: '#D4AF37' },
+        { name: 'Delhi', desc: 'Historic capital of multiple empires', lat: 28.6139, lng: 77.2090, color: '#0F5C5E' },
+        { name: 'Mumbai', desc: 'Major port city on the Arabian Sea', lat: 19.076, lng: 72.8777, color: '#C68A2E' },
         { name: 'Taj Mahal', desc: 'Mughal architectural masterpiece', lat: 27.1751, lng: 78.0421, color: '#047857' },
       ];
     }
@@ -2767,8 +2974,8 @@ export default function Home() {
     // Central Asia markers
     if (title.includes('central asia') || title.includes('silk road') || title.includes('kazakhstan')) {
       return [
-        { name: 'Samarkand', desc: 'Ancient Silk Road city in Uzbekistan', lat: 39.6547, lng: 66.9597, color: '#722F37' },
-        { name: 'Astana', desc: 'Capital of Kazakhstan', lat: 51.1694, lng: 71.4491, color: '#D4AF37' },
+        { name: 'Samarkand', desc: 'Ancient Silk Road city in Uzbekistan', lat: 39.6547, lng: 66.9597, color: '#0F5C5E' },
+        { name: 'Astana', desc: 'Capital of Kazakhstan', lat: 51.1694, lng: 71.4491, color: '#C68A2E' },
         { name: 'Bishkek', desc: 'Capital of Kyrgyzstan', lat: 42.8746, lng: 74.5698, color: '#047857' },
       ];
     }
@@ -2776,8 +2983,8 @@ export default function Home() {
     // Africa markers
     if (title.includes('africa') || title.includes('african')) {
       return [
-        { name: 'Cairo', desc: 'Ancient capital of Egypt', lat: 30.0444, lng: 31.2357, color: '#722F37' },
-        { name: 'Timbuktu', desc: 'Historic center of Islamic learning', lat: 16.7735, lng: -3.0074, color: '#D4AF37' },
+        { name: 'Cairo', desc: 'Ancient capital of Egypt', lat: 30.0444, lng: 31.2357, color: '#0F5C5E' },
+        { name: 'Timbuktu', desc: 'Historic center of Islamic learning', lat: 16.7735, lng: -3.0074, color: '#C68A2E' },
         { name: 'Great Zimbabwe', desc: 'Medieval African civilization', lat: -20.2713, lng: 30.9338, color: '#047857' },
       ];
     }
@@ -2785,8 +2992,8 @@ export default function Home() {
     // Americas markers
     if (title.includes('america') || title.includes('american')) {
       return [
-        { name: 'Washington D.C.', desc: 'Capital of the United States', lat: 38.9072, lng: -77.0369, color: '#722F37' },
-        { name: 'Mexico City', desc: 'Ancient Aztec capital, now Mexico City', lat: 19.4326, lng: -99.1332, color: '#D4AF37' },
+        { name: 'Washington D.C.', desc: 'Capital of the United States', lat: 38.9072, lng: -77.0369, color: '#0F5C5E' },
+        { name: 'Mexico City', desc: 'Ancient Aztec capital, now Mexico City', lat: 19.4326, lng: -99.1332, color: '#C68A2E' },
         { name: 'Machu Picchu', desc: 'Inca civilization site in Peru', lat: -13.1631, lng: -72.545, color: '#047857' },
       ];
     }
@@ -2794,16 +3001,16 @@ export default function Home() {
     // Europe / Renaissance markers
     if (title.includes('europe') || title.includes('renaissance') || title.includes('medieval') || title.includes('middle ages') || title.includes('venice')) {
       return [
-        { name: 'Rome', desc: 'Center of the Roman Empire and the Renaissance', lat: 41.9028, lng: 12.4964, color: '#722F37' },
-        { name: 'Venice', desc: 'Maritime republic and trade hub', lat: 45.4408, lng: 12.3155, color: '#D4AF37' },
+        { name: 'Rome', desc: 'Center of the Roman Empire and the Renaissance', lat: 41.9028, lng: 12.4964, color: '#0F5C5E' },
+        { name: 'Venice', desc: 'Maritime republic and trade hub', lat: 45.4408, lng: 12.3155, color: '#C68A2E' },
         { name: 'Florence', desc: 'Birthplace of the Renaissance', lat: 43.7696, lng: 11.2558, color: '#047857' },
       ];
     }
 
     // Default: UAE centered
     return [
-      { name: 'UAE', desc: 'United Arab Emirates — our home', lat: 23.4241, lng: 53.8478, color: '#D4AF37' },
-      { name: 'Abu Dhabi', desc: 'Capital city', lat: 24.4539, lng: 54.3773, color: '#722F37' },
+      { name: 'UAE', desc: 'United Arab Emirates — our home', lat: 23.4241, lng: 53.8478, color: '#C68A2E' },
+      { name: 'Abu Dhabi', desc: 'Capital city', lat: 24.4539, lng: 54.3773, color: '#0F5C5E' },
       { name: 'Al Ain', desc: 'The Garden City', lat: 24.1915, lng: 55.7606, color: '#047857' },
     ];
   }
@@ -2906,20 +3113,20 @@ export default function Home() {
     const dashTitle = isAdmin ? t('adminDashboard') : 'Teacher Dashboard';
 
     return (
-      <div className="min-h-screen bg-[#FFF9F0]">
-        <div className="relative bg-gradient-to-r from-[#722F37] to-[#5A1A23] py-8 px-4">
-          <ArabicPattern opacity={0.06} color="#D4AF37" />
+      <div className="min-h-screen bg-[#F6EFDD]">
+        <div className="relative bg-gradient-to-r from-[#0F5C5E] to-[#0A4042] py-8 px-4">
+          <ArabicPattern opacity={0.06} color="#C68A2E" />
           <div className="relative z-10 max-w-6xl mx-auto">
             <Button variant="ghost" onClick={() => navigateTo('landing')} className="text-white/80 hover:text-white hover:bg-white/10 mb-4">
               <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home
             </Button>
             <div className="flex items-center gap-4 flex-wrap">
-              <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
-                {isAdmin ? <LayoutDashboard className="w-7 h-7 text-[#D4AF37]" /> : <Shield className="w-7 h-7 text-[#D4AF37]" />}
+              <div className="w-14 h-14 rounded-2xl bg-[#C68A2E]/20 border-2 border-[#C68A2E] flex items-center justify-center">
+                {isAdmin ? <LayoutDashboard className="w-7 h-7 text-[#C68A2E]" /> : <Shield className="w-7 h-7 text-[#C68A2E]" />}
               </div>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-white">{dashTitle}</h1>
-                <p className="text-amber-200/80 text-sm">MSCS Academy — Student Performance Overview</p>
+                <p className="text-[#E8DCC0]/80 text-sm">MSCS Academy — Student Performance Overview</p>
               </div>
               <div className="ml-auto">
                 <AhmedAliLink size="md" />
@@ -2931,8 +3138,8 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
           {/* Toolbar: Grade filter, Student Search, View Mode, Export */}
           <div className="flex items-center gap-3 flex-wrap">
-            <Filter className="w-4 h-4 text-gray-500" />
-            <span className="text-sm font-medium text-gray-600">Grade:</span>
+            <Filter className="w-4 h-4 text-[var(--muted-foreground)]" />
+            <span className="text-sm font-medium text-[var(--muted-foreground)]">Grade:</span>
             {[
               { value: 0, label: 'All' },
               { value: 6, label: 'G6' },
@@ -2942,12 +3149,12 @@ export default function Home() {
             ].map(opt => (
               <Button key={opt.value} size="sm" variant={dashboardGrade === opt.value ? 'default' : 'outline'}
                 onClick={() => setDashboardGrade(opt.value)}
-                className={dashboardGrade === opt.value ? 'bg-[#722F37] text-white' : 'border-[#722F37]/30 text-[#722F37]'}>
+                className={dashboardGrade === opt.value ? 'bg-[#0F5C5E] text-white' : 'border-[#0F5C5E]/30 text-[#0F5C5E]'}>
                 {opt.label}
               </Button>
             ))}
             <div className="flex items-center gap-2 ml-2">
-              <Search className="w-4 h-4 text-gray-400" />
+              <Search className="w-4 h-4 text-[var(--muted-foreground)]/70" />
               <Input value={studentSearch} onChange={e => setStudentSearch(e.target.value)}
                 placeholder={t('searchStudents')} className="h-8 text-xs w-40" />
             </div>
@@ -2955,18 +3162,18 @@ export default function Home() {
               {(['term', 'semester', 'year'] as const).map(mode => (
                 <Button key={mode} size="sm" variant={dashboardViewMode === mode ? 'default' : 'outline'}
                   onClick={() => setDashboardViewMode(mode)}
-                  className={dashboardViewMode === mode ? 'bg-amber-600 text-white text-xs' : 'text-xs border-amber-300 text-amber-700'}>
+                  className={dashboardViewMode === mode ? 'bg-amber-600 text-white text-xs' : 'text-xs border-[var(--bronze)]/40 text-[var(--bronze)]'}>
                   {t(`viewBy${mode.charAt(0).toUpperCase() + mode.slice(1)}`)}
                 </Button>
               ))}
             </div>
             <div className="flex items-center gap-2 ml-auto">
-              <Button size="sm" variant="outline" onClick={handleExport} className="border-emerald-300 text-emerald-700 hover:bg-emerald-50">
+              <Button size="sm" variant="outline" onClick={handleExport} className="border-[var(--sage)]/40 text-[var(--sage)] hover:bg-[var(--sage)]/10">
                 <Download className="w-3 h-3 mr-1" /> {t('exportData')}
               </Button>
               {isAdmin && (
                 <Button size="sm" variant="outline" onClick={() => setShowClearConfirm(true)}
-                  className="border-rose-300 text-rose-700 hover:bg-rose-50">
+                  className="border-[var(--terracotta)]/40 text-[var(--terracotta)] hover:bg-[var(--terracotta)]/10">
                   <Trash2 className="w-3 h-3 mr-1" /> {t('clearAllData')}
                 </Button>
               )}
@@ -2975,14 +3182,14 @@ export default function Home() {
 
           {/* Export Date Range */}
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="text-xs font-medium text-gray-500">{t('exportWithDates')}:</span>
+            <span className="text-xs font-medium text-[var(--muted-foreground)]">{t('exportWithDates')}:</span>
             <Input type="date" value={exportDateFrom} onChange={e => setExportDateFrom(e.target.value)}
               className="h-8 text-xs w-36" placeholder={t('fromDate')} />
-            <span className="text-xs text-gray-400">→</span>
+            <span className="text-xs text-[var(--muted-foreground)]/70">→</span>
             <Input type="date" value={exportDateTo} onChange={e => setExportDateTo(e.target.value)}
               className="h-8 text-xs w-36" placeholder={t('toDate')} />
             {(exportDateFrom || exportDateTo) && (
-              <Button size="sm" variant="ghost" className="text-xs text-gray-500 h-7"
+              <Button size="sm" variant="ghost" className="text-xs text-[var(--muted-foreground)] h-7"
                 onClick={() => { setExportDateFrom(''); setExportDateTo(''); }}>
                 <X className="w-3 h-3 mr-1" /> Clear
               </Button>
@@ -2997,8 +3204,8 @@ export default function Home() {
                   <div className="w-16 h-16 rounded-full bg-rose-100 flex items-center justify-center mx-auto mb-4">
                     <AlertTriangle className="w-8 h-8 text-rose-600" />
                   </div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-2">{t('clearAllData')}?</h3>
-                  <p className="text-sm text-gray-600">{t('confirmClear')}</p>
+                  <h3 className="text-lg font-bold text-[var(--ink)] mb-2">{t('clearAllData')}?</h3>
+                  <p className="text-sm text-[var(--muted-foreground)]">{t('confirmClear')}</p>
                 </div>
                 <div className="flex gap-3 p-4 border-t">
                   <Button variant="outline" className="flex-1" onClick={() => setShowClearConfirm(false)}>Cancel</Button>
@@ -3012,7 +3219,7 @@ export default function Home() {
 
           {/* Data Cleared Message */}
           {dataClearedMsg && (
-            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm text-emerald-700 flex items-center gap-2">
+            <div className="bg-[var(--sage)]/10 border border-[var(--sage)]/30 rounded-lg p-3 text-sm text-[var(--sage)] flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" /> {t('dataCleared')}
             </div>
           )}
@@ -3023,13 +3230,13 @@ export default function Home() {
               { label: t('activeStudents'), value: activeStudentsCount, icon: <Users className="w-5 h-5" />, color: '#d97706', bg: '#fffbeb', border: '#fde68a' },
               { label: 'Quizzes Completed', value: totalQuizzes, icon: <Trophy className="w-5 h-5" />, color: '#059669', bg: '#ecfdf5', border: '#a7f3d0' },
               { label: 'Average Score', value: `${avgScore}%`, icon: <Target className="w-5 h-5" />, color: '#e11d48', bg: '#fff1f2', border: '#fecdd3' },
-              { label: 'Highest Score', value: `${highestScore}%`, icon: <Award className="w-5 h-5" />, color: '#D4AF37', bg: '#fffbeb', border: '#D4AF37' },
+              { label: 'Highest Score', value: `${highestScore}%`, icon: <Award className="w-5 h-5" />, color: '#C68A2E', bg: '#fffbeb', border: '#C68A2E' },
             ].map((stat, i) => (
               <Card key={i} className="border-2" style={{ borderColor: stat.border, backgroundColor: stat.bg }}>
                 <CardContent className="p-4 text-center">
                   <div className="flex justify-center mb-2" style={{ color: stat.color }}>{stat.icon}</div>
                   <div className="text-2xl font-bold" style={{ color: stat.color }}>{stat.value}</div>
-                  <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
+                  <div className="text-xs text-[var(--muted-foreground)] mt-1">{stat.label}</div>
                 </CardContent>
               </Card>
             ))}
@@ -3039,7 +3246,7 @@ export default function Home() {
           {isAdmin && (
             <Card className="border-2 border-teal-200 overflow-hidden">
               <div className="bg-gradient-to-r from-teal-50 to-emerald-50 p-4 border-b border-teal-200">
-                <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[var(--ink)] flex items-center gap-2">
                   <Settings className="w-5 h-5 text-teal-600" /> {t('classroomManagement')}
                 </h3>
               </div>
@@ -3053,11 +3260,11 @@ export default function Home() {
                       </div>
                       <div>
                         <div className="text-2xl font-bold" style={{ color: '#0d9488' }}>{activeStudentsCount}</div>
-                        <div className="text-xs text-gray-500">{t('activeStudents')} (7 days)</div>
+                        <div className="text-xs text-[var(--muted-foreground)]">{t('activeStudents')} (7 days)</div>
                       </div>
                     </div>
                     <div className="mt-2">
-                      <div className="text-xs text-gray-500 mb-1">Total: {totalStudents} students</div>
+                      <div className="text-xs text-[var(--muted-foreground)] mb-1">Total: {totalStudents} students</div>
                       <div className="w-full h-2 rounded-full bg-gray-200 overflow-hidden">
                         <div className="h-full rounded-full" style={{
                           width: `${totalStudents > 0 ? (activeStudentsCount / totalStudents) * 100 : 0}%`,
@@ -3067,21 +3274,21 @@ export default function Home() {
                     </div>
                   </div>
                   {/* Recent Activity */}
-                  <div className="p-4 rounded-lg border-2 border-amber-200" style={{ backgroundColor: '#fffbeb' }}>
+                  <div className="p-4 rounded-lg border-2 border-[var(--border)]" style={{ backgroundColor: '#fffbeb' }}>
                     <div className="flex items-center gap-2 mb-3">
                       <Activity className="w-4 h-4" style={{ color: '#d97706' }} />
-                      <span className="text-sm font-bold text-gray-700">{t('recentActivity')}</span>
+                      <span className="text-sm font-bold text-[var(--ink)]">{t('recentActivity')}</span>
                     </div>
                     <div className="space-y-2 max-h-40 overflow-y-auto">
                       {recentActivity.length === 0 ? (
-                        <p className="text-xs text-gray-400">{t('noResultsFound')}</p>
+                        <p className="text-xs text-[var(--muted-foreground)]/70">{t('noResultsFound')}</p>
                       ) : recentActivity.map((r, i) => (
                         <div key={i} className="flex items-center gap-2 text-xs">
                           <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{
                             backgroundColor: r.percentage >= 75 ? '#059669' : r.percentage >= 50 ? '#d97706' : '#e11d48',
                           }} />
-                          <span className="font-mono text-[10px] bg-amber-100 text-amber-800 px-1 rounded">{r.studentCode}</span>
-                          <span className="text-gray-600 truncate flex-1">{r.lessonTitle}</span>
+                          <span className="font-mono text-[10px] bg-[var(--muted)] text-[var(--ink)] px-1 rounded">{r.studentCode}</span>
+                          <span className="text-[var(--muted-foreground)] truncate flex-1">{r.lessonTitle}</span>
                           <span className="font-bold" style={{
                             color: r.percentage >= 75 ? '#059669' : r.percentage >= 50 ? '#d97706' : '#e11d48',
                           }}>{r.percentage}%</span>
@@ -3095,21 +3302,21 @@ export default function Home() {
           )}
 
           {/* Semester/Year Accumulation with visual bars */}
-          <Card className="border-2 border-amber-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-amber-200">
-              <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-[#D4AF37]" /> {t('termComparison')}
+          <Card className="border-2 border-[var(--border)] overflow-hidden">
+            <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-[var(--border)]">
+              <h3 className="text-lg font-bold text-[var(--ink)] flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-[#C68A2E]" /> {t('termComparison')}
               </h3>
             </div>
             <CardContent className="p-4">
               <div className="grid grid-cols-3 gap-4 mb-4">
                 {termScores.map(ts => (
-                  <div key={ts.term} className="text-center p-3 rounded-lg bg-gray-50 border">
-                    <div className="text-sm font-bold text-gray-700">Term {ts.term}</div>
-                    <div className="text-2xl font-bold text-[#722F37] mt-1">
+                  <div key={ts.term} className="text-center p-3 rounded-lg bg-[var(--muted)]/40 border">
+                    <div className="text-sm font-bold text-[var(--ink)]">Term {ts.term}</div>
+                    <div className="text-2xl font-bold text-[#0F5C5E] mt-1">
                       {ts.totalPossible > 0 ? `${ts.totalScore}/${ts.totalPossible}` : '—'}
                     </div>
-                    <div className="text-xs text-gray-500 mt-1">
+                    <div className="text-xs text-[var(--muted-foreground)] mt-1">
                       {ts.totalQuizzes} quizzes • Avg {ts.avgPercentage}%
                     </div>
                     {ts.totalPossible > 0 && (
@@ -3123,12 +3330,12 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <div className="text-center p-4 rounded-lg bg-gradient-to-r from-[#722F37]/10 to-[#D4AF37]/10 border-2 border-[#D4AF37]">
-                <div className="text-sm font-bold text-gray-700">Year Total</div>
-                <div className="text-3xl font-bold text-[#722F37]">
+              <div className="text-center p-4 rounded-lg bg-gradient-to-r from-[#0F5C5E]/10 to-[#C68A2E]/10 border-2 border-[#C68A2E]">
+                <div className="text-sm font-bold text-[var(--ink)]">Year Total</div>
+                <div className="text-3xl font-bold text-[#0F5C5E]">
                   {yearPossible > 0 ? `${yearTotal}/${yearPossible}` : '—'}
                 </div>
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-[var(--muted-foreground)] mt-1">
                   {yearPossible > 0 ? `${Math.round((yearTotal / yearPossible) * 100)}% overall` : 'No data yet'}
                 </div>
               </div>
@@ -3136,35 +3343,35 @@ export default function Home() {
           </Card>
 
           {/* Per-Student Table */}
-          <Card className="border-2 border-amber-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-amber-200">
-              <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#D4AF37]" /> Student Performance
-                {studentSearch && <Badge className="ml-2 bg-amber-100 text-amber-800 border-0 text-xs">Filtered: &quot;{studentSearch}&quot;</Badge>}
+          <Card className="border-2 border-[var(--border)] overflow-hidden">
+            <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-4 border-b border-[var(--border)]">
+              <h3 className="text-lg font-bold text-[var(--ink)] flex items-center gap-2">
+                <Users className="w-5 h-5 text-[#C68A2E]" /> Student Performance
+                {studentSearch && <Badge className="ml-2 bg-[var(--muted)] text-[var(--ink)] border-0 text-xs">Filtered: &quot;{studentSearch}&quot;</Badge>}
               </h3>
             </div>
             <div className="overflow-x-auto max-h-96">
               {studentList.length === 0 ? (
                 <div className="p-8 text-center">
                   <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <h4 className="font-bold text-gray-400">{t('noResultsFound')}</h4>
-                  <p className="text-sm text-gray-400 mt-1">Results will appear here when students complete quizzes.</p>
+                  <h4 className="font-bold text-[var(--muted-foreground)]/70">{t('noResultsFound')}</h4>
+                  <p className="text-sm text-[var(--muted-foreground)]/70 mt-1">Results will appear here when students complete quizzes.</p>
                 </div>
               ) : (
                 <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-gray-50">
+                  <thead className="sticky top-0 bg-[var(--muted)]/40">
                     <tr className="border-b">
-                      <th className="text-left px-4 py-3 font-semibold text-gray-600">Student Code</th>
-                      <th className="text-center px-4 py-3 font-semibold text-gray-600">Quizzes</th>
-                      <th className="text-center px-4 py-3 font-semibold text-gray-600">Avg Score</th>
-                      <th className="text-left px-4 py-3 font-semibold text-gray-600">Last Active</th>
+                      <th className="text-left px-4 py-3 font-semibold text-[var(--muted-foreground)]">Student Code</th>
+                      <th className="text-center px-4 py-3 font-semibold text-[var(--muted-foreground)]">Quizzes</th>
+                      <th className="text-center px-4 py-3 font-semibold text-[var(--muted-foreground)]">Avg Score</th>
+                      <th className="text-left px-4 py-3 font-semibold text-[var(--muted-foreground)]">Last Active</th>
                     </tr>
                   </thead>
                   <tbody>
                     {studentList.map(student => (
-                      <tr key={student.code} className="border-b hover:bg-amber-50/50 transition-colors">
+                      <tr key={student.code} className="border-b hover:bg-[var(--muted)]/50 transition-colors">
                         <td className="px-4 py-3">
-                          <span className="font-mono text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded">{student.code}</span>
+                          <span className="font-mono text-xs bg-[var(--muted)] text-[var(--ink)] px-2 py-1 rounded">{student.code}</span>
                         </td>
                         <td className="px-4 py-3 text-center font-bold">{student.totalQuizzes}</td>
                         <td className="px-4 py-3 text-center">
@@ -3175,7 +3382,7 @@ export default function Home() {
                             {student.avgScore}%
                           </Badge>
                         </td>
-                        <td className="px-4 py-3 text-xs text-gray-500">
+                        <td className="px-4 py-3 text-xs text-[var(--muted-foreground)]">
                           {new Date(student.lastActive).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                         </td>
                       </tr>
@@ -3188,28 +3395,28 @@ export default function Home() {
 
           {/* Per-Lesson Scores for each student */}
           {studentList.length > 0 && (
-            <Card className="border-2 border-emerald-200 overflow-hidden">
-              <div className="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 border-b border-emerald-200">
-                <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
+            <Card className="border-2 border-[var(--sage)]/30 overflow-hidden">
+              <div className="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 border-b border-[var(--sage)]/30">
+                <h3 className="text-lg font-bold text-[var(--ink)] flex items-center gap-2">
                   <FileText className="w-5 h-5 text-emerald-600" /> Per-Lesson Scores
                 </h3>
               </div>
               <div className="overflow-x-auto max-h-96">
                 <table className="w-full text-xs">
-                  <thead className="sticky top-0 bg-gray-50">
+                  <thead className="sticky top-0 bg-[var(--muted)]/40">
                     <tr className="border-b">
-                      <th className="text-left px-3 py-2 font-semibold text-gray-600">Student</th>
-                      <th className="text-left px-3 py-2 font-semibold text-gray-600">Lesson</th>
-                      <th className="text-center px-3 py-2 font-semibold text-gray-600">Score</th>
-                      <th className="text-center px-3 py-2 font-semibold text-gray-600">%</th>
-                      <th className="text-left px-3 py-2 font-semibold text-gray-600">Date</th>
+                      <th className="text-left px-3 py-2 font-semibold text-[var(--muted-foreground)]">Student</th>
+                      <th className="text-left px-3 py-2 font-semibold text-[var(--muted-foreground)]">Lesson</th>
+                      <th className="text-center px-3 py-2 font-semibold text-[var(--muted-foreground)]">Score</th>
+                      <th className="text-center px-3 py-2 font-semibold text-[var(--muted-foreground)]">%</th>
+                      <th className="text-left px-3 py-2 font-semibold text-[var(--muted-foreground)]">Date</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredResults.sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime()).map((result, idx) => (
-                      <tr key={idx} className="border-b hover:bg-emerald-50/30 transition-colors">
-                        <td className="px-3 py-2"><span className="font-mono text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">{result.studentCode}</span></td>
-                        <td className="px-3 py-2 text-gray-700 max-w-[200px] truncate">{result.lessonTitle}</td>
+                      <tr key={idx} className="border-b hover:bg-[var(--sage)]/10/30 transition-colors">
+                        <td className="px-3 py-2"><span className="font-mono text-[10px] bg-[var(--muted)] text-[var(--ink)] px-1.5 py-0.5 rounded">{result.studentCode}</span></td>
+                        <td className="px-3 py-2 text-[var(--ink)] max-w-[200px] truncate">{result.lessonTitle}</td>
                         <td className="px-3 py-2 text-center font-bold">{result.score}/{result.total}</td>
                         <td className="px-3 py-2 text-center">
                           <Badge className="border-0 text-[10px]" style={{
@@ -3219,7 +3426,7 @@ export default function Home() {
                             {result.percentage}%
                           </Badge>
                         </td>
-                        <td className="px-3 py-2 text-gray-500">{new Date(result.completedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
+                        <td className="px-3 py-2 text-[var(--muted-foreground)]">{new Date(result.completedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -3228,8 +3435,8 @@ export default function Home() {
             </Card>
           )}
 
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-center">
-            <p className="text-xs text-amber-700">
+          <div className="bg-[var(--muted)] border border-[var(--border)] rounded-lg p-4 text-center">
+            <p className="text-xs text-[var(--bronze)]">
               <strong>Note:</strong> Data stored locally in the browser. Export periodically for permanent records.
               Teacher-Created Study Material — Not an Official ADEK Resource.
             </p>
@@ -3244,9 +3451,9 @@ export default function Home() {
   // ════════════════════════════════════════════════════════════
 
   const renderAboutPage = () => (
-    <div className="min-h-screen bg-[#FFF9F0] flex flex-col">
-      <div className="relative bg-gradient-to-r from-[#722F37] to-[#5A1A23] py-12 px-4">
-        <ArabicPattern opacity={0.08} color="#D4AF37" />
+    <div className="min-h-screen bg-[#F6EFDD] flex flex-col">
+      <div className="relative bg-gradient-to-r from-[#0F5C5E] to-[#0A4042] py-12 px-4">
+        <ArabicPattern opacity={0.08} color="#C68A2E" />
         <div className="relative z-10 max-w-3xl mx-auto">
           <Button variant="ghost" onClick={() => navigateTo('landing')} className="text-white/80 hover:text-white hover:bg-white/10 mb-4">
             <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home
@@ -3257,17 +3464,17 @@ export default function Home() {
       </div>
 
       <div className="max-w-3xl mx-auto px-4 py-8 space-y-6 flex-1">
-        <Card className="border-2 border-[#D4AF37] overflow-hidden">
+        <Card className="border-2 border-[#C68A2E] overflow-hidden">
           <div className="bg-gradient-to-r from-amber-50 to-rose-50 p-6">
             <div className="flex items-start gap-4">
-              <div className="w-20 h-20 rounded-full bg-[#722F37] border-3 border-[#D4AF37] flex items-center justify-center shrink-0">
-                <GraduationCap className="w-10 h-10 text-[#D4AF37]" />
+              <div className="w-20 h-20 rounded-full bg-[#0F5C5E] border-3 border-[#C68A2E] flex items-center justify-center shrink-0">
+                <GraduationCap className="w-10 h-10 text-[#C68A2E]" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-[#722F37]">Mr. Ahmed Ali</h2>
-                <p className="text-sm text-gray-600 mt-1">MSCS Educator & Curriculum Developer</p>
+                <h2 className="text-2xl font-bold text-[#0F5C5E]">Mr. Ahmed Ali</h2>
+                <p className="text-sm text-[var(--muted-foreground)] mt-1">MSCS Educator & Curriculum Developer</p>
                 <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm text-[#D4AF37] hover:text-amber-600 mt-2 font-medium">
+                  className="inline-flex items-center gap-1 text-sm text-[#C68A2E] hover:text-[var(--bronze)] mt-2 font-medium">
                   Visit Portfolio <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
@@ -3275,10 +3482,10 @@ export default function Home() {
           </div>
           <CardContent className="p-6 space-y-4">
             <div>
-              <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
-                <Shield className="w-4 h-4 text-[#D4AF37]" /> Credentials
+              <h3 className="font-bold text-[var(--ink)] mb-2 flex items-center gap-2">
+                <Shield className="w-4 h-4 text-[#C68A2E]" /> Credentials
               </h3>
-              <ul className="space-y-2 text-sm text-gray-600">
+              <ul className="space-y-2 text-sm text-[var(--muted-foreground)]">
                 <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Specialist in Moral, Social & Cultural Studies for UAE education</li>
                 <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Experienced curriculum developer aligned with UAE Ministry of Education standards</li>
                 <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Interactive lesson design with technology integration</li>
@@ -3287,18 +3494,18 @@ export default function Home() {
             </div>
             <Separator />
             <div>
-              <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
-                <Info className="w-4 h-4 text-[#D4AF37]" /> Platform Information
+              <h3 className="font-bold text-[var(--ink)] mb-2 flex items-center gap-2">
+                <Info className="w-4 h-4 text-[#C68A2E]" /> Platform Information
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
+              <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">
                 MSCS Academy is an interactive learning platform designed for UAE students in Grades 6-9 studying Moral, Social, and Cultural Studies. The platform provides {platformStats.totalLessons} engaging, standards-aligned lessons with interactive components including quizzes, timelines, maps, and collaborative activities.
               </p>
             </div>
-            <div className="bg-amber-50 rounded-lg p-4 border border-amber-200">
-              <h3 className="font-bold text-amber-800 text-sm mb-2 flex items-center gap-2">
+            <div className="bg-[var(--muted)] rounded-lg p-4 border border-[var(--border)]">
+              <h3 className="font-bold text-[var(--ink)] text-sm mb-2 flex items-center gap-2">
                 <AlertCircle className="w-4 h-4" /> Disclaimer
               </h3>
-              <p className="text-xs text-amber-700 leading-relaxed">
+              <p className="text-xs text-[var(--bronze)] leading-relaxed">
                 This platform is developed independently by Mr. Ahmed Ali as an educational resource.
                 All content is aligned with UAE curriculum standards but is not officially endorsed by any educational authority.
                 Teacher-Created Study Material — Not an Official ADEK Resource.
@@ -3317,22 +3524,22 @@ export default function Home() {
 
   const renderLoginPage = () => {
     return (
-    <div className="min-h-screen bg-[#FFF9F0] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#F6EFDD] flex items-center justify-center p-4">
       <div className="relative z-10 w-full max-w-md">
-        <Button variant="ghost" onClick={() => navigateTo('landing')} className="mb-4 text-gray-500">
+        <Button variant="ghost" onClick={() => navigateTo('landing')} className="mb-4 text-[var(--muted-foreground)]">
           <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home
         </Button>
-        <Card className="border-2 border-[#D4AF37] overflow-hidden">
+        <Card className="border-2 border-[#C68A2E] overflow-hidden">
           {/* Tab Toggle: Student | Teacher | Admin */}
-          <div className="flex border-b border-[#D4AF37]/30">
+          <div className="flex border-b border-[#C68A2E]/30">
             {(['student', 'teacher', 'admin'] as const).map(tab => (
               <button
                 key={tab}
                 onClick={() => { setLoginTab(tab); setLoginError(''); }}
                 className="flex-1 py-3.5 text-center text-sm font-bold transition-all relative"
                 style={{
-                  backgroundColor: loginTab === tab ? 'transparent' : '#722F37',
-                  color: loginTab === tab ? '#722F37' : '#fca5a5',
+                  backgroundColor: loginTab === tab ? 'transparent' : '#0F5C5E',
+                  color: loginTab === tab ? '#0F5C5E' : '#fca5a5',
                 }}
               >
                 {tab === 'student' && <LogIn className="w-4 h-4 inline mr-1.5" />}
@@ -3340,16 +3547,16 @@ export default function Home() {
                 {tab === 'admin' && <Shield className="w-4 h-4 inline mr-1.5" />}
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
                 {loginTab === tab && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: '#722F37' }} />
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: '#0F5C5E' }} />
                 )}
               </button>
             ))}
           </div>
 
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-5 text-center">
-            <div className="w-12 h-12 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-2">
-              {loginTab === 'student' ? <LogIn className="w-6 h-6 text-[#D4AF37]" /> : loginTab === 'teacher' ? <GraduationCap className="w-6 h-6 text-[#D4AF37]" /> : <Shield className="w-6 h-6 text-[#D4AF37]" />}
+          <div className="bg-gradient-to-r from-[#0F5C5E] to-[#0A4042] p-5 text-center">
+            <div className="w-12 h-12 rounded-full bg-[#C68A2E]/20 border-2 border-[#C68A2E] flex items-center justify-center mx-auto mb-2">
+              {loginTab === 'student' ? <LogIn className="w-6 h-6 text-[#C68A2E]" /> : loginTab === 'teacher' ? <GraduationCap className="w-6 h-6 text-[#C68A2E]" /> : <Shield className="w-6 h-6 text-[#C68A2E]" />}
             </div>
             <h2 className="text-lg font-bold text-white">
               {loginTab === 'student' ? t('studentLogin') : loginTab === 'teacher' ? 'Teacher Login' : t('adminLogin')}
@@ -3363,22 +3570,22 @@ export default function Home() {
             <div className="space-y-4">
               {loginTab === 'student' ? (
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1.5 block">Access Code</label>
+                  <label className="text-sm font-medium text-[var(--ink)] mb-1.5 block">Access Code</label>
                   <Input value={loginCode} onChange={e => { setLoginCode(e.target.value.toUpperCase()); setLoginError(''); }}
                     placeholder="MSCS-6-A-2026-01" className="text-center font-mono text-lg tracking-wider" />
-                  <p className="text-xs text-gray-400 mt-1">Format: MSCS-Grade-Section-Year-Number</p>
+                  <p className="text-xs text-[var(--muted-foreground)]/70 mt-1">Format: MSCS-Grade-Section-Year-Number</p>
                 </div>
               ) : loginTab === 'teacher' ? (
                 <>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                    <label className="text-sm font-medium text-[var(--ink)] mb-1.5 block flex items-center gap-2">
                       <User className="w-4 h-4" /> Username
                     </label>
                     <Input value={teacherUsername} onChange={e => { setTeacherUsername(e.target.value); setLoginError(''); }}
                       placeholder="Enter your username" className="font-mono" />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                    <label className="text-sm font-medium text-[var(--ink)] mb-1.5 block flex items-center gap-2">
                       <KeyRound className="w-4 h-4" /> Password
                     </label>
                     <Input type="password" value={teacherPassword} onChange={e => { setTeacherPassword(e.target.value); setLoginError(''); }}
@@ -3388,14 +3595,14 @@ export default function Home() {
               ) : (
                 <>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                    <label className="text-sm font-medium text-[var(--ink)] mb-1.5 block flex items-center gap-2">
                       <User className="w-4 h-4" /> {t('adminUsername')}
                     </label>
                     <Input value={adminUsername} onChange={e => { setAdminUsername(e.target.value); setLoginError(''); }}
                       placeholder={t('enterUsername')} className="font-mono" />
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1.5 block flex items-center gap-2">
+                    <label className="text-sm font-medium text-[var(--ink)] mb-1.5 block flex items-center gap-2">
                       <KeyRound className="w-4 h-4" /> {t('adminPassword2')}
                     </label>
                     <Input type="password" value={adminPassword} onChange={e => { setAdminPassword(e.target.value); setLoginError(''); }}
@@ -3405,7 +3612,7 @@ export default function Home() {
               )}
 
               {loginError && (
-                <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm text-rose-700 flex items-center gap-2">
+                <div className="bg-[var(--terracotta)]/10 border border-rose-200 rounded-lg p-3 text-sm text-[var(--terracotta)] flex items-center gap-2">
                   <XCircle className="w-4 h-4 shrink-0" />{loginError}
                 </div>
               )}
@@ -3428,7 +3635,7 @@ export default function Home() {
                   }
                 }}
                 disabled={loginLoading}
-                className="w-full bg-[#722F37] hover:bg-[#5A1A23] text-white"
+                className="w-full bg-[#0F5C5E] hover:bg-[#0A4042] text-white"
               >
                 {loginLoading ? (
                   <span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Signing in...</span>
@@ -3437,7 +3644,7 @@ export default function Home() {
                 )}
               </Button>
               <div className="text-center">
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--muted-foreground)]/70">
                   {loginTab === 'student' ? 'Enter your teacher-issued access code' : loginTab === 'teacher' ? 'Contact admin for account credentials' : 'Authorized personnel only'}
                 </p>
               </div>
@@ -3454,9 +3661,9 @@ export default function Home() {
   // ════════════════════════════════════════════════════════════
 
   const renderConsentPage = () => (
-    <div className="min-h-screen bg-[#FFF9F0] flex flex-col">
+    <div className="min-h-screen bg-[#F6EFDD] flex flex-col">
       <div className="relative bg-gradient-to-r from-teal-600 to-emerald-700 py-12 px-4">
-        <ArabicPattern opacity={0.06} color="#D4AF37" />
+        <ArabicPattern opacity={0.06} color="#C68A2E" />
         <div className="relative z-10 max-w-3xl mx-auto">
           <Button variant="ghost" onClick={() => navigateTo('landing')} className="text-white/80 hover:text-white hover:bg-white/10 mb-4">
             <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home
@@ -3471,8 +3678,8 @@ export default function Home() {
             <div className="flex items-start gap-3">
               <Shield className="w-8 h-8 text-teal-600 shrink-0" />
               <div>
-                <h3 className="font-bold text-gray-800">Our Commitment to Student Safety</h3>
-                <p className="text-sm text-gray-600 mt-2 leading-relaxed">
+                <h3 className="font-bold text-[var(--ink)]">Our Commitment to Student Safety</h3>
+                <p className="text-sm text-[var(--muted-foreground)] mt-2 leading-relaxed">
                   MSCS Academy is committed to providing a safe, secure, and age-appropriate learning environment for all students.
                   We follow strict data protection practices and ensure that no personal student information is collected or stored on our platform.
                 </p>
@@ -3480,9 +3687,9 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
-        <Card className="border-2 border-emerald-200">
+        <Card className="border-2 border-[var(--sage)]/30">
           <CardContent className="p-6 space-y-3">
-            <h3 className="font-bold text-gray-800">What Parents Need to Know</h3>
+            <h3 className="font-bold text-[var(--ink)]">What Parents Need to Know</h3>
             {[
               { title: 'No Personal Data Collection', desc: 'The platform does not collect, store, or transmit any personal student data. All interactive elements work locally in the browser.' },
               { title: 'Curriculum-Aligned Content', desc: 'All lessons follow UAE Ministry of Education standards for Moral, Social, and Cultural Studies.' },
@@ -3490,19 +3697,19 @@ export default function Home() {
               { title: 'No External Communication', desc: 'The platform has no chat features, social elements, or ways for students to communicate with others.' },
               { title: 'Optional Access', desc: 'Student login is optional and uses a code-based system. No email addresses or personal identifiers are required.' },
             ].map((item, i) => (
-              <div key={i} className="flex items-start gap-2 bg-emerald-50/50 rounded-lg p-3 border border-emerald-100">
+              <div key={i} className="flex items-start gap-2 bg-[var(--sage)]/10/50 rounded-lg p-3 border border-emerald-100">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
                 <div>
-                  <span className="font-semibold text-sm text-gray-800">{item.title}</span>
-                  <p className="text-xs text-gray-600 mt-0.5">{item.desc}</p>
+                  <span className="font-semibold text-sm text-[var(--ink)]">{item.title}</span>
+                  <p className="text-xs text-[var(--muted-foreground)] mt-0.5">{item.desc}</p>
                 </div>
               </div>
             ))}
           </CardContent>
         </Card>
-        <Card className="border-2 border-amber-200">
+        <Card className="border-2 border-[var(--border)]">
           <CardContent className="p-6">
-            <h3 className="font-bold text-gray-800 mb-3">Consent Process</h3>
+            <h3 className="font-bold text-[var(--ink)] mb-3">Consent Process</h3>
             <div className="space-y-4">
               {[
                 { step: 1, title: 'School distributes access codes', desc: 'Each student receives a unique code in the format MSCS-Grade-Section-Year-Number' },
@@ -3511,12 +3718,12 @@ export default function Home() {
                 { step: 4, title: 'Ongoing transparency', desc: 'All content is accessible for parental review at any time' },
               ].map(item => (
                 <div key={item.step} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-amber-100 border-2 border-[#D4AF37] flex items-center justify-center shrink-0">
-                    <span className="text-sm font-bold text-amber-700">{item.step}</span>
+                  <div className="w-8 h-8 rounded-full bg-[var(--muted)] border-2 border-[#C68A2E] flex items-center justify-center shrink-0">
+                    <span className="text-sm font-bold text-[var(--bronze)]">{item.step}</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-sm text-gray-800">{item.title}</h4>
-                    <p className="text-xs text-gray-600">{item.desc}</p>
+                    <h4 className="font-semibold text-sm text-[var(--ink)]">{item.title}</h4>
+                    <p className="text-xs text-[var(--muted-foreground)]">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -3525,7 +3732,7 @@ export default function Home() {
         </Card>
         <div className="text-center">
           <AhmedAliLink size="md" />
-          <p className="text-xs text-gray-400 mt-2">For questions or concerns, please contact through the portfolio website</p>
+          <p className="text-xs text-[var(--muted-foreground)]/70 mt-2">For questions or concerns, please contact through the portfolio website</p>
         </div>
       </div>
     </div>
@@ -3536,19 +3743,19 @@ export default function Home() {
   // ════════════════════════════════════════════════════════════
 
   const renderSetupPage = () => (
-    <div className="min-h-screen bg-[#FFF9F0] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#F6EFDD] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Card className="border-2 border-[#D4AF37] overflow-hidden">
-          <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-6 text-center">
-            <div className="w-14 h-14 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-3">
-              <Shield className="w-7 h-7 text-[#D4AF37]" />
+        <Card className="border-2 border-[#C68A2E] overflow-hidden">
+          <div className="bg-gradient-to-r from-[#0F5C5E] to-[#0A4042] p-6 text-center">
+            <div className="w-14 h-14 rounded-full bg-[#C68A2E]/20 border-2 border-[#C68A2E] flex items-center justify-center mx-auto mb-3">
+              <Shield className="w-7 h-7 text-[#C68A2E]" />
             </div>
             <h2 className="text-xl font-bold text-white">Initial Setup</h2>
             <p className="text-rose-200 text-sm mt-1">Create the administrator account to get started</p>
           </div>
           <CardContent className="p-6 space-y-4">
             {dbHint && (
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-700 flex items-start gap-2">
+              <div className="bg-[var(--muted)] border border-[var(--border)] rounded-lg p-3 text-xs text-[var(--bronze)] flex items-start gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold mb-1">Database Notice</p>
@@ -3557,28 +3764,28 @@ export default function Home() {
               </div>
             )}
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">Admin Name</label>
+              <label className="text-sm font-medium text-[var(--ink)] mb-1 block">Admin Name</label>
               <Input value={adminNameInput} onChange={e => { setAdminNameInput(e.target.value); setLoginError(''); }} placeholder="Full name" />
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">Email</label>
+              <label className="text-sm font-medium text-[var(--ink)] mb-1 block">Email</label>
               <Input type="email" value={adminEmailInput} onChange={e => { setAdminEmailInput(e.target.value); setLoginError(''); }} placeholder="admin@example.com" />
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">Username</label>
+              <label className="text-sm font-medium text-[var(--ink)] mb-1 block">Username</label>
               <Input value={adminUsername} onChange={e => { setAdminUsername(e.target.value); setLoginError(''); }} placeholder="Choose a username" className="font-mono" />
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">Password</label>
+              <label className="text-sm font-medium text-[var(--ink)] mb-1 block">Password</label>
               <Input type="password" value={adminPasswordInput} onChange={e => { setAdminPasswordInput(e.target.value); setLoginError(''); }} placeholder="Min. 8 characters" className="font-mono" />
             </div>
             {loginError && (
-              <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 text-sm text-rose-700 flex items-start gap-2">
+              <div className="bg-[var(--terracotta)]/10 border border-rose-200 rounded-lg p-3 text-sm text-[var(--terracotta)] flex items-start gap-2">
                 <XCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <div>{loginError}</div>
               </div>
             )}
-            <Button onClick={handleSetup} disabled={loginLoading} className="w-full bg-[#722F37] hover:bg-[#5A1A23] text-white">
+            <Button onClick={handleSetup} disabled={loginLoading} className="w-full bg-[#0F5C5E] hover:bg-[#0A4042] text-white">
               {loginLoading ? <span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Setting up...</span> : 'Create Admin Account'}
             </Button>
           </CardContent>
@@ -3597,23 +3804,23 @@ export default function Home() {
     const tabs = ['overview', 'users', 'subscriptions', 'analytics', 'notifications'] as const;
 
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-[var(--muted)]/40">
         <div className="bg-gradient-to-r from-[#1a1a2e] to-[#16213e] p-4 shadow-lg">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/20 border border-[#D4AF37] flex items-center justify-center">
-                <Shield className="w-5 h-5 text-[#D4AF37]" />
+              <div className="w-10 h-10 rounded-lg bg-[#C68A2E]/20 border border-[#C68A2E] flex items-center justify-center">
+                <Shield className="w-5 h-5 text-[#C68A2E]" />
               </div>
               <div>
                 <h1 className="text-white font-bold text-lg">MSCS Academy Admin</h1>
-                <p className="text-gray-400 text-xs">Educational Intelligence System</p>
+                <p className="text-[var(--muted-foreground)]/70 text-xs">Educational Intelligence System</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Button variant="ghost" size="sm" onClick={() => navigateTo('landing')} className="text-gray-400 hover:text-white">
+              <Button variant="ghost" size="sm" onClick={() => navigateTo('landing')} className="text-[var(--muted-foreground)]/70 hover:text-white">
                 <HomeIcon className="w-4 h-4" />
               </Button>
-              <Button variant="ghost" size="sm" onClick={handleLogout} className="text-gray-400 hover:text-white">
+              <Button variant="ghost" size="sm" onClick={handleLogout} className="text-[var(--muted-foreground)]/70 hover:text-white">
                 <LogOut className="w-4 h-4 mr-1" /> Sign Out
               </Button>
             </div>
@@ -3624,7 +3831,7 @@ export default function Home() {
             {tabs.map(tab => (
               <button key={tab} onClick={() => setAdminDashboardTab(tab)}
                 className="px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap"
-                style={{ backgroundColor: adminDashboardTab === tab ? '#722F37' : 'transparent', color: adminDashboardTab === tab ? 'white' : '#666' }}
+                style={{ backgroundColor: adminDashboardTab === tab ? '#0F5C5E' : 'transparent', color: adminDashboardTab === tab ? 'white' : '#666' }}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
@@ -3637,7 +3844,7 @@ export default function Home() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { label: 'Total Teachers', value: stats.totalTeachers ?? 0, icon: GraduationCap, color: '#047857' },
-                  { label: 'Total Students', value: stats.totalStudents ?? 0, icon: Users, color: '#722F37' },
+                  { label: 'Total Students', value: stats.totalStudents ?? 0, icon: Users, color: '#0F5C5E' },
                   { label: 'Student Groups', value: stats.totalGroups ?? 0, icon: BookOpen, color: '#D97706' },
                   { label: 'Active Subscriptions', value: stats.activeSubscriptions ?? 0, icon: Crown, color: '#0D9488' },
                 ].map((stat, i) => (
@@ -3649,7 +3856,7 @@ export default function Home() {
                         </div>
                         <div>
                           <div className="text-2xl font-bold" style={{ color: stat.color }}>{String(stat.value)}</div>
-                          <div className="text-xs text-gray-500">{stat.label}</div>
+                          <div className="text-xs text-[var(--muted-foreground)]">{stat.label}</div>
                         </div>
                       </div>
                     </CardContent>
@@ -3660,27 +3867,27 @@ export default function Home() {
                 <CardHeader><CardTitle className="text-sm">System Status</CardTitle></CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-sm text-gray-600">All systems operational</span>
+                    <div className="w-2 h-2 rounded-full bg-[var(--sage)]/100 animate-pulse" />
+                    <span className="text-sm text-[var(--muted-foreground)]">All systems operational</span>
                   </div>
                 </CardContent>
               </Card>
             </div>
           )}
           {adminDashboardTab === 'users' && (
-            <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-gray-500">
+            <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-[var(--muted-foreground)]">
               <Users className="w-12 h-12 mx-auto mb-3 text-gray-300" />
               <p className="text-sm">User management available via /api/admin/users</p>
             </CardContent></Card>
           )}
           {adminDashboardTab === 'subscriptions' && (
-            <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-gray-500">
+            <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-[var(--muted-foreground)]">
               <Crown className="w-12 h-12 mx-auto mb-3 text-gray-300" />
               <p className="text-sm">Subscription management available via /api/admin/subscriptions</p>
             </CardContent></Card>
           )}
           {adminDashboardTab === 'analytics' && (
-            <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-gray-500">
+            <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-[var(--muted-foreground)]">
               <BarChart3 className="w-12 h-12 mx-auto mb-3 text-gray-300" />
               <p className="text-sm">Analytics available via /api/admin/analytics</p>
             </CardContent></Card>
@@ -3688,14 +3895,14 @@ export default function Home() {
           {adminDashboardTab === 'notifications' && (
             <div className="space-y-3">
               {notifications.length === 0 ? (
-                <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-gray-500">No notifications</CardContent></Card>
+                <Card className="border-0 shadow-md"><CardContent className="p-6 text-center text-[var(--muted-foreground)]">No notifications</CardContent></Card>
               ) : notifications.map((n, i) => (
                 <Card key={i} className="border-0 shadow-sm"><CardContent className="p-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full mt-2 shrink-0" style={{ backgroundColor: n.isRead ? '#9ca3af' : '#D4AF37' }} />
+                    <div className="w-2 h-2 rounded-full mt-2 shrink-0" style={{ backgroundColor: n.isRead ? '#9ca3af' : '#C68A2E' }} />
                     <div>
-                      <h4 className="text-sm font-bold text-gray-800">{n.title}</h4>
-                      <p className="text-xs text-gray-500 mt-1">{n.message}</p>
+                      <h4 className="text-sm font-bold text-[var(--ink)]">{n.title}</h4>
+                      <p className="text-xs text-[var(--muted-foreground)] mt-1">{n.message}</p>
                     </div>
                   </div>
                 </CardContent></Card>
@@ -3718,19 +3925,19 @@ export default function Home() {
         name: 'Philosophy',
         icon: Brain,
         desc: 'Exploring existence, knowledge, ethics, and the nature of reality through reasoned inquiry',
-        accent: '#722F37',
+        accent: '#0F5C5E',
         accentLight: 'rgba(114,47,55,0.12)',
-        gradientFrom: '#722F37',
-        gradientTo: '#5A1A23',
+        gradientFrom: '#0F5C5E',
+        gradientTo: '#0A4042',
         symbol: 'Φ',
       },
       {
         name: 'Critical Thinking',
         icon: Lightbulb,
         desc: 'Analyzing arguments, identifying fallacies, and developing sound reasoning across disciplines',
-        accent: '#D4AF37',
+        accent: '#C68A2E',
         accentLight: 'rgba(212,175,55,0.12)',
-        gradientFrom: '#D4AF37',
+        gradientFrom: '#C68A2E',
         gradientTo: '#B8941F',
         symbol: 'Λ',
       },
@@ -3758,15 +3965,15 @@ export default function Home() {
 
     const stats = [
       { label: 'Lessons Done', value: studentData ? String((studentData as Record<string, unknown>).totalCompleted ?? 0) : '0', color: '#047857', icon: BookOpen },
-      { label: 'Quizzes Taken', value: studentData ? String((studentData as Record<string, unknown>).totalQuizzes ?? 0) : '0', color: '#722F37', icon: Trophy },
-      { label: 'Avg Score', value: studentData ? `${String((studentData as Record<string, unknown>).averageScore ?? 0)}%` : '0%', color: '#D4AF37', icon: Target },
+      { label: 'Quizzes Taken', value: studentData ? String((studentData as Record<string, unknown>).totalQuizzes ?? 0) : '0', color: '#0F5C5E', icon: Trophy },
+      { label: 'Avg Score', value: studentData ? `${String((studentData as Record<string, unknown>).averageScore ?? 0)}%` : '0%', color: '#C68A2E', icon: Target },
       { label: 'Grade', value: String(currentUser?.grade || '-'), color: '#0D9488', icon: GraduationCap },
     ];
 
     return (
-      <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(175deg, #1a0a0c 0%, #2d1018 25%, #3D0F15 50%, #2d1018 75%, #1a0a0c 100%)' }}>
+      <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(175deg, #1F2419 0%, #2d1018 25%, #1A2622 50%, #2d1018 75%, #1F2419 100%)' }}>
         {/* ─── Layer 1: Arabic geometric pattern ─── */}
-        <ArabicPattern opacity={0.04} color="#D4AF37" />
+        <ArabicPattern opacity={0.04} color="#C68A2E" />
 
         {/* ─── Layer 2: Floating academic orbs ─── */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -3824,7 +4031,7 @@ export default function Home() {
               style={{
                 top: star.top, left: star.left,
                 width: star.size, height: star.size,
-                backgroundColor: '#D4AF37',
+                backgroundColor: '#C68A2E',
                 animationDelay: star.delay,
               }} />
           ))}
@@ -3832,16 +4039,16 @@ export default function Home() {
 
         {/* ─── Layer 4: Constellation SVG connecting disciplines ─── */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.06 }} xmlns="http://www.w3.org/2000/svg">
-          <line x1="20%" y1="20%" x2="80%" y2="18%" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="4 8">
+          <line x1="20%" y1="20%" x2="80%" y2="18%" stroke="#C68A2E" strokeWidth="0.5" strokeDasharray="4 8">
             <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite" />
           </line>
-          <line x1="80%" y1="18%" x2="60%" y2="65%" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="4 8">
+          <line x1="80%" y1="18%" x2="60%" y2="65%" stroke="#C68A2E" strokeWidth="0.5" strokeDasharray="4 8">
             <animate attributeName="opacity" values="0.3;0.8;0.3" dur="5s" repeatCount="indefinite" />
           </line>
-          <line x1="20%" y1="20%" x2="40%" y2="70%" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="4 8">
+          <line x1="20%" y1="20%" x2="40%" y2="70%" stroke="#C68A2E" strokeWidth="0.5" strokeDasharray="4 8">
             <animate attributeName="opacity" values="0.3;0.8;0.3" dur="6s" repeatCount="indefinite" />
           </line>
-          <line x1="40%" y1="70%" x2="60%" y2="65%" stroke="#D4AF37" strokeWidth="0.5" strokeDasharray="4 8">
+          <line x1="40%" y1="70%" x2="60%" y2="65%" stroke="#C68A2E" strokeWidth="0.5" strokeDasharray="4 8">
             <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4.5s" repeatCount="indefinite" />
           </line>
         </svg>
@@ -3871,7 +4078,7 @@ export default function Home() {
                       border: '1px solid rgba(212,175,55,0.3)',
                       backdropFilter: 'blur(8px)',
                     }}>
-                    <User className="w-5 h-5" style={{ color: '#D4AF37' }} />
+                    <User className="w-5 h-5" style={{ color: '#C68A2E' }} />
                   </div>
                   <div>
                     <motion.h1
@@ -3917,7 +4124,7 @@ export default function Home() {
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">
-                    The Four Pillars of <span style={{ color: '#D4AF37' }}>Knowledge</span>
+                    The Four Pillars of <span style={{ color: '#C68A2E' }}>Knowledge</span>
                   </h2>
                   <p className="text-sm sm:text-base mb-8" style={{ color: 'rgba(255,255,255,0.5)' }}>
                     Where wisdom meets wonder — explore the foundations of understanding
@@ -4144,7 +4351,7 @@ export default function Home() {
                     border: '1px solid rgba(212,175,55,0.2)',
                     backdropFilter: 'blur(12px)',
                   }}>
-                  <AlertTriangle className="w-4 h-4 shrink-0" style={{ color: '#D4AF37' }} />
+                  <AlertTriangle className="w-4 h-4 shrink-0" style={{ color: '#C68A2E' }} />
                   <span className="text-xs sm:text-sm" style={{ color: 'rgba(212,175,55,0.85)' }}>
                     Free Preview Mode — Subscribe for full access
                   </span>
@@ -4204,24 +4411,24 @@ export default function Home() {
             onClick={() => setShowUserMenu(!showUserMenu)}
             className="flex items-center gap-2 px-3 py-2 rounded-xl shadow-lg backdrop-blur-md border transition-all hover:shadow-xl"
             style={{
-              backgroundColor: 'rgba(255,255,255,0.95)',
-              borderColor: isAdmin ? '#D4AF37' : 'rgba(114,47,55,0.3)',
+              backgroundColor: 'rgba(255,252,241,0.95)',
+              borderColor: isAdmin ? '#C68A2E' : 'rgba(114,47,55,0.3)',
             }}
           >
             <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{
               backgroundColor: isAdmin ? '#fef3c7' : '#fff1f2',
             }}>
-              {isAdmin ? <Shield className="w-3.5 h-3.5" style={{ color: '#D4AF37' }} /> : <User className="w-3.5 h-3.5" style={{ color: '#722F37' }} />}
+              {isAdmin ? <Shield className="w-3.5 h-3.5" style={{ color: '#C68A2E' }} /> : <User className="w-3.5 h-3.5" style={{ color: '#0F5C5E' }} />}
             </div>
             <div className="text-left">
-              <div className="text-xs font-bold leading-tight" style={{ color: isAdmin ? '#92400e' : '#722F37' }}>
+              <div className="text-xs font-bold leading-tight" style={{ color: isAdmin ? '#92400e' : '#0F5C5E' }}>
                 {isAdmin ? (studentName || 'Admin') : (studentName || 'Student')}
               </div>
               <div className="text-[10px] leading-tight" style={{ color: isAdmin ? '#b45309' : '#9f1239' }}>
                 {isAdmin ? t('adminInfo') : t('studentInfo')}
               </div>
             </div>
-            <ChevronDown className="w-3 h-3 text-gray-400" />
+            <ChevronDown className="w-3 h-3 text-[var(--muted-foreground)]/70" />
           </button>
 
           {/* Dropdown Menu */}
@@ -4229,7 +4436,7 @@ export default function Home() {
             <>
               {/* Backdrop to close menu */}
               <div className="fixed inset-0 z-40" onClick={() => setShowUserMenu(false)} />
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-[var(--border)] overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
                 {/* User Info Header */}
                 <div className="p-3 border-b" style={{
                   background: isAdmin ? 'linear-gradient(to right, #fef3c7, #fffbeb)' : 'linear-gradient(to right, #fff1f2, #fff5f5)',
@@ -4238,10 +4445,10 @@ export default function Home() {
                     <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{
                       backgroundColor: isAdmin ? '#fde68a' : '#fecdd3',
                     }}>
-                      {isAdmin ? <Shield className="w-4 h-4" style={{ color: '#92400e' }} /> : <User className="w-4 h-4" style={{ color: '#722F37' }} />}
+                      {isAdmin ? <Shield className="w-4 h-4" style={{ color: '#92400e' }} /> : <User className="w-4 h-4" style={{ color: '#0F5C5E' }} />}
                     </div>
                     <div>
-                      <div className="text-sm font-bold" style={{ color: isAdmin ? '#92400e' : '#722F37' }}>
+                      <div className="text-sm font-bold" style={{ color: isAdmin ? '#92400e' : '#0F5C5E' }}>
                         {isAdmin ? (studentName || 'Admin') : (studentName || 'Student')}
                       </div>
                       <div className="text-[10px]" style={{ color: isAdmin ? '#b45309' : '#9f1239' }}>
@@ -4256,16 +4463,16 @@ export default function Home() {
                   {isAdmin && (
                     <button
                       onClick={() => { navigateTo('adminDashboard'); setShowUserMenu(false); }}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-amber-50 rounded-lg transition-colors"
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-[var(--ink)] hover:bg-[var(--muted)] rounded-lg transition-colors"
                     >
-                      <LayoutDashboard className="w-4 h-4 text-amber-600" />
+                      <LayoutDashboard className="w-4 h-4 text-[var(--bronze)]" />
                       {t('dashboardLink')}
                     </button>
                   )}
                   {currentUser?.userType === 'teacher' && (
                     <button
                       onClick={() => { navigateTo('teacherDashboard'); setShowUserMenu(false); }}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 rounded-lg transition-colors"
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-[var(--ink)] hover:bg-[var(--sage)]/10 rounded-lg transition-colors"
                     >
                       <LayoutDashboard className="w-4 h-4 text-emerald-600" />
                       Teacher Dashboard
@@ -4274,7 +4481,7 @@ export default function Home() {
                   {currentUser?.userType === 'student' && (
                     <button
                       onClick={() => { navigateTo('studentDashboard'); setShowUserMenu(false); }}
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-rose-50 rounded-lg transition-colors"
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-[var(--ink)] hover:bg-[var(--terracotta)]/10 rounded-lg transition-colors"
                     >
                       <LayoutDashboard className="w-4 h-4 text-rose-600" />
                       My Dashboard
@@ -4282,9 +4489,9 @@ export default function Home() {
                   )}
                   <button
                     onClick={() => { navigateTo('landing'); setShowUserMenu(false); }}
-                    className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-[var(--ink)] hover:bg-[var(--muted)]/40 rounded-lg transition-colors"
                   >
-                    <HomeIcon className="w-4 h-4 text-gray-500" />
+                    <HomeIcon className="w-4 h-4 text-[var(--muted-foreground)]" />
                     Home
                   </button>
                   <div className="my-1 border-t border-gray-100" />
@@ -4293,7 +4500,7 @@ export default function Home() {
                       handleLogout();
                       setShowUserMenu(false);
                     }}
-                    className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-rose-700 hover:bg-rose-50 rounded-lg transition-colors"
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-[var(--terracotta)] hover:bg-[var(--terracotta)]/10 rounded-lg transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
                     {t('logout')}
@@ -4309,22 +4516,22 @@ export default function Home() {
       {showClassroomRules && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={() => setShowClassroomRules(false)}>
           <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden animate-in fade-in zoom-in-95" onClick={e => e.stopPropagation()}>
-            <div className="bg-gradient-to-r from-[#722F37] to-[#5A1A23] p-5 relative overflow-hidden">
-              <ArabicPattern opacity={0.1} color="#D4AF37" />
+            <div className="bg-gradient-to-r from-[#0F5C5E] to-[#0A4042] p-5 relative overflow-hidden">
+              <ArabicPattern opacity={0.1} color="#C68A2E" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-[#D4AF37]" />
+                  <div className="w-10 h-10 rounded-full bg-[#C68A2E]/20 border-2 border-[#C68A2E] flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-[#C68A2E]" />
                   </div>
                   <div>
                     <h2 className="text-xl font-bold text-white">Classroom Rules</h2>
-                    <p className="text-amber-200/80 text-xs">Based on ADEK & UAE Ministry of Education Guidelines</p>
+                    <p className="text-[#E8DCC0]/80 text-xs">Based on ADEK & UAE Ministry of Education Guidelines</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="p-5 space-y-3 max-h-[60vh] overflow-y-auto">
-              <p className="text-sm text-gray-600 italic mb-3">Welcome! Before we begin, please read and acknowledge these classroom expectations:</p>
+              <p className="text-sm text-[var(--muted-foreground)] italic mb-3">Welcome! Before we begin, please read and acknowledge these classroom expectations:</p>
               {[
                 { icon: '🤝', title: 'Respect Everyone', desc: 'Treat your classmates, teacher, and all members of the school community with respect and kindness, regardless of background, culture, or beliefs.' },
                 { icon: '👂', title: 'Listen Attentively', desc: 'Pay close attention when the teacher or classmates are speaking. Raise your hand and wait for permission before sharing your thoughts.' },
@@ -4335,23 +4542,23 @@ export default function Home() {
                 { icon: '🎯', title: 'Strive for Excellence', desc: 'Give your best effort in everything you do. The UAE values ambition, hard work, and continuous self-improvement.' },
                 { icon: '⚖️', title: 'Follow School Rules', desc: 'Observe the school dress code, arrive on time, use devices appropriately, and follow all rules set by the school administration and ADEK.' },
               ].map((rule, i) => (
-                <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg bg-[var(--muted)]/40 border border-gray-100">
                   <span className="text-lg shrink-0">{rule.icon}</span>
                   <div>
-                    <h4 className="text-sm font-bold text-gray-800">{rule.title}</h4>
-                    <p className="text-xs text-gray-600 leading-relaxed">{rule.desc}</p>
+                    <h4 className="text-sm font-bold text-[var(--ink)]">{rule.title}</h4>
+                    <p className="text-xs text-[var(--muted-foreground)] leading-relaxed">{rule.desc}</p>
                   </div>
                 </div>
               ))}
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
-                <p className="text-xs text-amber-800 leading-relaxed">
+              <div className="bg-[var(--muted)] border border-[var(--border)] rounded-lg p-3 mt-3">
+                <p className="text-xs text-[var(--ink)] leading-relaxed">
                   <strong>Remember:</strong> These rules are aligned with the UAE Ministry of Education Code of Conduct, ADEK Behaviour Management Policy, and the UAE Values of Respect, Responsibility, and Integrity.
                 </p>
               </div>
             </div>
-            <div className="p-4 border-t bg-gray-50">
+            <div className="p-4 border-t bg-[var(--muted)]/40">
               <Button onClick={() => setShowClassroomRules(false)}
-                className="w-full bg-[#722F37] hover:bg-[#5A1A23] text-white font-bold py-3">
+                className="w-full bg-[#0F5C5E] hover:bg-[#0A4042] text-white font-bold py-3">
                 <CheckCircle2 className="w-4 h-4 mr-2" /> I Understand & Will Follow These Rules
               </Button>
             </div>
