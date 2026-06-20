@@ -1,26 +1,22 @@
 /**
  * MSCS Academy — 3D Visual Toolkit
  *
- * Subject-specific 3D-feel visuals using pure CSS 3D transforms,
- * layered SVGs, and parallax. No external libraries — keeps the
- * platform self-sufficient per spec.
+ * Now with REAL WebGL 3D animations via Three.js + React Three Fiber.
+ * The Hero3D component renders a live animated 3D scene behind the
+ * title text — rotating globes, floating scrolls, glowing lanterns, etc.
  *
- * Each subject has a distinctive visual motif tied to its content:
- *  - History (S1)      → Ancient scroll / hourglass / column
- *  - Civics (S2)        → Majlis / pillars / scales of justice
- *  - Geography (S3)     → Astrolabe / compass / globe
- *  - Sociology (S4)     → Interconnected nodes / community web
- *  - Economics (S5)     → Balance scale / dhow ship with goods
- *  - Info Literacy (S6) → Open book with floating letters
- *  - Research (S7)      → Magnifier over documents
- *  - Ethics (S8)        → Olive branch / lantern
- *  - UAE Heritage (S9)  → Falcon / Burj Al Arab silhouette
+ * Also retains the CSS-3D SubjectMotif SVGs as fallbacks and for
+ * contexts where WebGL isn't available (e.g., lesson card watermarks).
  */
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, lazy, Suspense } from 'react';
+import { Scene3DFallback, type Scene3DSubject } from './Scene3D';
+
+// Lazy-load the 3D scene (code-split so it doesn't block main bundle)
+const Scene3DLazy = lazy(() => import('./Scene3D').then(m => ({ default: m.Scene3DLazy })));
 
 // ═══════════════════════════════════════════════════════════════
-// 3D HERO — Layered parallax with depth
+// 3D HERO — Real WebGL 3D scene + parallax text overlay
 // ═══════════════════════════════════════════════════════════════
 
 export type Subject = 'history' | 'civics' | 'geography' | 'sociology' | 'economics' | 'ethics' | 'uae_heritage' | 'general';
@@ -31,9 +27,11 @@ interface Hero3DProps {
   eyebrow?: string;
   accentColor?: string;
   children?: React.ReactNode;
+  /** Optional real photo to display alongside the 3D scene */
+  backgroundImage?: string;
 }
 
-export function Hero3D({ subject, title, eyebrow, accentColor = '#0F5C5E', children }: Hero3DProps) {
+export function Hero3D({ subject, title, eyebrow, accentColor = '#0F5C5E', children, backgroundImage }: Hero3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
@@ -43,7 +41,7 @@ export function Hero3D({ subject, title, eyebrow, accentColor = '#0F5C5E', child
       const rect = containerRef.current!.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      setTilt({ x: x * 8, y: -y * 8 });
+      setTilt({ x: x * 4, y: -y * 4 });
     };
     const handleLeave = () => setTilt({ x: 0, y: 0 });
     const node = containerRef.current;
@@ -56,45 +54,59 @@ export function Hero3D({ subject, title, eyebrow, accentColor = '#0F5C5E', child
   }, []);
 
   return (
-    <div ref={containerRef} className="relative rounded-2xl overflow-hidden" style={{ perspective: '1200px', minHeight: '320px' }}>
-      <div
-        className="relative w-full h-full transition-transform duration-300 ease-out"
-        style={{
-          transformStyle: 'preserve-3d',
-          transform: `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
-          background: 'linear-gradient(135deg, #0A4042 0%, #0F5C5E 50%, #0A4042 100%)',
-        }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            transform: 'translateZ(-80px) scale(1.2)',
-            background: `radial-gradient(ellipse at 20% 30%, ${accentColor}33 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, #7C5B2E33 0%, transparent 50%), radial-gradient(ellipse at 50% 100%, #B5532A22 0%, transparent 50%)`,
-          }}
-        />
-        <div className="absolute inset-0 flex items-center justify-center opacity-40" style={{ transform: 'translateZ(-40px) scale(1.1)' }}>
-          <SubjectMotif subject={subject} size={300} color={accentColor} />
+    <div ref={containerRef} className="relative rounded-2xl overflow-hidden" style={{ minHeight: '360px', background: 'linear-gradient(135deg, #0A4042 0%, #0F5C5E 50%, #0A4042 100%)' }}>
+
+      {/* Layer 1: Optional background photo (real image) */}
+      {backgroundImage && (
+        <div className="absolute inset-0 opacity-25" style={{ zIndex: 1 }}>
+          <img src={backgroundImage} alt="" className="w-full h-full object-cover" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0A4042]/80 to-[#0F5C5E]/80" />
         </div>
-        <div className="absolute inset-0" style={{ transform: 'translateZ(-20px)' }}>
-          {STARS.map((s, i) => (
-            <div key={i} className="absolute anim-twinkle" style={{ top: s.top, left: s.left, animationDelay: s.delay, transform: `translateZ(${20 + i * 5}px)` }}>
-              <svg width="6" height="6" viewBox="0 0 6 6"><path d="M3 0 L3.6 2.4 L6 3 L3.6 3.6 L3 6 L2.4 3.6 L0 3 L2.4 2.4 Z" fill="#B08D3C" opacity="0.7" /></svg>
-            </div>
-          ))}
-        </div>
-        <div className="relative z-10 p-6 sm:p-10 flex flex-col justify-center items-center text-center min-h-[320px]" style={{ transform: 'translateZ(40px)' }}>
-          {eyebrow && (
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-px" style={{ background: `linear-gradient(to right, transparent, ${accentColor})` }} />
-              <span className="text-[10px] uppercase tracking-[0.25em] font-semibold" style={{ color: accentColor }}>{eyebrow}</span>
-              <div className="w-8 h-px" style={{ background: `linear-gradient(to left, transparent, ${accentColor})` }} />
-            </div>
-          )}
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#F6EFDD] mb-3 max-w-2xl" style={{ fontFamily: 'var(--font-serif)', textShadow: '0 2px 12px rgba(0,0,0,0.4)' }}>{title}</h2>
-          {children && <div className="text-[#E8DCC0] text-sm sm:text-base max-w-xl">{children}</div>}
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(10, 64, 66, 0.6), transparent)' }} />
+      )}
+
+      {/* Layer 2: Real WebGL 3D animated scene (background) */}
+      <div className="absolute inset-0" style={{ zIndex: 2 }}>
+        <Suspense fallback={<Scene3DFallback height={360} />}>
+          <Scene3DLazy subject={subject as Scene3DSubject} height={360} />
+        </Suspense>
       </div>
+
+      {/* Layer 3: Radial glow accents */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 3,
+          background: `radial-gradient(ellipse at 20% 30%, ${accentColor}22 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, #7C5B2E22 0%, transparent 50%)`,
+        }}
+      />
+
+      {/* Layer 4: Twinkling stars (CSS) */}
+      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 4 }}>
+        {STARS.map((s, i) => (
+          <div key={i} className="absolute anim-twinkle" style={{ top: s.top, left: s.left, animationDelay: s.delay }}>
+            <svg width="6" height="6" viewBox="0 0 6 6"><path d="M3 0 L3.6 2.4 L6 3 L3.6 3.6 L3 6 L2.4 3.6 L0 3 L2.4 2.4 Z" fill="#B08D3C" opacity="0.7" /></svg>
+          </div>
+        ))}
+      </div>
+
+      {/* Layer 5: Foreground text content (with subtle parallax tilt) */}
+      <div
+        className="relative z-10 p-6 sm:p-10 flex flex-col justify-center items-center text-center min-h-[360px] transition-transform duration-300 ease-out"
+        style={{ transform: `perspective(800px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)` }}
+      >
+        {eyebrow && (
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-px" style={{ background: `linear-gradient(to right, transparent, ${accentColor})` }} />
+            <span className="text-[10px] uppercase tracking-[0.25em] font-semibold" style={{ color: accentColor }}>{eyebrow}</span>
+            <div className="w-8 h-px" style={{ background: `linear-gradient(to left, transparent, ${accentColor})` }} />
+          </div>
+        )}
+        <h2 className="text-2xl sm:text-4xl font-bold text-[#F6EFDD] mb-3 max-w-2xl" style={{ fontFamily: 'var(--font-serif)', textShadow: '0 2px 12px rgba(0,0,0,0.6), 0 0 30px rgba(15,92,94,0.4)' }}>{title}</h2>
+        {children && <div className="text-[#E8DCC0] text-sm sm:text-base max-w-xl" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}>{children}</div>}
+      </div>
+
+      {/* Bottom gradient for legibility */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ zIndex: 5, background: 'linear-gradient(to top, rgba(10, 64, 66, 0.6), transparent)' }} />
     </div>
   );
 }

@@ -43,6 +43,8 @@ import {
   Hero3D, Card3D, WeekTimeline, DomainBadge, DokBadge, getDomainMeta,
   type Subject,
 } from '@/components/visual/Visual3DToolkit';
+import { TopicImage } from '@/components/visual/TopicImage';
+import { getTopicImageForTitle } from '@/lib/topic_images';
 
 // ═══════════════════════════════════════════════════════════════
 // CONTENT LOOKUP — Find rich textbook content for a lesson
@@ -1683,60 +1685,73 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
                     }}
                   >
                     <div className={`bg-[var(--card)] border rounded-xl overflow-hidden transition-all ${isMapped ? 'border-[var(--teal)]/40' : 'border-[var(--border)]'}`}>
-                      <div className="p-5 sm:p-6">
-                        <div className="flex items-start gap-4">
-                          {/* Lesson number badge */}
+                      {/* Real topic photo (from Wikimedia Commons) */}
+                      <div className="relative h-32 sm:h-40 overflow-hidden bg-[var(--muted)]">
+                        <TopicImage
+                          title={cleanTitle}
+                          grade={selectedGrade?.number}
+                          fallbackSubject={primarySubject}
+                          height={160}
+                          showAttribution={false}
+                          rounded={false}
+                          className="w-full h-full"
+                        />
+                        {/* Overlay: lesson number badge + week */}
+                        <div className="absolute top-2 left-2 flex items-center gap-2">
                           <div
-                            className="w-14 h-14 rounded-xl flex items-center justify-center text-white font-bold shrink-0 relative overflow-hidden"
+                            className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0 relative overflow-hidden"
                             style={{
                               background: colors.gradientBg,
-                              boxShadow: '0 4px 12px rgba(15, 92, 94, 0.25), inset 0 1px 0 rgba(255,255,255,0.2)',
+                              boxShadow: '0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2)',
                             }}
                           >
-                            <div className="absolute inset-0 opacity-30">
-                              <SubjectMotifMini subject={primarySubject} color="#F6EFDD" />
-                            </div>
-                            <span className="relative z-10 text-sm">{displayLabel}</span>
+                            {displayLabel}
                           </div>
-
-                          <div className="flex-1 min-w-0">
-                            {/* Title */}
-                            <div className="flex items-start gap-2 mb-1">
-                              {isMapped && <Star className="w-3.5 h-3.5 text-[#B08D3C] mt-1 shrink-0" />}
-                              <h3 className="font-bold text-[var(--ink)] text-sm sm:text-base leading-tight" style={{ fontFamily: 'var(--font-serif)' }}>
-                                {cleanTitle}
-                              </h3>
-                            </div>
-
-                            {unitContext && (
-                              <p className="text-xs text-[var(--bronze)] mt-0.5 mb-1.5">{unitContext}</p>
-                            )}
-
-                            {/* Objective preview */}
-                            <p className="text-xs text-[var(--muted-foreground)] mt-1 line-clamp-2">
-                              {lesson.objective.replace(/^SWBAT\s*/i, 'You will ').replace(/^Student can:\s*/i, '').substring(0, 160)}
-                              {lesson.objective.length > 160 ? '...' : ''}
-                            </p>
-
-                            {/* Meta row: WEEK NUMBER + DOK + Domains + CTA */}
-                            <div className="flex items-center gap-2 mt-3 flex-wrap">
-                              <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[var(--teal)]/15 text-[var(--teal)] border border-[var(--teal)]/30 font-semibold">
-                                <Calendar className="w-3 h-3" /> Week {lesson.week}
-                              </span>
-                              {dokLevels.map((d, i) => (
-                                <DokBadge key={i} level={d} size="xs" />
-                              ))}
-                              {domainCodes.slice(0, 3).map((d, i) => (
-                                <DomainBadge key={i} code={d} size="xs" />
-                              ))}
-                              {domainCodes.length > 3 && (
-                                <span className="text-[10px] text-[var(--muted-foreground)]">+{domainCodes.length - 3} more</span>
-                              )}
-                              <span className="ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--teal)]">
-                                <Play className="w-2.5 h-2.5" /> Start Lesson
-                              </span>
-                            </div>
+                          <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-black/60 text-white backdrop-blur-sm border border-white/20 font-semibold">
+                            <Calendar className="w-3 h-3" /> Week {lesson.week}
+                          </span>
+                        </div>
+                        {isMapped && (
+                          <div className="absolute top-2 right-2">
+                            <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[#B08D3C]/90 text-white backdrop-blur-sm font-semibold">
+                              <Star className="w-3 h-3" /> Mapped
+                            </span>
                           </div>
+                        )}
+                      </div>
+
+                      <div className="p-4 sm:p-5">
+                        <div className="flex items-start gap-2 mb-1">
+                          {isPriority && <span title="Priority Unit" className="text-[#B08D3C] text-base leading-none">★</span>}
+                          <h3 className="font-bold text-[var(--ink)] text-sm sm:text-base leading-tight flex-1" style={{ fontFamily: 'var(--font-serif)' }}>
+                            {cleanTitle}
+                          </h3>
+                        </div>
+
+                        {unitContext && (
+                          <p className="text-xs text-[var(--bronze)] mt-0.5 mb-1.5">{unitContext}</p>
+                        )}
+
+                        {/* Objective preview */}
+                        <p className="text-xs text-[var(--muted-foreground)] mt-1 line-clamp-2">
+                          {lesson.objective.replace(/^SWBAT\s*/i, 'You will ').replace(/^Student can:\s*/i, '').substring(0, 140)}
+                          {lesson.objective.length > 140 ? '...' : ''}
+                        </p>
+
+                        {/* Meta row: DOK + Domains + CTA */}
+                        <div className="flex items-center gap-2 mt-3 flex-wrap">
+                          {dokLevels.map((d, i) => (
+                            <DokBadge key={i} level={d} size="xs" />
+                          ))}
+                          {domainCodes.slice(0, 3).map((d, i) => (
+                            <DomainBadge key={i} code={d} size="xs" />
+                          ))}
+                          {domainCodes.length > 3 && (
+                            <span className="text-[10px] text-[var(--muted-foreground)]">+{domainCodes.length - 3} more</span>
+                          )}
+                          <span className="ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--teal)]">
+                            <Play className="w-2.5 h-2.5" /> Start Lesson
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -1852,64 +1867,75 @@ function SubjectMotifMini({ subject, color }: { subject: Subject; color: string 
     const [r2First, r2Second] = splitReading(reading2Content);
 
     // ────────────────────────────────────────────
-    // SLIDE 1: Title + Image/Artwork
+    // SLIDE 1: Title + Real Photo + 3D Scene
     // ────────────────────────────────────────────
+    const lessonTopicImage = getTopicImageForTitle(cleanTitle);
+    const lessonSubject: Subject = (() => {
+      const domainCodes = (lesson.domains || '').split(',').map(s => s.trim()).filter(Boolean);
+      const primaryDomain = domainCodes[0];
+      if (primaryDomain) return getDomainMeta(primaryDomain).subject;
+      // Default by grade
+      if (selectedGrade?.number === 7) return 'geography';
+      if (selectedGrade?.number === 9) return 'uae_heritage';
+      if (selectedGrade?.number === 8) return 'history';
+      return 'ethics';
+    })();
+
     slides.push({
       id: 1, type: 'title', title: cleanTitle,
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-br from-[#0F5C5E] to-[#0A4042] rounded-xl p-6 text-white relative overflow-hidden">
-            <ArabicPattern opacity={0.06} color="#C68A2E" />
-            {heroImage && (
-              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-            )}
-            <div className="relative z-10">
-              <div className="flex items-center gap-2 mb-4">
-                <Landmark className="w-8 h-8 text-[#C68A2E]" />
-                <h2 className="text-2xl sm:text-3xl font-bold">
-                  {lesson.is_mapped && <span title="In Curriculum Mapping & Scope & Sequence">⭐ </span>}
-                  {cleanTitle}
-                </h2>
-              </div>
-              <div className="flex items-center gap-2 mb-2">
-                {lesson.lesson_number && (
-                  <Badge className="bg-[#C68A2E]/30 text-[#E8DCC0] border-[var(--bronze)]/60/40 text-[10px]">
-                    Lesson {lesson.lesson_number}
-                  </Badge>
+          {/* Hero with 3D scene + real photo + title overlay */}
+          <Hero3D
+            subject={lessonSubject}
+            title={cleanTitle}
+            eyebrow={`Grade ${selectedGrade?.number} · Term ${selectedTerm?.number} · Week ${lesson.week}${lesson.lesson_number ? ` · Lesson ${lesson.lesson_number}` : ''}`}
+            accentColor="#C68A2E"
+            backgroundImage={lessonTopicImage?.url}
+          >
+            {unitContext && <p className="text-sm mb-3">{unitContext}</p>}
+            {richContent && richContent.keyVocabulary.length > 0 && (
+              <div className="flex flex-wrap justify-center gap-1.5 mt-3">
+                {richContent.keyVocabulary.slice(0, 6).map(v => (
+                  <span key={v} className="text-[10px] px-2 py-0.5 rounded-full bg-white/15 text-[#E8DCC0] border border-white/20">{v}</span>
+                ))}
+                {richContent.keyVocabulary.length > 6 && (
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-[#C68A2E] border border-[#C68A2E]/30">+{richContent.keyVocabulary.length - 6} more</span>
                 )}
-                {unitContext && <p className="text-[#E8DCC0] text-sm">{unitContext}</p>}
               </div>
-              {richContent && richContent.keyVocabulary.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {richContent.keyVocabulary.slice(0, 8).map(v => (
-                    <Badge key={v} className="bg-white/15 text-[#E8DCC0] border-[var(--bronze)]/60/30 text-[10px]">{v}</Badge>
-                  ))}
-                  {richContent.keyVocabulary.length > 8 && (
-                    <Badge className="bg-white/10 text-[#C68A2E] border-[var(--bronze)]/60/20 text-[10px]">+{richContent.keyVocabulary.length - 8} more</Badge>
-                  )}
-                </div>
-              )}
-              <DecorativeBorder color="#C68A2E" />
-              <AhmedAliLink size="md" className="text-[#C68A2E]" />
-            </div>
-          </div>
+            )}
+          </Hero3D>
 
-          {heroImage ? (
-            <div className="rounded-xl overflow-hidden border-2 border-[var(--border)] shadow-md">
-              <img src={heroImage} alt={cleanTitle} className="w-full h-48 sm:h-56 object-cover" />
-              <div className="bg-[var(--muted)] p-3 text-center">
-                <p className="text-xs text-[var(--bronze)] italic">{cleanTitle}</p>
+          {/* Real topic photo with full attribution (below the hero) */}
+          {lessonTopicImage && (
+            <div className="rounded-xl overflow-hidden border border-[var(--border)] shadow-md bg-[var(--card)]">
+              <div className="relative h-56 sm:h-64">
+                <TopicImage
+                  title={cleanTitle}
+                  grade={selectedGrade?.number}
+                  fallbackSubject={lessonSubject}
+                  height={256}
+                  showAttribution={true}
+                  rounded={false}
+                  className="w-full h-full"
+                />
               </div>
-            </div>
-          ) : (
-            <div className="rounded-xl p-8 text-center border-2 border-[#C68A2E]/30" style={{ background: 'linear-gradient(135deg, #0F5C5E 0%, #0A4042 50%, #1A2622 100%)' }}>
-              <Landmark className="w-16 h-16 text-[#C68A2E] mx-auto mb-3" />
-              <p className="text-[#C68A2E] font-bold text-lg">{cleanTitle}</p>
-              <DecorativeBorder color="#C68A2E" />
+              <div className="bg-[var(--muted)] p-3 text-center border-t border-[var(--border)]">
+                <p className="text-xs text-[var(--bronze)] italic" style={{ fontFamily: 'var(--font-serif)' }}>
+                  {cleanTitle}
+                </p>
+                <p className="text-[10px] text-[var(--muted-foreground)] mt-1">
+                  Real photograph · Educational use · {lessonTopicImage.source}
+                </p>
+              </div>
             </div>
           )}
 
-          <DisclaimerBanner />
+          {/* Mr. Ahmed Ali + disclaimer */}
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <AhmedAliLink size="md" />
+            <DisclaimerBanner />
+          </div>
         </div>
       ),
     });
