@@ -213,3 +213,16 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/api/:path*"],
 };
+
+/**
+ * Force Node.js runtime (not Edge).
+ *
+ * Why: The middleware imports `verifyToken` from @/lib/auth, which uses the
+ * `jsonwebtoken` package. `jsonwebtoken` depends on Node.js `crypto` which
+ * is NOT available in the Edge Runtime. Forcing Node.js runtime ensures
+ * JWT verification works correctly.
+ *
+ * Trade-off: Node.js middleware has slightly higher cold-start latency than
+ * Edge (~50ms vs ~5ms), but correctness > latency for auth.
+ */
+export const runtime = "nodejs";

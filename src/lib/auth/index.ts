@@ -4,23 +4,43 @@ import { db } from '@/lib/db';
 
 /**
  * JWT secret — MUST come from env. No insecure fallback.
- * Previous fallback ('mscs-academy-secret-key-2026-change-in-production')
- * was a PDPL violation waiting to happen: if env var was missing in
- * production, anyone could forge auth tokens.
+ *
+ * IMPORTANT: We read process.env.JWT_SECRET LAZILY (inside a function) rather
+ * than at module top-level. This is critical because Next.js middleware runs
+ * on the Edge Runtime, where module-level process.env evaluation happens at
+ * BUILD time and may not pick up encrypted Vercel env vars. Reading it at
+ * call time ensures we always get the runtime value.
  */
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) {
-  if (process.env.NODE_ENV === 'production') {
-    throw new Error(
-      'FATAL: JWT_SECRET environment variable is not set. Refusing to start in production without a secure secret. Generate one with: openssl rand -base64 48'
-    );
+const MIN_SECRET_LENGTH = 32;
+const DEFAULT_SECRET_PATTERNS = [
+  /change.?me/i,
+  /your.?secret/i,
+  /replace.?me/i,
+  /mscs-academy-secret-key-2026/i, // The previous insecure fallback
+  /^test/i,
+  /^example/i,
+];
+
+function getSecret(): string {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error(
+        'FATAL: JWT_SECRET environment variable is not set. Refusing to operate in production without a secure secret.'
+      );
+    }
+    // Dev-only ephemeral secret (note: avoid process.pid — not available in Edge runtime)
+    console.warn('⚠ JWT_SECRET not set — using ephemeral dev secret.');
+    return `dev-only-secret-${Date.now()}-${Math.random().toString(36).slice(2)}`;
   }
-  // In development only, use an ephemeral random secret (changes per boot)
-  console.warn('⚠ JWT_SECRET not set — using ephemeral dev secret. Set JWT_SECRET in .env for stable sessions.');
+  if (DEFAULT_SECRET_PATTERNS.some((p) => p.test(secret))) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('FATAL: JWT_SECRET appears to be a default/placeholder value. Refusing to operate in production.');
+    }
+    console.warn('⚠ JWT_SECRET looks like a placeholder — using anyway in dev.');
+  }
+  return secret;
 }
-const _SECRET: string = JWT_SECRET || (process.env.NODE_ENV !== 'production'
-  ? `dev-only-secret-${Math.random().toString(36).slice(2)}-${Date.now()}`
-  : (() => { throw new Error('JWT_SECRET required in production'); })());
 
 const SALT_ROUNDS = 12;
 const TOKEN_TTL_SECONDS = 60 * 60 * 8; // 8 hours — ADEK school day + buffer
@@ -53,14 +73,14 @@ export function generateToken(payload: Omit<JWTPayload, 'csrf' | 'issuedAt' | 'e
   const csrf = require('crypto').randomBytes(16).toString('hex');
   return jwt.sign(
     { ...payload, csrf, issuedAt: now, expiresAt: now + TOKEN_TTL_SECONDS },
-    _SECRET,
+    getSecret(),
     { algorithm: 'HS256' }
   );
 }
 
 export function verifyToken(token: string): JWTPayload | null {
   try {
-    const payload = jwt.verify(token, _SECRET, { algorithms: ['HS256'] }) as JWTPayload;
+    const payload = jwt.verify(token, getSecret(), { algorithms: ['HS256'] }) as JWTPayload;
     // Check expiry (belt + suspenders — jwt.verify already checks exp)
     if (payload.expiresAt && payload.expiresAt < Math.floor(Date.now() / 1000)) {
       return null;
