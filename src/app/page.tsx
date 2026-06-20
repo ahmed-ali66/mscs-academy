@@ -154,11 +154,12 @@ const SoundFX = {
 
 function ConfettiCelebration() {
   const particles = useMemo(() =>
-    Array.from({ length: 50 }).map((_, i) => ({
+    Array.from({ length: 60 }).map((_, i) => ({
       id: i,
       left: Math.random() * 100,
       size: 6 + Math.random() * 8,
-      color: ['#D4AF37', '#722F37', '#047857', '#D97706', '#7C3AED', '#EF4444'][Math.floor(Math.random() * 6)],
+      // Heritage palette — teal, terracotta, bronze, sage, amber, pearl
+      color: ['#0F5C5E', '#B5532A', '#7C5B2E', '#4A6B3E', '#C68A2E', '#FDFBF3'][Math.floor(Math.random() * 6)],
       isCircle: Math.random() > 0.5,
       delay: Math.random() * 2,
       duration: 2 + Math.random() * 3,
@@ -233,51 +234,84 @@ type ViewType = 'landing' | 'gradeSelect' | 'unitSelect' | 'lessonView' | 'about
 
 function AhmedAliLink({ className = '', size = 'sm' }: { className?: string; size?: 'sm' | 'md' | 'lg' }) {
   const sizeClasses = { sm: 'text-xs', md: 'text-sm', lg: 'text-base' };
+  const iconSize = size === 'lg' ? 'w-4 h-4' : 'w-3 h-3';
   return (
     <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer"
-      className={`inline-flex items-center gap-1 font-semibold text-[#D4AF37] hover:text-amber-600 transition-colors ${sizeClasses[size]} ${className}`}>
-      <GraduationCap className={size === 'lg' ? 'w-4 h-4' : 'w-3 h-3'} />
-      Mr. Ahmed Ali
+      className={`inline-flex items-center gap-1.5 font-semibold transition-colors ${sizeClasses[size]} ${className} text-[var(--teal)] hover:text-[var(--teal-deep)]`}>
+      <GraduationCap className={iconSize} />
+      <span style={{ fontFamily: 'var(--font-serif)' }}>Mr. Ahmed Ali</span>
       <ExternalLink className="w-2.5 h-2.5 opacity-60" />
     </a>
   );
 }
 
-function ArabicPattern({ opacity = 0.08, color = '#D4AF37' }: { opacity?: number; color?: string }) {
+/**
+ * HeritagePattern — authentic eight-pointed Islamic star tessellation
+ * (the Khatam motif), used in Islamic manuscripts across the Gulf for centuries.
+ * Color defaults to teal — the color of scholarship in Islamic tradition.
+ */
+function ArabicPattern({ opacity = 0.08, color = 'var(--teal)' }: { opacity?: number; color?: string }) {
+  // Resolve CSS variable to a usable stroke color when needed (SVG can't read CSS vars in all browsers)
+  const strokeColor = color.startsWith('var(') ? '#0F5C5E' : color;
   return (
-    <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity }} xmlns="http://www.w3.org/2000/svg">
+    <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity }} xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
-        <pattern id="ap1" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-          <path d="M30 0L60 30L30 60L0 30Z" fill="none" stroke={color} strokeWidth="0.5" />
-          <path d="M30 10L50 30L30 50L10 30Z" fill="none" stroke={color} strokeWidth="0.3" />
-          <circle cx="30" cy="30" r="4" fill="none" stroke={color} strokeWidth="0.3" />
-        </pattern>
-        <pattern id="ap2" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-          <rect width="120" height="120" fill="url(#ap1)" />
-          <path d="M60 0L120 60L60 120L0 60Z" fill="none" stroke={color} strokeWidth="0.8" />
+        <pattern id="khatam-star" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+          {/* Eight-pointed star — Khatam ar-Rasul motif, common in Gulf manuscripts */}
+          <path
+            d="M40 4 L48 24 L68 16 L60 36 L80 40 L60 44 L68 64 L48 56 L40 76 L32 56 L12 64 L20 44 L0 40 L20 36 L12 16 L32 24 Z"
+            fill="none" stroke={strokeColor} strokeWidth="0.6"
+          />
+          {/* Inner octagon — gives the star its center */}
+          <polygon
+            points="40,28 50,34 52,44 40,50 30,44 28,34"
+            fill="none" stroke={strokeColor} strokeWidth="0.4"
+          />
+          {/* Connecting lattice lines — creates the interlaced effect */}
+          <path d="M0 40 L80 40 M40 0 L40 80" stroke={strokeColor} strokeWidth="0.15" opacity="0.4" />
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill="url(#ap2)" />
+      <rect width="100%" height="100%" fill="url(#khatam-star)" />
     </svg>
   );
 }
 
-function DecorativeBorder({ color = '#D4AF37' }: { color?: string }) {
+/**
+ * DecorativeBorder — calligraphic divider with interlaced crescents,
+ * inspired by Gulf manuscript marginalia. Uses teal + bronze for an authentic,
+ * non-casino aesthetic that ties to scholarship and heritage.
+ */
+function DecorativeBorder({ color }: { color?: string }) {
+  const teal = '#0F5C5E';
+  const bronze = '#7C5B2E';
+  const gold = '#B08D3C'; // used sparingly — for ceremonial central dot only
   return (
-    <div className="flex items-center gap-2 w-full my-3">
-      <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, transparent, ${color})` }} />
-      <div className="w-2 h-2 rotate-45" style={{ border: `1px solid ${color}` }} />
-      <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: color }} />
-      <div className="w-2 h-2 rotate-45" style={{ border: `1px solid ${color}` }} />
-      <div className="flex-1 h-px" style={{ background: `linear-gradient(to left, transparent, ${color})` }} />
+    <div className="flex items-center gap-2 w-full my-3" aria-hidden="true">
+      <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, transparent, ${teal})` }} />
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
+        {/* Crescent — Islamic motif */}
+        <path d="M6 6 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0" stroke={bronze} strokeWidth="0.8" fill="none" />
+        <circle cx="6" cy="6" r="2" fill="none" stroke={teal} strokeWidth="0.6" />
+      </svg>
+      <div className="w-2 h-2 rotate-45" style={{ border: `1px solid ${bronze}` }} />
+      <div className="w-2.5 h-2.5 rounded-full" style={{
+        backgroundColor: gold,
+        boxShadow: `0 0 0 2px var(--parchment), 0 0 0 3px ${bronze}`,
+      }} />
+      <div className="w-2 h-2 rotate-45" style={{ border: `1px solid ${bronze}` }} />
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none">
+        <path d="M18 6 a4 4 0 1 0 -8 0 a4 4 0 1 0 8 0" stroke={bronze} strokeWidth="0.8" fill="none" />
+        <circle cx="18" cy="6" r="2" fill="none" stroke={teal} strokeWidth="0.6" />
+      </svg>
+      <div className="flex-1 h-px" style={{ background: `linear-gradient(to left, transparent, ${teal})` }} />
     </div>
   );
 }
 
 function DisclaimerBanner() {
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 text-center">
-      <p className="text-[10px] text-amber-700">Teacher-Created Study Material — Not an Official ADEK Resource</p>
+    <div className="bg-[var(--muted)] border border-[var(--border)] rounded-lg px-3 py-1.5 text-center">
+      <p className="text-[10px] text-[var(--muted-foreground)]">Teacher-Created Study Material — Not an Official ADEK Resource</p>
     </div>
   );
 }
@@ -998,12 +1032,16 @@ export default function Home() {
   const navigateTo = (newView: ViewType) => { setView(newView); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const navigateSlide = (direction: 'left' | 'right') => { setSlideDirection(direction); setIsAnimating(true); setTimeout(() => setIsAnimating(false), 400); };
 
-  // Color map for grades — uses inline CSS gradient strings (NOT Tailwind classes) to avoid production purging
-  const gradeColorMap: Record<number, { gradientBg: string; accent: string }> = {
-    6: { gradientBg: 'linear-gradient(to right, #d97706, #92400e)', accent: '#D97706' },
-    7: { gradientBg: 'linear-gradient(to right, #047857, #065f46)', accent: '#047857' },
-    8: { gradientBg: 'linear-gradient(to right, #be123c, #722F37)', accent: '#722F37' },
-    9: { gradientBg: 'linear-gradient(to right, #0d9488, #115e59)', accent: '#0D9488' },
+  // Heritage color map per grade — each grade mapped to a UAE/MSCS-relevant motif
+  //   G6 Identity & values        → Sage (growth, character, ethics)
+  //   G7 Global connections       → Teal (Arabian Sea, geography)
+  //   G8 Governance & society     → Bronze (heritage artifacts, civic history)
+  //   G9 Leadership & citizenship → Terracotta (fired clay, leadership resolve)
+  const gradeColorMap: Record<number, { gradientBg: string; accent: string; patternColor: string }> = {
+    6: { gradientBg: 'linear-gradient(135deg, #4A6B3E 0%, #3A5530 100%)', accent: '#4A6B3E', patternColor: '#E8DCC0' },
+    7: { gradientBg: 'linear-gradient(135deg, #0F5C5E 0%, #0A4042 100%)', accent: '#0F5C5E', patternColor: '#E8DCC0' },
+    8: { gradientBg: 'linear-gradient(135deg, #7C5B2E 0%, #5C4421 100%)', accent: '#7C5B2E', patternColor: '#E8DCC0' },
+    9: { gradientBg: 'linear-gradient(135deg, #B5532A 0%, #8E3F1F 100%)', accent: '#B5532A', patternColor: '#E8DCC0' },
   };
 
   // ════════════════════════════════════════════════════════════
@@ -1011,21 +1049,28 @@ export default function Home() {
   // ════════════════════════════════════════════════════════════
 
   const renderLanding = () => (
-    <div className="min-h-screen flex flex-col">
-      <section className="relative min-h-screen flex items-center justify-center overflow-x-hidden pt-8 pb-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#722F37] via-[#5A1A23] to-[#3D0F15]" />
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url(/hero-pattern.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <ArabicPattern opacity={0.08} color="#D4AF37" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-black/30" />
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* ═══════════════════════════════════════════════════════════
+          HERO — "The Learning Compass"
+          Parchment background + animated astrolabe + manuscript grid
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-x-hidden pt-8 pb-20 parchment-texture">
+        {/* Manuscript laid lines */}
+        <div className="absolute inset-0 manuscript-grid pointer-events-none" />
+        {/* Subtle khatam star pattern in teal */}
+        <ArabicPattern opacity={0.06} color="#0F5C5E" />
+        {/* Top calligraphic flourish */}
+        <div className="absolute top-0 left-0 right-0 h-1" style={{ background: 'linear-gradient(to right, transparent, #7C5B2E 20%, #B08D3C 50%, #7C5B2E 80%, transparent)' }} />
 
-        <div className="absolute top-4 right-4 z-20">
+        {/* Language switcher — top right */}
+        <div className="absolute top-4 right-4 z-30">
           <div className="relative">
-            <button onClick={() => setLangOpen(!langOpen)} className="globe-btn flex items-center gap-1.5 h-10 rounded-full bg-white/10 backdrop-blur-md border border-[#D4AF37]/30 pl-3 pr-3 text-white hover:bg-white/20 transition-all" title="Language">
-              <Globe className="w-5 h-5" style={{ color: '#D4AF37' }} />
-              <span className="text-xs font-bold tracking-wider" style={{ color: '#D4AF37' }}>{language.toUpperCase()}</span>
+            <button onClick={() => setLangOpen(!langOpen)} className="globe-btn flex items-center gap-1.5 h-10 rounded-full bg-white/70 backdrop-blur-md border border-[var(--border)] pl-3 pr-3 hover:bg-white transition-all" title="Language">
+              <Globe className="w-5 h-5 text-[var(--teal)]" />
+              <span className="text-xs font-bold tracking-wider text-[var(--teal)]">{language.toUpperCase()}</span>
             </button>
             {langOpen && (
-              <div className="absolute right-0 mt-2 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-[#D4AF37]/20 py-1 min-w-[180px] z-50 overflow-hidden">
+              <div className="absolute right-0 mt-2 bg-white rounded-xl shadow-2xl border border-[var(--border)] py-1 min-w-[200px] z-50 overflow-hidden">
                 {[
                   { value: 'en', flag: '🇬🇧', label: 'English' },
                   { value: 'ar', flag: '🇸🇦', label: 'العربية' },
@@ -1037,15 +1082,15 @@ export default function Home() {
                   { value: 'fr', flag: '🇫🇷', label: 'Français' },
                 ].map(lang => (
                   <button key={lang.value} onClick={() => { setLanguage(lang.value); setLangOpen(false); }}
-                    className="w-full text-left px-4 py-2.5 text-sm hover:bg-amber-50 transition-all flex items-center gap-3"
+                    className="w-full text-left px-4 py-2.5 text-sm hover:bg-[var(--muted)] transition-all flex items-center gap-3"
                     style={{
-                      backgroundColor: language === lang.value ? '#fffbeb' : 'transparent',
+                      backgroundColor: language === lang.value ? 'var(--muted)' : 'transparent',
                       fontWeight: language === lang.value ? 700 : 400,
-                      color: language === lang.value ? '#722F37' : '#374151'
+                      color: language === lang.value ? 'var(--teal)' : 'var(--ink)',
                     }}>
                     <span className="text-lg">{lang.flag}</span>
                     <span>{lang.label}</span>
-                    {language === lang.value && <span className="ml-auto" style={{ color: '#D4AF37' }}>✓</span>}
+                    {language === lang.value && <span className="ml-auto text-[var(--teal)]">✓</span>}
                   </button>
                 ))}
               </div>
@@ -1053,147 +1098,303 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="absolute top-28 left-10 w-24 h-24 border border-[#D4AF37]/20 rounded-full animate-pulse" />
-        <div className="absolute top-48 right-20 w-16 h-16 border border-[#D4AF37]/15 rotate-45 animate-bounce" style={{ animationDuration: '3s' }} />
-        <div className="absolute bottom-40 left-20 w-20 h-20 border border-[#D4AF37]/20 rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
+        {/* Animated astrolabe — top center, slow rotation */}
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 w-32 h-32 sm:w-40 sm:h-40 opacity-30 pointer-events-none" aria-hidden="true">
+          <svg viewBox="0 0 200 200" className="anim-astrolabe w-full h-full">
+            {/* Outer ring */}
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#0F5C5E" strokeWidth="1.5" />
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#7C5B2E" strokeWidth="0.8" />
+            {/* Cardinal points */}
+            <line x1="100" y1="10" x2="100" y2="30" stroke="#0F5C5E" strokeWidth="1.5" />
+            <line x1="100" y1="170" x2="100" y2="190" stroke="#0F5C5E" strokeWidth="1.5" />
+            <line x1="10" y1="100" x2="30" y2="100" stroke="#0F5C5E" strokeWidth="1.5" />
+            <line x1="170" y1="100" x2="190" y2="100" stroke="#0F5C5E" strokeWidth="1.5" />
+            {/* Diagonal points */}
+            <line x1="36" y1="36" x2="50" y2="50" stroke="#7C5B2E" strokeWidth="1" />
+            <line x1="164" y1="36" x2="150" y2="50" stroke="#7C5B2E" strokeWidth="1" />
+            <line x1="36" y1="164" x2="50" y2="150" stroke="#7C5B2E" strokeWidth="1" />
+            <line x1="164" y1="164" x2="150" y2="150" stroke="#7C5B2E" strokeWidth="1" />
+            {/* Inner counter-rotating ring */}
+            <g className="anim-astrolabe-counter" style={{ transformOrigin: '100px 100px' }}>
+              <circle cx="100" cy="100" r="60" fill="none" stroke="#B08D3C" strokeWidth="0.6" strokeDasharray="4 2" />
+              <circle cx="100" cy="100" r="45" fill="none" stroke="#0F5C5E" strokeWidth="0.8" />
+              {/* Alidade (sighting arm) */}
+              <line x1="55" y1="100" x2="145" y2="100" stroke="#B5532A" strokeWidth="1.2" />
+              <circle cx="55" cy="100" r="4" fill="#B5532A" />
+              <circle cx="145" cy="100" r="4" fill="#B5532A" />
+            </g>
+            {/* Center pivot */}
+            <circle cx="100" cy="100" r="6" fill="#B08D3C" />
+            <circle cx="100" cy="100" r="3" fill="#1F2419" />
+          </svg>
+        </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="flex justify-center mb-6">
-            <div className="flex items-center gap-2">
-              <div className="w-12 h-px bg-gradient-to-r from-transparent to-[#D4AF37]" />
-              <div className="w-3 h-3 rotate-45 border border-[#D4AF37]" />
-              <div className="w-2 h-2 rounded-full bg-[#D4AF37]" />
-              <div className="w-3 h-3 rotate-45 border border-[#D4AF37]" />
-              <div className="w-12 h-px bg-gradient-to-l from-transparent to-[#D4AF37]" />
+        {/* Twinkling stars (Arab astronomy) — only on larger screens */}
+        <div className="absolute inset-0 pointer-events-none hidden sm:block" aria-hidden="true">
+          {[
+            { top: '18%', left: '12%', delay: '0s' },
+            { top: '24%', left: '88%', delay: '1s' },
+            { top: '68%', left: '8%', delay: '2s' },
+            { top: '78%', left: '92%', delay: '1.5s' },
+            { top: '15%', left: '52%', delay: '0.5s' },
+            { top: '82%', left: '50%', delay: '2.5s' },
+          ].map((star, i) => (
+            <div key={i} className="absolute anim-twinkle" style={{ top: star.top, left: star.left, animationDelay: star.delay }}>
+              <svg width="8" height="8" viewBox="0 0 8 8">
+                <path d="M4 0 L4.8 3.2 L8 4 L4.8 4.8 L4 8 L3.2 4.8 L0 4 L3.2 3.2 Z" fill="#B08D3C" />
+              </svg>
             </div>
+          ))}
+        </div>
+
+        {/* Main content */}
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-28 sm:pt-32">
+          {/* Eyebrow label */}
+          <div className="flex items-center justify-center gap-3 mb-6 anim-reveal-down" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
+            <div className="w-12 h-px bg-[var(--bronze)]" />
+            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--bronze)]">UAE · Grades 6–9 · MSCS Curriculum</span>
+            <div className="w-12 h-px bg-[var(--bronze)]" />
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-2 tracking-tight">
-            <span style={{ color: '#D4AF37' }}>MSCS</span> Academy
+          {/* Title — serif, manuscript-style */}
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[var(--ink)] mb-3 tracking-tight anim-reveal-up" style={{ fontFamily: 'var(--font-serif)', animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
+            <span className="text-[var(--teal)]">MSCS</span>{' '}
+            <span style={{ fontStyle: 'italic' }}>Academy</span>
           </h1>
 
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-px w-16 bg-gradient-to-r from-transparent to-[#D4AF37]/60" />
-            <Scroll className="w-5 h-5 text-[#D4AF37]/60" />
-            <div className="h-px w-16 bg-gradient-to-l from-transparent to-[#D4AF37]/60" />
-          </div>
+          <DecorativeBorder />
 
-          <p className="text-lg sm:text-xl md:text-2xl text-amber-100/90 mb-4 font-light">{t('subtitle')}</p>
-          <p className="text-sm sm:text-base text-amber-200/70 mb-3 italic">{t('interactivePlatform')}</p>
+          {/* Subtitle */}
+          <p className="text-lg sm:text-xl md:text-2xl text-[var(--ink)] mb-3 font-light anim-reveal-up" style={{ fontFamily: 'var(--font-serif)', animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
+            {t('subtitle')}
+          </p>
+          <p className="text-sm sm:text-base text-[var(--muted-foreground)] mb-3 italic anim-reveal-up" style={{ animationDelay: '0.5s', opacity: 0, animationFillMode: 'forwards' }}>
+            {t('interactivePlatform')}
+          </p>
 
-          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 flex-wrap">
-            <button onClick={() => navigateTo('aboutPage')} className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full backdrop-blur-sm border-2 transition-all duration-300 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl hover:scale-105" style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(212,175,55,0.4)', color: '#fff' }} onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.2)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.7)'; }} onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)'; }}>
-              <Info className="w-5 h-5" style={{ color: '#D4AF37' }} /> {t('about')}
-            </button>
-            <button onClick={() => navigateTo('loginPage')} className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full backdrop-blur-sm border-2 transition-all duration-300 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl hover:scale-105" style={{ backgroundColor: 'rgba(212,175,55,0.2)', borderColor: 'rgba(212,175,55,0.5)', color: '#fff' }} onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.35)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.8)'; }} onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.2)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.5)'; }}>
-              <LogIn className="w-5 h-5" style={{ color: '#D4AF37' }} /> {t('studentLogin')}
-            </button>
-            <button onClick={() => navigateTo('consentPage')} className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full backdrop-blur-sm border-2 transition-all duration-300 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl hover:scale-105" style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(212,175,55,0.4)', color: '#fff' }} onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(212,175,55,0.2)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.7)'; }} onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)'; }}>
-              <Shield className="w-5 h-5" style={{ color: '#D4AF37' }} /> {t('parentalConsent')}
-            </button>
-          </div>
-
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-[#D4AF37]/30 rounded-full px-6 py-3 mb-8">
-            <GraduationCap className="w-5 h-5 text-[#D4AF37]" />
+          {/* Mr. Ahmed Ali calligraphic badge */}
+          <div className="flex justify-center mb-8 anim-reveal-up" style={{ animationDelay: '0.6s', opacity: 0, animationFillMode: 'forwards' }}>
             <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer"
-              className="text-lg font-bold text-[#D4AF37] hover:text-amber-300 transition-colors">Mr. Ahmed Ali</a>
-            <ExternalLink className="w-3 h-3 text-[#D4AF37]/60" />
+              className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-[var(--bronze)] rounded-full px-5 py-2.5 hover:bg-white hover:border-[var(--teal)] transition-all group">
+              <GraduationCap className="w-4 h-4 text-[var(--teal)] group-hover:scale-110 transition-transform" />
+              <span className="text-sm font-semibold text-[var(--ink)]" style={{ fontFamily: 'var(--font-serif)' }}>Mr. Ahmed Ali</span>
+              <ExternalLink className="w-3 h-3 text-[var(--bronze)] opacity-60" />
+            </a>
           </div>
 
-          <p className="text-base sm:text-lg text-white/80 mb-4 font-medium">{t('tagline')}</p>
-
-          <div className="flex items-center justify-center gap-4 sm:gap-6 mb-10 text-white/60 text-xs sm:text-sm">
-            <span className="flex items-center gap-1.5"><GraduationCap className="w-4 h-4 text-[#D4AF37]" /> {platformStats.totalGrades} Grades</span>
-            <span className="w-1 h-1 rounded-full bg-[#D4AF37]/40" />
-            <span className="flex items-center gap-1.5"><BookOpen className="w-4 h-4 text-[#D4AF37]" /> {platformStats.totalLessons} Lessons</span>
-            <span className="w-1 h-1 rounded-full bg-[#D4AF37]/40" />
-            <span className="flex items-center gap-1.5"><Sparkles className="w-4 h-4 text-[#D4AF37]" /> {platformStats.totalActivities}+ Activities</span>
+          {/* CTA buttons */}
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-10 flex-wrap anim-reveal-up" style={{ animationDelay: '0.7s', opacity: 0, animationFillMode: 'forwards' }}>
+            <button onClick={() => navigateTo('aboutPage')}
+              className="btn-heritage-ghost flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold">
+              <Info className="w-4 h-4" /> {t('about')}
+            </button>
+            <button onClick={() => navigateTo('loginPage')}
+              className="btn-heritage-primary flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold anim-cta-glow">
+              <LogIn className="w-4 h-4" /> {t('studentLogin')}
+            </button>
+            <button onClick={() => navigateTo('consentPage')}
+              className="btn-heritage-accent flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold">
+              <Shield className="w-4 h-4" /> {t('parentalConsent')}
+            </button>
           </div>
 
-          <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto mt-4 mb-6">
-            {gradeInfoList.map(grade => (
-              <button key={grade.key} onClick={() => { setSelectedGrade(grade); navigateTo('gradeSelect'); }}
-                className="group relative overflow-hidden rounded-xl border-2 border-[#D4AF37]/30 bg-white/10 backdrop-blur-sm p-5 text-center transition-all duration-300 hover:border-[#D4AF37] hover:bg-white/20 hover:scale-105 hover:shadow-xl hover:shadow-[#D4AF37]/10">
-                <div className="relative z-10">
-                  <div className="text-[#D4AF37] mb-2 flex justify-center group-hover:scale-110 transition-transform">
-                    <GradeIcon type={grade.iconType} />
+          {/* Stats strip */}
+          <div className="flex items-center justify-center gap-4 sm:gap-6 mb-12 text-[var(--muted-foreground)] text-xs sm:text-sm anim-reveal-up" style={{ animationDelay: '0.8s', opacity: 0, animationFillMode: 'forwards' }}>
+            <span className="flex items-center gap-1.5"><GraduationCap className="w-4 h-4 text-[var(--teal)]" /> {platformStats.totalGrades} Grades</span>
+            <span className="w-1 h-1 rounded-full bg-[var(--bronze)]" />
+            <span className="flex items-center gap-1.5"><BookOpen className="w-4 h-4 text-[var(--teal)]" /> {platformStats.totalLessons} Lessons</span>
+            <span className="w-1 h-1 rounded-full bg-[var(--bronze)]" />
+            <span className="flex items-center gap-1.5"><Sparkles className="w-4 h-4 text-[var(--teal)]" /> {platformStats.totalActivities}+ Activities</span>
+          </div>
+
+          {/* Grade cards — heritage-themed with elevation */}
+          <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto mt-2 anim-reveal-up" style={{ animationDelay: '0.9s', opacity: 0, animationFillMode: 'forwards' }}>
+            {gradeInfoList.map((grade, i) => {
+              const colors = gradeColorMap[grade.number];
+              return (
+                <button key={grade.key} onClick={() => { setSelectedGrade(grade); navigateTo('gradeSelect'); }}
+                  className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-white p-5 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:border-[var(--teal)]"
+                  style={{ boxShadow: '0 1px 2px rgba(31, 36, 25, 0.04)' }}>
+                  {/* Heritage color stripe — top */}
+                  <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: colors.gradientBg }} />
+                  {/* Subtle star pattern on hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <ArabicPattern opacity={0.04} color={colors.accent} />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">{grade.title}</h3>
-                  <p className="text-xs text-amber-200/70">{grade.tagline}</p>
-                </div>
-              </button>
-            ))}
+                  <div className="relative z-10">
+                    <div className="mb-3 flex justify-center group-hover:scale-110 transition-transform" style={{ color: colors.accent }}>
+                      <GradeIcon type={grade.iconType} />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-bold text-[var(--ink)] mb-1" style={{ fontFamily: 'var(--font-serif)' }}>{grade.title}</h3>
+                    <p className="text-[10px] sm:text-xs text-[var(--muted-foreground)] leading-tight">{grade.tagline}</p>
+                    {/* Small grade number badge */}
+                    <div className="mt-3 inline-flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-bold text-white" style={{ background: colors.accent }}>
+                      {grade.number}
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
+        {/* Scroll indicator */}
         {showScrollIndicator && (
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-            <span className="text-xs text-amber-200/60">Explore</span>
-            <ChevronDown className="w-5 h-5 text-[#D4AF37]/60" />
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 anim-gentle-bounce">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--muted-foreground)]">Explore</span>
+            <ChevronDown className="w-4 h-4 text-[var(--bronze)]" />
           </div>
         )}
       </section>
 
-      {/* Features */}
-      <section className="relative bg-[#FFF9F0] py-16 px-4">
-        <ArabicPattern opacity={0.03} color="#722F37" />
-        <div className="relative z-10 max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-[#722F37] mb-3">{t('whyTitle')}</h2>
-          <DecorativeBorder color="#D4AF37" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      {/* ═══════════════════════════════════════════════════════════
+          FEATURES — "Why MSCS Academy"
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="relative bg-[var(--card)] py-20 px-4 border-y border-[var(--border)]">
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[var(--bronze)]">What you'll experience</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--ink)] mt-2 mb-2" style={{ fontFamily: 'var(--font-serif)' }}>{t('whyTitle')}</h2>
+            <DecorativeBorder />
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { icon: <Brain className="w-8 h-8" />, title: t('feature1'), desc: t('feature1d'), color: '#d97706', bg: '#fffbeb', border: '#fde68a' },
-              { icon: <Target className="w-8 h-8" />, title: t('feature2'), desc: t('feature2d'), color: '#059669', bg: '#ecfdf5', border: '#a7f3d0' },
-              { icon: <MapPin className="w-8 h-8" />, title: t('feature3'), desc: t('feature3d'), color: '#e11d48', bg: '#fff1f2', border: '#fecdd3' },
-              { icon: <Timer className="w-8 h-8" />, title: t('feature4'), desc: t('feature4d'), color: '#0d9488', bg: '#f0fdfa', border: '#99f6e4' },
-              { icon: <Award className="w-8 h-8" />, title: t('feature5'), desc: t('feature5d'), color: '#ea580c', bg: '#fff7ed', border: '#fed7aa' },
-              { icon: <Users className="w-8 h-8" />, title: t('feature6'), desc: t('feature6d'), color: '#9333ea', bg: '#faf5ff', border: '#e9d5ff' },
+              { icon: <Brain className="w-7 h-7" />, title: t('feature1'), desc: t('feature1d'), color: '#0F5C5E', bg: 'rgba(15, 92, 94, 0.06)', border: 'rgba(15, 92, 94, 0.18)' },
+              { icon: <Target className="w-7 h-7" />, title: t('feature2'), desc: t('feature2d'), color: '#4A6B3E', bg: 'rgba(74, 107, 62, 0.06)', border: 'rgba(74, 107, 62, 0.18)' },
+              { icon: <MapPin className="w-7 h-7" />, title: t('feature3'), desc: t('feature3d'), color: '#B5532A', bg: 'rgba(181, 83, 42, 0.06)', border: 'rgba(181, 83, 42, 0.18)' },
+              { icon: <Timer className="w-7 h-7" />, title: t('feature4'), desc: t('feature4d'), color: '#7C5B2E', bg: 'rgba(124, 91, 46, 0.06)', border: 'rgba(124, 91, 46, 0.18)' },
+              { icon: <Award className="w-7 h-7" />, title: t('feature5'), desc: t('feature5d'), color: '#C68A2E', bg: 'rgba(196, 138, 46, 0.08)', border: 'rgba(196, 138, 46, 0.22)' },
+              { icon: <Users className="w-7 h-7" />, title: t('feature6'), desc: t('feature6d'), color: '#047857', bg: 'rgba(4, 120, 87, 0.06)', border: 'rgba(4, 120, 87, 0.18)' },
             ].map((feature, i) => (
-              <Card key={i} className="border-2 hover:shadow-lg transition-shadow" style={{ borderColor: feature.border, backgroundColor: feature.bg }}>
-                <CardContent className="p-6 text-center">
-                  <div className="flex justify-center mb-3" style={{ color: feature.color }}>{feature.icon}</div>
-                  <h3 className="font-bold text-gray-800 mb-2">{feature.title}</h3>
-                  <p className="text-sm text-gray-600">{feature.desc}</p>
-                </CardContent>
-              </Card>
+              <div key={i}
+                className="group relative rounded-xl border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                style={{ borderColor: feature.border, backgroundColor: 'white' }}>
+                {/* Top corner accent */}
+                <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden rounded-tr-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-0 right-0 w-px h-12" style={{ background: feature.color }} />
+                  <div className="absolute top-0 right-0 w-12 h-px" style={{ background: feature.color }} />
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
+                    style={{ color: feature.color, backgroundColor: feature.bg }}>
+                    {feature.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[var(--ink)] mb-1.5" style={{ fontFamily: 'var(--font-serif)' }}>{feature.title}</h3>
+                    <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">{feature.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Heritage pillars strip */}
+          <div className="mt-16 grid sm:grid-cols-3 gap-4">
+            {[
+              { label: 'Moral Education', desc: 'Character, ethics & values rooted in UAE heritage', icon: '🌿', color: '#4A6B3E' },
+              { label: 'History & Civilizations', desc: 'Primary sources, timelines, comparative analysis', icon: '📜', color: '#7C5B2E' },
+              { label: 'Geography & Society', desc: 'Interactive maps, regional studies, civic engagement', icon: '🧭', color: '#0F5C5E' },
+            ].map((pillar, i) => (
+              <div key={i} className="text-center px-4 py-5 rounded-lg border border-[var(--border)] bg-[var(--muted)]/40">
+                <div className="text-2xl mb-2">{pillar.icon}</div>
+                <div className="font-bold text-sm mb-1" style={{ color: pillar.color, fontFamily: 'var(--font-serif)' }}>{pillar.label}</div>
+                <div className="text-xs text-[var(--muted-foreground)]">{pillar.desc}</div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Instructor */}
-      <section className="relative bg-gradient-to-br from-[#722F37] to-[#5A1A23] py-16 px-4">
-        <ArabicPattern opacity={0.06} color="#D4AF37" />
+      {/* ═══════════════════════════════════════════════════════════
+          INSTRUCTOR — Mr. Ahmed Ali, deep teal hero
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="relative teal-hero-bg py-20 px-4 overflow-hidden">
+        <ArabicPattern opacity={0.05} color="#E8DCC0" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-3">{t('meetInstructor')}</h2>
-          <DecorativeBorder color="#D4AF37" />
-          <div className="mt-8 bg-white/10 backdrop-blur-sm rounded-xl border border-[#D4AF37]/20 p-8">
-            <div className="w-20 h-20 rounded-full bg-[#D4AF37]/20 border-2 border-[#D4AF37] flex items-center justify-center mx-auto mb-4">
-              <GraduationCap className="w-10 h-10 text-[#D4AF37]" />
+          <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#C68A2E]">Your instructor</span>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#F6EFDD] mt-2 mb-2" style={{ fontFamily: 'var(--font-serif)' }}>{t('meetInstructor')}</h2>
+          <div className="flex justify-center mb-8">
+            <div className="w-24 h-px" style={{ background: 'linear-gradient(to right, transparent, #C68A2E, transparent)' }} />
+          </div>
+
+          <div className="bg-white/8 backdrop-blur-md rounded-2xl border border-[#C68A2E]/30 p-8 sm:p-10">
+            {/* Initials medallion */}
+            <div className="w-24 h-24 mx-auto mb-6 relative">
+              <svg viewBox="0 0 96 96" className="w-full h-full">
+                <circle cx="48" cy="48" r="46" fill="none" stroke="#C68A2E" strokeWidth="1.5" />
+                <circle cx="48" cy="48" r="40" fill="rgba(196, 138, 46, 0.15)" stroke="#C68A2E" strokeWidth="0.8" />
+                <circle cx="48" cy="48" r="32" fill="none" stroke="#E8DCC0" strokeWidth="0.6" strokeDasharray="2 3" />
+                <text x="48" y="58" textAnchor="middle" fontSize="28" fontFamily="var(--font-serif)" fontWeight="700" fill="#C68A2E">AA</text>
+                {/* Cardinal points */}
+                <circle cx="48" cy="4" r="2" fill="#C68A2E" />
+                <circle cx="48" cy="92" r="2" fill="#C68A2E" />
+                <circle cx="4" cy="48" r="2" fill="#C68A2E" />
+                <circle cx="92" cy="48" r="2" fill="#C68A2E" />
+              </svg>
             </div>
+
             <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer"
-              className="text-2xl font-bold text-[#D4AF37] hover:text-amber-300 transition-colors inline-flex items-center gap-2">
-              Mr. Ahmed Ali <ExternalLink className="w-5 h-5" />
+              className="text-2xl sm:text-3xl font-bold text-[#C68A2E] hover:text-[#E8B05A] transition-colors inline-flex items-center gap-2 group" style={{ fontFamily: 'var(--font-serif)' }}>
+              Mr. Ahmed Ali
+              <ExternalLink className="w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity" />
             </a>
-            <p className="text-amber-100/80 mt-3 text-sm leading-relaxed">{t('instructorDesc')}</p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Badge className="bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30">MSCS Specialist</Badge>
-              <Badge className="bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30">UAE Curriculum</Badge>
-              <Badge className="bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30">Interactive Learning</Badge>
+
+            <p className="text-[#E8DCC0]/85 mt-4 text-sm sm:text-base leading-relaxed">{t('instructorDesc')}</p>
+
+            <div className="mt-6 flex flex-wrap justify-center gap-2">
+              {[
+                'ADEK-Licensed MSCS Teacher',
+                'UAE Curriculum Specialist',
+                '21st-Century Learning',
+                'Interactive Pedagogy',
+                'Critical Thinking',
+              ].map((badge) => (
+                <span key={badge} className="text-[11px] px-3 py-1.5 rounded-full bg-[#C68A2E]/15 text-[#E8B05A] border border-[#C68A2E]/30">
+                  {badge}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="bg-[#1a0a0c] text-white/60 py-8 px-4 text-center mt-auto">
+      {/* ═══════════════════════════════════════════════════════════
+          FOOTER — deep ink with sage accents
+          ═══════════════════════════════════════════════════════════ */}
+      <footer className="bg-[var(--ink)] text-[#E8DCC0]/70 py-10 px-4 text-center mt-auto">
         <div className="max-w-4xl mx-auto">
+          {/* Calligraphic top flourish */}
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-16 h-px" style={{ background: 'linear-gradient(to right, transparent, #7C5B2E)' }} />
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2 L12 8 L18 10 L12 12 L10 18 L8 12 L2 10 L8 8 Z" fill="#B08D3C" />
+            </svg>
+            <div className="w-16 h-px" style={{ background: 'linear-gradient(to left, transparent, #7C5B2E)' }} />
+          </div>
+
           <p className="text-sm">
-            <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer" className="text-[#D4AF37] hover:text-amber-400 transition-colors font-semibold">Mr. Ahmed Ali</a>
+            <a href="https://mr-ahmed-ali.vercel.app" target="_blank" rel="noopener noreferrer"
+              className="text-[#C68A2E] hover:text-[#E8B05A] transition-colors font-semibold" style={{ fontFamily: 'var(--font-serif)' }}>
+              Mr. Ahmed Ali
+            </a>
             {' '}— {t('footerTagline')}
           </p>
-          <p className="text-[10px] text-white/30 mt-2">Teacher-Created Study Material — Not an Official ADEK Resource</p>
-          <p className="text-xs text-white/40 mt-3">{t('copyright')}</p>
 
+          <p className="text-[10px] text-[#E8DCC0]/40 mt-3 tracking-wide">
+            TEACHER-CREATED STUDY MATERIAL — NOT AN OFFICIAL ADEK RESOURCE
+          </p>
+
+          <div className="mt-5 flex flex-wrap justify-center gap-4 text-[10px] text-[#E8DCC0]/50">
+            <span>PDPL Compliant</span>
+            <span className="opacity-30">·</span>
+            <span>Child Digital Safety Law 26/2025</span>
+            <span className="opacity-30">·</span>
+            <span>Wadeema's Law</span>
+            <span className="opacity-30">·</span>
+            <span>ADEK Irtiq'aa Aligned</span>
+          </div>
+
+          <p className="text-xs text-[#E8DCC0]/40 mt-4">{t('copyright')}</p>
         </div>
       </footer>
     </div>
@@ -1209,25 +1410,25 @@ export default function Home() {
     const colors = gradeColorMap[grade.number];
 
     return (
-      <div className="min-h-screen bg-[#FFF9F0] flex flex-col">
+      <div className="min-h-screen bg-background flex flex-col">
         <div className="relative py-12 px-4" style={{ background: colors.gradientBg }}>
-          <ArabicPattern opacity={0.08} color="#D4AF37" />
+          <ArabicPattern opacity={0.08} color={colors.patternColor} />
           <div className="relative z-10 max-w-4xl mx-auto">
             <Button variant="ghost" onClick={() => navigateTo('landing')} className="text-white/80 hover:text-white hover:bg-white/10 mb-4">
               <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home
             </Button>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-white/10 border-2 border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37]">
+              <div className="w-16 h-16 rounded-2xl bg-white/10 border-2 border-white/30 flex items-center justify-center text-white">
                 <GradeIcon type={grade.iconType} className="w-8 h-8" />
               </div>
               <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-white">{grade.title}</h1>
+                <h1 className="text-3xl sm:text-4xl font-bold text-white" style={{ fontFamily: 'var(--font-serif)' }}>{grade.title}</h1>
                 <p className="text-white/80">{grade.tagline}</p>
                 <p className="text-white/60 text-sm mt-1">{grade.totalLessons} lessons across {grade.terms.length} terms</p>
               </div>
             </div>
             <div className="mt-4 flex items-center gap-2">
-              <AhmedAliLink size="md" />
+              <AhmedAliLink size="md" className="text-white/90 hover:text-white" />
             </div>
           </div>
         </div>
@@ -1236,11 +1437,11 @@ export default function Home() {
           {grade.terms.map(term => (
             <div key={term.key}>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#722F37] to-[#5A1A23] flex items-center justify-center text-white font-bold text-sm">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ background: colors.accent }}>
                   T{term.number}
                 </div>
-                <h2 className="text-xl font-bold text-gray-800">{term.title}</h2>
-                <div className="flex-1 h-px bg-gray-200" />
+                <h2 className="text-xl font-bold text-[var(--ink)]" style={{ fontFamily: 'var(--font-serif)' }}>{term.title}</h2>
+                <div className="flex-1 h-px bg-[var(--border)]" />
               </div>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1251,22 +1452,22 @@ export default function Home() {
                   const mappedCount = unitData ? unitData.lessons.filter(l => l.is_mapped).length : 0;
 
                   return (
-                    <Card key={unit.key} className={`border-2 hover:shadow-lg transition-all cursor-pointer group ${unit.isPriority ? 'border-[#D4AF37] bg-amber-50/30' : 'border-gray-200 bg-white hover:border-amber-300'}`}
+                    <Card key={unit.key} className={`border-2 hover:shadow-lg transition-all cursor-pointer group ${unit.isPriority ? 'border-[var(--teal)] bg-[var(--muted)]/30' : 'border-[var(--border)] bg-[var(--card)] hover:border-[var(--teal)]'}`}
                       onClick={() => { setSelectedTerm(term); setSelectedUnit(unit); navigateTo('unitSelect'); }}>
                       <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-bold text-gray-800 leading-tight group-hover:text-[#722F37] transition-colors">
-                          {unit.isPriority && <span className="mr-1" title="Priority Unit">⭐</span>}
+                        <CardTitle className="text-sm font-bold text-[var(--ink)] leading-tight group-hover:text-[var(--teal)] transition-colors" style={{ fontFamily: 'var(--font-serif)' }}>
+                          {unit.isPriority && <span className="mr-1" title="Priority Unit">★</span>}
                           {unit.title}
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-xs text-gray-500 mb-2">{unit.description}</p>
-                        <div className="flex items-center gap-3 text-xs text-gray-400">
+                        <p className="text-xs text-[var(--muted-foreground)] mb-2">{unit.description}</p>
+                        <div className="flex items-center gap-3 text-xs text-[var(--muted-foreground)]">
                           <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {lessonCount} lessons</span>
                           {mappedCount > 0 && mappedCount < lessonCount && (
-                            <span className="flex items-center gap-1 text-[#D4AF37] font-medium">⭐ {mappedCount} mapped</span>
+                            <span className="flex items-center gap-1 text-[var(--bronze)] font-medium">★ {mappedCount} mapped</span>
                           )}
-                          <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px]">
+                          <Badge className="bg-[var(--sage)]/15 text-[var(--sage)] border border-[var(--sage)]/30 text-[10px]">
                             <Play className="w-2.5 h-2.5 mr-0.5" /> Interactive
                           </Badge>
                         </div>
@@ -1279,9 +1480,9 @@ export default function Home() {
           ))}
         </div>
 
-        <footer className="bg-[#1a0a0c] text-white/40 py-4 px-4 text-center">
-          <AhmedAliLink size="sm" className="text-[#D4AF37]/60" />
-          <p className="text-[10px] text-white/30 mt-1">Teacher-Created Study Material — Not an Official ADEK Resource</p>
+        <footer className="bg-[var(--ink)] text-[#E8DCC0]/40 py-4 px-4 text-center">
+          <AhmedAliLink size="sm" className="text-[#C68A2E]/80 hover:text-[#C68A2E]" />
+          <p className="text-[10px] text-[#E8DCC0]/30 mt-1">Teacher-Created Study Material — Not an Official ADEK Resource</p>
         </footer>
       </div>
     );

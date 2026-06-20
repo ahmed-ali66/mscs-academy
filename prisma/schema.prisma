@@ -43,9 +43,13 @@ model Teacher {
   updatedAt     DateTime @updatedAt
 
   // Relations
-  studentGroups StudentGroup[]
-  subscription  Subscription?
-  notifications Notification[]
+  studentGroups   StudentGroup[]
+  subscription    Subscription?
+  notifications   Notification[]
+  assignments     Assignment[]
+  rubrics         Rubric[]
+  liveClasses     LiveClass[]
+  discussionThreads DiscussionThread[]
 
   @@map("teachers")
 }
@@ -63,13 +67,43 @@ model Student {
   updatedAt     DateTime @updatedAt
 
   // Relations
-  studentGroup  StudentGroup? @relation(fields: [studentGroupId], references: [id])
-  studentGroupId String?
-  quizResults    QuizResultDB[]
-  lessonProgress LessonProgress[]
-  diagnosticResults DiagnosticResult[]
+  studentGroup       StudentGroup?     @relation(fields: [studentGroupId], references: [id])
+  studentGroupId     String?
+  quizResults        QuizResultDB[]
+  lessonProgress     LessonProgress[]
+  diagnosticResults  DiagnosticResult[]
+  // New relations — pedagogy, compliance, distance learning, Irtiq'aa
+  parentLinks        StudentParentLink[]
+  consents           ConsentRecord[]
+  consentAudits      ConsentAudit[]
+  submissions        Submission[]
+  attendance         AttendanceRecord[]
+  discussionPosts    DiscussionPost[]
+  senProfile         SENProfile?
+  differentiationPlans DifferentiationPlan[]
+  portfolio          Portfolio?
+  skillMappings      StudentSkillMapping[]
+  wellbeingCheckins  WellbeingCheckin[]
 
   @@map("students")
+}
+
+// Join table — many parents per student (e.g., mother + father)
+// and many students per parent (siblings)
+model StudentParentLink {
+  id          String   @id @default(cuid())
+  studentId   String
+  parentId    String
+  relationship String  // "mother", "father", "legal_guardian", "other"
+  isPrimary   Boolean  @default(false) // primary contact
+  createdAt   DateTime @default(now())
+
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  parent      Parent   @relation(fields: [parentId], references: [id])
+
+  @@unique([studentId, parentId])
+  @@index([parentId])
+  @@map("student_parent_links")
 }
 
 model StudentGroup {
@@ -85,6 +119,9 @@ model StudentGroup {
   // Relations
   teacher     Teacher   @relation(fields: [teacherId], references: [id])
   students    Student[]
+  assignments Assignment[]
+  liveClasses LiveClass[]
+  discussionThreads DiscussionThread[]
 
   @@unique([grade, section, academicYear, teacherId])
   @@map("student_groups")
@@ -144,8 +181,8 @@ model Notification {
   type        String   // "subscription_expiry", "system", "payment", "account"
   title       String
   message     String
-  recipientType String // "admin", "teacher"
-  recipientId String  // Admin or Teacher ID
+  recipientType String // "admin", "teacher", "parent"
+  recipientId String  // Admin, Teacher, or Parent ID
   isRead      Boolean  @default(false)
   sentAt      DateTime @default(now())
   readAt      DateTime?
@@ -157,6 +194,8 @@ model Notification {
   adminId      String?
   teacher      Teacher?      @relation(fields: [teacherId], references: [id])
   teacherId    String?
+  parent       Parent?       @relation(fields: [parentId], references: [id])
+  parentId     String?
 
   @@map("notifications")
 }
@@ -226,15 +265,19 @@ model DiagnosticResult {
 model AuditLog {
   id          String   @id @default(cuid())
   action      String   // "login", "logout", "create_user", "update_user", "delete_user", "subscription_create", etc.
-  actorType   String   // "admin", "teacher", "student", "system"
+  actorType   String   // "admin", "teacher", "student", "parent", "system"
   actorId     String?
   actorName   String?
-  targetType  String?  // "admin", "teacher", "student", "subscription"
+  targetType  String?  // "admin", "teacher", "student", "parent", "subscription", "consent_record"
   targetId    String?
   details     Json?    // JSON object with action details
   ipAddress   String?
   userAgent   String?
   createdAt   DateTime @default(now())
+
+  // Optional relation — parent-triggered audit
+  parent      Parent?  @relation(fields: [parentId], references: [id])
+  parentId    String?
 
   @@map("audit_logs")
 }
@@ -259,4 +302,621 @@ model SystemSetting {
   updatedAt   DateTime @updatedAt
 
   @@map("system_settings")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PARENT & GUARDIAN — Child Digital Safety Law 26/2025 compliance
+// Required: explicit parental consent for users under 13; parental gate
+// for any commercial features; documented 18+ verification
+// ═══════════════════════════════════════════════════════════════
+
+model Parent {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  phone         String?  // E.164 format, used for identity verification
+  fullName      String
+  // Hashed — never store plaintext; verified at consent time only
+  passwordHash  String?
+  parentalPin   String?  // hashed PIN for parental gate operations
+  // 18+ verification — required by Child Digital Safety Law 26/2025
+  ageVerifiedAt     DateTime?
+  ageVerificationMethod String? // "email", "phone", "id-attestation"
+  // PDPL consent tracking
+  marketingConsent   Boolean  @default(false)
+  researchConsent    Boolean  @default(false)
+  thirdPartyConsent  Boolean  @default(false)
+  // Status
+  isActive       Boolean  @default(true)
+  // PDPL Article 14 — right to revoke consent triggers data deletion
+  consentRevokedAt DateTime?
+  // Audit
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  studentLinks   StudentParentLink[]
+  consents       ConsentRecord[]
+  consentAudits  ConsentAudit[]
+  notifications  Notification[]
+  auditLogs      AuditLog[]
+
+  @@map("parents")
+}
+
+model ConsentRecord {
+  id              String   @id @default(cuid())
+  parentId        String
+  studentId       String
+  // What is being consented to — versioned so changes trigger re-consent
+  consentType     String   // "platform_use", "data_processing", "assessment", "media", "research"
+  consentVersion  String   // e.g., "1.0.0" — bumps when T&C changes
+  // The actual terms text that was agreed to (immutable snapshot)
+  termsHash       String   // SHA-256 of the terms text shown
+  termsTextSnapshot String  // LongText — the actual terms
+  // Whether consent was granted or revoked
+  granted         Boolean
+  grantedAt       DateTime?
+  revokedAt       DateTime?
+  // Verification metadata (PDPL: consent must be demonstrable)
+  verificationMethod String  // "email_otp", "phone_otp", "digital_signature"
+  verificationRef String?  // ID of the OTP/signature verification record
+  // Audit
+  ipAddress       String?
+  userAgent       String?
+  createdAt       DateTime @default(now())
+
+  parent          Parent   @relation(fields: [parentId], references: [id])
+  student         Student  @relation(fields: [studentId], references: [id])
+
+  @@index([parentId, studentId])
+  @@index([consentType, granted])
+  @@map("consent_records")
+}
+
+model ConsentAudit {
+  id              String   @id @default(cuid())
+  parentId        String?
+  studentId       String?
+  action          String   // "consent_granted", "consent_revoked", "data_accessed", "data_deleted"
+  details         Json?
+  ipAddress       String?
+  userAgent       String?
+  createdAt       DateTime @default(now())
+
+  parent          Parent?   @relation(fields: [parentId], references: [id])
+  student         Student?  @relation(fields: [studentId], references: [id])
+
+  @@index([parentId])
+  @@index([studentId])
+  @@index([action, createdAt])
+  @@map("consent_audit")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PEDAGOGY — Assignments, Submissions, Rubrics
+// Enables authentic assessment aligned with ADEK/Irtiq'aa expectations
+// ═══════════════════════════════════════════════════════════════
+
+model Assignment {
+  id              String   @id @default(cuid())
+  teacherId       String
+  studentGroupId  String?
+  // Linkage to curriculum
+  grade           Int      // 6, 7, 8, 9
+  term            Int      // 1, 2, 3
+  unit            String
+  lessonId        String?
+  // Content
+  title           String
+  description     String   // rich text / markdown
+  instructions    String   // long-form instructions
+  // Type & submission mode
+  assignmentType  String   // "essay", "presentation", "project", "quiz_ext", "portfolio", "debate", "research"
+  submissionFormat String  // "text", "file", "url", "audio", "video", "multimedia"
+  // 21st-century skills tagged on this assignment (4Cs + P21)
+  skillTags       String   // JSON array: ["critical_thinking", "collaboration", "creativity", "communication", "digital_literacy", "citizenship"]
+  // DOK level & Bloom's level (ADEK alignment)
+  dokLevel        Int      // 1–4
+  bloomsLevel     String   // "remember", "understand", "apply", "analyze", "evaluate", "create"
+  // Rubric linkage (optional — some assignments may use rubrics)
+  rubricId        String?
+  // Scheduling
+  assignedAt      DateTime @default(now())
+  dueAt           DateTime?
+  // Settings
+  maxMarks        Float    @default(100)
+  allowLateSubmission Boolean @default(true)
+  latePenaltyPercent Float @default(0)
+  allowResubmission Boolean @default(false)
+  isPublished     Boolean  @default(false)
+  // Distance / in-class
+  deliveryMode    String   @default("either") // "in_class", "distance", "either"
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  teacher         Teacher        @relation(fields: [teacherId], references: [id])
+  studentGroup    StudentGroup?  @relation(fields: [studentGroupId], references: [id])
+  rubric          Rubric?        @relation(fields: [rubricId], references: [id])
+  submissions     Submission[]
+
+  @@index([teacherId, grade, term])
+  @@index([studentGroupId])
+  @@map("assignments")
+}
+
+model Submission {
+  id              String   @id @default(cuid())
+  assignmentId    String
+  studentId       String
+  // Content
+  contentText     String?  // for text/markdown submissions
+  fileUrls        String?  // JSON array of file paths
+  externalUrl     String?
+  // Status
+  status          String   @default("submitted") // "draft", "submitted", "returned", "graded", "resubmitted"
+  submittedAt     DateTime @default(now())
+  gradedAt        DateTime?
+  // Grading
+  awardedMarks    Float?
+  feedback        String?  // teacher feedback (rich text)
+  // Rubric scoring (per-criterion) — JSON: [{criterionId, score, comment}]
+  rubricScores    Json?
+  // 21st-century skills demonstrated (teacher-tagged)
+  demonstratedSkills String? // JSON array
+  // Self-assessment & peer-assessment
+  selfReflection  String?  // student reflection
+  peerReviews     Json?    // [{reviewerId, score, comment}]
+  // Late submission
+  isLate          Boolean  @default(false)
+  latePenaltyApplied Float @default(0)
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  assignment      Assignment @relation(fields: [assignmentId], references: [id])
+  student         Student    @relation(fields: [studentId], references: [id])
+
+  @@unique([assignmentId, studentId])
+  @@index([studentId, status])
+  @@map("submissions")
+}
+
+model Rubric {
+  id              String   @id @default(cuid())
+  teacherId       String
+  title           String
+  description     String?
+  // Total marks across all criteria
+  totalMarks      Float    @default(100)
+  // ADEK alignment — which Irtiq'aa domain this rubric primarily evidences
+  irtiqaaDomain   String?  // "teaching", "assessment", "innovation", etc.
+  isPublished     Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  teacher         Teacher          @relation(fields: [teacherId], references: [id])
+  criteria        RubricCriterion[]
+  assignments     Assignment[]
+
+  @@map("rubrics")
+}
+
+model RubricCriterion {
+  id              String   @id @default(cuid())
+  rubricId        String
+  // The skill/quality being assessed
+  criterionName   String   // e.g., "Critical Analysis", "Use of Evidence", "UAE Cultural Context"
+  description     String
+  // 21st-century skill tagged
+  skillTag        String?  // "critical_thinking", "collaboration", etc.
+  // Performance levels (typically 4: emerging, developing, proficient, mastery)
+  maxMarks        Float
+  // Level descriptors — JSON: [{level, label, descriptor, marks}]
+  levelDescriptors Json
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  rubric          Rubric   @relation(fields: [rubricId], references: [id], onDelete: Cascade)
+
+  @@map("rubric_criteria")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DISTANCE + IN-CLASS LEARNING — Live classes, attendance, chat
+// Enables hybrid/blended learning: synchronous (live) + asynchronous
+// ═══════════════════════════════════════════════════════════════
+
+model LiveClass {
+  id              String   @id @default(cuid())
+  teacherId       String
+  studentGroupId  String?
+  // Linkage
+  grade           Int
+  term            Int
+  unit            String?
+  lessonId        String?
+  // Content
+  title           String
+  description     String?
+  // Session config
+  scheduledStart  DateTime
+  scheduledEnd    DateTime
+  actualStart     DateTime?
+  actualEnd       DateTime?
+  // Session state
+  status          String   @default("scheduled") // "scheduled", "live", "ended", "cancelled"
+  // Delivery mode
+  deliveryMode    String   @default("distance") // "in_class", "distance", "hybrid"
+  // Provider — built-in WebRTC or external (kept self-sufficient per spec)
+  provider        String   @default("builtin") // "builtin"
+  roomCode        String   @unique // short join code, e.g., "MSCS-LC-7A3K"
+  // Settings
+  recordingEnabled Boolean @default(false) // PDPL: requires explicit parent consent
+  chatEnabled     Boolean  @default(true)
+  handRaiseEnabled Boolean @default(true)
+  pollsEnabled    Boolean  @default(true)
+  whiteboardEnabled Boolean @default(true)
+  // 21st-century skills emphasized in this session
+  skillTags       String?  // JSON array
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  teacher         Teacher          @relation(fields: [teacherId], references: [id])
+  studentGroup    StudentGroup?    @relation(fields: [studentGroupId], references: [id])
+  attendance      AttendanceRecord[]
+  messages        LiveSessionMessage[]
+
+  @@index([teacherId, status])
+  @@index([studentGroupId, scheduledStart])
+  @@map("live_classes")
+}
+
+model AttendanceRecord {
+  id              String   @id @default(cuid())
+  liveClassId     String
+  studentId       String
+  // Attendance state
+  status          String   // "present", "absent", "late", "excused", "left_early"
+  joinedAt        DateTime?
+  leftAt          DateTime?
+  // Engagement metrics (teacher-tagged or auto)
+  participationScore Int?   // 0-5 (0 absent, 5 highly engaged)
+  engagementNotes String?
+  // For distance: connection quality (auto)
+  connectionQuality String? // "good", "fair", "poor"
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  liveClass       LiveClass @relation(fields: [liveClassId], references: [id], onDelete: Cascade)
+  student         Student   @relation(fields: [studentId], references: [id])
+
+  @@unique([liveClassId, studentId])
+  @@map("attendance_records")
+}
+
+model LiveSessionMessage {
+  id              String   @id @default(cuid())
+  liveClassId     String
+  senderId        String   // Student or Teacher ID
+  senderType      String   // "student", "teacher"
+  senderName      String
+  // Content
+  messageType     String   @default("chat") // "chat", "question", "answer", "poll", "system", "hand_raise"
+  content         String
+  // For polls
+  pollData        Json?    // {question, options, correctOption?}
+  // Moderation
+  isFlagged       Boolean  @default(false)
+  flaggedReason   String?
+  isRemoved       Boolean  @default(false)
+  // Reply threading
+  parentMessageId String?
+  // Audit
+  createdAt       DateTime @default(now())
+
+  liveClass       LiveClass @relation(fields: [liveClassId], references: [id], onDelete: Cascade)
+
+  @@index([liveClassId, createdAt])
+  @@map("live_session_messages")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ASYNCHRONOUS COLLABORATION — Discussion boards (P21: communication,
+// collaboration, digital literacy; Irtiq'aa: student voice)
+// ═══════════════════════════════════════════════════════════════
+
+model DiscussionThread {
+  id              String   @id @default(cuid())
+  teacherId       String
+  studentGroupId  String?
+  // Linkage
+  grade           Int
+  term            Int
+  unit            String?
+  lessonId        String?
+  // Content
+  title           String
+  prompt          String   // discussion prompt (rich text)
+  // Settings
+  allowsAnonymous Boolean  @default(false)
+  requiresApproval Boolean @default(false)
+  dueAt           DateTime?
+  // 21st-century skills
+  skillTags       String?  // JSON array
+  // Status
+  isClosed        Boolean  @default(false)
+  closedAt        DateTime?
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  teacher         Teacher          @relation(fields: [teacherId], references: [id])
+  studentGroup    StudentGroup?    @relation(fields: [studentGroupId], references: [id])
+  posts           DiscussionPost[]
+
+  @@index([teacherId, grade, term])
+  @@map("discussion_threads")
+}
+
+model DiscussionPost {
+  id              String   @id @default(cuid())
+  threadId        String
+  authorId        String   // Student or Teacher ID
+  authorType      String   // "student", "teacher"
+  authorName      String
+  // Content
+  content         String
+  // Threading
+  parentPostId    String?  // for nested replies
+  // Moderation
+  isApproved      Boolean  @default(true)
+  isFlagged       Boolean  @default(false)
+  flaggedReason   String?
+  isRemoved       Boolean  @default(false)
+  // Engagement
+  likesCount      Int      @default(0)
+  // Teacher feedback (formative)
+  teacherFeedback String?
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  thread          DiscussionThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  student         Student?         @relation(fields: [authorId], references: [id])
+
+  @@index([threadId, createdAt])
+  @@map("discussion_posts")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SEN / RESPONSE-TO-INTERVENTION — Inclusive education
+// ADEK Irtiq'aa: protection & inclusion of all learners
+// ═══════════════════════════════════════════════════════════════
+
+model SENProfile {
+  id              String   @id @default(cuid())
+  studentId       String   @unique
+  // Category (UAE SEN categories — MoE Special Education framework)
+  senCategory     String?  // "learning_difficulty", "communication", "social_emotional", "physical", "sensory", "gifted_talented", "multiple"
+  senSubtype      String?  // e.g., "dyslexia", "ADHD", "ASD", "hearing_impairment"
+  // Profile
+  documentedNeeds String   // specific learning needs (no medical diagnosis — privacy)
+  recommendedAccommodations String? // JSON array: ["extra_time", "visual_aids", "audio_support"]
+  // Privacy — only the teacher sees this; never shared with other students
+  confidentialityLevel String @default("teacher_only") // "teacher_only", "school_admin"
+  // Status
+  isActive        Boolean  @default(true)
+  reviewedAt      DateTime?
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  student         Student             @relation(fields: [studentId], references: [id])
+  plans           DifferentiationPlan[]
+
+  @@map("sen_profiles")
+}
+
+model DifferentiationPlan {
+  id              String   @id @default(cuid())
+  senProfileId    String
+  studentId       String
+  // Plan content
+  planType        String   // "tier_1_universal", "tier_2_targeted", "tier_3_intensive"
+  learningGoal    String
+  scaffoldStrategy String  // e.g., "visual_schedules", "chunked_content", "peer_support"
+  assessmentAccommodation String?
+  // Tracking
+  reviewDate      DateTime?
+  outcomeNotes    String?
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  senProfile      SENProfile @relation(fields: [senProfileId], references: [id])
+  student         Student    @relation(fields: [studentId], references: [id])
+
+  @@index([studentId])
+  @@map("differentiation_plans")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PORTFOLIO — 21st-century learning evidence (P21, OECD)
+// Demonstrates growth over time; central to ADEK Irtiq'aa innovation domain
+// ═══════════════════════════════════════════════════════════════
+
+model Portfolio {
+  id              String   @id @default(cuid())
+  studentId       String   @unique
+  // Visibility — student chooses what's shared with teacher/parent
+  isSharedWithTeacher Boolean @default(true)
+  isSharedWithParent  Boolean @default(true)
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  student         Student             @relation(fields: [studentId], references: [id])
+  artifacts       PortfolioArtifact[]
+
+  @@map("portfolios")
+}
+
+model PortfolioArtifact {
+  id              String   @id @default(cuid())
+  portfolioId     String
+  // Content
+  title           String
+  description     String?
+  artifactType    String   // "essay", "project", "presentation", "video", "image", "audio", "reflection"
+  // Linkage — may tie to an assignment submission or be student-curated
+  submissionId    String?
+  // File/URL
+  fileUrl         String?
+  externalUrl     String?
+  textContent     String?  // for text/reflection artifacts
+  // 21st-century skills demonstrated
+  skillTags       String?  // JSON array
+  // Student reflection (P21: metacognition)
+  studentReflection String?
+  // Teacher endorsement
+  teacherEndorsed Boolean  @default(false)
+  teacherComment  String?
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  portfolio       Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@index([portfolioId, createdAt])
+  @@map("portfolio_artifacts")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 21ST-CENTURY SKILLS — 4Cs + P21 tagging (critical thinking,
+// collaboration, creativity, communication, digital literacy, citizenship)
+// ═══════════════════════════════════════════════════════════════
+
+model SkillTag {
+  id              String   @id @default(cuid())
+  code            String   @unique // "critical_thinking", "collaboration", etc.
+  name            String
+  description     String
+  framework       String   @default("P21") // "P21", "OECD_Learning_COMPASS_2030", "UAE_NATIONAL_FRAMEWORK"
+  category        String   // "4C", "information_literacy", "media_literacy", "ict_literacy", "citizenship"
+  // Mapping to DOK & Bloom's for cross-framework alignment
+  defaultDokLevel Int?
+  defaultBloomsLevel String?
+  // Audit
+  createdAt       DateTime @default(now())
+
+  studentMappings StudentSkillMapping[]
+
+  @@map("skill_tags")
+}
+
+model StudentSkillMapping {
+  id              String   @id @default(cuid())
+  studentId       String
+  skillTagId      String
+  // Context — where was this skill demonstrated?
+  contextType     String   // "lesson_quiz", "assignment", "discussion", "live_class", "portfolio"
+  contextId       String?
+  // Demonstration level
+  level           Int      // 1 (emerging) to 4 (mastery)
+  teacherAssessed Boolean  @default(false)
+  selfAssessed    Boolean  @default(false)
+  evidence        String?  // brief note on what demonstrated the skill
+  // Audit
+  assessedAt      DateTime @default(now())
+  createdAt       DateTime @default(now())
+
+  student         Student  @relation(fields: [studentId], references: [id])
+  skillTag        SkillTag @relation(fields: [skillTagId], references: [id])
+
+  @@index([studentId, skillTagId])
+  @@map("student_skill_mappings")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// IRTIQ'AA EVIDENCE — Self-assessment + inspection evidence vault
+// Maps directly to ADEK Irtiq'aa framework domains
+// ═══════════════════════════════════════════════════════════════
+
+model IrtiqaaDomain {
+  id              String   @id @default(cuid())
+  code            String   @unique // "leadership", "teaching", "assessment", "wellbeing", "innovation", "protection", "parent_engagement"
+  name            String
+  description     String
+  // Standard self-assessment scale 1-5 (ADEK Irtiq'aa scale)
+  targetLevel     Int      @default(4) // 4 = "Outstanding"
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+
+  evidence        IrtiqaaEvidence[]
+  checkins        WellbeingCheckin[]
+
+  @@map("irtiqaa_domains")
+}
+
+model IrtiqaaEvidence {
+  id              String   @id @default(cuid())
+  domainId        String
+  teacherId       String?
+  // What is the evidence?
+  evidenceType    String   // "policy_doc", "lesson_plan", "student_artifact", "data_report", "professional_development", "parent_communication"
+  title           String
+  description     String
+  // Where is it stored?
+  fileUrl         String?
+  externalUrl     String?
+  textSnapshot    String?  // for inline evidence
+  // Self-assessed level (1-5 ADEK scale)
+  selfAssessedLevel Int
+  // Date range the evidence covers
+  evidenceDate    DateTime
+  // Tags — for filtering during inspection
+  tags            String?  // JSON array
+  // Visibility — only the teacher/admin sees this
+  isSharedExternally Boolean @default(false)
+  // Audit
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  domain          IrtiqaaDomain @relation(fields: [domainId], references: [id])
+
+  @@index([domainId, evidenceDate])
+  @@map("irtiqaa_evidence")
+}
+
+// ═══════════════════════════════════════════════════════════════
+// WELLBEING CHECK-INS — Student voice (Irtiq'aa: wellbeing domain)
+// Brief, opt-in emotional check-ins; NOT clinical assessments
+// ═══════════════════════════════════════════════════════════════
+
+model WellbeingCheckin {
+  id              String   @id @default(cuid())
+  studentId       String
+  domainId        String   // links to IrtiqaaDomain (wellbeing)
+  // Brief mood / energy scale (NOT clinical)
+  moodScore       Int      // 1-5 (1 = struggling, 5 = thriving)
+  energyScore     Int      // 1-5
+  engagementScore Int      // 1-5
+  // Optional free text (always opt-in)
+  note            String?
+  // Flags (auto — alerts teacher if student is consistently low)
+  needsFollowup   Boolean  @default(false)
+  followedUpAt    DateTime?
+  followedUpBy    String?  // Teacher ID
+  // Audit
+  createdAt       DateTime @default(now())
+
+  student         Student        @relation(fields: [studentId], references: [id])
+  domain          IrtiqaaDomain  @relation(fields: [domainId], references: [id])
+
+  @@index([studentId, createdAt])
+  @@map("wellbeing_checkins")
 }

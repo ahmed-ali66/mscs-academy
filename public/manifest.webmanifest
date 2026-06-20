@@ -1,0 +1,72 @@
+{
+  "name": "MSCS Academy — Moral, Social & Cultural Studies",
+  "short_name": "MSCS Academy",
+  "description": "An interactive, heritage-grounded learning platform for UAE students in Grades 6–9. Making Learning Active, Not Passive.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F6EFDD",
+  "theme_color": "#0F5C5E",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "productivity", "books"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Grade 6",
+      "short_name": "G6",
+      "description": "Open Grade 6 MSCS curriculum",
+      "url": "/?grade=6",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Grade 7",
+      "short_name": "G7",
+      "description": "Open Grade 7 MSCS curriculum",
+      "url": "/?grade=7",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Grade 8",
+      "short_name": "G8",
+      "description": "Open Grade 8 MSCS curriculum",
+      "url": "/?grade=8",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Grade 9",
+      "short_name": "G9",
+      "description": "Open Grade 9 MSCS curriculum",
+      "url": "/?grade=9",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Login",
+      "short_name": "Login",
+      "description": "Student, teacher, or admin login",
+      "url": "/?view=login"
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}
